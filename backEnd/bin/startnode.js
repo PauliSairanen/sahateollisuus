@@ -1,5 +1,6 @@
-let express = require('express')
-let app = express()
+const mongoose = require('mongoose');
+const express = require('express')
+const app = express()
 
 // this starting code for node
 
@@ -8,7 +9,6 @@ let routes = require('../routes/routes.js');
 
 // Make app use the
 app.use(routes)
-
 
 // To serve static content (images, html pages etc..)
 app.use(express.static('public'))
