@@ -14,7 +14,8 @@ router.get('/getevent/*', (req, res) => {
     res.end();
 })
 
-router.get('/getevents/*', (req, res) => {
+//example of putting
+router.put('/putevent/*', (req, res) => {
     res.send('You have requested a person');
     res.end();
   })
