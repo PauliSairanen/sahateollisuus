@@ -27,6 +27,11 @@ var callback = function(data){
 }
 router.get('/event', Events.findAll);         // get event
 
+//example of putting
+router.put('/putevent/*', (req, res) => {
+    res.send('You have requested a person');
+    res.end();
+  })
 module.exports = router
 
 
