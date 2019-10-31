@@ -188,9 +188,7 @@ const styles = StyleSheet.create({
   },
 
   navigationBlock: {
-     
     marginVertical: 20,
-
   },
 
   item:{
@@ -201,6 +199,4 @@ const styles = StyleSheet.create({
     margin: 1, 
     height: Dimensions.get('window').width/numColumns
   }
-
-
 });
