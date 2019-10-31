@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,11 +8,16 @@ import {
   StatusBar,
   FlatList,
   Button, 
-} from 'react-native';
+} from 'react-native'
 
 import NavigationMain from './components/NavigationMain'
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+
+const data = [
+  {key: 'A'}, {key: 'B'}, {key: 'C'}, {key: 'D'}, {key: 'E'}, 
+]
+const numColumns = 2
 
 class HomeScreen extends React.Component{
   render() {
@@ -35,10 +40,17 @@ class HomeScreen extends React.Component{
   }
 }
 
+
+
 class NavigationScreen extends React.Component {
   render() {
     return (
+
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+
+      
+
+
         <Text>this is navigation screen</Text>
         <Button
           title="Go to Participants"
