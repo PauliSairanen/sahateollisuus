@@ -1,6 +1,33 @@
-let express = require('express')
+const express = require('express')
 const router =  new express.Router()
 const Events = require('../controllers/events')
+const Item = require('../models/items');
+
+
+events = new Events();
+
+// get all events
+router.get('/event', function(req, res){      
+  res.send({type: 'GET'});
+});
+
+router.get('/asd', function(req, res){      
+  res.send(Events.findAll());
+});
+
+router.get('/qwe', events.findAll);
+
+router.post('/asdasd', function(req, res){
+  var item = new Item(req.body);
+  item.save();
+  res.send({
+    type: 'POST',
+    name: req.body.name,
+    weight: req.body.weight
+  });
+});
+
+module.exports = router
 
 //Lassen koodi alkaa
 //this rudimentary version of ruotes
@@ -21,17 +48,4 @@ const Events = require('../controllers/events')
 //     res.end();
 //   })
 // Lassen koodi päättyy
-
-var callback = function(data){
-  console.log(data);
-}
-router.get('/event', Events.findAll);         // get event
-
-//example of putting
-router.put('/putevent/*', (req, res) => {
-    res.send('You have requested a person');
-    res.end();
-  })
-module.exports = router
-
 

@@ -2,9 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const EventSchema = new Schema({
-    events: [
-        {
-        event1: { 
+    event1: { 
         eventIdForVisibilityRegardingUser : String, 
         eventImage : { data: Buffer, contentType: String },
         info: {
@@ -79,10 +77,7 @@ const EventSchema = new Schema({
               }
             }
         ],
-        }    
-        }
-    ]
-          
+    }         
 });
 
 module.exports = EventSchema;

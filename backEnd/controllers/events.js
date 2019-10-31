@@ -2,22 +2,36 @@ const mongoose = require('mongoose');
 const EventSchema = require('../models/event');
 const config = require('../config/config')
 const EventModel = mongoose.model('Events', EventSchema);
-
-function callback(){
-
-};
+const Item = require('../models/items');
 
 class Events {
     
-    findAll() {
+    dropCollection(){
+        var a = Item.find().then(function(a){
+            console.log(a);
+        });
+    }
 
-        EventModel.find()
-        if(res != null){
-            console.log(event);
-            return 1;
-        }
-        else return 0;
+    findAll(req, res){
+        var a = Item.find().then(function(a){
+            console.log(a);
+            
+            res.send(""+ JSON.stringify(a));
+
+            res.end();
+        });
     }
 }
 
-module.export = Events;
+
+module.exports = Events;
+
+// Alternativa way to use funtions in routes
+//module.exports.findAll = function(){
+//    var a = Item.find().then(function(a){
+//        console.log(a);
+//        return 1;
+//    });
+//}
+
+
