@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express')
 const app = express()
 //DB CONSTS
-const Item = require('../models/items');
+const Event = require('../models/events');
 // this starting code for node
 
 // Create routes
@@ -25,24 +25,83 @@ mongoose.connection.once('open',function(){
     console.log('Connection error:', error);
 });
 
+Event.collection.drop();
 
-var item = new Item({
-    name: 'A thing',
-    weight: '5'
+var event1 = new Event({
+    eventId : "1",
+        eventIdForVisibilityRegardingUser : "String",
+        info: {
+            eventName: "First event",
+            titleName: "String",
+            startTime: "String",
+            endTime : "String",
+            place: "String",
+            image: { data: "String", contentType: "String" },
+            eventColor: "String"
+        },
+        programme: {
+          timeTableObject : {
+            name : "String",
+            startTime : "String", 
+            endTime : "String",
+            performerName: "String",
+            performerTitle : "String",
+            date : "String", 
+            description : "String"
+          }
+        },
+        maps: { 
+            colors: {
+              restaurants : "String",
+              hotels : "String",
+              venue : "String",
+            },
+            restaurants : {   // Restaurant array needs to have ID for color comparison
+              restaurantObject: {
+                name : "String",
+                address : "String",
+                latitude : 12,
+                longitude : 12,
+              }
+            },
+            hotels : {
+              hotelObject: {
+                name : "String",
+                address : "String",
+                latitude : "String",
+                longitude : "String",
+              }
+            },
+            venue: {
+              location: {
+                name : "String",
+                address : "String",
+                latitude : "String",
+                longitude : "String",
+              } 
+            }   
+        },
+      
+        participants : {
+          participantsObject: {
+            name : "String",
+            surname : "String",
+            company : "String",
+            email : "String",
+            phoneNumber : "String",
+            country : "String",
+            iComeFrom : "String",
+            participation : {
+                marketDay : true,
+                dinner : true
+            }
+          }
+        }
 });
-item.save().then(function(){
-    console.log("Person was saved");
+event1.save().then(function(){
+    console.log("Event was saved");
 });
 
-var item2 = new Item({
-    name: 'Nothing thing',
-    weight: '51'
-});
-item2.save().then(function(){
-    console.log("Person was saved");
-});
-
-// Item.collection.drop();
 
 
 
