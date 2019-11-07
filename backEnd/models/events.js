@@ -7,7 +7,7 @@ const ItemSchema = new Schema(
         eventIdForVisibilityRegardingUser : String,
         info: {
             eventName: String,
-            titleName: String,
+            titleName: Boolean,
             startTime: String,
             endTime : String,
             place: String,
@@ -58,19 +58,17 @@ const ItemSchema = new Schema(
         },
       
         participants : {
-          participantsObject: {
-            name : String,
-            surname : String,
-            company : String,
-            email : String,
-            phoneNumber : String,
+            company: String,
             country : String,
-            iComeFrom : String,
-            participation : {
-                marketDay : Boolean,
-                dinner : Boolean
-            }
-          }
+            participant: [{
+                lastname : String,
+                firstname : String,
+                role : String,
+                contact : [{
+                    email : [],
+                    telephone : []
+                }]
+            }]
         }
 });
 

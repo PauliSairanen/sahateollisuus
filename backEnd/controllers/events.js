@@ -10,7 +10,7 @@ class Events {
         var a = Event.find({"eventId": "1"}).then(function(a){
             console.log(a);
             
-            res.send(""+ JSON.stringify(a));
+            res.send(a);
 
             res.end();
         });

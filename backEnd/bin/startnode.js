@@ -33,7 +33,7 @@ var event1 = new Event({
         eventIdForVisibilityRegardingUser : "String",
         info: {
             eventName: "First event",
-            titleName: "String",
+            titleName: true,
             startTime: "String",
             endTime : "String",
             place: "String",
@@ -84,19 +84,17 @@ var event1 = new Event({
         },
       
         participants : {
-          participantsObject: {
-            name : "String",
-            surname : "String",
-            company : "String",
-            email : "String",
-            phoneNumber : "String",
-            country : "String",
-            iComeFrom : "String",
-            participation : {
-                marketDay : true,
-                dinner : true
-            }
-          }
+            company: "Lafka",
+            country : "Suomi",
+            participant: [{
+                lastname : "Matti",
+                firstname : "Meikäläinen",
+                role : "Peli",
+                contact : [{
+                    email : ["+69","qwe"],
+                    telephone : ["asd","qwe"]
+                }]
+            }]
         }
 });
 event1.save().then(function(){
