@@ -1,27 +1,29 @@
 import React from 'react'
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  FlatList,
-  Button, 
-  Dimensions, 
+import {SafeAreaView, StyleSheet, ScrollView, View,Text, StatusBar,FlatList,Button, Dimensions, Platform, 
 } from 'react-native'
 
-import {Container, Header} from 'native-base'
-import {Col, Row, Grid} from 'react-native-easy-grid'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import NavigationMain from './components/NavigationMain'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 
 const numColumns=2;
-const data =[
-  {key: 'A'}, {key: 'B'},{key: 'C'},{key: 'D'}, {key: 'E'},{key: 'F'}, {key: 'G'}, {key: 'H'},{key: 'I'},{key: 'J'}, {key: 'K'},{key: 'L'},
-];
+
+// Data of navi elements
+const naviScreenData =[
+  {id: 1, title: 'Participants', link: 'Participants', icon: 'account'},
+  {id: 2, title: 'Schedules', link: 'Schedules', icon: 'timetable'},
+  {id: 3, title: 'Materials', link: 'Materials', icon: 'file-cloud'},
+  {id: 4, title: 'Maps', link: 'Maps', icon: 'map-marker-outline'},
+  {id: 5, title: 'Info', link: 'Info', icon: 'information-variant'},
+  {id: 6, title: 'Infinity', link: 'Infinity', icon: 'infinity'},
+]
+
+// Navi elements turned into array with keys (Not sure if needed)
+const inputData = Object.keys(naviScreenData).map(key => ({
+  key, 
+  ...naviScreenData[key]
+}))
 
 class HomeScreen extends React.Component{
   render() {
@@ -34,11 +36,9 @@ class HomeScreen extends React.Component{
       <Text>  </Text>  
         <Button
           title="Login"
-          onPress={() => this.props.navigation.navigate('Navigation')}
-        />
+          onPress={() => this.props.navigation.navigate('Navigation')} />
         <Button
-          title="Cancel"
-        />
+          title="Cancel"/>
       </View>
     );
   }
@@ -46,12 +46,24 @@ class HomeScreen extends React.Component{
 
 class NavigationScreen extends React.Component {
 
-  renderItem = ({item, index}) => {
+  // Gets the screen size and adjusts the icon size accordingly
+  iconSize = Dimensions.get('window').width / 6
+
+  renderItem = ({item, index} ) => {
     return (
       <View style={styles.item}>
-        <Text style={styles.itemText}>
-          {item.key}
-        </Text>
+        <View style={styles.imageContainer}>
+          <Text >
+              <Icon name= {item.icon} size={this.iconSize} color="#FFF" />
+          </Text> 
+        </View> 
+        <Button 
+          title={item.title}
+          onPress={() => this.props.navigation.navigate(item.link)}>
+          <Text style={styles.itemText}>
+           {item.title}
+          </Text>
+        </Button>
       </View>
     )
   }
@@ -59,57 +71,11 @@ class NavigationScreen extends React.Component {
   render() {
     return (
       <FlatList
-        data={data}
         contentContainerStyle={styles.navigationBlock}
+        data= {naviScreenData}
         renderItem={this.renderItem}
         numColumns={numColumns}
-      />
-
-
-
-
-      // <Container>
-      //   <Header/>
-      //   <Grid>
-      //     <Col style={{ backgroundColor: '#00BFFF', width: "48%",   }}>
-      //       <Row style={{ backgroundColor: '#FFA500', }}>
-      //         <Text>Orange color</Text>
-      //         <Text>Go to participants</Text>
-      //       </Row>
-      //       <Row style={{ backgroundColor: '#FF4500',  }}>
-      //         <Text>Red Color</Text>
-      //         <Text>Go to schedules</Text>
-      //       </Row>
-      //     </Col>
-
-      //     <Col style={{ backgroundColor: '#00BFFF', width: "48%"  }}>
-      //       <Row style={{ backgroundColor: '#228B22', }}>
-      //         <Text>Green color</Text>
-      //         <Text>Go to materials</Text>
-      //       </Row>
-      //       <Row style={{ backgroundColor: '#00FFFF',  }}>
-      //         <Text>Blue Color</Text>
-      //         <Text>Go somewhere else</Text>
-      //       </Row>
-      //     </Col>
-      //   </Grid>
-      // </Container>
-
-      // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      //   <Text>this is navigation screen</Text>
-      //   <Button
-      //     title="Go to Participants"
-      //     onPress={() => this.props.navigation.navigate('Participants')}
-      //   />
-      //   <Button
-      //     title="Go to Schedules"
-      //     onPress={() => this.props.navigation.navigate('Schedules')}
-      //   />
-      //   <Button
-      //     title="Go to Materials"
-      //     onPress={() => this.props.navigation.navigate('Materials')}
-      //   />
-      // </View>
+        keyExtractor={(item) => item.id.toString()}/>
     );
   }
 }
@@ -117,7 +83,7 @@ class NavigationScreen extends React.Component {
 class ParticipantsScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.container}>
         <Text>this is a participants screen</Text>
         <Button
           title="This button does nothing"
@@ -132,7 +98,7 @@ class ParticipantsScreen extends React.Component {
 class SchedulesScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.container}>
         <Text>this is a schedule screen</Text>
         <Button
           title="This button does nothing"
@@ -146,7 +112,7 @@ class SchedulesScreen extends React.Component {
 class MaterialsScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.container}>
         <Text>this is a Material screen</Text>
         <Button
           title="This button does nothing"
@@ -158,6 +124,50 @@ class MaterialsScreen extends React.Component {
   }
 }
 
+class MapsScreen extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>this is a Map screen</Text>
+        <Button
+          title="This button does nothing"
+         /* onPress={() => this.props.navigation.navigate('Details')}
+        */
+         />
+      </View>
+    );
+  }
+}
+
+class InfoScreen extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>this is a Info screen</Text>
+        <Button
+          title="This button does nothing"
+         /* onPress={() => this.props.navigation.navigate('Details')}
+        */
+         />
+      </View>
+    );
+  }
+}
+
+class InfinityScreen extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>this is a Infinity screen</Text>
+        <Button
+          title="This button does nothing"
+         /* onPress={() => this.props.navigation.navigate('Details')}
+        */
+         />
+      </View>
+    );
+  }
+}
 const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -165,6 +175,9 @@ const RootStack = createStackNavigator(
     Participants: ParticipantsScreen,
     Schedules : SchedulesScreen,
     Materials: MaterialsScreen,
+    Maps: MapsScreen, 
+    Info: InfoScreen,
+    Infinity: InfinityScreen,
   },
   {
     initialRouteName: 'Home',
@@ -192,11 +205,25 @@ const styles = StyleSheet.create({
   },
 
   item:{
-    backgroundColor: '#FFD700', 
+    backgroundColor: '#FFB400', 
     alignItems: 'center', 
     justifyContent: 'center', 
     flex: 1,
     margin: 1, 
     height: Dimensions.get('window').width/numColumns
+  },
+
+  button: {
+    ...Platform.select({
+      android: {
+        color: '#FFB400'
+      }
+    })
+  },
+
+  imageContainer: {
+    alignItems: 'center', 
+    justifyContent: 'center',
+    paddingTop: Dimensions.get('window').width/50 
   }
 });
