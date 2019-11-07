@@ -12,5 +12,9 @@ router.get('/findMaps', events.findMaps);
 router.get('/findParticipants', events.findParticipants);
 router.get('/findVisibility', events.findVisibility);
 
+router.get('/getfile/*', events.getOneFile);
+//router.get('/putfile*', events.putOneFile);
+router.post('/putfile*', events.putOneFile);
+
 module.exports = router
 
