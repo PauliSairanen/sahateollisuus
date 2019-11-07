@@ -17,7 +17,7 @@ const ItemSchema = new Schema(
         programme: {
           timeTableObject : {
             name : String,
-            startTime : String, 
+            startTime : String,
             endTime : String,
             performerName: String,
             performerTitle : String,

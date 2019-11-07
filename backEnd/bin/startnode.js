@@ -18,7 +18,8 @@ const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.info(`Server has started on port: ${PORT}`))
 
 // DB THINGS
-mongoose.connect('mongodb://localhost:27017/testdb',{ useNewUrlParser: true });
+//mongoose.connect('mongodb://localhost:27017/testdb',{ useNewUrlParser: true }); //local db connection string
+mongoose.connect('mongodb://owner:in@172.30.133.128:27017/sahateollisuus',{ useNewUrlParser: true });
 mongoose.connection.once('open',function(){
     console.log('Connection has been made!'); 
 }).on('error',function(error){
