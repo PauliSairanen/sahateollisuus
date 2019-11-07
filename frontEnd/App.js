@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,11 +8,20 @@ import {
   StatusBar,
   FlatList,
   Button, 
-} from 'react-native';
+  Dimensions, 
+} from 'react-native'
+
+import {Container, Header} from 'native-base'
+import {Col, Row, Grid} from 'react-native-easy-grid'
 
 import NavigationMain from './components/NavigationMain'
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+
+const numColumns=2;
+const data =[
+  {key: 'A'}, {key: 'B'},{key: 'C'},{key: 'D'}, {key: 'E'},{key: 'F'}, {key: 'G'}, {key: 'H'},{key: 'I'},{key: 'J'}, {key: 'K'},{key: 'L'},
+];
 
 class HomeScreen extends React.Component{
   render() {
@@ -36,23 +45,71 @@ class HomeScreen extends React.Component{
 }
 
 class NavigationScreen extends React.Component {
+
+  renderItem = ({item, index}) => {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.itemText}>
+          {item.key}
+        </Text>
+      </View>
+    )
+  }
+
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>this is navigation screen</Text>
-        <Button
-          title="Go to Participants"
-          onPress={() => this.props.navigation.navigate('Participants')}
-        />
-        <Button
-          title="Go to Schedules"
-          onPress={() => this.props.navigation.navigate('Schedules')}
-        />
-        <Button
-          title="Go to Materials"
-          onPress={() => this.props.navigation.navigate('Materials')}
-        />
-      </View>
+      <FlatList
+        data={data}
+        contentContainerStyle={styles.navigationBlock}
+        renderItem={this.renderItem}
+        numColumns={numColumns}
+      />
+
+
+
+
+      // <Container>
+      //   <Header/>
+      //   <Grid>
+      //     <Col style={{ backgroundColor: '#00BFFF', width: "48%",   }}>
+      //       <Row style={{ backgroundColor: '#FFA500', }}>
+      //         <Text>Orange color</Text>
+      //         <Text>Go to participants</Text>
+      //       </Row>
+      //       <Row style={{ backgroundColor: '#FF4500',  }}>
+      //         <Text>Red Color</Text>
+      //         <Text>Go to schedules</Text>
+      //       </Row>
+      //     </Col>
+
+      //     <Col style={{ backgroundColor: '#00BFFF', width: "48%"  }}>
+      //       <Row style={{ backgroundColor: '#228B22', }}>
+      //         <Text>Green color</Text>
+      //         <Text>Go to materials</Text>
+      //       </Row>
+      //       <Row style={{ backgroundColor: '#00FFFF',  }}>
+      //         <Text>Blue Color</Text>
+      //         <Text>Go somewhere else</Text>
+      //       </Row>
+      //     </Col>
+      //   </Grid>
+      // </Container>
+
+      // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      //   <Text>this is navigation screen</Text>
+      //   <Button
+      //     title="Go to Participants"
+      //     onPress={() => this.props.navigation.navigate('Participants')}
+      //   />
+      //   <Button
+      //     title="Go to Schedules"
+      //     onPress={() => this.props.navigation.navigate('Schedules')}
+      //   />
+      //   <Button
+      //     title="Go to Materials"
+      //     onPress={() => this.props.navigation.navigate('Materials')}
+      //   />
+      // </View>
     );
   }
 }
@@ -128,5 +185,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5FCFF"
+  },
+
+  navigationBlock: {
+    marginVertical: 20,
+  },
+
+  item:{
+    backgroundColor: '#FFD700', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    flex: 1,
+    margin: 1, 
+    height: Dimensions.get('window').width/numColumns
   }
 });
