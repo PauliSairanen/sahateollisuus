@@ -1,3 +1,5 @@
+//OLD
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -70,7 +72,7 @@ const EventSchema = new Schema({
               email : String,
               phoneNumber : String,
               country : String,
-              iComeFrom : String,
+              role : String,
               participation : {
                 marketDay : Boolean,
                 dinner : Boolean

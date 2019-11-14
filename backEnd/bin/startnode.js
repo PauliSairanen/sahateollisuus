@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express')
 const app = express()
+const request = require('http')
 //DB CONSTS
 const Event = require('../models/events');
 // this starting code for node
@@ -81,26 +82,47 @@ var event1 = new Event({
                 longitude : "String",
               } 
             }   
-        },
+        },     
+        participants : [
+          {
+            firstname : "Ismo",
+            lastname : "Laitela",
+            email : "String",
+            telephone : "String",
+            company : "bk",
+            country : "String",
+            role : "String",
+            participation : "String"
+          },
+          {
+            firstname : "Seppo",
+            lastname : "Taalasmaa",
+            email : "String",
+            telephone : "String",
+            company : "abc",
+            country : "String",
+            role : "String",
+            participation : "String"
+          },
+          
+          {
+            firstname : "Matti",
+            lastname : "Meikäläinen",
+            email : "String",
+            telephone : "String",
+            company : "abc",
+            country : "String",
+            role : "String",
+            participation : "String"
+          }
+        ]
+        
       
-        participants : {
-            company: "Lafka",
-            country : "Suomi",
-            participant: [{
-                lastname : "Matti",
-                firstname : "Meikäläinen",
-                role : "Peli",
-                contact : [{
-                    email : ["+69","qwe"],
-                    telephone : ["asd","qwe"]
-                }]
-            }]
-        }
+// Insert to DB
 });
 event1.save().then(function(){
     console.log("Event was saved");
 });
-
 
 
 

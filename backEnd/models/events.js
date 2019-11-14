@@ -56,8 +56,29 @@ const ItemSchema = new Schema(
               } 
             }   
         },
+        participants : [
+          {
+            firstname : String,
+            lastname : String,
+            email : String,
+            telephone : String,
+            company : String,
+            country : String,
+            role : String,
+            participation : String
+          }
+        ]
+        
+        
       
-        participants : {
+        
+});
+
+const Event = mongoose.model('events',ItemSchema);
+
+module.exports = Event;
+
+participants : [{
             company: String,
             country : String,
             participant: [{
@@ -69,9 +90,20 @@ const ItemSchema = new Schema(
                     telephone : []
                 }]
             }]
-        }
-});
+        }]
 
-const Event = mongoose.model('events',ItemSchema);
-
-module.exports = Event;
+        Participants : [
+          {
+            firstname : String,
+            lastname : String,
+            email : String,
+            telephone : String,
+            company : String,
+            country : String,
+            iComeFrom : String,
+            participation : {
+              marketDay : Boolean,
+              dinner : Boolean
+            }
+          }
+        ]
