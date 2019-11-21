@@ -30,56 +30,18 @@ const inputData = Object.keys(naviScreenData).map(key => ({
 }))
 
 class LoginScreen extends React.Component{
+  constructor(props) {
+    super(props);
+}
   render() {
     return (
-
-      /*
-      <CustomButton 
-       
+      <View
+        style={styles.container}>
+        <CustomButton
+          title = {'Login'} 
+          navigateTo = {'Events'}
       />
-
-      */
-<View>
-     <Button
-     title="Login"
-     onPress={() => this.props.navigation.navigate('Events')} />
-   <Button
-     title="Cancel"/>
- </View>
-      
-/*
-      <View styles={styles.buttonContainer}>
-        <TouchableHighlight
-          onPress={() => this.props.navigation.navigate('Events')} underlayColor="white">
-        <View styles={styles.buttonContainer}>
-          <Text styles={styles.buttonText}> This is a custom button </Text>
-        </View>
-
-    </TouchableHighlight>
       </View>
-
-      */
-
-/*
-      
-      <View style={styles.container}>
-        <Text> Sahateollisuus App</Text>
-        <Text> This is login screen</Text>
-        <Text>  </Text>
-        <Text>  </Text>
-        <Text>  </Text>  
-
-
-
-
-        <Button
-          title="Login"
-          onPress={() => this.props.navigation.navigate('Events')} />
-        <Button
-          title="Cancel"/>
-      </View>
-*/
-     
     );
   }
 }
@@ -92,17 +54,36 @@ class EventsScreen extends React.Component{
       <Text> A list of events will appear here </Text>
       <Text>  </Text>
       
-        <Button
-          title="Go into event"
-          onPress={() => this.props.navigation.navigate('Navigation')} />
-        <Button
-          title="Cancel"/>
+        <CustomButton
+          title = {'Event 1'}
+          navigateTo = {'Navigation'}
+        />
+
+        <CustomButton
+          title = {'Event 2'}
+          navigateTo = {'Navigation'}
+        />
+
+        <CustomButton
+          title = {'Event 3'}
+          navigateTo = {'Navigation'}
+        />
+
       </View>
     );
   }
 }
 
 class NavigationScreen extends React.Component {
+
+  onLayout = (e) => {
+    this.setState({
+      width: e.nativeEvent.layout.width,
+      height: e.nativeEvent.layout.height,
+      x: e.nativeEvent.layout.x,
+      y: e.nativeEvent.layout.y
+    })
+  }
 
   // Gets the screen size and adjusts the icon size accordingly
   iconSize = Dimensions.get('window').width / 6
@@ -114,14 +95,22 @@ class NavigationScreen extends React.Component {
           <Text >
               <Icon name= {item.icon} size={this.iconSize} color="#FFF" />
           </Text> 
-        </View> 
-        <Button 
+        </View>
+
+        <CustomButton
+          title = {item.title}
+          navigateTo = {item.link}
+          backgroundColor = {'#FFB400'}
+        />
+
+
+        {/* <Button 
           title={item.title}
           onPress={() => this.props.navigation.navigate(item.link)}>
           <Text style={styles.itemText}>
            {item.title}
           </Text>
-        </Button>
+        </Button> */}
       </View>
     )
   }
@@ -277,34 +266,9 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').width/numColumns
   },
 
-  button: {
-    ...Platform.select({
-      android: {
-        color: '#FFB400'
-      }
-    })
-  },
-
   imageContainer: {
     alignItems: 'center', 
     justifyContent: 'center',
-    paddingTop: Dimensions.get('window').width/50 
+    paddingTop: Dimensions.get('window').width/10
   },
-
-  buttonContainer: {
-    paddingTop: 60,
-    alignItems: 'center'
-  },
-  button: {
-    marginBottom: 30,
-    width: 260,
-    alignItems: 'center',
-    backgroundColor: '#2196F3'
-  },
-  buttonText: {
-    textAlign: 'center',
-    padding: 20,
-    color: 'white'
-  }
-
 });

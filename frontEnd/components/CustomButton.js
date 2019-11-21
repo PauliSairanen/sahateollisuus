@@ -3,58 +3,55 @@ import {
     View,
     Text,
     StyleSheet,
+    TouchableHighlight,
+    Dimensions,
 } from 'react-native'
-
-
-import { TouchableHighlight } from 'react-native-gesture-handler'
 
 // REQUIRED for navigation to work inside a custom button
 import {withNavigation} from 'react-navigation'
 
 class CustomButton extends Component  {
-
+    constructor(props) {
+        super(props)
+      }
 
     render() {
         return (
-            <View styles={styles.buttonContainer}>
-            <TouchableHighlight
-                onPress={() => this.props.navigation.navigate('Events')} underlayColor="white">
-                <View styles={styles.buttonContainer}>
-                    <Text styles={styles.buttonText}> This is a custom button </Text>
-                </View>
-        
-            </TouchableHighlight>
-            </View>
+                <TouchableHighlight
+                    onPress={() => this.props.navigation.navigate(this.props.navigateTo)} underlayColor="white">
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}> {this.props.title} </Text>
+                    </View>
+                </TouchableHighlight>
         )
     }
 }
 
-
-
 // REQUIRED for navigation to work inside a custom button
-export default withNavigation(CustomButton)
+export default withNavigation(CustomButton) 
 
 const styles = StyleSheet.create({
 
     buttonContainer: {
-      paddingTop: 60,
       flex: 1,
       alignItems: 'center',
-      justifyContent: 'center'
-      
+      borderColor: '#000',
+      borderBottomWidth: 5,
     },
     button: {
       marginBottom: 30,
-      width: 260,
+      width: 200,
       alignItems: 'center',
-      backgroundColor: '#2196F3',
-      alignItems: 'center',
-      justifyContent: 'center'
+      backgroundColor: '#FFB400',
+      borderRadius: 20,
     },
     buttonText: {
       textAlign: 'center',
       padding: 20,
-      color: 'white',
-      justifyContent: 'center'
+      color: '#FFF',
+    },
+    touchableOpacity: {
+        width: 100,
+        height: 50
     }
 })
