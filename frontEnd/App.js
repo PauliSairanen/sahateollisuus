@@ -6,6 +6,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
+import { TouchableHighlight } from 'react-native-gesture-handler'
+
+import CustomButton from './components/CustomButton'
+import Participants from './components/Participants'
 
 const numColumns=2;
 
@@ -25,17 +29,71 @@ const inputData = Object.keys(naviScreenData).map(key => ({
   ...naviScreenData[key]
 }))
 
-class HomeScreen extends React.Component{
+class LoginScreen extends React.Component{
+  render() {
+    return (
+
+      /*
+      <CustomButton 
+       
+      />
+
+      */
+<View>
+     <Button
+     title="Login"
+     onPress={() => this.props.navigation.navigate('Events')} />
+   <Button
+     title="Cancel"/>
+ </View>
+      
+/*
+      <View styles={styles.buttonContainer}>
+        <TouchableHighlight
+          onPress={() => this.props.navigation.navigate('Events')} underlayColor="white">
+        <View styles={styles.buttonContainer}>
+          <Text styles={styles.buttonText}> This is a custom button </Text>
+        </View>
+
+    </TouchableHighlight>
+      </View>
+
+      */
+
+/*
+      
+      <View style={styles.container}>
+        <Text> Sahateollisuus App</Text>
+        <Text> This is login screen</Text>
+        <Text>  </Text>
+        <Text>  </Text>
+        <Text>  </Text>  
+
+
+
+
+        <Button
+          title="Login"
+          onPress={() => this.props.navigation.navigate('Events')} />
+        <Button
+          title="Cancel"/>
+      </View>
+*/
+     
+    );
+  }
+}
+
+class EventsScreen extends React.Component{
   render() {
     return (
       <View style={styles.container}>
       <Text> Sahateollisuus App</Text>
-      <Text> This is login screen</Text>
+      <Text> A list of events will appear here </Text>
       <Text>  </Text>
-      <Text>  </Text>
-      <Text>  </Text>  
+      
         <Button
-          title="Login"
+          title="Go into event"
           onPress={() => this.props.navigation.navigate('Navigation')} />
         <Button
           title="Cancel"/>
@@ -83,14 +141,19 @@ class NavigationScreen extends React.Component {
 class ParticipantsScreen extends React.Component {
   render() {
     return (
+
+      <Participants/>
+
+      /*
       <View style={styles.container}>
         <Text>this is a participants screen</Text>
         <Button
-          title="This button does nothing"
-        /*  onPress={() => this.props.navigation.navigate('Details')}
-       */
+          title="Participants"
+          onPress={() => this.props.navigation.navigate('Participants')}
+       
         />
       </View>
+      */
     );
   }
 }
@@ -170,7 +233,8 @@ class InfinityScreen extends React.Component {
 }
 const RootStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Login: LoginScreen,
+    Events: EventsScreen,
     Navigation: NavigationScreen,
     Participants: ParticipantsScreen,
     Schedules : SchedulesScreen,
@@ -180,7 +244,7 @@ const RootStack = createStackNavigator(
     Infinity: InfinityScreen,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Login',
   }
 );
 
@@ -225,5 +289,22 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'center',
     paddingTop: Dimensions.get('window').width/50 
+  },
+
+  buttonContainer: {
+    paddingTop: 60,
+    alignItems: 'center'
+  },
+  button: {
+    marginBottom: 30,
+    width: 260,
+    alignItems: 'center',
+    backgroundColor: '#2196F3'
+  },
+  buttonText: {
+    textAlign: 'center',
+    padding: 20,
+    color: 'white'
   }
+
 });
