@@ -9,6 +9,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { TouchableHighlight } from 'react-native-gesture-handler'
 
 import CustomButton from './components/CustomButton'
+import Participants from './components/Participants'
 
 const numColumns=2;
 
@@ -32,15 +33,21 @@ class LoginScreen extends React.Component{
   render() {
     return (
 
+      /*
       <CustomButton 
        
       />
 
-
-
-      /*
-       navigateTo = {'Events'}
-
+      */
+<View>
+     <Button
+     title="Login"
+     onPress={() => this.props.navigation.navigate('Events')} />
+   <Button
+     title="Cancel"/>
+ </View>
+      
+/*
       <View styles={styles.buttonContainer}>
         <TouchableHighlight
           onPress={() => this.props.navigation.navigate('Events')} underlayColor="white">
@@ -135,15 +142,18 @@ class ParticipantsScreen extends React.Component {
   render() {
     return (
 
+      <Participants/>
+
+      /*
       <View style={styles.container}>
         <Text>this is a participants screen</Text>
         <Button
-          title="This button does nothing"
-        /*  onPress={() => this.props.navigation.navigate('Details')}
+          title="Participants"
+          onPress={() => this.props.navigation.navigate('Participants')}
        
-        */
         />
       </View>
+      */
     );
   }
 }
