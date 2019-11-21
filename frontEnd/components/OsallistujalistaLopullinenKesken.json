@@ -1,0 +1,60 @@
+[
+    {
+        "company": "JPJ-Wood Oy",
+        "participant":
+            [
+                {
+                    "lastname":"Lindstedt",
+                    "firstname":"Marko",
+                    "role":"Sawmill",
+                    "country":"FI",
+                    
+                            "email":
+                                [
+                                    "marko.lindstedt@jpj-wood.fi"
+                                ],
+                            "telephone":
+                                [
+                                        "+358 503385222",
+                                        "+358 503385422"
+                                ]
+                                
+                }        
+            ]
+    },
+    {   "company":"Wettergren & Co. GmbH",
+        "participant":
+            [
+                {
+                    "firstname":"Kirsten",
+                    "lastname":"Breitländer",
+                    "role":"Agent",
+                    "country":"DE",
+                    "email":
+                                [
+                                    "breitlander@wettergren.de"
+                                ],
+                            "telephone":
+                                [
+                                    "+49 1795102084"
+                                ]
+                        
+                },
+                {
+                    "firstname":"Kirsten",
+                    "lastname":"Breitländer",
+                    "role":"Agent",
+                    "country":"DE",
+                    "email":
+                                [
+                                    "breitlander@wettergren.de"
+                                ],
+                            "telephone":
+                                [
+                                    "+49 1795102084"
+                                ]
+                        
+                }
+            ] 
+    }           
+]

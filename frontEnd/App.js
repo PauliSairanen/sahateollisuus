@@ -14,13 +14,13 @@ import {
 import {Container, Header} from 'native-base'
 import {Col, Row, Grid} from 'react-native-easy-grid'
 
-import NavigationMain from './components/NavigationMain'
+import Participants from './components/Participants.js'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 
 const numColumns=2;
 const data =[
-  {key: 'A'}, {key: 'B'},{key: 'C'},{key: 'D'}, {key: 'E'},{key: 'F'}, {key: 'G'}, {key: 'H'},{key: 'I'},{key: 'J'}, {key: 'K'},{key: 'L'},
+  {key: 'Participants'}, {key: 'B'},{key: 'C'},{key: 'D'}, {key: 'E'},{key: 'F'}, {key: 'G'}, {key: 'H'},{key: 'I'},{key: 'J'}, {key: 'K'},{key: 'L'},
 ];
 
 class HomeScreen extends React.Component{
@@ -34,7 +34,7 @@ class HomeScreen extends React.Component{
       <Text>  </Text>  
         <Button
           title="Login"
-          onPress={() => this.props.navigation.navigate('Navigation')}
+          onPress={() => this.props.navigation.navigate('Participants')}
         />
         <Button
           title="Cancel"
@@ -109,7 +109,7 @@ class NavigationScreen extends React.Component {
       //     title="Go to Materials"
       //     onPress={() => this.props.navigation.navigate('Materials')}
       //   />
-      // </View>
+      //</View>
     );
   }
 }
@@ -118,11 +118,15 @@ class ParticipantsScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>this is a participants screen</Text>
+        <Text>this is a participants screen</Text> 
+
+        <Participants/>
+
+
         <Button
-          title="This button does nothing"
-        /*  onPress={() => this.props.navigation.navigate('Details')}
-       */
+          title="Participants"
+          onPress={() => this.props.navigation.navigate('Participants')}
+       
         />
       </View>
     );
