@@ -6,7 +6,71 @@ const SortedParticipants = require('../bin/startnode')
 
 //for file uploads and downloads
 var formidable = require('formidable');
-const fileslocation = "./";
+const fileslocation = "./permfiles/";
+
+const maxcachestorage=50;
+var cachestorage = [];
+//in ms milliseconds
+const timeoutcache=3600000;
+function cachenow(iden,datain) {
+    
+    var dataout
+    //var tmpref=-1;
+    var ii;
+    for(ii=0;ii<cachestorage.length;ii++)
+    {
+        if(cachestorage[ii].iden==iden)
+        {
+            tmpref=ii;
+        
+            if(cachestorage[ii].time<(new Date()).getTime() -timeoutcache)
+            {
+
+                //dataout = sortingfunc(datain);
+                dataout = ("edit:"+datain);
+                cachestorage[ii].data=dataout;
+                cachestorage[ii].time=(new Date()).getTime();
+    
+                //console.log("old data, refreshing");
+                return dataout;
+
+            }
+            //(new Date()).getTime()
+            dataout=cachestorage[ii].data;
+            //console.log("data is already");
+
+            return dataout;
+        }
+    } 
+    
+
+    ii=cachestorage.length;
+    
+    if(ii>=maxcachestorage)
+    {
+
+        for(ii=1;ii<cachestorage.length;ii++)
+        {
+            cachestorage[ii-1]=cachestorage[ii];
+        }
+        ii--
+    }
+    
+
+    //console.log(ii);
+    //console.log(maxcachestorage);
+
+    cachestorage[ii]={};
+    cachestorage[ii].iden =iden;
+    
+    //dataout = sortingfunc(datain);
+    dataout = ("edit:"+datain);
+    cachestorage[ii].data=dataout;
+    cachestorage[ii].time=(new Date()).getTime();
+    
+    //console.log("data stored into cache");
+    return dataout;
+}
 
 function sortInfo(sorted){
 
@@ -33,6 +97,7 @@ function sortMaps(sorted){
 }
 
 function sortParticipants(participants){
+
     let sortedCompanies = [];
     let finalArray = [];
     participants.forEach(participant => {
@@ -46,25 +111,28 @@ function sortParticipants(participants){
         return 0;
     });
     sortedCompanies.forEach(company=>{
-        finalArray[company.company] = []
-        participants.forEach(participant=>{
-            if(participant.company == company.company){
-                finalArray[company.company].push({
-                
-                FirstName: participant.firstname,
-                LastName: participant.lastname,
-                Country: participant.country,
-                Role: participant.role,
-                Telephone: participant.telephone.split(" "),
-                Email: participant.email.split(" ")});
-            }
-        })
-        finalArray[company.company].sort(function(a, b){
-            if(a.LastName < b.LastName) { return -1; }
-            if(a.LastName > b.LastName) { return 1; }
-            return 0;
-        });
+        if(finalArray[company.company] == undefined){
+            finalArray[company.company] = [];
+            participants.forEach(participant=>{
+                if(participant.company == company.company){
+                    finalArray[company.company].push({
+                    
+                    FirstName: participant.firstname,
+                    LastName: participant.lastname,
+                    Country: participant.country,
+                    Role: participant.role,
+                    Telephone: participant.telephone.split(" "),
+                    Email: participant.email.split(" ")});
+                }
+            });
+            finalArray[company.company].sort(function(a, b){
+                if(a.LastName < b.LastName) { return -1; }
+                if(a.LastName > b.LastName) { return 1; }
+                return 0;
+            });
+        }
     });
+
     return finalArray;
 }
 
