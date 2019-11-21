@@ -97,6 +97,16 @@ var event1 = new Event({
           {
             firstname : "Seppo",
             lastname : "Taalasmaa",
+            email : "asd@asd.asd asd@asd.asd",
+            telephone : "123 456",
+            company : "abc",
+            country : "String",
+            role : "String",
+            participation : "String"
+          },
+          {
+            firstname : "Matti",
+            lastname : "Meikäläinen",
             email : "String",
             telephone : "String",
             company : "abc",
@@ -104,13 +114,22 @@ var event1 = new Event({
             role : "String",
             participation : "String"
           },
-          
           {
             firstname : "Matti",
             lastname : "Meikäläinen",
             email : "String",
             telephone : "String",
-            company : "abc",
+            company : "qwe",
+            country : "String",
+            role : "String",
+            participation : "String"
+          },
+          {
+            firstname : "Matti",
+            lastname : "Meikäläinen",
+            email : "String",
+            telephone : "String",
+            company : "mnb",
             country : "String",
             role : "String",
             participation : "String"

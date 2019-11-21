@@ -37,26 +37,31 @@ function sortParticipants(participants){
     let finalArray = [];
     participants.forEach(participant => {
         if(!sortedCompanies.includes(participant.company)){
-            sortedCompanies.push(participant.company)
+            sortedCompanies.push(participant)
         }
     });
-    sortedCompanies.sort();
+    sortedCompanies.sort(function(a, b){
+        if(a.company < b.company) { return -1; }
+        if(a.company > b.company) { return 1; }
+        return 0;
+    });
     sortedCompanies.forEach(company=>{
-        finalArray[company] = []
+        finalArray[company.company] = []
         participants.forEach(participant=>{
-            if(participant.company == company){
-                finalArray[company].push({
+            if(participant.company == company.company){
+                finalArray[company.company].push({
                 
-                Name: participant.firstname+" "+participant.lastname,
+                FirstName: participant.firstname,
+                LastName: participant.lastname,
                 Country: participant.country,
                 Role: participant.role,
-                Telephone: participant.telephone,
-                Email: participant.email});
+                Telephone: participant.telephone.split(" "),
+                Email: participant.email.split(" ")});
             }
         })
-        finalArray[company].sort(function(a, b){
-            if(a.Name < b.Name) { return -1; }
-            if(a.Name > b.Name) { return 1; }
+        finalArray[company.company].sort(function(a, b){
+            if(a.LastName < b.LastName) { return -1; }
+            if(a.LastName > b.LastName) { return 1; }
             return 0;
         });
     });
@@ -109,8 +114,8 @@ class Events {
         
             var a = Event.find({"eventId": "1"},{"participants": 1, _id: 0}).then(function(a){
                 let muuttuja = sortParticipants(a[0].participants)
-                res.send(muuttuja.abc);
-                console.log(muuttuja.abc);
+                console.log(muuttuja);
+                res.send(muuttuja);
                 //res.send(a[0].participants);
                 //console.log(a[0].participants);
                 res.end();
