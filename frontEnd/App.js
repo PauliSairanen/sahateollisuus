@@ -6,10 +6,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import { TouchableHighlight } from 'react-native-gesture-handler'
+
 
 import CustomButton from './components/CustomButton'
 import Participants from './components/Participants'
+import InfoComponent from './components/InfoComponent'
 
 const numColumns=2;
 
@@ -194,14 +195,7 @@ class MapsScreen extends React.Component {
 class InfoScreen extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>this is a Info screen</Text>
-        <Button
-          title="This button does nothing"
-         /* onPress={() => this.props.navigation.navigate('Details')}
-        */
-         />
-      </View>
+      <InfoComponent/>
     );
   }
 }

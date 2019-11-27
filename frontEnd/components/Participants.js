@@ -16,24 +16,22 @@ import {
  * Here the JSON is converted to a form that the lists understand
  */
 
-let participantsData = require('./OsallistujalistaLopullinenKesken.json');
-const companiesArray = [];
+let participantsData = require('./OsallistujalistaLopullinenKesken.json')
+const companiesArray = []
 
 function createArray() {
 
   participantsData.forEach(element => {
 
-    const temp = {};
-    temp["company"] = element.company;
-    let tempString = "";
+    const temp = {}
+    temp["company"] = element.company
+    let tempString = ""
 
     element.participant.forEach(participant => {
-
       tempString = tempString
 
       + participant.lastname + ', ' + participant.firstname + ' ('+ participant.country + ')\n'
       + participant.role + '\n'
-      
       + participant.email.join('\n') + '\n'
       + participant.telephone.join('\n') + '\n\n';
 
