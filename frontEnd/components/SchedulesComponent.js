@@ -79,36 +79,7 @@ class SchedulesComponent extends Component  {
     
     render() {
       
-        data1 = [
-          {
-            title: 'Node 1', 
-                  items: 
-                  [
-                    {
-                      time : "9.00",
-                      title : "Welcome",
-                      description : "Mr. Pekka Kopra, Manning Director, Westas Oy, Chairman of Finnish Sawmills Association"
-                    },
-                    {
-                      title: 'Node 1.2'
-                    }
-                  ]}]
-
-        data2 = [
-          {
-            category: "9.00 - 12.00 Congress Hall (All)",
-            presentation : [
-              {
-                time : "9.00",
-                title : "Welcome",
-                description : "Mr. Pekka Kopra, Manning Director, Westas Oy, Chairman of Finnish Sawmills Association"
-              },
-              {
-                time : "9.15",
-                title : "Economic outlook",
-                description : "Mr. Jan von Grerich, Chief Analyst, Nordea Bank"
-              }
-        ]}]
+ 
 
         return (
           <View>
