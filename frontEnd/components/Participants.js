@@ -21,19 +21,24 @@ import { existsTypeAnnotation } from "@babel/types";
  * Here the JSON is converted to a form that the lists understand
  */
 
-let participantsData = require('./OsallistujalistaLopullinenKesken.json');
-const companiesArray = [];
+let participantsData = require('./OsallistujalistaLopullinenKesken.json')
+const companiesArray = []
 
 function createArray() {
 
   participantsData.forEach(element => {
 
+<<<<<<< HEAD
     const temp = {};
     temp['company'] = element.company;
     let tempString = "";
+=======
+    const temp = {}
+    temp["company"] = element.company
+    let tempString = ""
+>>>>>>> 10e68ca077f1bf73767e78a26aac594b44102270
 
     element.participant.forEach(participant => {
-
       tempString = tempString
 
       + participant.lastname + ', ' + participant.firstname + ' ('+ participant.country + ')\n'
