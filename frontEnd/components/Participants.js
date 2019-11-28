@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 
 import {
+  Linking,
+  Platform,
+  StyleSheet,
   Text,
+  TouchableOpacity,
   View
 } from 'react-native';
 
@@ -11,6 +15,7 @@ import {
     Content, 
     Icon
 } from "native-base";
+import { existsTypeAnnotation } from "@babel/types";
 
 /**
  * Here the JSON is converted to a form that the lists understand
@@ -24,7 +29,7 @@ function createArray() {
   participantsData.forEach(element => {
 
     const temp = {};
-    temp["company"] = element.company;
+    temp['company'] = element.company;
     let tempString = "";
 
     element.participant.forEach(participant => {
@@ -33,7 +38,6 @@ function createArray() {
 
       + participant.lastname + ', ' + participant.firstname + ' ('+ participant.country + ')\n'
       + participant.role + '\n'
-      
       + participant.email.join('\n') + '\n'
       + participant.telephone.join('\n') + '\n\n';
 
@@ -47,9 +51,33 @@ function createArray() {
 
   companiesArray.forEach(element => {
       console.log(element);
-  })
-
+  });
 };
+
+/**
+ * To Do: Format participant email and phonenumber
+ */
+
+function formatPerson(person) {
+
+  return (
+    <Text style={styles.content}>
+      {person}
+    </Text>
+  )
+}
+
+function formatContact(bar) {
+  return (
+
+    <TouchableOpacity>
+      <Text>
+        "teksti"
+      </Text>
+    </TouchableOpacity>
+    
+  )
+}
 
 /** Render functions
  * "render()" is the main function that calls all other functions
@@ -66,13 +94,18 @@ export default class AccordionParticipants extends Component {
         padding: 10,
         justifyContent: "space-between",
         alignItems: "center" ,
-        backgroundColor: "#A9DAD6" }}>
-        <Text style={{ fontWeight: "900" }}>
+        backgroundColor: "#FFB400" }}>
+        <Text style={{ 
+          color: "#ffffff",
+          fontFamily: "Rubik Medium",
+          fontSize: 21,
+          letterSpacing: 0
+           }}>
           {" "}{item.company}
         </Text>
           {expanded
-          ? <Icon style={{ fontSize: 18 }} name="arrow-up" />
-          : <Icon style={{ fontSize: 18 }} name="arrow-down" />}
+          ? <Icon style={{ color: "#ffffff", fontSize: 21 }} name="arrow-up" />
+          : <Icon style={{ color: "#ffffff", fontSize: 21 }} name="arrow-down" />}
       </View>
     );
   }
@@ -81,46 +114,19 @@ export default class AccordionParticipants extends Component {
 
   _renderContent(item) {
     return (
-      <Text
-        style={{
-        backgroundColor: "#e3f1f1",
-        padding: 10,
-        fontStyle: "italic",
-        }}
-        >
-        {item.participant}
-      </Text>
+      <View>
+        {formatPerson(item.participant)}
+      </View>
     );
-  }
-
-  /** This makes the accordion item */
-
-  _createAccordion(item) {
-
-    return (
-    
-      <Content padder style={{ backgroundColor: "white" }}>
-                
-        <Accordion
-          dataArray={item}
-          animation={true}
-          expanded={true}
-          
-          renderHeader={this._renderHeader}
-          
-          renderContent={this._renderContent}
-        />
-        
-      </Content>
-
-    )
-
-  }
+  };
 
   /** This renders to the device */
     
   render() {
-    createArray();
+    if (companiesArray.length === 0) {
+      createArray();
+    }
+    
       return (
         <Container>
               <Content padder style={{ backgroundColor: "white" }}>
@@ -136,6 +142,18 @@ export default class AccordionParticipants extends Component {
               </Content>
             </Container>
       );
-    }
+  }
 
 }
+
+const styles = StyleSheet.create({
+  content: {
+
+    backgroundColor: "#ffffff",
+    padding: 10,
+    color: "#4c4c4c",
+    fontFamily: "Open Sans Condenced Light",
+    letterSpacing: 0
+    
+  }
+});
