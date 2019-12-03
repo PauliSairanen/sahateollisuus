@@ -16,7 +16,8 @@ const DATAPLACES = [
         [
             "one",
             "two",
-            "three"
+            "three",
+            "four"
         ]
             
         
@@ -27,7 +28,8 @@ const DATAPLACES = [
         [
             "one",
             "two",
-            "three"
+            "three",
+            "four"
         ]
             
         
@@ -90,9 +92,9 @@ export default class MapsScreen extends React.Component {
       
       <ScrollView>
       <View style={styles2.container}>
-        
+        <View style={styles2.map}>
         <Image  source={require("./images/map2.png")} />
-        
+        </View>
 
         <View>
             <Text style={styles2.placetitle}>{this.data[0].title}</Text>
@@ -135,24 +137,25 @@ const styles2 = StyleSheet.create({
   },
 
   map:{
-      height: 300,
-      width: 400,
+      alignItems: "center",
+      
+      width: (Dimensions.get('window').width / 100)*95,
       backgroundColor: '#dfdfdf',
   },
   placetitle:{
       backgroundColor: '#FFB400',
-      marginLeft: 5,
-      marginRight: 5,
+      marginLeft: (Dimensions.get('window').width / 100)*5,
+      marginRight: (Dimensions.get('window').width / 100)*5,
       paddingLeft: 5,
       fontSize: 20,
-      width: 390,
+      width: (Dimensions.get('window').width / 100)*95,
   },
   placeone:{
       backgroundColor: '#FFB400',      
-      marginRight: 5,
-      marginLeft: 5,
+      marginRight: (Dimensions.get('window').width / 100)*5,
+      marginLeft: (Dimensions.get('window').width / 100)*5,
       paddingLeft: 10,
       fontSize: 16,
-      width: 390,
+      width: (Dimensions.get('window').width / 100)*95,
   },
 });
