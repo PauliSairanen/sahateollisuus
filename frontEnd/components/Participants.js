@@ -97,7 +97,7 @@ export default class AccordionParticipants extends Component {
         backgroundColor: "#FFB400" }}>
         <Text style={{ 
           color: "#ffffff",
-          fontFamily: "Rubik Medium",
+          // fontFamily: "Rubik Medium",
           fontSize: 21,
           letterSpacing: 0
            }}>
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     padding: 10,
     color: "#4c4c4c",
-    fontFamily: "Open Sans Condenced Light",
+    // fontFamily: "Open Sans Condenced Light",
     letterSpacing: 0
     
   }

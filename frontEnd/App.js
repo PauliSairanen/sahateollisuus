@@ -13,7 +13,7 @@ import Participants from './components/Participants'
 import InfoComponent from './components/InfoComponent'
 import SchdulesComponent from './components/SchedulesComponent'
 import SchedulesComponent from './components/SchedulesComponent'
-import MapsScreen from './components/MapsScreen'
+import MapsComponent from './components/MapsComponent'
 
 
 const numColumns=2;
@@ -174,22 +174,15 @@ class MaterialsScreen extends React.Component {
   }
 }
 
-/*
+
 class MapsScreen extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>this is a Map screen</Text>
-        <Button
-          title="This button does nothing"
-         /* onPress={() => this.props.navigation.navigate('Details')}
-        * /
-         />
-      </View>
+    <MapsComponent/>
     );
   }
 }
-*/
+
 
 class InfoScreen extends React.Component {
   render() {

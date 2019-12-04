@@ -37,7 +37,7 @@ const DATAPLACES = [
 ]
 
 
-export default class MapsScreen extends React.Component {
+export default class MapsComponent extends React.Component {
     
     constructor(){  
         super();
@@ -52,7 +52,7 @@ export default class MapsScreen extends React.Component {
       componentDidMount(){  
           //Geolocation.setRNConfiguration();
         let geoOptions = {  
-            enableHighAccuracy:true,  
+            enableHighAccuracy:false,  
             timeOut: 20000, //20 second  
           //  maximumAge: 1000 //1 second  
         };  
