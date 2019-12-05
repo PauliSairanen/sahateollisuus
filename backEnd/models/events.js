@@ -67,6 +67,18 @@ const ItemSchema = new Schema(
             role : String,
             participation : String
           }
+        ],
+        schedule : [
+          {
+            category: String,
+            presentation : [
+              {
+                time : String,
+                title : String,
+                description : String
+              }
+            ]
+          }
         ]
         
         

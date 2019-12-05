@@ -18,6 +18,7 @@ import {
 
 import { existsTypeAnnotation, functionTypeAnnotation } from "@babel/types";
 
+
 /**
  * Here the JSON is converted to a form that accordeon understands
  */
@@ -149,7 +150,7 @@ export default class AccordionParticipants extends Component {
         backgroundColor: "#FFB400" }}>
         <Text style={{ 
           color: "#ffffff",
-          fontFamily: "Rubik Medium",
+          // fontFamily: "Rubik Medium",
           fontSize: 21,
           letterSpacing: 0
            }}>
