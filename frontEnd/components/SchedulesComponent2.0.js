@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, FlatList } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, FlatList, Modal, Alert, Button } from "react-native";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
+
+import AddEntryModal from './AddEntryModal'
 
 
 function Item({ time, nameOfPerformance, performer, company, title }) {
@@ -12,10 +14,12 @@ function Item({ time, nameOfPerformance, performer, company, title }) {
       <Text style={styles.title}> {performer} </Text>
       <Text style={styles.title}> {company} </Text>
       <Text style={styles.title}> {title} </Text>
+      <Button title="Click Here To Hide Modal" onPress={() => { <AddEntryModal modalVisible={modalVisible = true} />}} />
       <Text> ______________________ </Text>
     </View>
   )
 }
+
 
 export default class SchedulesComponent2 extends Component {
 
@@ -24,9 +28,14 @@ export default class SchedulesComponent2 extends Component {
     this.state = {
       data: props.data,
       expanded: false,
+
+      ModalVisibleStatus: false
     }
   }
+
+
   render() {
+
 
     // We have the array of data
     console.log(this.props.data)
@@ -42,7 +51,6 @@ export default class SchedulesComponent2 extends Component {
           this.state.expanded &&
           <View style={styles.child}>
             <View>
-
               <FlatList
                 data={this.props.data}
                 renderItem={({ item }) =>
@@ -63,14 +71,11 @@ export default class SchedulesComponent2 extends Component {
     )
   }
 
-
-
   toggleExpand = () => {
     this.setState({ expanded: !this.state.expanded })
   }
 
 }
-
 
 
 const styles = StyleSheet.create({
@@ -103,3 +108,4 @@ const styles = StyleSheet.create({
   }
 
 });
+
