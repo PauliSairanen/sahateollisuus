@@ -1,5 +1,5 @@
 import React from 'react'
-import {SafeAreaView, StyleSheet, ScrollView, View,Text, StatusBar,FlatList,Button, Dimensions, Platform, 
+import {SafeAreaView, StyleSheet, ScrollView, View,Text, StatusBar,FlatList,Button, Dimensions, Platform, TouchableHighlight 
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -81,6 +81,7 @@ class EventsScreen extends React.Component{
 
 class NavigationScreen extends React.Component {
 
+  // Not sure what this is...?
   onLayout = (e) => {
     this.setState({
       width: e.nativeEvent.layout.width,
@@ -93,21 +94,27 @@ class NavigationScreen extends React.Component {
   // Gets the screen size and adjusts the icon size accordingly
   iconSize = Dimensions.get('window').width / 6
 
+
+
   renderItem = ({item, index} ) => {
     return (
-      <View style={styles.item}>
+
+  
+ 
+
+      
+      <View style={styles.item} >
         <View style={styles.imageContainer}>
           <Text >
               <Icon name= {item.icon} size={this.iconSize} color="#FFF" />
           </Text> 
         </View>
-
+      
         <CustomButton
           title = {item.title}
           navigateTo = {item.link}
           backgroundColor = {'#FFB400'}
         />
-
 
         {/* <Button 
           title={item.title}
@@ -117,6 +124,8 @@ class NavigationScreen extends React.Component {
           </Text>
         </Button> */}
       </View>
+
+   
     )
   }
 

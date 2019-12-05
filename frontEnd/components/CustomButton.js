@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     button: {
       marginBottom: 30,
-      width: 200,
+      width: Dimensions.get('window').width / 100 * 45,
       alignItems: 'center',
       backgroundColor: '#FFB400',
       borderRadius: 20,

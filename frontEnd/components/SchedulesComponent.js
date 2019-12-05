@@ -103,9 +103,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   }, 
   row: {
-    borderColor: 'gray',
-    borderWidth: 1,
-    backgroundColor: 'blue'
+    // borderColor: 'gray',
+    // borderWidth: 1,
+    // backgroundColor: 'blue'
 
   },
   categoryStyle: {
@@ -114,11 +114,11 @@ const styles = StyleSheet.create({
   },
   titleBox: {
     justifyContent: 'center',
-    backgroundColor: 'green'
+    // backgroundColor: 'green'
    
   },
   textBox: {
-    backgroundColor: 'gray',
+    // backgroundColor: 'gray',
   },
   line: {
     borderBottomWidth: 1,
