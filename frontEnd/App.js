@@ -14,6 +14,8 @@ import InfoComponent from './components/InfoComponent'
 import SchdulesComponent from './components/SchedulesComponent'
 import SchedulesComponent from './components/SchedulesComponent'
 import MapsComponent from './components/MapsComponent'
+import SchedulesComponent2 from './components/SchedulesComponent2.0'
+import { program } from '@babel/types'
 
 
 const numColumns=2;
@@ -162,12 +164,87 @@ class ParticipantsScreen extends React.Component {
 }
 
 class SchedulesScreen extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      
+      arrayOfCategories: [
+        {
+          name: 'Schedule for employyees',
+          program :[
+            {   
+              id: 1,
+              time: '09:00', 
+              nameOfPerformance: 'Welcome',
+              performer: 'Pekka Kopra',
+              company: 'Westas Oy',
+              title: 'Chairman of Finnish Sawmills Association'
+            },
+            { 
+              id: 2,
+              time: '10:00', 
+              nameOfPerformance: 'Sawmill Industry Handbook',
+              performer: 'Mr. Ilkka Tarvainen',
+              company: 'Lahti University of Applied Sciences',
+              title: 'Title of the guy from LAMK'
+            },
+          ],
+        },
+        {
+        name: 'Schedule for all!:D',
+        program :[
+          {   
+            id: 1,
+            time: '21:00', 
+            nameOfPerformance: 'GT',
+            performer: 'ALL',
+            company: '-',
+            title: '-'
+          },
+          { 
+            id: 2,
+            time: '24:00', 
+            nameOfPerformance: 'Afterparty',
+            performer: 'All',
+            company: 'All companies',
+            title: 'Titles don´t matter anymore at this point'
+          },
+        ],
+        }
+      ]
+    }   
+  }
+  
+
+  renderAccordians=()=> {
+    const items = [];
+    var index = 0
+    for (item of this.state.arrayOfCategories) {
+        items.push(
+            <SchedulesComponent2 
+                title = {this.state.arrayOfCategories[index].name}
+                data = {this.state.arrayOfCategories[index].program}
+            />
+        );
+        index++
+    }
+    return items;
+}
+
+
   render() {
     return (
-      <SchedulesComponent/>
+      (
+        <View >
+          { this.renderAccordians() }
+        </View>
+      )
     );
   }
 }
+
+
 class MaterialsScreen extends React.Component {
   render() {
     return (

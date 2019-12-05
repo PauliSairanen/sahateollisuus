@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
 
     backgroundColor: "#ffffff",
     color: "#4c4c4c",
-    fontFamily: "Open Sans Condenced Light",
+    // fontFamily: "Open Sans Condenced Light",
     letterSpacing: 0,
     fontSize: 18,
     marginLeft: 40
