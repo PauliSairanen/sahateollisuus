@@ -3,8 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, FlatList, Modal, Alert, Butto
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-import AddEntryModal from './AddEntryModal'
-
+import ModalComponent from './ModalComponent'
 
 function Item({ time, nameOfPerformance, performer, company, title }) {
   return (
@@ -14,12 +13,17 @@ function Item({ time, nameOfPerformance, performer, company, title }) {
       <Text style={styles.title}> {performer} </Text>
       <Text style={styles.title}> {company} </Text>
       <Text style={styles.title}> {title} </Text>
-      <Button title="Click Here To Hide Modal" onPress={() => { <AddEntryModal modalVisible={modalVisible = true} />}} />
+      <Button title="Click here to show Modal" onPress={() => {
+        console.log('Modal button clicked! :D'),
+          this.openModal()
+      }
+      } />
+
+
       <Text> ______________________ </Text>
     </View>
   )
 }
-
 
 export default class SchedulesComponent2 extends Component {
 
@@ -27,21 +31,75 @@ export default class SchedulesComponent2 extends Component {
     super(props);
     this.state = {
       data: props.data,
-      expanded: false,
+      modalVisible: false,
 
-      ModalVisibleStatus: false
     }
+  }
+
+  Item({ time, nameOfPerformance, performer, company, title }) {
+  return (
+    <View style={styles.item}>
+      <Text style={styles.title}> {time} </Text>
+      <Text style={styles.title}> {nameOfPerformance} </Text>
+      <Text style={styles.title}> {performer} </Text>
+      <Text style={styles.title}> {company} </Text>
+      <Text style={styles.title}> {title} </Text>
+      <Button title="Click here to show Modal" onPress={() => {
+        console.log('Modal button clicked! :D'),
+          this.openModal()
+      }
+      } />
+
+
+      <Text> ______________________ </Text>
+    </View>
+  )
+}
+
+
+  openModal() {
+    this.setState({ modalVisible: true });
+  }
+
+  closeModal() {
+    this.setState({ modalVisible: false });
   }
 
 
   render() {
 
-
     // We have the array of data
     console.log(this.props.data)
     return (
 
+
       <View>
+
+        <Modal
+          visible={this.state.modalVisible}
+          animationType={'slide'}
+          onRequestClose={() => this.closeModal()}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.innerContainer}>
+              <Text>This is content inside of modal component</Text>
+              <Button
+                onPress={() => this.closeModal()}
+                title="Close modal"
+              >
+              </Button>
+            </View>
+          </View>
+        </Modal>
+
+
+        <Button
+          onPress={() => this.openModal()}
+          title="Open modal"
+        />
+
+
+
         <TouchableOpacity style={styles.row} onPress={() => this.toggleExpand()}>
           <Text style={[styles.title, styles.font]}>{this.props.title}</Text>
           <Icon name={this.state.expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} />
@@ -68,6 +126,8 @@ export default class SchedulesComponent2 extends Component {
           </View>
         }
       </View>
+
+
     )
   }
 
@@ -105,7 +165,19 @@ const styles = StyleSheet.create({
   child: {
     backgroundColor: 'gray',
     padding: 16,
-  }
+  },
+  container2: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'grey',
+  },
+  innerContainer: {
+    alignItems: 'center',
+  },
 
 });
 
