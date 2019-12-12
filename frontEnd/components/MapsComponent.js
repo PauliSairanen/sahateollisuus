@@ -13,8 +13,8 @@ import { createStackNavigator } from 'react-navigation-stack'
 import MapboxGL from "@react-native-mapbox-gl/maps";
 //import openMap from 'react-native-open-maps';
 
-//change this token, i have warned!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-MapboxGL.setAccessToken("pk.eyJ1IjoiZGlhZ3JhbWNhc2tldCIsImEiOiJjazNza2dkYzAwNXk5M2NuaHE5MjE0ZTlvIn0.awW0nMVF-sPpFQnxrPQdJA");
+//change this token, it is gone
+MapboxGL.setAccessToken("<<token>>");
 
 const DATAPLACES = {
     mainplace:{
