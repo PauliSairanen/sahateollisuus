@@ -136,7 +136,6 @@ var event1 = new Event({
           }
         ]
         
-      
 // Insert to DB
 });
 event1.save().then(function(){

@@ -132,7 +132,6 @@ function sortParticipants(participants){
             });
         }
     });
-
     return finalArray;
 }
 
@@ -190,7 +189,6 @@ class Events {
             });
 
     }
-
     
     findVisibility(req, res){
         var a = Event.find({"eventId": "1"},{"eventIdForVisibilityRegardingUser": 1, _id: 0}).then(function(a){
