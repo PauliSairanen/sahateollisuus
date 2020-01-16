@@ -12,7 +12,14 @@ const maxcachestorage=50;
 var cachestorage = [];
 //in ms milliseconds
 const timeoutcache=3600000;
-function cachenow(iden,datain) {
+//this is caching function, iden is input and return is output
+//actual function to be cached is inside, see nearby
+function cachenow(iden) {
+    
+    //here is the function to be cached
+    //funcin = function(inp){return "edited:"+inp;};
+    //copy funtion, do not run the function,function is run elsewhere
+    funcin = giveinfo;
     
     var dataout
     //var tmpref=-1;
@@ -26,8 +33,8 @@ function cachenow(iden,datain) {
             if(cachestorage[ii].time<(new Date()).getTime() -timeoutcache)
             {
 
-                //dataout = sortingfunc(datain);
-                dataout = ("edit:"+datain);
+                //dataout = sortingfunc(iden);
+                dataout = funcin(iden);
                 cachestorage[ii].data=dataout;
                 cachestorage[ii].time=(new Date()).getTime();
     
@@ -63,8 +70,8 @@ function cachenow(iden,datain) {
     cachestorage[ii]={};
     cachestorage[ii].iden =iden;
     
-    //dataout = sortingfunc(datain);
-    dataout = ("edit:"+datain);
+    //dataout = sortingfunc(iden);
+    dataout = funcin(iden);
     cachestorage[ii].data=dataout;
     cachestorage[ii].time=(new Date()).getTime();
     
