@@ -23,7 +23,7 @@ import { existsTypeAnnotation, functionTypeAnnotation } from "@babel/types";
  * Here the JSON is converted to a form that accordeon understands
  */
 
-let participantsData = require('./OsallistujalistaLopullinenKesken.json.js')
+let participantsData = require('./OsallistujalistaLopullinenKesken.json.js.js')
 const companiesArray = []
 
 function createArray() {
