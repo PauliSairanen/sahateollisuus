@@ -1,11 +1,13 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
+import BodyText from './components/TextComponents/BodyText'
+
+import EventNavigator from './navigation/EventNavigator'
+
 export default function App() {
   return (
-    <View style={styles.screen}>
-      <Text>Saha App 2.0!</Text>
-    </View>
+    <EventNavigator />
   )
 }
 
