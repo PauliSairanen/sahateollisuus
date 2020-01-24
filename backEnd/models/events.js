@@ -80,10 +80,7 @@ const ItemSchema = new Schema(
             ]
           }
         ]
-        
-        
-      
-        
+          
 });
 
 const Event = mongoose.model('events',ItemSchema);
