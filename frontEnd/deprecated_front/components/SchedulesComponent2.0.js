@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, FlatList, Modal, Alert, Button } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, FlatList, Modal, Alert, Button, Dimensions } from "react-native";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -13,13 +13,6 @@ function Item({ time, nameOfPerformance, performer, company, title }) {
       <Text style={styles.title}> {performer} </Text>
       <Text style={styles.title}> {company} </Text>
       <Text style={styles.title}> {title} </Text>
-      <Button title="Click here to show Modal" onPress={() => {
-        console.log('Modal button clicked! :D'),
-          this.openModal()
-      }
-      } />
-
-
       <Text> ______________________ </Text>
     </View>
   )
@@ -44,14 +37,10 @@ export default class SchedulesComponent2 extends Component {
       <Text style={styles.title}> {performer} </Text>
       <Text style={styles.title}> {company} </Text>
       <Text style={styles.title}> {title} </Text>
-      <Button title="Click here to show Modal" onPress={() => {
-        console.log('Modal button clicked! :D'),
-          this.openModal()
-      }
-      } />
+  
 
-
-      <Text> ______________________ </Text>
+      <View style={styles.line}>   </View>
+      <Text > ______________________ </Text>
     </View>
   )
 }
@@ -75,7 +64,7 @@ export default class SchedulesComponent2 extends Component {
 
       <View>
 
-        <Modal
+        {/* <Modal
           visible={this.state.modalVisible}
           animationType={'slide'}
           onRequestClose={() => this.closeModal()}
@@ -96,7 +85,7 @@ export default class SchedulesComponent2 extends Component {
         <Button
           onPress={() => this.openModal()}
           title="Open modal"
-        />
+        /> */}
 
 
 
@@ -146,7 +135,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: 'blue',
+    // color: 'blue',
   },
   row: {
     flexDirection: 'row',
@@ -163,7 +152,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   child: {
-    backgroundColor: 'gray',
+    // backgroundColor: 'gray',
     padding: 16,
   },
   container2: {
@@ -178,6 +167,17 @@ const styles = StyleSheet.create({
   innerContainer: {
     alignItems: 'center',
   },
+  line: {
+    borderBottomWidth: 1,
+    borderColor: '#FFB400',
+    width: Dimensions.get('window').width /100 * 90
+  }
 
 });
 
+
+    /* <Button title="Click here to show Modal" onPress={() => {
+        console.log('Modal button clicked! :D'),
+          this.openModal()
+      }
+      } /> */
