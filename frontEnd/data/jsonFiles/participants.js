@@ -1,4 +1,4 @@
-[
+export default participantsData = [
  {
   "IP": "194.255.25.134",
   "SubmissionID": "4554865574318777890",
@@ -1860,8 +1860,8 @@
   "LastName": "Nikkanen",
   "Email": "vnikkanen@fisheri.com",
   "PhoneNumber": "+358405198749",
-  "Company": "\"Fisher International",
-  "Country": " Inc.\"",
+  "Company": "Fisher International",
+  "Country": "FI ",
   "Icomefrom": "FI",
   "Iwillparticipate": "Other",
   "Foodallergies": "\"Market Day 9.00-16.00\rDinner 18.00\"",
@@ -3458,8 +3458,8 @@
   "LastName": "Lillandt",
   "Email": "robin.lillandt@gmail.com",
   "PhoneNumber": "+37253097777",
-  "Company": "\"Timber Products Inspection",
-  "Country": " Inc.\"",
+  "Company": "Timber Products Inspection",
+  "Country": "US ",
   "Icomefrom": "US",
   "Iwillparticipate": "Other",
   "Foodallergies": "\"Market Day 9.00-16.00\rDinner 18.00\"",
