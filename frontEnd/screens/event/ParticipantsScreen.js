@@ -19,19 +19,9 @@ sortedCompanies.sort(function (a, b) {
   return 0;
 });
 
-for (index in sortedCompanies) {
-  console.log('____________________________')
-  console.log(sortedCompanies.Company)
-  console.log(sortedCompanies.FirstName)
-  console.log(sortedCompanies.LastName)
-  console.log(sortedCompanies.Country)
-  console.log(sortedCompanies.PhoneNumber)
-  console.log(sortedCompanies.Email)
-}
-
 const ParticipantsScreen = props => {
   return (
-    <View style={styles.listContainer}>
+    <View>
       <FlatList
         data={sortedCompanies}
         keyExtractor={item => item.email}

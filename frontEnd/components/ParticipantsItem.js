@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions } from 'react-native'
 import Communications from 'react-native-communications'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
 import Card from './Card'
@@ -18,21 +17,25 @@ const ParticipantsItem = props => {
   return (
     <Card style={styles.card}>
       <View style={styles.content}>
-        <Text style={{ fontWeight: 'bold' }}>Company: {props.company}</Text>
+        <View style={styles.row}>
+          <Text>Company: </Text>
+          <Text style={{ fontWeight: 'bold' }}>{props.company}</Text>
+        </View>
         <Text>Name: {props.firstName}</Text>
         <Text>Surname: {props.lastName}</Text>
         <Text>Country: {props.country}</Text>
-        <TouchableComponent
-        //                          Continue from here. Bind the variable into the string
-          onPress={() => Communications.phonecall('$phoneNumber', true)}
-        >
-          <Text>Telephone: {props.phoneNumber}</Text>
-        </TouchableComponent>
-        <TouchableComponent
-          onPress={() => Communications.email(email, true)}
-        >
-          <Text>Email: {props.email}</Text>
-        </TouchableComponent>
+        <View style={styles.row}>
+          <Text>Telephone: </Text>
+          <TouchableComponent onPress={() => Communications.phonecall(`${phoneNumber}`, true)}>
+            <Text style={styles.link}>{props.phoneNumber}</Text>
+          </TouchableComponent>
+        </View>
+        <View style={styles.row}>
+          <Text>Email: </Text>
+          <TouchableComponent onPress={() => Communications.email([`${email}`, 'userEmail@email.com'], null, null, 'Demo project', 'Demo content for email')}>
+            <Text style={styles.link}>{props.email}</Text>
+          </TouchableComponent>
+        </View>
 
       </View>
     </Card>
@@ -45,12 +48,14 @@ const styles = StyleSheet.create({
   },
   content: {
     margin: 20,
-
-
-
-
-
   },
+  row: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  link: {
+    color: '#0044CC'
+  }
 })
 
 export default ParticipantsItem

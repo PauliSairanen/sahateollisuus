@@ -1,16 +1,63 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native'
+import { TabView, SceneMap } from 'react-native-tab-view'
+
+import programmeData from '../../data/jsonFiles/programme_2020'
+import ProgrammeItem from '../../components/ProgrammeItem'
+import TabViewComponent from '../../components/TabViewComponent'
 
 const ProgrammeScreen = props => {
   return (
     <View>
-      <Text>This is the Programme Screen!</Text>
+      <View style={styles.topDescription}>
+        <View style={styles.topContentContainer}>
+          <View style={styles.box}>
+            <Text>Time</Text>
+          </View>
+          <View style={styles.box}>
+            <Text>Programme</Text>
+          </View>
+          <View style={styles.box}>
+            <Text>Speaker</Text>
+          </View>
+        </View>
+
+      </View>
+
+      <FlatList
+        data={programmeData}
+        keyExtractor={item => item.index}
+        renderItem={programmeData =>
+          <ProgrammeItem
+            time={programmeData.item.Time}
+            location={programmeData.item.Location}
+            description={programmeData.item.Description}
+            speaker={programmeData.item.NameOfSpeaker}
+            titleOfSpeaker={programmeData.item.TitleOfSpeaker}
+            companyOfSpeaker={programmeData.item.CompanyOfSpeaker}
+          />
+        }
+      />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-
+  topDescription: {
+    backgroundColor: 'white',
+    margin: 10,
+    height: Dimensions.get('window').width / 100 * 10
+  },
+  topContentContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  }, 
+  box: {
+    flex: 1, 
+    justifyContent: 'center',
+    alignItems: 'center', 
+  }
 })
 
 export default ProgrammeScreen
+
