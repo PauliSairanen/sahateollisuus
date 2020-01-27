@@ -1,10 +1,23 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
+
+import speakersData from '../../data/jsonFiles/speakers_2020'
+import SpeakersItem from '../../components/SpeakersItem'
 
 const SpeakersScreen = props => {
   return (
     <View>
-      <Text>This is the Speakers Screen!</Text>
+      <FlatList
+        data={speakersData}
+        keyExtractor={item => item.email}
+        renderItem={speakersData =>
+          <SpeakersItem 
+            speaker={speakersData.item.Speaker}
+            title={speakersData.item.Title}
+            company={speakersData.item.Company}
+          />
+        }
+      />
     </View>
   )
 }
