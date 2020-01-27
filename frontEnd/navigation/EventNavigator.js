@@ -15,6 +15,7 @@ import AboutScreen from '../screens/event/AboutScreen'
 import ParticipantsScreen from '../screens/event/ParticipantsScreen'
 import ProgrammeScreen from '../screens/event/ProgrammeScreen'
 import SpeakersScreen from '../screens/event/SpeakersScreen'
+import SponsorsScreen from '../screens/event/SponsorsScreen'
 
 
 // _____ Navigation Options _____
@@ -23,10 +24,10 @@ const defaultNavOptions = {
     backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
   },
   headerTitleStyle: {
-    fontFamily: 'Rubik-Medium'
+    fontFamily: 'Rubik-Bold'
   },
   headerBackTitleStyle: {
-    fontFamily: 'Rubik-Bold'
+    fontFamily: 'Rubik-Medium'
   },
   headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
 }
@@ -38,7 +39,8 @@ const ScreenNavigator = createStackNavigator(
     About: AboutScreen,
     Participants: ParticipantsScreen,
     Programme: ProgrammeScreen,
-    Speakers: SpeakersScreen 
+    Speakers: SpeakersScreen,
+    Sponsors: SponsorsScreen,
 
   }, {
     defaultNavigationOptions: defaultNavOptions
