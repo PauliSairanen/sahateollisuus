@@ -32,6 +32,13 @@ const MainNavigationScreen = props => {
   )
 }
 
+MainNavigationScreen.navigationOptions = navData => {
+  return {
+    // This should be dynamic
+    headerTitle: 'Wood From Finland'
+  }
+}
+
 const styles = StyleSheet.create({
   listContainer: {
     flex: 1,

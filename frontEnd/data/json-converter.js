@@ -1,7 +1,7 @@
 let csvToJson = require('convert-csv-to-json');
  
-let fileInputName = 'speaker_data_2020.csv'; 
-let fileOutputName = 'speakers_2020.json';
+let fileInputName = 'sponsor_Urls.csv'; 
+let fileOutputName = 'sponsors_Urls.json';
 
 csvToJson.fieldDelimiter(',') .getJsonFromCsv(fileInputName)
  

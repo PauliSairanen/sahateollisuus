@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Image, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions } from 'react-native'
 import { withNavigation } from 'react-navigation'
+import Communications from 'react-native-communications'
 
 import Card from './Card'
 
@@ -14,12 +15,12 @@ const SponsorLogoItem = props => {
 
   return (
     <Card style={styles.card}>
-    <TouchableComponent
-      style={styles.touchable}
-      // onPress={() => {
-      //   props.navigation.navigate(navigationLink)
-      // }}
-    >
+      <TouchableComponent
+        style={styles.touchable}
+        onPress={() => {
+          Communications.web(props.link)
+        }}
+      >
         <View style={styles.imageContainer}>
           <Image
             source={props.image}
@@ -27,8 +28,8 @@ const SponsorLogoItem = props => {
             resizeMode='contain'
           />
         </View>
-    </TouchableComponent>
-      </Card>
+      </TouchableComponent>
+    </Card>
   )
 }
 
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '80%',
-     height: '80%'
+    height: '80%'
   }
 })
 

@@ -15,6 +15,7 @@ const SpeakersScreen = props => {
             speaker={speakersData.item.Speaker}
             title={speakersData.item.Title}
             company={speakersData.item.Company}
+            specialTitle={speakersData.item.SpecialTitle}
           />
         }
       />

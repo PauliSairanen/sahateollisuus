@@ -9,21 +9,6 @@ import TabViewComponent from '../../components/TabViewComponent'
 const ProgrammeScreen = props => {
   return (
     <View>
-      <View style={styles.topDescription}>
-        <View style={styles.topContentContainer}>
-          <View style={styles.box}>
-            <Text>Time</Text>
-          </View>
-          <View style={styles.box}>
-            <Text>Programme</Text>
-          </View>
-          <View style={styles.box}>
-            <Text>Speaker</Text>
-          </View>
-        </View>
-
-      </View>
-
       <FlatList
         data={programmeData}
         keyExtractor={item => item.index}
@@ -51,11 +36,11 @@ const styles = StyleSheet.create({
   topContentContainer: {
     flex: 1,
     flexDirection: 'row'
-  }, 
+  },
   box: {
-    flex: 1, 
+    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center', 
+    alignItems: 'center',
   }
 })
 
