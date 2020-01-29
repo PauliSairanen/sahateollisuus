@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native'
+import { View, StyleSheet, FlatList } from 'react-native'
 
 import SponsorLogoItem from '../../components/SponsorLogoItem'
 
@@ -24,8 +24,6 @@ import steveco from '../../assets/images/sponsors_logos2020/steveco_1080.jpg'
 import VRtranspoint from '../../assets/images/sponsors_logos2020/VRtranspoint_1080.jpg'
 
 arrayOfImages = [dbSchenker, DHL, Euroports, Fenniarail, Fracht, Greencarrier, hacklin, Hoolin, MSC, MSC, portofpietarsaari, portofpori, raahe, Rauanheimo, rauma, rpgroup, scanGlobal, steveco, VRtranspoint]
-
-
 
 export const companyLinksAndImages = [
   {
@@ -129,7 +127,6 @@ export const companyLinksAndImages = [
     "image": VRtranspoint
   }
 ]
-
 
 const SponsorsScreen = props => {
   return (

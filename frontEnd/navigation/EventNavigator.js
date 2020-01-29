@@ -42,7 +42,8 @@ const ScreenNavigator = createStackNavigator(
     Programme: ProgrammeScreen,
     Speakers: SpeakersScreen,
     Sponsors: SponsorsScreen,
-    Venue: VenueScreen
+    Venue: VenueScreen,
+    Login: LoginScreen,
 
   }, {
     defaultNavigationOptions: defaultNavOptions

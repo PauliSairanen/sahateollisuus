@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native'
+import { View, StyleSheet, FlatList, Dimensions } from 'react-native'
 
 import programmeData from '../../data/jsonFiles/programme_2020'
 import ProgrammeItem from '../../components/ProgrammeItem'

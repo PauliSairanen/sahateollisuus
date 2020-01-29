@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, StyleSheet, FlatList } from 'react-native'
 
 import speakersData from '../../data/jsonFiles/speakers_2020'
 import SpeakersItem from '../../components/SpeakersItem'
