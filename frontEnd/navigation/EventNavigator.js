@@ -16,6 +16,7 @@ import ParticipantsScreen from '../screens/event/ParticipantsScreen'
 import ProgrammeScreen from '../screens/event/ProgrammeScreen'
 import SpeakersScreen from '../screens/event/SpeakersScreen'
 import SponsorsScreen from '../screens/event/SponsorsScreen'
+import VenueScreen from '../screens/event/VenueScreen'
 
 
 // _____ Navigation Options _____
@@ -41,6 +42,7 @@ const ScreenNavigator = createStackNavigator(
     Programme: ProgrammeScreen,
     Speakers: SpeakersScreen,
     Sponsors: SponsorsScreen,
+    Venue: VenueScreen
 
   }, {
     defaultNavigationOptions: defaultNavOptions

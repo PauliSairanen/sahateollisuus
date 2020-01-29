@@ -1,10 +1,9 @@
 import React from 'react'
 import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native'
-import { TabView, SceneMap } from 'react-native-tab-view'
 
 import programmeData from '../../data/jsonFiles/programme_2020'
 import ProgrammeItem from '../../components/ProgrammeItem'
-import TabViewComponent from '../../components/TabViewComponent'
+
 
 const ProgrammeScreen = props => {
   return (
