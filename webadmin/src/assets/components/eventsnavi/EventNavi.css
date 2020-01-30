@@ -1,0 +1,11 @@
+.eventNavi {
+    grid-template-areas: "nav";
+}
+
+.navObjects {
+    grid-area: nav;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    align-items: center;
+    justify-items: center;
+}
