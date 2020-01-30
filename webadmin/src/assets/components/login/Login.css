@@ -1,0 +1,35 @@
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+  }
+  ::-webkit-input-placeholder {
+    text-align: center;
+  }
+  
+  :-moz-placeholder { /* Firefox 18- */
+    text-align: center;  
+  }
+  
+  ::-moz-placeholder {  /* Firefox 19+ */
+    text-align: center;  
+  }
+  
+  :-ms-input-placeholder {  
+    text-align: center; 
+    align-items: center;
+  }
+  input {
+    text-align: center;
+  }
+  input:focus::placeholder {
+    color: transparent;
+  }
+  #formLogin, #formPw, #btnLogin {
+    padding: 5px;
+  }
+  #btnLogin {
+    text-align: center;
+  }
