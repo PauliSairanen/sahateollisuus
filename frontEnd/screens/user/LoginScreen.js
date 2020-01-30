@@ -1,13 +1,11 @@
 import React, { useState, useCallback } from 'react'
-import { View, Text, Button, StyleSheet, KeyboardAvoidingView, ScrollView, TextInput, ActivityIndicator } from 'react-native'
+import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import Card from '../../components/Card'
 
 import Colors from '../../constants/Colors'
 import participantData from '../../data/jsonFiles/participants.json'
-
-
 
 const LoginScreen = props => {
   const [inputEmail, setInputEmail] = useState('')

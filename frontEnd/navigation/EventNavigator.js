@@ -1,6 +1,5 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-
 import { Platform} from 'react-native'
 
 import Colors from '../constants/Colors'
@@ -60,7 +59,7 @@ const MainNavigator = createSwitchNavigator({
   MainNavScreen: ScreenNavigator
 })
 
-export default createAppContainer(ScreenNavigator)
+export default createAppContainer(MainNavigator)
 
 
 
