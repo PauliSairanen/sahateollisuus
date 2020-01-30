@@ -10,9 +10,7 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
 }
 
-const SponsorLogoItem = props => {
-  const navigationLink = props.navigationLink
-
+const SponsorLogoItem = props => {  
   return (
     <Card style={styles.card}>
       <TouchableComponent

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
+import { View, FlatList } from 'react-native'
 
 import speakersData from '../../data/jsonFiles/speakers_2020.json'
 import SpeakersItem from '../../components/SpeakersItem'
@@ -9,7 +9,7 @@ const SpeakersScreen = props => {
     <View>
       <FlatList
         data={speakersData}
-        keyExtractor={item => item.email}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={speakersData =>
           <SpeakersItem 
             speaker={speakersData.item.Speaker}
@@ -22,9 +22,5 @@ const SpeakersScreen = props => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-
-})
 
 export default SpeakersScreen

@@ -1,130 +1,108 @@
 import React from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
+import { View,FlatList } from 'react-native'
 
 import SponsorLogoItem from '../../components/SponsorLogoItem'
-
-import dbSchenker from '../../assets/images/sponsors_logos2020/db-schenker_1080.jpg'
-import DHL from '../../assets/images/sponsors_logos2020/DHL_1080.jpg'
-import Euroports from '../../assets/images/sponsors_logos2020/Euroports_1080.jpg'
-import Fenniarail from '../../assets/images/sponsors_logos2020/fenniarail_1080.jpg'
-import Fracht from '../../assets/images/sponsors_logos2020/Fracht_1080.jpg'
-import Greencarrier from '../../assets/images/sponsors_logos2020/Greencarrier_1080.jpg'
-import hacklin from '../../assets/images/sponsors_logos2020/hacklin_1080.jpg'
-import Hoolin from '../../assets/images/sponsors_logos2020/Hoolin_1080.jpg'
-import MSC from '../../assets/images/sponsors_logos2020/MSC_1080.jpg'
-import portofhelsinki from '../../assets/images/sponsors_logos2020/portofhelsinki_1080.jpg'
-import portofpietarsaari from '../../assets/images/sponsors_logos2020/portofpietarsaari_1080.jpg'
-import portofpori from '../../assets/images/sponsors_logos2020/portofpori_1080.jpg'
-import raahe from '../../assets/images/sponsors_logos2020/raahe_1080.jpg'
-import Rauanheimo from '../../assets/images/sponsors_logos2020/Rauanheimo_1080.jpg'
-import rauma from '../../assets/images/sponsors_logos2020/rauma_1080.jpg'
-import rpgroup from '../../assets/images/sponsors_logos2020/rpgroup_1080.jpg'
-import scanGlobal from '../../assets/images/sponsors_logos2020/scan_global_1080.jpg'
-import steveco from '../../assets/images/sponsors_logos2020/steveco_1080.jpg'
-import VRtranspoint from '../../assets/images/sponsors_logos2020/VRtranspoint_1080.jpg'
-
-arrayOfImages = [dbSchenker, DHL, Euroports, Fenniarail, Fracht, Greencarrier, hacklin, Hoolin, MSC, MSC, portofpietarsaari, portofpori, raahe, Rauanheimo, rauma, rpgroup, scanGlobal, steveco, VRtranspoint]
 
 export const companyLinksAndImages = [
   {
     "CompanyName": "DB Schenker",
     "CompanyUrl": "https://www.dbschenker.com",
-    "image": dbSchenker
+    "image": require('../../assets/images/sponsors_logos2020/db-schenker_1080.jpg')
   },
   {
     "CompanyName": "DHL",
     "CompanyUrl": "https://www.dhl.com",
-    "image": DHL
+    "image": require('../../assets/images/sponsors_logos2020/DHL_1080.jpg')
   },
   {
     "CompanyName": "Euroports Finland",
     "CompanyUrl": "https://www.euroports.fi",
-    "image": Euroports
+    "image": require('../../assets/images/sponsors_logos2020/Euroports_1080.jpg')
   },
   {
     "CompanyName": "Fenniarail",
     "CompanyUrl": "https://www.fenniarail.fi",
-    "image": Fenniarail
+    "image": require('../../assets/images/sponsors_logos2020/fenniarail_1080.jpg')
   },
   {
     "CompanyName": "Fracht Finland Oy Ltd",
     "CompanyUrl": "https://www.fracht.com",
-    "image": Fracht
+    "image": require('../../assets/images/sponsors_logos2020/Fracht_1080.jpg')
   },
   {
     "CompanyName": "Greencarrier�Liner Agency Finland Oy",
     "CompanyUrl": "https://www.greencarrier.fi",
-    "image": Greencarrier
+    "image": require('../../assets/images/sponsors_logos2020/Greencarrier_1080.jpg')
   },
   {
     "CompanyName": "Hacklin Oy",
     "CompanyUrl": "https://www.hacklin.fi",
-    "image": hacklin
+    "image": require('../../assets/images/sponsors_logos2020/hacklin_1080.jpg')
   },
   {
     "CompanyName": "Helsingin Satama",
     "CompanyUrl": "https://www.portofhelsinki.fi",
-    "image": portofhelsinki
+    "image": require('../../assets/images/sponsors_logos2020/portofhelsinki_1080.jpg')
   },
   {
     "CompanyName": "Hooli Stevedoring Oy",
     "CompanyUrl": "https://www.hoolistevedoring.fi",
-    "image": Hoolin
+    "image": require('../../assets/images/sponsors_logos2020/Hoolin_1080.jpg')
   },
-  {
-    "CompanyName": "Kalajoen Satama",
-    "CompanyUrl": "https://www.portofkalajoki.fi",
-    "image": ""
-  },
+  // {
+  //   "CompanyName": "Kalajoen Satama",
+  //   "CompanyUrl": "https://www.portofkalajoki.fi",
+  //   "image": ''
+  // },
   {
     "CompanyName": "MSC",
     "CompanyUrl": "https://www.msc.com",
-    "image": MSC
+    "image": require('../../assets/images/sponsors_logos2020/MSC_1080.jpg')
   },
   {
     "CompanyName": "Pietarsaaren satama ",
     "CompanyUrl": "https://www.portofpietarsaari.fi",
-    "image": portofpietarsaari
+    "image": require('../../assets/images/sponsors_logos2020/portofpietarsaari_1080.jpg')
   },
   {
     "CompanyName": "Porin Satama Oy",
     "CompanyUrl": "https://www.portofpori.fi",
-    "image": portofpori
+    "image": require('../../assets/images/sponsors_logos2020/portofpori_1080.jpg')
   },
   {
     "CompanyName": "Raahen Satama",
     "CompanyUrl": "https://www.raahensatama.fi",
-    "image": raahe
+    "image": require('../../assets/images/sponsors_logos2020/raahe_1080.jpg')
   },
   {
     "CompanyName": "Rauanheimo M Oy",
     "CompanyUrl": "https://www.rauanheimo.com",
-    "image": Rauanheimo
+    "image": require('../../assets/images/sponsors_logos2020/Rauanheimo_1080.jpg')
   },
   {
     "CompanyName": "Rauman Satama ",
     "CompanyUrl": "https://www.portofrauma.com",
-    "image": rauma
+    "image": require('../../assets/images/sponsors_logos2020/rauma_1080.jpg')
   },
   {
     "CompanyName": "RP-Group",
     "CompanyUrl": "https://www.rpgroup.fi",
-    "image": rpgroup
+    "image": require('../../assets/images/sponsors_logos2020/rpgroup_1080.jpg')
   },
   {
     "CompanyName": "Scan Global Logistics (Finland) Oy",
     "CompanyUrl": "https://www.scangl.com",
-    "image": scanGlobal
+    "image": require('../../assets/images/sponsors_logos2020/scan_global_1080.jpg')
   },
   {
     "CompanyName": "Steveco Oy",
     "CompanyUrl": "https://www.steveco.fi",
-    "image": steveco
+    "image": require('../../assets/images/sponsors_logos2020/steveco_1080.jpg')
   },
   {
     "CompanyName": "VR-Yhtymä Oy ",
     "CompanyUrl": "https://www.vrtranspoint.fi",
-    "image": VRtranspoint
+    "image": require('../../assets/images/sponsors_logos2020/rpgroup_1080.jpg')
   }
 ]
 
@@ -133,7 +111,7 @@ const SponsorsScreen = props => {
     <View>
       <FlatList
         data={companyLinksAndImages}
-        keyExtractor={(item) => item.index}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={companyLinksAndImages =>
           <SponsorLogoItem
             link={companyLinksAndImages.item.CompanyUrl}
@@ -144,9 +122,5 @@ const SponsorsScreen = props => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-
-})
 
 export default SponsorsScreen
