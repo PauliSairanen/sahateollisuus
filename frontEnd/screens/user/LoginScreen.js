@@ -1,53 +1,87 @@
-import React, { useState } from 'react'
-import { View, Button, StyleSheet, KeyboardAvoidingView, ScrollView } from 'react-native'
+import React, { useState, useCallback } from 'react'
+import { View, Text, Button, StyleSheet, KeyboardAvoidingView, ScrollView, TextInput, ActivityIndicator } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import Card from '../../components/Card'
-import Input from '../../components/Input'
+
 import Colors from '../../constants/Colors'
-import participantData from '../../data/jsonFiles/participants'
+import participantData from '../../data/jsonFiles/participants.json'
+
 
 
 const LoginScreen = props => {
- 
+  const [inputEmail, setInputEmail] = useState('')
+  const [inputPassword, setInputPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  const eventPassword = 'abcd'
+
+
+  const loginFunction = () => {
+
+    setIsLoading(true)
+    let emailFound = false
+
+    for (var i = 0; i < participantData.length; i++) {
+      if (participantData[i].Email === inputEmail) {
+        emailFound = true
+        setIsLoading(false)
+        break
+      } else {
+        emailFound = false
+        setIsLoading(false)
+      }
+    }
+
+    if (emailFound === true && eventPassword === inputPassword) {
+      console.log('Authenticatication success!')
+    } else {
+      console.log('Authentication not successfull :(')
+    }
+
+
+
+
+  }
+
   return (
     <View>
       <LinearGradient colors={['orange', 'yellow']} style={styles.gradient}>
         <Card style={styles.loginContainer}>
           <ScrollView>
-            <Input
-              id='email'
-              label="E-mail"
-              keyboardType="email-address"
-              required
-              email
-              autoCapitalize="none"
-              errorText="Please Enter a valid email address."
-              onInputChange={(text) => setEmail({text})}
-              initialValue=""
+
+            <Text>Email</Text>
+            <TextInput
+              style={styles.input}
+              autoCapitalize='none'
+              keyboardType='email-address'
+              onChangeText={(text) => {
+                setInputEmail(text)
+              }}
+
+            />
+            <Text>Password</Text>
+            <TextInput
+              style={styles.input}
+              autoCapitalize='none'
+              onChangeText={(text) => {
+                setInputPassword(text)
+              }}
             />
 
-            <Input
-              id='password'
-              label="Password"
-              keyboardType="default"
-              secureTextEntry
-              required
-              minLenght={3}
-              autoCapitalize="none"
-              errorText="Please Enter a valid password."
-              onInputChange={(text) => setPassword({text})}
-              initialValue=""
-            />
+
             <View style={styles.buttonContainer}>
-              <Button //Switch text in title depending on state
+
+              {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>
+              ) : (<Button //Switch text in title depending on state
                 title={'Login'}
                 color={Colors.primary}
-                // onPress={loginHandler}
-              />
+                onPress={loginFunction}
+              />)}
+
+
             </View>
           </ScrollView>
-
         </Card>
       </LinearGradient>
     </View>
@@ -76,6 +110,12 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 10
+  },
+  input: {
+    paddingHorizontal: 2,
+    paddingVertical: 5,
+    borderColor: '#ccc',
+    borderWidth: 1,
   }
 })
 

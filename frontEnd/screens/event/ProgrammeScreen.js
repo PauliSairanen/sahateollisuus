@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, FlatList, Dimensions } from 'react-native'
 
-import programmeData from '../../data/jsonFiles/programme_2020'
+import programmeData from '../../data/jsonFiles/programme_2020.json'
 import ProgrammeItem from '../../components/ProgrammeItem'
 
 
