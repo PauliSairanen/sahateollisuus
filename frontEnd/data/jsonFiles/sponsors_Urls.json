@@ -1,4 +1,4 @@
-export default sponsorUrls = [
+[
  {
   "CompanyName": "DB Schenker",
   "CompanyUrl": "dbschenker.com"

@@ -1,5 +1,4 @@
-export default participantsData = [
-
+[
   {
     "IP": "194.255.25.134",
     "SubmissionID": "4554865574318777890",
@@ -3980,5 +3979,5 @@ export default participantsData = [
   },
   {
     "Email": "admin@admin.com"
-  },
+  }
 ]

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, FlatList } from 'react-native'
 
-import speakersData from '../../data/jsonFiles/speakers_2020'
+import speakersData from '../../data/jsonFiles/speakers_2020.json'
 import SpeakersItem from '../../components/SpeakersItem'
 
 const SpeakersScreen = props => {

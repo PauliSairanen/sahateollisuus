@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 
 import Card from '../../components/Card'
-import aboutData from '../../data/jsonFiles/about'
+import aboutData from '../../data/jsonFiles/about.json'
 
 const AboutScreen = props => {
   return (
