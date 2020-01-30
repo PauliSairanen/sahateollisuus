@@ -13,35 +13,41 @@ const LoginScreen = props => {
   const [inputEmail, setInputEmail] = useState('')
   const [inputPassword, setInputPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
+  const [emailFound, setEmailFound] = useState(false)
   const eventPassword = 'abcd'
 
+  const adminEmail = 'admin@test'
+  const adminPassword = 'admin'
 
   const loginFunction = () => {
-
     setIsLoading(true)
-    let emailFound = false
 
-    for (var i = 0; i < participantData.length; i++) {
-      if (participantData[i].Email === inputEmail) {
-        emailFound = true
-        setIsLoading(false)
-        break
+    // Admin login
+    if (inputEmail === adminEmail && inputPassword === adminPassword) {
+      console.log('Admin login!')
+      props.navigation.navigate('MainNavScreen')
+    } else {
+
+      // Check if user exits
+      for (var i = 0; i < participantData.length; i++) {
+        if (participantData[i].Email === inputEmail) {
+          setEmailFound(true)
+          setIsLoading(false)
+          break
+        } else {
+          setEmailFound(false)
+          setIsLoading(false)
+        }
+      }
+
+      // Check if email and password arre correct
+      if (emailFound === true && eventPassword === inputPassword) {
+        console.log('Authenticatication success!')
+        props.navigation.navigate('MainNavScreen')
       } else {
-        emailFound = false
-        setIsLoading(false)
+        console.log('Authentication not successfull :(')
       }
     }
-
-    if (emailFound === true && eventPassword === inputPassword) {
-      console.log('Authenticatication success!')
-    } else {
-      console.log('Authentication not successfull :(')
-    }
-
-
-
-
   }
 
   return (
@@ -72,7 +78,7 @@ const LoginScreen = props => {
 
             <View style={styles.buttonContainer}>
 
-              {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>
+              {isLoading ? (<ActivityIndicator size='small' color={Colors.primary} />
               ) : (<Button //Switch text in title depending on state
                 title={'Login'}
                 color={Colors.primary}

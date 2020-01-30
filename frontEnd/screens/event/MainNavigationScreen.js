@@ -12,7 +12,7 @@ const naviScreenData = [
   { id: 4, title: 'About', link: 'About', icon: Platform.OS === 'android' ? 'md-information-circle' : 'ios-information-circle' },
   { id: 5, title: 'Sponsors', link: 'Sponsors', icon: Platform.OS === 'android' ? 'md-contacts' : 'ios-contacts' },
   { id: 6, title: 'Venue', link: 'Venue', icon: Platform.OS === 'android' ? 'md-pin' : 'ios-pin' },
-  { id: 7, title: 'Login', link: 'Login', icon: Platform.OS === 'android' ? 'md-log-in' : 'ios-log-in' },
+  // { id: 7, title: 'Login', link: 'Login', icon: Platform.OS === 'android' ? 'md-log-in' : 'ios-log-in' },
   { id: 8, title: 'invisible', link: 'blank', icon: Platform.OS === 'android' ? '' : '' },
 ]
 

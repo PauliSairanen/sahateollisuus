@@ -58,7 +58,12 @@ const LoginNavigator = createStackNavigator(
 }
 )
 
-export default createAppContainer(ScreenNavigator)
+const MainNavigator = createSwitchNavigator({
+  Login: LoginNavigator,
+  MainNavScreen: ScreenNavigator
+})
+
+export default createAppContainer(MainNavigator)
 
 
 
