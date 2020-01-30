@@ -1,4 +1,4 @@
-export default programmeData = [
+[
  {
   "Time": "08.00-09.00",
   "Location": "Restaurant Paasi",
