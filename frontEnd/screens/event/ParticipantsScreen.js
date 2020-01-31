@@ -24,7 +24,7 @@ const ParticipantsScreen = props => {
     <View>
       <FlatList
         data={sortedCompanies}
-        keyExtractor={object => object.Email}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={itemData =>
           <ParticipantsItem
             company={itemData.item.Company}

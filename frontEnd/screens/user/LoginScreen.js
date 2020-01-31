@@ -11,39 +11,29 @@ const LoginScreen = props => {
   const [inputEmail, setInputEmail] = useState('')
   const [inputPassword, setInputPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [emailFound, setEmailFound] = useState(false)
   const eventPassword = 'abcd'
 
   const adminEmail = 'admin@test'
   const adminPassword = 'admin'
 
   const loginFunction = () => {
-    setIsLoading(true)
-
     // Admin login
     if (inputEmail === adminEmail && inputPassword === adminPassword) {
       console.log('Admin login!')
       props.navigation.navigate('MainNavScreen')
     } else {
-
       // Check if user exits
-      for (var i = 0; i < participantData.length; i++) {
-        if (participantData[i].Email === inputEmail) {
-          setEmailFound(true)
+      setIsLoading(true)
+      for (const object of participantData) {
+        if (object.Email === inputEmail && eventPassword === inputPassword) {
           setIsLoading(false)
+          console.log('Authenticatication success!')
+          props.navigation.navigate('MainNavScreen')
           break
         } else {
-          setEmailFound(false)
           setIsLoading(false)
+          console.log('Authentication not successfull :(')
         }
-      }
-
-      // Check if email and password arre correct
-      if (emailFound === true && eventPassword === inputPassword) {
-        console.log('Authenticatication success!')
-        props.navigation.navigate('MainNavScreen')
-      } else {
-        console.log('Authentication not successfull :(')
       }
     }
   }
@@ -52,9 +42,10 @@ const LoginScreen = props => {
     <View>
       <LinearGradient colors={['orange', 'yellow']} style={styles.gradient}>
         <Card style={styles.loginContainer}>
-          <ScrollView>
-
-            <Text>Email</Text>
+          <ScrollView
+            keyboardShouldPersistTaps='handled'
+          >
+            <Text style={styles.label}>Email</Text>
             <TextInput
               style={styles.input}
               autoCapitalize='none'
@@ -62,28 +53,23 @@ const LoginScreen = props => {
               onChangeText={(text) => {
                 setInputEmail(text)
               }}
-
             />
-            <Text>Password</Text>
+            <Text style={styles.label}>Password</Text>
             <TextInput
               style={styles.input}
               autoCapitalize='none'
+              secureTextEntry
               onChangeText={(text) => {
                 setInputPassword(text)
               }}
             />
-
-
             <View style={styles.buttonContainer}>
-
               {isLoading ? (<ActivityIndicator size='small' color={Colors.primary} />
               ) : (<Button //Switch text in title depending on state
                 title={'Login'}
                 color={Colors.primary}
                 onPress={loginFunction}
               />)}
-
-
             </View>
           </ScrollView>
         </Card>
@@ -93,12 +79,15 @@ const LoginScreen = props => {
 }
 
 LoginScreen.navigationOptions = {
-  headerTitle: 'Login'
+  headerTitle: 'Wood From Finland'
 }
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+  },
+  label: {
+    marginVertical: 8,
   },
   loginContainer: {
     width: '80%',
@@ -113,13 +102,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonContainer: {
-    marginTop: 10
+
   },
   input: {
+    margin: 10,
     paddingHorizontal: 2,
     paddingVertical: 5,
-    borderColor: '#ccc',
-    borderWidth: 1,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
   }
 })
 

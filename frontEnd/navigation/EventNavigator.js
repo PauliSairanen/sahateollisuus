@@ -13,6 +13,7 @@ import ProgrammeScreen from '../screens/event/ProgrammeScreen'
 import SpeakersScreen from '../screens/event/SpeakersScreen'
 import SponsorsScreen from '../screens/event/SponsorsScreen'
 import VenueScreen from '../screens/event/VenueScreen'
+import FeedbackScreen from '../screens/event/FeedbaackScreen'
 
 
 // _____ Navigation Options _____
@@ -39,7 +40,7 @@ const ScreenNavigator = createStackNavigator(
     Speakers: SpeakersScreen,
     Sponsors: SponsorsScreen,
     Venue: VenueScreen,
-    Login: LoginScreen,
+    Feedback: FeedbackScreen,
 
   }, {
     defaultNavigationOptions: defaultNavOptions
@@ -59,7 +60,7 @@ const MainNavigator = createSwitchNavigator({
   MainNavScreen: ScreenNavigator
 })
 
-export default createAppContainer(MainNavigator)
+export default createAppContainer(ScreenNavigator)
 
 
 
