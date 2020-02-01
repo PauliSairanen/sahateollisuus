@@ -2,7 +2,7 @@
  {
   "Time": "08.00-09.00",
   "Location": "Restaurant Paasi",
-  "Description": "Brekfast",
+  "Description": "Breakfast",
   "NameOfSpeaker": "",
   "TitleOfSpeaker": "",
   "CompanyOfSpeaker": ""
@@ -20,17 +20,10 @@
   "Location": "Congress Hall",
   "Description": "Welcome",
   "NameOfSpeaker": "Tommi Sneck",
-  "TitleOfSpeaker": "Director Saw Timber Industry",
+  "TitleOfSpeaker": "Director Saw Timber Industry, Chairman of Finnish Sawmills Association",
   "CompanyOfSpeaker": "Koskisen Oy"
  },
- {
-  "Time": "",
-  "Location": "",
-  "Description": "",
-  "NameOfSpeaker": "",
-  "TitleOfSpeaker": "Chairman of Finnish Sawmills Association",
-  "CompanyOfSpeaker": ""
- },
+
  {
   "Time": "09.15-09.30",
   "Location": "Congress Hall",
@@ -44,15 +37,7 @@
   "Location": "Congress Hall",
   "Description": "Climate Change and Wood Products",
   "NameOfSpeaker": "Markku Ollikainen",
-  "TitleOfSpeaker": "Professor ",
-  "CompanyOfSpeaker": ""
- },
- {
-  "Time": "",
-  "Location": "",
-  "Description": "",
-  "NameOfSpeaker": "",
-  "TitleOfSpeaker": "Chairman of thr Finnish Climate Change Panel",
+  "TitleOfSpeaker": "Professor, Chairman of thr Finnish Climate Change Panel ",
   "CompanyOfSpeaker": ""
  },
  {
@@ -154,7 +139,7 @@
  {
   "Time": "15.30-16.00",
   "Location": "Congress Hall",
-  "Description": "Russian Sawmill Industry Uptade",
+  "Description": "Russian Sawmill Industry Update",
   "NameOfSpeaker": "Alexander Aleksin",
   "TitleOfSpeaker": "Head of Sawn Timber Sales",
   "CompanyOfSpeaker": "Company Group VLP"
@@ -170,7 +155,7 @@
  {
   "Time": "18.00-18.30",
   "Location": "Entrance Hall",
-  "Description": "Coktails",
+  "Description": "Cocktails",
   "NameOfSpeaker": "",
   "TitleOfSpeaker": "",
   "CompanyOfSpeaker": ""

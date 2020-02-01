@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Image } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import Card from './Card'
 import Colors from '../constants/Colors'
@@ -14,6 +15,9 @@ import image7 from '../assets/images/speakers_2020/Paula_Horne_1080.jpg'
 import image8 from '../assets/images/speakers_2020/Tommi_Sneck_1080.jpg'
 import image9 from '../assets/images/speakers_2020/Tuuli_Koivu_1080.jpg'
 import image10 from '../assets/images/speakers_2020/Ville_Skinnari_1080.jpg'
+import image11 from '../assets/images/speakers_2020/Esa_Mikkonen_1080.jpg'
+import noSpeakerImage from '../assets/images/speakers_2020/No_Speaker_Image.jpg'
+
 
 export const namesAndImages = [
   { "name": "Alexander Aleksin", "image": image1 },
@@ -26,6 +30,9 @@ export const namesAndImages = [
   { "name": "Tommi Sneck", "image": image8 },
   { "name": "Tuuli Koivu", "image": image9 },
   { "name": "Ville Skinnari", "image": image10 },
+  { "name": "Esa Mikkonen", "image": image11 },
+  { "name": "Markku Ollikainen", "image": noSpeakerImage },
+  { "name": "Thorsten Leicht", "image": noSpeakerImage },
 ]
 
 let TouchableComponent = TouchableOpacity
@@ -34,14 +41,17 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const SpeakersItem = props => {
+  const [imageFound, setImageFound] = useState(false)
+
   const speakerName = props.speaker
   const specialTitle = props.specialTitle
   const arrayOfImages = namesAndImages
 
   let imageToDisplay
   arrayOfImages.forEach(item => {
-    if (item.name === speakerName)
+    if (item.name === speakerName) {
       imageToDisplay = item.image
+    }
   })
 
   return (
@@ -51,6 +61,7 @@ const SpeakersItem = props => {
           <View style={styles.textContainer}>
             <Text style={styles.nameText}>{props.speaker}</Text>
             <Text style={styles.text}>{props.title}</Text>
+            <Text></Text>
             <Text style={styles.text}>{props.company}</Text>
             <Text style={styles.text}>{props.specialTitle}</Text>
 
@@ -87,6 +98,7 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 16,
     paddingBottom: 4,
+    fontWeight: 'bold'
   },
   text: {
 

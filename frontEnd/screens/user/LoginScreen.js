@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react'
-import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator } from 'react-native'
+import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import Card from '../../components/Card'
 
 import Colors from '../../constants/Colors'
 import participantData from '../../data/jsonFiles/participants.json'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 const LoginScreen = props => {
   const [inputEmail, setInputEmail] = useState('')
@@ -16,10 +17,13 @@ const LoginScreen = props => {
   const adminEmail = 'admin@test'
   const adminPassword = 'admin'
 
+  let loginFailed = false
+
   const loginFunction = () => {
     // Admin login
     if (inputEmail === adminEmail && inputPassword === adminPassword) {
       console.log('Admin login!')
+      loginFailed = false
       props.navigation.navigate('MainNavScreen')
     } else {
       // Check if user exits
@@ -27,54 +31,60 @@ const LoginScreen = props => {
       for (const object of participantData) {
         if (object.Email === inputEmail && eventPassword === inputPassword) {
           setIsLoading(false)
+          loginFailed = false
           console.log('Authenticatication success!')
           props.navigation.navigate('MainNavScreen')
-          break
+          return
         } else {
           setIsLoading(false)
-          console.log('Authentication not successfull :(')
+          loginFailed = true
         }
+      }
+      if (loginFailed = true) {
+        Alert.alert('Login failed', 'Incorrect login credentials', [{ text: 'Okay' }])
       }
     }
   }
 
   return (
-    <View>
-      <LinearGradient colors={['orange', 'yellow']} style={styles.gradient}>
-        <Card style={styles.loginContainer}>
-          <ScrollView
-            keyboardShouldPersistTaps='handled'
-          >
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-              style={styles.input}
-              autoCapitalize='none'
-              keyboardType='email-address'
-              onChangeText={(text) => {
-                setInputEmail(text)
-              }}
-            />
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-              style={styles.input}
-              autoCapitalize='none'
-              secureTextEntry
-              onChangeText={(text) => {
-                setInputPassword(text)
-              }}
-            />
-            <View style={styles.buttonContainer}>
-              {isLoading ? (<ActivityIndicator size='small' color={Colors.primary} />
-              ) : (<Button //Switch text in title depending on state
-                title={'Login'}
-                color={Colors.primary}
-                onPress={loginFunction}
-              />)}
-            </View>
-          </ScrollView>
-        </Card>
-      </LinearGradient>
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false} >
+      <View>
+        <LinearGradient colors={['orange', 'yellow']} style={styles.gradient}>
+          <Card style={styles.loginContainer}>
+            <ScrollView
+              keyboardShouldPersistTaps='handled'
+            >
+              <Text style={styles.label}>Email</Text>
+              <TextInput
+                style={styles.input}
+                autoCapitalize='none'
+                keyboardType='email-address'
+                onChangeText={(text) => {
+                  setInputEmail(text)
+                }}
+              />
+              <Text style={styles.label}>Password</Text>
+              <TextInput
+                style={styles.input}
+                autoCapitalize='none'
+                secureTextEntry
+                onChangeText={(text) => {
+                  setInputPassword(text)
+                }}
+              />
+              <View style={styles.buttonContainer}>
+                {isLoading ? (<ActivityIndicator size='small' color={Colors.primary} />
+                ) : (<Button //Switch text in title depending on state
+                  title={'Login'}
+                  color={Colors.primary}
+                  onPress={loginFunction}
+                />)}
+              </View>
+            </ScrollView>
+          </Card>
+        </LinearGradient>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 

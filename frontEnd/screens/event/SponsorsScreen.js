@@ -102,7 +102,7 @@ export const companyLinksAndImages = [
   {
     "CompanyName": "VR-Yhtymä Oy ",
     "CompanyUrl": "https://www.vrtranspoint.fi",
-    "image": require('../../assets/images/sponsors_logos2020/rpgroup_1080.jpg')
+    "image": require('../../assets/images/sponsors_logos2020/VRtranspoint_1080.jpg')
   }
 ]
 
