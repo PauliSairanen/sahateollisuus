@@ -89,7 +89,7 @@ const LoginScreen = props => {
 }
 
 LoginScreen.navigationOptions = {
-  headerTitle: 'Wood From Finland'
+  headerTitle: 'Wood from Finland Conference 2020'
 }
 
 const styles = StyleSheet.create({

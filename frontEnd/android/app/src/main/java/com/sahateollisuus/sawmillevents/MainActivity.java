@@ -1,4 +1,4 @@
-package com.frontend;
+package com.sahateollisuus.sawmillevents;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "frontEnd";
+    return "SawmillEvents";
   }
 
   // __________ Added for gesture handler __________
