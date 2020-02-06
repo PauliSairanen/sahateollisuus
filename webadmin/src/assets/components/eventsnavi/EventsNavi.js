@@ -1,20 +1,33 @@
 import React from "react";
+import { useAuth } from '../../context/Auth';
 import "./EventsNavi.css";
 
 const EventNavi = props =>{
+    const { setAuthTokens } = useAuth();
+    function logOut() {
+        setAuthTokens();
+    }
     return (
-        <div className="eventNavi">
-            <nav className="navObjects">
-                <a href="/">1</a>
-                <a href="/">2</a>
-                <a href="/">3</a>
-                <a href="/">4</a>
-                <a href="/">5</a>
-                <a href="/">6</a>
-                <a href="/">7</a>
-                <a href="/">8</a>
-                <a href="/">9</a>
-            </nav>
+        <div>
+            <div className="title">
+                EVENTS
+                <button onClick={logOut}>
+                    Kirjaudu ulos
+                </button>
+                </div>
+            <div className="eventNavi">
+                <nav className="navObjects">
+                    <a href="/"><button>1</button></a>
+                    <a href="/"><button>2</button></a>
+                    <a href="/"><button>3</button></a>
+                    <a href="/"><button>4</button></a>
+                    <a href="/"><button>5</button></a>
+                    <a href="/"><button>6</button></a>
+                    <a href="/"><button>7</button></a>
+                    <a href="/"><button>8</button></a>
+                    <a href="/"><button>9</button></a>
+                </nav>
+            </div>
         </div>
     )
 }
