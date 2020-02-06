@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const EventSchema = require('../models/event');
+const EventSchema = require('../models/DEPRECATEDevent');
 const config = require('../config/config')
 const Event = require('../models/events');
 const SortedParticipants = require('../bin/startnode')
