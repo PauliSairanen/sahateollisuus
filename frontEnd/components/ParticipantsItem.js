@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
   },
   company: {
     fontSize: 18,
-    padding: 15
+    padding: 5,
+    fontWeight: 'bold'
   },
   text: {
     paddingLeft: 15,
@@ -88,8 +89,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    alignItems: 'center',
     paddingLeft: 15,
-    padding: 10
+    padding: 5,
+    borderColor: Colors.defaultText,
+    borderBottomWidth: 1,
   }
 })
 

@@ -1,6 +1,6 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-import { Platform} from 'react-native'
+import { Platform, Dimensions} from 'react-native'
 
 import Colors from '../constants/Colors'
 
@@ -19,10 +19,10 @@ import FeedbackScreen from '../screens/event/FeedbaackScreen'
 // _____ Navigation Options _____
 const defaultNavOptions = {
   headerStyle: {
-    backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
+    backgroundColor: Platform.OS === 'android' ? Colors.primary : '',
   },
   headerTitleStyle: {
-    fontFamily: 'Rubik-Bold'
+    fontFamily: 'Rubik-Bold',
   },
   headerBackTitleStyle: {
     fontFamily: 'Rubik-Medium'
@@ -60,7 +60,7 @@ const MainNavigator = createSwitchNavigator({
   MainNavScreen: ScreenNavigator
 })
 
-export default createAppContainer(MainNavigator)
+export default createAppContainer(ScreenNavigator)
 
 
 
