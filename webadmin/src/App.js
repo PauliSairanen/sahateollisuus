@@ -7,7 +7,6 @@ import './App.css';
 
 // Components imports
 
-//import EditingNavi from './assets/components/editingnavi/EditingNavi';
 //import EventMaterials from './assets/components/eventmaterials/EventMaterials';
 import EventsNavi from './assets/components/eventsnavi/EventsNavi';
 //import Info from './assets/components/info/InfoEdit';
@@ -27,8 +26,7 @@ const App = props => {
       <Router>
         <div>
         <Jumbotron>
-        
-          <Route exact path="/" component={EventsNavi} />
+          <Route exact path="/" component={Login} />
           <PrivateRoute path="/eventsnavi" component={EventsNavi} />
         </Jumbotron>
         </div>
