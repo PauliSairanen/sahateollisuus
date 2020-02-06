@@ -3,7 +3,6 @@ import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicato
 import LinearGradient from 'react-native-linear-gradient'
 
 import Card from '../../components/Card'
-
 import Colors from '../../constants/Colors'
 import participantData from '../../data/jsonFiles/participants.json'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -12,7 +11,7 @@ const LoginScreen = props => {
   const [inputEmail, setInputEmail] = useState('')
   const [inputPassword, setInputPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const eventPassword = 'abcd'
+  const eventPassword = 'WFFC2020'
 
   const adminEmail = 'admin@test'
   const adminPassword = 'admin'
