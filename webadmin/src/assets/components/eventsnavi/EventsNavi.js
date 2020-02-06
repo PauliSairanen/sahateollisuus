@@ -1,7 +1,7 @@
 import React from "react";
-import "./EventNavi.css";
+import "./EventsNavi.css";
 
-export default function EventNavi() {
+const EventNavi = props =>{
     return (
         <div className="eventNavi">
             <nav className="navObjects">
@@ -13,8 +13,10 @@ export default function EventNavi() {
                 <a href="/">6</a>
                 <a href="/">7</a>
                 <a href="/">8</a>
-            <a href="/">9</a>
+                <a href="/">9</a>
             </nav>
         </div>
     )
 }
+
+export default EventNavi;

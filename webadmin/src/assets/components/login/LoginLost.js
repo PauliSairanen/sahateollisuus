@@ -1,11 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import "./Login.css";
-//import LoginLost from "./assets/components/login/LoginLost";
 
 const FormLogin = () => {
 
-  // Tämä pitää saada ensimmäisenä toimimaan https://react-hook-form.com/
+  // Tämä luo/palauttaa kirjautumistiedot sähköpostilla sitten joskus
 
   return (
     <form autocomplete="off">
@@ -26,9 +24,6 @@ const FormLogin = () => {
         </div>
         <div id="btnLogin">
           <input type="submit" value="Login"></input>
-        </div>
-        <div id="loginLost">
-          <Link to="/loginlost">Need help with signing in?</Link>
         </div>
         <br/>
       </div>
