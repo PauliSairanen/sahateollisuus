@@ -1,8 +1,12 @@
 import React from 'react';
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import PrivateRoute from './assets/context/PrivateRoute';
+import { AuthContext } from './assets/context/Auth';
 import { Jumbotron } from 'reactstrap';
 import './App.css';
 
-// Componenets imports
+// Components imports
 
 import EditingNavi from './assets/components/editingnavi/EditingNavi';
 import EventMaterials from './assets/components/eventmaterials/EventMaterials';
@@ -13,28 +17,21 @@ import FormParticipant from './assets/components/participants/FormParticipant';
 import FormSpeaker from './assets/components/speakers/FormSpeaker';
 import FormSponsor from './assets/components/sponsors/FormSponsor';
 
-export default class App extends React.Component {
-
-  // Tästä kaikki alkaa
-
-  render() {
-
-    // Support library for legacy browsers - added to public/index.html
-    // add this to not trigger eslint no-undef
-    /* global Modernizr */
-    console.log(Modernizr);
-    // do your checking with Modernizr
-    if (Modernizr.awesomeNewFeature) {
-      // do your stuff here
-    } 
-
-    return (
-      <div>
+const App = () => {
+  return (
+    <AuthContext.Provider value={false}>
+      <Router>
+        <div>
         <Jumbotron>
+        
+          <Route exact path="/" component={EventsNavi} />
+          <PrivateRoute path="/eventsnavi" component={EventsNavi} />
         </Jumbotron>
-      </div>
-    );
+        </div>
+      </Router>
+    </AuthContext.Provider>
+  );
+}
 
-  }
+export default App
 
-};

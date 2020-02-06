@@ -33,3 +33,9 @@
   #btnLogin {
     text-align: center;
   }
+  #loginLost, a, a:visited {
+    text-align: center;
+    font-size: 10px;
+    text-decoration: none;
+    color: hotpink;
+  }
