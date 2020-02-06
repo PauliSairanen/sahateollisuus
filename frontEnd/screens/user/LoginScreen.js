@@ -1,9 +1,8 @@
 import React, { useState, useCallback } from 'react'
-import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert } from 'react-native'
+import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert, Dimensions, Platform } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import Card from '../../components/Card'
-
 import Colors from '../../constants/Colors'
 import participantData from '../../data/jsonFiles/participants.json'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -12,7 +11,7 @@ const LoginScreen = props => {
   const [inputEmail, setInputEmail] = useState('')
   const [inputPassword, setInputPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const eventPassword = 'abcd'
+  const eventPassword = 'WFFC2020'
 
   const adminEmail = 'admin@test'
   const adminPassword = 'admin'
@@ -89,12 +88,19 @@ const LoginScreen = props => {
 }
 
 LoginScreen.navigationOptions = {
-  headerTitle: 'Wood from Finland Conference 2020'
+  headerTitle: () => (
+    <View style={styles.headerContainer}>
+      <Text style={styles.headerTitleStyle}>Wood from Finland Conference 2020</Text>
+    </View>),
 }
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+  },
+  headerTitleStyle: {
+    fontFamily: 'Rubik-Bold',
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
   },
   label: {
     marginVertical: 8,
@@ -112,7 +118,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonContainer: {
-
   },
   input: {
     margin: 10,
@@ -120,7 +125,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
-  }
+  },
 })
 
 export default LoginScreen
