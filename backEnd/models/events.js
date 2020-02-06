@@ -58,15 +58,14 @@ const ItemSchema = new Schema(
         },
         participants : [
           {
-            firstname : String,
-            lastname : String,
-            email : String,
-            telephone : String,
-            company : String,
-            country : String,
-            role : String,
-            participation : String
-          }
+            "FirstName": String,
+            "LastName": String,
+            "Email": String,
+            "Phone": String,
+            "Company": String,
+            "Country": String,
+            "Icomefrom": String
+           }
         ],
         schedule : [
           {

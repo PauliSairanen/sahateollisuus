@@ -187,9 +187,14 @@ class Events {
     findParticipants(req, res){
         
             var a = Event.find({"eventId": "1"},{"participants": 1, _id: 0}).then(function(a){
-                let muuttuja = sortParticipants(a[0].participants)
-                console.log(muuttuja);
-                res.send(muuttuja);
+                //let muuttuja = sortParticipants(a[0].participants)
+                
+                a[0].participants.forEach(function(e, i) {
+                    // Kaikkien henkilöiden looppaamiseen
+                    console.log(a[0].participants[i]);
+                });
+                console.log(a[0].participants[0]); // Loggaa ensimmäisen henkilön
+                res.send(a[0]);
                 //res.send(a[0].participants);
                 //console.log(a[0].participants);
                 res.end();
