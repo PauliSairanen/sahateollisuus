@@ -1,100 +1,103 @@
 import React, { useState, useCallback } from 'react'
-import { View, Text, Button, StyleSheet, KeyboardAvoidingView, ScrollView, TextInput, ActivityIndicator } from 'react-native'
+import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import Card from '../../components/Card'
 
 import Colors from '../../constants/Colors'
 import participantData from '../../data/jsonFiles/participants.json'
-
-
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 const LoginScreen = props => {
   const [inputEmail, setInputEmail] = useState('')
   const [inputPassword, setInputPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
   const eventPassword = 'abcd'
 
+  const adminEmail = 'admin@test'
+  const adminPassword = 'admin'
+
+  let loginFailed = false
 
   const loginFunction = () => {
-
-    setIsLoading(true)
-    let emailFound = false
-
-    for (var i = 0; i < participantData.length; i++) {
-      if (participantData[i].Email === inputEmail) {
-        emailFound = true
-        setIsLoading(false)
-        break
-      } else {
-        emailFound = false
-        setIsLoading(false)
+    // Admin login
+    if (inputEmail === adminEmail && inputPassword === adminPassword) {
+      console.log('Admin login!')
+      loginFailed = false
+      props.navigation.navigate('MainNavScreen')
+    } else {
+      // Check if user exits
+      setIsLoading(true)
+      for (const object of participantData) {
+        if (object.Email === inputEmail && eventPassword === inputPassword) {
+          setIsLoading(false)
+          loginFailed = false
+          console.log('Authenticatication success!')
+          props.navigation.navigate('MainNavScreen')
+          return
+        } else {
+          setIsLoading(false)
+          loginFailed = true
+        }
+      }
+      if (loginFailed = true) {
+        Alert.alert('Login failed', 'Incorrect login credentials', [{ text: 'Okay' }])
       }
     }
-
-    if (emailFound === true && eventPassword === inputPassword) {
-      console.log('Authenticatication success!')
-    } else {
-      console.log('Authentication not successfull :(')
-    }
-
-
-
-
   }
 
   return (
-    <View>
-      <LinearGradient colors={['orange', 'yellow']} style={styles.gradient}>
-        <Card style={styles.loginContainer}>
-          <ScrollView>
-
-            <Text>Email</Text>
-            <TextInput
-              style={styles.input}
-              autoCapitalize='none'
-              keyboardType='email-address'
-              onChangeText={(text) => {
-                setInputEmail(text)
-              }}
-
-            />
-            <Text>Password</Text>
-            <TextInput
-              style={styles.input}
-              autoCapitalize='none'
-              onChangeText={(text) => {
-                setInputPassword(text)
-              }}
-            />
-
-
-            <View style={styles.buttonContainer}>
-
-              {isLoading ? (<ActivityIndicator size='small' color={Colors.primary}/>
-              ) : (<Button //Switch text in title depending on state
-                title={'Login'}
-                color={Colors.primary}
-                onPress={loginFunction}
-              />)}
-
-
-            </View>
-          </ScrollView>
-        </Card>
-      </LinearGradient>
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false} >
+      <View>
+        <LinearGradient colors={['orange', 'yellow']} style={styles.gradient}>
+          <Card style={styles.loginContainer}>
+            <ScrollView
+              keyboardShouldPersistTaps='handled'
+            >
+              <Text style={styles.label}>Email</Text>
+              <TextInput
+                style={styles.input}
+                autoCapitalize='none'
+                keyboardType='email-address'
+                onChangeText={(text) => {
+                  setInputEmail(text)
+                }}
+              />
+              <Text style={styles.label}>Password</Text>
+              <TextInput
+                style={styles.input}
+                autoCapitalize='none'
+                secureTextEntry
+                onChangeText={(text) => {
+                  setInputPassword(text)
+                }}
+              />
+              <View style={styles.buttonContainer}>
+                {isLoading ? (<ActivityIndicator size='small' color={Colors.primary} />
+                ) : (<Button //Switch text in title depending on state
+                  title={'Login'}
+                  color={Colors.primary}
+                  onPress={loginFunction}
+                />)}
+              </View>
+            </ScrollView>
+          </Card>
+        </LinearGradient>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 
 LoginScreen.navigationOptions = {
-  headerTitle: 'Login'
+  headerTitle: 'Wood from Finland Conference 2020'
 }
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+  },
+  label: {
+    marginVertical: 8,
   },
   loginContainer: {
     width: '80%',
@@ -109,13 +112,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonContainer: {
-    marginTop: 10
+
   },
   input: {
+    margin: 10,
     paddingHorizontal: 2,
     paddingVertical: 5,
-    borderColor: '#ccc',
-    borderWidth: 1,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
   }
 })
 

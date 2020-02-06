@@ -24,7 +24,7 @@ const ParticipantsScreen = props => {
     <View>
       <FlatList
         data={sortedCompanies}
-        keyExtractor={item => item.email}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={itemData =>
           <ParticipantsItem
             company={itemData.item.Company}
@@ -39,10 +39,6 @@ const ParticipantsScreen = props => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-
-})
 
 export default ParticipantsScreen
 

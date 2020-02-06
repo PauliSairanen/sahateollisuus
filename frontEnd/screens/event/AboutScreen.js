@@ -12,9 +12,6 @@ const AboutScreen = props => {
           <View style={styles.title}>
             <Text style={{ fontWeight: 'bold' }}>{aboutData.about.title}</Text>
           </View>
-          <View style={styles.about}>
-            <Text>{aboutData.about.aboutEvent}</Text>
-          </View>
           <View style={styles.mainTextWrapper}>
             <View style={styles.bodyText}>
               <Text>{aboutData.about.bodyText0}</Text>

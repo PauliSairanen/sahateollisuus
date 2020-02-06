@@ -43,12 +43,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     marginVertical: 5,
-
   },
   description: {
     flex: 1,
-    paddingRight: 20, 
-
+    paddingRight: 20,
+    fontWeight: 'bold' 
   },
   location: {
     flex: 1,
@@ -56,27 +55,3 @@ const styles = StyleSheet.create({
 })
 
 export default ProgrammeItem
-
-// timeBlock: {
-//   flex: 1,
-//   margin: 5,
-//   padding: 10,
-//   backgroundColor: 'white',
-//   flexDirection: 'row',
-//   justifyContent: 'flex-start',
-// },
-// timeContainer: {
-//   flex: 1,
-//   flexDirection: 'row',
-//   justifyContent: 'flex-start',
-// },
-// infoContainer: {
-//   flex: 3,
-//   justifyContent: 'flex-start'
-// },
-// descriptionContainer: {
-//   flex: 1,
-//   flexDirection: 'row',
-//   justifyContent: 'flex-start',
-//   paddingHorizontal: 10,
-// },
