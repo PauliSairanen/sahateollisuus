@@ -23,7 +23,8 @@ const App = () => {
       <Router>
         <div>
         <Jumbotron>
-          <Route exact path="/" component={Login} />
+        
+          <Route exact path="/" component={EventsNavi} />
           <PrivateRoute path="/eventsnavi" component={EventsNavi} />
         </Jumbotron>
         </div>
