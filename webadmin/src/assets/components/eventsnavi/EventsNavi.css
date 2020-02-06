@@ -1,3 +1,27 @@
+.title {
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    font-size: 40px;
+    color: hotpink;
+  }
+  ::-webkit-input-placeholder {
+    text-align: center;
+  }
+  
+  :-moz-placeholder { /* Firefox 18- */
+    text-align: center;  
+  }
+  
+  ::-moz-placeholder {  /* Firefox 19+ */
+    text-align: center;  
+  }
+  
+  :-ms-input-placeholder {  
+    text-align: center; 
+    align-items: center;
+  }
+  
 .eventNavi {
     grid-template-areas: "nav";
 }
@@ -8,4 +32,8 @@
     grid-template-columns: repeat(3, auto);
     align-items: center;
     justify-items: center;
+    height: 100px;
+    width: 200px;
+    margin: 100px;
+    color: hotpink;
 }
