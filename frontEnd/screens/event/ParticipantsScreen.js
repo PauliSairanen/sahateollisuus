@@ -1,39 +1,50 @@
 import React from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
+import { View, FlatList } from 'react-native'
 
-// import participantsData from '../../data/jsonFiles/participants'
+import participantsData from '../../data/jsonFiles/participants'
 import ParticipantsItem from '../../components/ParticipantsItem'
+
+// __________ Function that gets data from the server __________
+//  async function getParticipantsFromApi() {
+//   try {
+//     let response = await fetch('http://sahat.lamk.fi/findParticipants')
+//     let responseJson = await response.json();
+
+//     // Sorting data got from Json
+//     responseJson.participants.forEach(object => {
+
+//       if (!sortedCompanies.includes(object.Company)) {
+//         sortedCompanies.push(object)
+//       }
+//     });
+//     sortedCompanies.sort(function (a, b) {
+//       if (a.Company < b.Company) { return -1; }
+//       if (a.Company > b.Company) { return 1; }
+//       return 0;
+//     });
+//     console.log(sortedCompanies)
+//     return sortedCompanies
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+// getParticipantsFromApi()
+// console.log('Log from outside Async')
+// console.log(sortedCompanies)
 
 const sortedCompanies = []
 
- async function getParticipantsFromApi() {
-  try {
-    let response = await fetch('http://sahat.lamk.fi/findParticipants')
-    let responseJson = await response.json();
-
-    // Sorting data got from Json
-    responseJson.participants.forEach(object => {
-      
-      if (!sortedCompanies.includes(object.Company)) {
-        sortedCompanies.push(object)
-      }
-    });
-    sortedCompanies.sort(function (a, b) {
-      if (a.Company < b.Company) { return -1; }
-      if (a.Company > b.Company) { return 1; }
-      return 0;
-    });
-    console.log(sortedCompanies)
-    return sortedCompanies
-  } catch (error) {
-    console.error(error);
+participantsData.forEach(object => {
+  if (!sortedCompanies.includes(object.Company)) {
+    sortedCompanies.push(object)
   }
-}
-
-getParticipantsFromApi()
-console.log('Log from outside Async')
-console.log(sortedCompanies)
-
+});
+sortedCompanies.sort(function (a, b) {
+  if (a.Company < b.Company) { return -1; }
+  if (a.Company > b.Company) { return 1; }
+  return 0;
+});
 
 const ParticipantsScreen = props => {
   return (
