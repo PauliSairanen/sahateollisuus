@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
+import Colors from '../constants/Colors'
 
 const ProgrammeItem = props => {
   const time = props.time
@@ -17,8 +18,8 @@ const ProgrammeItem = props => {
         <View style={styles.timeContainer}>
           <Text>{props.time} </Text>
         </View>
-        <View style={styles.contentContainer}>
-          <View style={styles.nestedContentContainer}>
+        <View style={styles.columnContentContainer}>
+          <View style={styles.rowContentContainer}>
             <Text style={styles.description}>{props.description}</Text>
             <Text style={styles.location}>{props.location}</Text>
           </View>
@@ -33,13 +34,15 @@ const ProgrammeItem = props => {
         <View style={styles.timeContainer}>
           <Text>{props.time} </Text>
         </View>
-        <View style={styles.contentContainer}>
-          <View style={styles.nestedContentContainer}>
+        <View style={styles.columnContentContainer}>
+          <View style={styles.rowContentContainer}>
             <Text style={styles.description}>{props.description}</Text>
             <Text style={styles.location}>{props.location}</Text>
           </View>
-          <View style={styles.nestedContentContainer}>
-            <Text>{props.speaker}</Text>
+          <View style={styles.columnContentContainer}>
+            <Text style={styles.speakerName}>{props.speaker}</Text>
+            <Text style={styles.infoAboutSpeaker}>{props.titleOfSpeaker}</Text>
+            <Text style={styles.infoAboutSpeaker}>{props.companyOfSpeaker}</Text>
           </View>
         </View>
       </View >
@@ -54,18 +57,16 @@ const ProgrammeItem = props => {
           <Text>{props.time} </Text>
         </View>
 
-        <View style={styles.contentContainer}>
-          <View style={styles.nestedContentContainer}>
+        <View style={styles.columnContentContainer}>
+          <View style={styles.rowContentContainer}>
             <Text style={styles.description}>{props.description}</Text>
             <Text style={styles.location}>{props.location}</Text>
           </View>
-          <View style={styles.nestedContentContainer}>
-            <Text>{props.speaker}</Text>
-          </View>
-          <View style={styles.contentContainer}>
-            <View style={styles.nestedContentContainer}>
-              <Text>{props.specialTitleOfSpeaker}</Text>
-            </View>
+          <View style={styles.columnContentContainer}>
+            <Text style={styles.speakerName}>{props.speaker}</Text>
+            <Text style={styles.infoAboutSpeaker}>{props.titleOfSpeaker}</Text>
+            <Text style={styles.infoAboutSpeaker}>{props.companyOfSpeaker}</Text>
+            <Text style={styles.infoAboutSpeaker}>{props.specialTitleOfSpeaker}</Text>
           </View>
         </View>
       </View >
@@ -93,11 +94,10 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     marginRight: 10,
   },
-  contentContainer: {
+  columnContentContainer: {
     flex: 6,
-    flexDirection: 'column'
   },
-  nestedContentContainer: {
+  rowContentContainer: {
     flex: 1,
     flexDirection: 'row',
     marginVertical: 5,
@@ -109,6 +109,13 @@ const styles = StyleSheet.create({
   },
   location: {
     flex: 1,
+  },
+  speakerName: {
+    marginBottom: 6,
+    fontSize: 15
+  },
+  infoAboutSpeaker: {
+    fontSize: 12
   }
 })
 

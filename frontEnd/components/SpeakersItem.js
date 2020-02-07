@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Image } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import Card from './Card'
 import Colors from '../constants/Colors'
@@ -18,9 +17,10 @@ import image10 from '../assets/images/speakers_2020/Ville_Skinnari_1080.jpg'
 import image11 from '../assets/images/speakers_2020/Esa_Mikkonen_1080.jpg'
 import noSpeakerImage from '../assets/images/speakers_2020/No_Speaker_Image.jpg'
 
-
 export const namesAndImages = [
   { "name": "Alexander Aleksin", "image": image1 },
+  { "name": "Kimmo Tiilikainen", "image": noSpeakerImage},
+  { "name": "Antti Koskinen", "image": noSpeakerImage},
   { "name": "Anna Ni", "image": image2 },
   { "name": "Anniina Kostilainen", "image": image3 },
   { "name": "Kai Merivuori", "image": image4 },

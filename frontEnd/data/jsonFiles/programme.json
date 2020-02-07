@@ -2,7 +2,7 @@
  {
   "Time": "08.00-09.00",
   "Location": "Restaurant Paasi",
-  "Description": "Brekfast",
+  "Description": "Breakfast",
   "NameOfSpeaker": "",
   "TitleOfSpeaker": "",
   "SpecialTitleOfSpeaker": "",
@@ -22,7 +22,7 @@
   "Location": "Congress Hall",
   "Description": "Welcome",
   "NameOfSpeaker": "Tommi Sneck",
-  "TitleOfSpeaker": "Director Saw Timber Industry",
+  "TitleOfSpeaker": "Director Sawn Timber Industry",
   "SpecialTitleOfSpeaker": "Chairman of Finnish Sawmills Association",
   "CompanyOfSpeaker": "Koskisen Oy"
  },
@@ -31,7 +31,7 @@
   "Location": "Congress Hall",
   "Description": "Opening",
   "NameOfSpeaker": "Kimmo Tiilikainen",
-  "TitleOfSpeaker": "State Sectetary",
+  "TitleOfSpeaker": "State Secretary",
   "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": "Ministry of Economic Affairs"
  },
