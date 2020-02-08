@@ -78,12 +78,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   company: {
-    fontSize: 18,
+    fontSize: 15,
     padding: 5,
     fontWeight: 'bold'
   },
   text: {
     paddingLeft: 15,
+    fontSize: 12,
   },
   buttonContainer: {
     flex: 1,

@@ -487,7 +487,7 @@
  },
  {
   "FirstName": "Kari",
-  "LastName": "Perttil�",
+  "LastName": "Perttilä",
   "Email": "kari.perttila@sahateollisuus.com",
   "Phone": "+358207790962",
   "Company": "Finnish Sawmills Association",
@@ -577,7 +577,7 @@
  },
  {
   "FirstName": "Sami",
-  "LastName": "K�h�r�",
+  "LastName": "Kähärä",
   "Email": "sami.kahara@fmtimber.fi",
   "Phone": "+358407614150",
   "Company": "FM Timber Oy",
@@ -604,7 +604,7 @@
  },
  {
   "FirstName": "Jari",
-  "LastName": "Ter�v�",
+  "LastName": "Terävä",
   "Email": "jari.terava@foretra.fi",
   "Phone": "+358505757214",
   "Company": "FORETRA OY",
@@ -622,7 +622,7 @@
  },
  {
   "FirstName": "Kari",
-  "LastName": "M�ki",
+  "LastName": "Mäki",
   "Email": "",
   "Phone": "",
   "Company": "FRACHT FINLAND OY Ltd",
@@ -639,7 +639,7 @@
   "Icomefrom": "Importer"
  },
  {
-  "FirstName": "J�rg",
+  "FirstName": "Jörg",
   "LastName": "Peters",
   "Email": "j.peters@georg-pagnia.de",
   "Phone": "+00491702394513",
@@ -721,15 +721,15 @@
  },
  {
   "FirstName": "Kasperi",
-  "LastName": "Pitk�kangas",
+  "LastName": "Pitkäkangas",
   "Email": "kasperi@hasa.fi",
   "Phone": "+358405018417",
-  "Company": "Haapaj�rven Ha-Sa Oy",
+  "Company": "Haapajärven Ha-Sa Oy",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  },
  {
-  "FirstName": "Bj�rn",
+  "FirstName": "Björn",
   "LastName": "Palm",
   "Email": "bjorn.palm@hacklin.fi",
   "Phone": "+358407609101",
@@ -757,7 +757,7 @@
  },
  {
   "FirstName": "Niklas",
-  "LastName": "B�rlund",
+  "LastName": "Börlund",
   "Email": "niklas.barlund@hamburgsud.com",
   "Phone": "+358405840445",
   "Company": "Hamburg Sud",
@@ -856,7 +856,7 @@
  },
  {
   "FirstName": "Anni",
-  "LastName": "J�rvinen",
+  "LastName": "Järvinen",
   "Email": "annijarvinen_7@hotmail.com",
   "Phone": "+358503072522",
   "Company": "Helsingin yliopisto",
@@ -865,7 +865,7 @@
  },
  {
   "FirstName": "Sara",
-  "LastName": "M�h�nen",
+  "LastName": "Mähönen",
   "Email": "sara.mahonen@gmail.com",
   "Phone": "+358504075101",
   "Company": "Helsingin yliopisto",
@@ -901,7 +901,7 @@
  },
  {
   "FirstName": "Jari",
-  "LastName": "Erkkil�",
+  "LastName": "Erkkilä",
   "Email": "jari.erkkila@hermanandersson.fi",
   "Phone": "+358504087999",
   "Company": "Herman Andersson Oy",
@@ -928,7 +928,7 @@
  },
  {
   "FirstName": "Petri",
-  "LastName": "H�m�l�inen",
+  "LastName": "Hämäläinen",
   "Email": "petri.hamalainen@ipowood.fi",
   "Phone": "+358445302221",
   "Company": "Iisalmen Sahat Oy",
@@ -937,10 +937,10 @@
  },
  {
   "FirstName": "Tommy",
-  "LastName": "Lindstr�m",
+  "LastName": "Lindström",
   "Email": "tommy.lindstrom@iisveden.fi",
   "Phone": "+358409007583",
-  "Company": "Iisveden Mets� Oy",
+  "Company": "Iisveden Metsä Oy",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  },
@@ -964,7 +964,7 @@
  },
  {
   "FirstName": "Esa",
-  "LastName": "Hakam�ki",
+  "LastName": "Hakamäki",
   "Email": "esa.hakamaki@isojoensaha.fi",
   "Phone": "+358405486040",
   "Company": "Isojoen Saha Oy",
@@ -1003,7 +1003,7 @@
   "LastName": "Wetzel",
   "Email": "wwetzel@juergensen.de",
   "Phone": "+491736009090",
-  "Company": "Jacob J�rgensen Wood GmbH",
+  "Company": "Jacob Jürgensen Wood GmbH",
   "Country": "DE",
   "Icomefrom": "Agent"
  },
@@ -1072,7 +1072,7 @@
  },
  {
   "FirstName": "Matti",
-  "LastName": "Kyl�vainio",
+  "LastName": "Kylävainio",
   "Email": "matti.kylavainio@keitelegroup.fi",
   "Phone": "",
   "Company": "Keitele Timber Oy",
@@ -1108,7 +1108,7 @@
  },
  {
   "FirstName": "Mikko",
-  "LastName": "Kyl�vainio",
+  "LastName": "Kylävainio",
   "Email": "mikko.kylavainio@keitelegroup.fi",
   "Phone": "+358407075111",
   "Company": "Keitele Wood Products Oy",
@@ -1279,7 +1279,7 @@
  },
  {
   "FirstName": "Matti",
-  "LastName": "Sipil�inen",
+  "LastName": "Sipiläinen",
   "Email": "matti.sipilainen@kuhmo.eu",
   "Phone": "+358505495987",
   "Company": "Kuhmo Oy",
@@ -1378,7 +1378,7 @@
  },
  {
   "FirstName": "Henri",
-  "LastName": "Nordstr�m",
+  "LastName": "Nordström",
   "Email": "henri@nordlfs.com",
   "Phone": "+35840 562 8635",
   "Company": "LFS - Lovisa Forwarding & Stevedoring",
@@ -1540,7 +1540,7 @@
  },
  {
   "FirstName": "Saku",
-  "LastName": "P�nk�l�inen",
+  "LastName": "Pänkäläinen",
   "Email": "saku.pankalainen@metsagroup.com",
   "Phone": "+358407648503",
   "Company": "Mets� Fibre",
@@ -1549,10 +1549,10 @@
  },
  {
   "FirstName": "Heikki",
-  "LastName": "K��ri�inen",
+  "LastName": "Kääriäinen",
   "Email": "heikki.kaariainen@metsa.fi",
   "Phone": "+358400344685",
-  "Company": "Mets�hallitus Mets�talous Oy",
+  "Company": "Metsähallitus Metsätalous Oy",
   "Country": "FI",
   "Icomefrom": "Other"
  },
@@ -1561,34 +1561,34 @@
   "LastName": "Kumpula",
   "Email": "jussi.kumpula@metsa.fi",
   "Phone": "+358400388614",
-  "Company": "Mets�hallitus Mets�talous Oy",
+  "Company": "Metsähallitus Metsätalous Oy",
   "Country": "FI",
   "Icomefrom": "Other"
  },
  {
   "FirstName": "Mikko",
-  "LastName": "H�yrynen",
+  "LastName": "Häyrynen",
   "Email": "mikko.hayrynen@metsalehti.fi",
   "Phone": "+358400973457",
-  "Company": "Mets�lehti",
+  "Company": "Metsälehti",
   "Country": "FI",
   "Icomefrom": "Other"
  },
  {
   "FirstName": "Ilari",
-  "LastName": "Pirttil�",
+  "LastName": "Pirttilä",
   "Email": "ilari.pirttila@mmsaatio.fi",
   "Phone": "+358505989920",
-  "Company": "Mets�miesten S��ti�",
+  "Company": "Metsämiesten Säätiö",
   "Country": "FI",
   "Icomefrom": "Other"
  },
  {
   "FirstName": "Heikki",
-  "LastName": "K�hk�nen",
+  "LastName": "Kähkönen",
   "Email": "heikki.kahkonen@metsantuottajat.fi",
   "Phone": "+358504408227",
-  "Company": "Mets�ntuottajat Oy",
+  "Company": "Metsäntuottajat Oy",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  },
@@ -1597,7 +1597,7 @@
   "LastName": "Sainio",
   "Email": "pekka.sainio@metsantuottajat.fi",
   "Phone": "+358409007584",
-  "Company": "Mets�ntuottajat Oy",
+  "Company": "Metsäntuottajat Oy",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  },
@@ -1606,7 +1606,7 @@
   "LastName": "Joensuu",
   "Email": "kirsi.joensuu@smy.fi",
   "Phone": "+358408400642",
-  "Company": "Mets�viestint� Oy",
+  "Company": "Metsäviestintä Oy",
   "Country": "FI",
   "Icomefrom": "Other"
  },
@@ -1621,7 +1621,7 @@
  },
  {
   "FirstName": "Thorsten",
-  "LastName": "B�r",
+  "LastName": "Bär",
   "Email": "thorsten.bar@moelven.com",
   "Phone": "+491743225180",
   "Company": "Moelven Deutschland GmbH",
@@ -1873,7 +1873,7 @@
  },
  {
   "FirstName": "Jarmo",
-  "LastName": "Kaihlam�ki",
+  "LastName": "Kaihlamäki",
   "Email": "jarmo.kaihlamaki@one-line.com",
   "Phone": "+358405070702",
   "Company": "Ocean Network Express ( Europe) LTD  ",
@@ -1927,7 +1927,7 @@
  },
  {
   "FirstName": "Juha",
-  "LastName": "M�kinen",
+  "LastName": "Mäkinen",
   "Email": "juha.makinen@bcw-global.com",
   "Phone": "+358405709307",
   "Company": "Pohjoisranta bcw",
@@ -2047,7 +2047,7 @@
   "LastName": "Peltonen",
   "Email": "hannu.peltonen10@gmail.com",
   "Phone": "+358500325325",
-  "Company": "Puumiesten Ammattikasvatuss��ti�",
+  "Company": "Puumiesten Ammattikasvatussäätiö",
   "Country": "FI",
   "Icomefrom": "Logistic"
  },
@@ -2056,7 +2056,7 @@
   "LastName": "Aikio",
   "Email": "aki.aikio@polkky.fi",
   "Phone": "+358407301475",
-  "Company": "P�lkky Oy",
+  "Company": "Pölkky Oy",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  },
@@ -2065,7 +2065,7 @@
   "LastName": "Help",
   "Email": "ihelp@gmail.com",
   "Phone": "+358505515496",
-  "Company": "P�lkky Oy",
+  "Company": "Pölkky Oy",
   "Country": "FI",
   "Icomefrom": "Logistic"
  },
@@ -2074,7 +2074,7 @@
   "LastName": "Liimola",
   "Email": "ville.liimola@sca.com",
   "Phone": "+358505516610",
-  "Company": "P�lkky Oy",
+  "Company": "Pölkky Oy",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  },
@@ -2083,7 +2083,7 @@
   "LastName": "Partanen",
   "Email": "juha.partanen@polkky.fi",
   "Phone": "+358407517335",
-  "Company": "P�lkky Oy",
+  "Company": "Pölkky Oy",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  },
@@ -2092,7 +2092,7 @@
   "LastName": "Virranniemi",
   "Email": "petteri.virranniemi@polkky.fi",
   "Phone": "+358405224390",
-  "Company": "P�lkky Oy",
+  "Company": "Pölkky Oy",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  },
@@ -2101,7 +2101,7 @@
   "LastName": "Virranniemi",
   "Email": "jaakko.virranniemi@polkky.fi",
   "Phone": "+3587018024",
-  "Company": "P�lkky Oy",
+  "Company": "Pölkky Oy",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  },
@@ -2152,7 +2152,7 @@
  },
  {
   "FirstName": "Krister",
-  "LastName": "Ekl�f",
+  "LastName": "Eklöf",
   "Email": "krister.eklof@rekowood.fi",
   "Phone": "+358400874009",
   "Company": "REKOWOOD Oy",
@@ -2188,7 +2188,7 @@
  },
  {
   "FirstName": "Petri",
-  "LastName": "Lempi�inen",
+  "LastName": "Lempiäinen",
   "Email": "petri.lempiainen@rpgroup.fi",
   "Phone": "+358405537640",
   "Company": "RP Group",
@@ -2287,7 +2287,7 @@
  },
  {
   "FirstName": "Jarmo",
-  "LastName": "Kalliom�ki",
+  "LastName": "Kalliomäki",
   "Email": "jaka@scangl.com",
   "Phone": "+358407665382",
   "Company": "Scan Global Logistics (Finland) Oy",
@@ -2431,7 +2431,7 @@
  },
  {
   "FirstName": "Markus",
-  "LastName": "Myllyl�",
+  "LastName": "Myllylä",
   "Email": "markus.myllyla@steveco.fi",
   "Phone": "+358442323785",
   "Company": "Steveco Oy",
@@ -2479,7 +2479,7 @@
   "LastName": "Kauppi",
   "Email": "anna.kauppi@smy.fi",
   "Phone": "+358400702102",
-  "Company": "Suomen Mets�yhdistys",
+  "Company": "Suomen Metsäyhdistys",
   "Country": "FI",
   "Icomefrom": "Other"
  },
@@ -2515,7 +2515,7 @@
   "LastName": "Liikkanen",
   "Email": "tomi.liikkanen@sodra.com",
   "Phone": "+3580408267884",
-  "Company": "S�dra Wood Oy",
+  "Company": "Södra Wood Oy",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  },
@@ -2719,7 +2719,7 @@
  },
  {
   "FirstName": "Eetu",
-  "LastName": "Eini�",
+  "LastName": "Einiö",
   "Email": "eetu.einio@versowood.fi",
   "Phone": "+358405534347",
   "Company": "Versowood Oy",
@@ -2773,7 +2773,7 @@
  },
  {
   "FirstName": "Janne",
-  "LastName": "Heikkil�",
+  "LastName": "Heikkilä",
   "Email": "janne.heikkila@vrtranspoint.fi",
   "Phone": "+358408629401",
   "Company": "VR Transpoint",
@@ -2782,7 +2782,7 @@
  },
  {
   "FirstName": "Kirsi",
-  "LastName": "Lifl�nder",
+  "LastName": "Lifländer",
   "Email": "kirsi.liflander@vrtranspoint.fi",
   "Phone": "+358504334963",
   "Company": "VR Transpoint",
@@ -2800,10 +2800,10 @@
  },
  {
   "FirstName": "Antti",
-  "LastName": "H�kkinen",
+  "LastName": "Häkkinen",
   "Email": "antti.hakkinen@vrtranspoint.fi",
   "Phone": "+358408634883",
-  "Company": "VR-Yhtym� Oy",
+  "Company": "VR-Yhtymä Oy",
   "Country": "FI",
   "Icomefrom": "Logistic"
  },
@@ -2812,7 +2812,7 @@
   "LastName": "Rasmussen",
   "Email": "ara@vti.dk",
   "Phone": "+4596950317",
-  "Company": "VTI Vinderup Tr�industri A/S",
+  "Company": "VTI Vinderup Træindustri A/S",
   "Country": "DK",
   "Icomefrom": "Importer"
  },
@@ -2863,7 +2863,7 @@
  },
  {
   "FirstName": "Kirsten",
-  "LastName": "Breitl�nder",
+  "LastName": "Breitländer",
   "Email": "breitlander@wettergren.de",
   "Phone": "+491795102084",
   "Company": "Wettergren & Co. GmbH",
@@ -2902,7 +2902,7 @@
   "LastName": "Mattsson",
   "Email": "anders.mattsson@skogsindustrier.ax",
   "Phone": "+358408461428",
-  "Company": "�lands Skogsindustrier Ab",
+  "Company": "Ålands Skogsindustrier Ab",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  },
@@ -2911,7 +2911,7 @@
   "LastName": "Sundblom",
   "Email": "daniel.sundblom@skogsindustrier.ax",
   "Phone": "+3584573500301",
-  "Company": "�lands Skogsindustrier Ab",
+  "Company": "Ålands Skogsindustrier Ab",
   "Country": "FI",
   "Icomefrom": "Sawmill"
  }
