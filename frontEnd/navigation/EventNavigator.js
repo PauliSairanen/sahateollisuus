@@ -60,7 +60,7 @@ const MainNavigator = createSwitchNavigator({
   MainNavScreen: ScreenNavigator
 })
 
-export default createAppContainer(MainNavigator)
+export default createAppContainer(ScreenNavigator)
 
 
 
