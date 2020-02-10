@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react'
-import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert, Dimensions, Platform } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert, Platform } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import Card from '../../components/Card'
