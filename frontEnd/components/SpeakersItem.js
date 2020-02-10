@@ -15,12 +15,14 @@ import image8 from '../assets/images/speakers_2020/Tommi_Sneck_1080.jpg'
 import image9 from '../assets/images/speakers_2020/Tuuli_Koivu_1080.jpg'
 import image10 from '../assets/images/speakers_2020/Ville_Skinnari_1080.jpg'
 import image11 from '../assets/images/speakers_2020/Esa_Mikkonen_1080.jpg'
+import image12 from '../assets/images/speakers_2020/Antti_Koskinen_1080.jpg'
+import image13 from '../assets/images/speakers_2020/Kimmo_Tiilikainen_1080.jpg'
 import noSpeakerImage from '../assets/images/speakers_2020/No_Speaker_Image.jpg'
 
 export const namesAndImages = [
   { "name": "Alexander Aleksin", "image": image1 },
-  { "name": "Kimmo Tiilikainen", "image": noSpeakerImage},
-  { "name": "Antti Koskinen", "image": noSpeakerImage},
+  { "name": "Kimmo Tiilikainen", "image": noSpeakerImage },
+  { "name": "Antti Koskinen", "image": noSpeakerImage },
   { "name": "Anna Ni", "image": image2 },
   { "name": "Anniina Kostilainen", "image": image3 },
   { "name": "Kai Merivuori", "image": image4 },
@@ -31,6 +33,8 @@ export const namesAndImages = [
   { "name": "Tuuli Koivu", "image": image9 },
   { "name": "Ville Skinnari", "image": image10 },
   { "name": "Esa Mikkonen", "image": image11 },
+  { "name": "Antti Koskinen", "image": image12 },
+  { "name": "Kimmo Tiilikainen", "image": image13 },
   { "name": "Markku Ollikainen", "image": noSpeakerImage },
   { "name": "Thorsten Leicht", "image": noSpeakerImage },
 ]
@@ -41,10 +45,13 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const SpeakersItem = props => {
-  const [imageFound, setImageFound] = useState(false)
 
   const speakerName = props.speaker
+  const title = props.title
   const specialTitle = props.specialTitle
+  const company = props.company
+
+
   const arrayOfImages = namesAndImages
 
   let imageToDisplay
@@ -54,29 +61,54 @@ const SpeakersItem = props => {
     }
   })
 
-  return (
-    <Card style={styles.card}>
-      <View style={styles.content}>
-        <View style={styles.row}>
-          <View style={styles.textContainer}>
-            <Text style={styles.nameText}>{props.speaker}</Text>
-            <Text style={styles.text}>{props.title}</Text>
-            <Text></Text>
-            <Text style={styles.text}>{props.company}</Text>
-            <Text style={styles.text}>{props.specialTitle}</Text>
-
-          </View>
-          <View style={styles.imageContainer}>
-            <Image
-              source={imageToDisplay}
-              style={styles.image}
-              resizeMode={'cover'}
-            />
+  if(speakerName && title && company && !specialTitle) {
+    return (
+      <Card style={styles.card}>
+        <View style={styles.content}>
+          <View style={styles.row}>
+            <View style={styles.textContainer}>
+              <Text style={styles.nameText}>{props.speaker}</Text>
+              <Text style={styles.text}>{props.title}</Text>
+            
+              <Text style={styles.text}>{props.company}</Text>
+            </View>
+            <View style={styles.imageContainer}>
+              <Image
+                source={imageToDisplay}
+                style={styles.image}
+                resizeMode={'cover'}
+              />
+            </View>
           </View>
         </View>
-      </View>
-    </Card>
-  )
+      </Card>
+    )
+  } else if (speakerName && title && company && specialTitle) {
+    return (
+      <Card style={styles.card}>
+        <View style={styles.content}>
+          <View style={styles.row}>
+            <View style={styles.textContainer}>
+              <Text style={styles.nameText}>{props.speaker}</Text>
+              <Text style={styles.text}>{props.title}</Text>
+              
+              <Text style={styles.text}>{props.company}</Text>
+              <Text style={styles.text}>{props.specialTitle}</Text>
+  
+            </View>
+            <View style={styles.imageContainer}>
+              <Image
+                source={imageToDisplay}
+                style={styles.image}
+                resizeMode={'cover'}
+              />
+            </View>
+          </View>
+        </View>
+      </Card>
+    )
+  }
+  
 }
 
 const styles = StyleSheet.create({
@@ -101,7 +133,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   text: {
-
+    paddingLeft: 7,
+    fontSize: 12,
+    marginBottom: 5,
   },
   imageContainer: {
     width: Dimensions.get('window').width / 100 * 30,
@@ -110,7 +144,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderWidth: 2,
     borderColor: Colors.black,
-    margin: 10,
+    marginLeft: 10,
   },
   image: {
     width: '100%',
