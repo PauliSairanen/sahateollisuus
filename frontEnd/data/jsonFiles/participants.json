@@ -208,6 +208,22 @@
     "Company": "COMPAGNIA DEL LEGNO SRL"
   },
   {
+    "Country": "UK",
+    "FirstName": "Peter",
+    "LastName": "Corlett",
+    "Email": "peter.corlett@compassfp.co.uk",
+    "Phone": "",
+    "Company": "Compass Forest Products Ltd"
+  },
+  {
+    "Country": "UK",
+    "FirstName": "David",
+    "LastName": "Whitehill",
+    "Email": "david.whitehill@cth.co.uk",
+    "Phone": "+447825 919491",
+    "Company": "Compass Forest Products Ltd"
+  },
+  {
     "Country": "NL",
     "FirstName": "Rob",
     "LastName": "Driessen",
@@ -464,6 +480,14 @@
     "Company": "Finnish Sawmills Association"
   },
   {
+    "Country": "FI",
+    "FirstName": "Ella",
+    "LastName": "Springare",
+    "Email": "ella.springare@kestopuu.fi",
+    "Phone": "",
+    "Company": "Finnish Wood Preserving Association"
+  },
+  {
     "Country": "IL",
     "FirstName": "Gil",
     "LastName": "Mishael",
@@ -657,6 +681,14 @@
   },
   {
     "Country": "FI",
+    "FirstName": "Tiina",
+    "LastName": "Haavisto",
+    "Email": "",
+    "Phone": "",
+    "Company": "Greencarrier Liner Agency Finland Oy"
+  },
+  {
+    "Country": "FI",
     "FirstName": "Kasperi",
     "LastName": "Pitkäkangas",
     "Email": "kasperi@hasa.fi",
@@ -750,14 +782,6 @@
     "Email": "jussi.walta@hasa.fi",
     "Phone": "+358400947181",
     "Company": "HASA"
-  },
-  {
-    "Country": "FI",
-    "FirstName": "Kalle",
-    "LastName": "Greis",
-    "Email": "kalle.greis@helsinki.fi",
-    "Phone": "+358504905892",
-    "Company": "Helsingin Yliopisto"
   },
   {
     "Country": "FI",
@@ -1616,6 +1640,14 @@
     "Company": "Nordpine Oy"
   },
   {
+    "Country": "EE",
+    "FirstName": "Tõnu",
+    "LastName": "Ehrpais",
+    "Email": "tonu.ehrpais@nordwood.ee",
+    "Phone": "",
+    "Company": "Nordwood"
+  },
+  {
     "Country": "NO",
     "FirstName": "Pål",
     "LastName": "Bøhaugen",
@@ -1780,14 +1812,6 @@
     "FirstName": "Pekka",
     "LastName": "Friman",
     "Email": "pekka.friman@portofpori.fi",
-    "Phone": "",
-    "Company": "Porin Satama Oy"
-  },
-  {
-    "Country": "FI",
-    "FirstName": "Markus",
-    "LastName": "Helminen",
-    "Email": "",
     "Phone": "",
     "Company": "Porin Satama Oy"
   },
@@ -1974,14 +1998,6 @@
     "Email": "mhermansson@rfic.se",
     "Phone": "+79859219232",
     "Company": "RFI Consortium"
-  },
-  {
-    "Country": "DE",
-    "FirstName": "Thomas",
-    "LastName": "Schmid",
-    "Email": "thomas.schmid@th-rosenheim.de",
-    "Phone": "+4980318052760",
-    "Company": "Rosenheim Technical University of Appl."
   },
   {
     "Country": "FI",
@@ -2320,14 +2336,6 @@
     "Company": "Tallinn University of Technology"
   },
   {
-    "Country": "DE",
-    "FirstName": "Andreas",
-    "LastName": "Michanickl",
-    "Email": "andreas.michanickl@th-rosenheim.de",
-    "Phone": "+491752429623",
-    "Company": "Technical University  Rosenheim"
-  },
-  {
     "Country": "SK",
     "FirstName": "Ján",
     "LastName": "Sedliačik",
@@ -2464,12 +2472,12 @@
     "Company": "University of Helsinki"
   },
   {
-    "Country": "HU",
-    "FirstName": "Laszlo",
-    "LastName": "Bejo",
-    "Email": "bejo.laszlo@skk.nyme.hu",
-    "Phone": "+3699518386",
-    "Company": "University of Sopron"
+    "Country": "FI",
+    "FirstName": "Jukka",
+    "LastName": "Vaara",
+    "Email": "jukka.vaara@veljeksetvaara.fi",
+    "Phone": "",
+    "Company": "Veljekset Vaara Oy"
   },
   {
     "Country": "FI",
@@ -2625,6 +2633,46 @@
   },
   {
     "Country": "FI",
+    "FirstName": "Jenny",
+    "LastName": "Alho",
+    "Email": "jenny-alho@hotmail.com",
+    "Phone": "+358445875566",
+    "Company": "WFFC2020-STAFF"
+  },
+  {
+    "Country": "FI",
+    "FirstName": "Roosa",
+    "LastName": "Hautala",
+    "Email": "roosa.hautala@helsinki.fi",
+    "Phone": "+358400422622",
+    "Company": "WFFC2020-STAFF"
+  },
+  {
+    "Country": "FI",
+    "FirstName": "Anni",
+    "LastName": "Järvinen",
+    "Email": "annijarvinen_7@hotmail.com",
+    "Phone": "+358503072522",
+    "Company": "WFFC2020-STAFF"
+  },
+  {
+    "Country": "FI",
+    "FirstName": "Harri",
+    "LastName": "Ruokojärvi",
+    "Email": "harriruokojarvi@hotmail.fi",
+    "Phone": "+358405296651",
+    "Company": "WFFC2020-STAFF"
+  },
+  {
+    "Country": "FI",
+    "FirstName": "Veera",
+    "LastName": "Schildt",
+    "Email": "veera.schildt@helsinki.fi",
+    "Phone": "+358440612126",
+    "Company": "WFFC2020-STAFF"
+  },
+  {
+    "Country": "FI",
     "FirstName": "Raija",
     "LastName": "Suomalainen",
     "Email": "raija.suomalainen@sahateollisuus.com",
@@ -2684,6 +2732,14 @@
     "FirstName": "Timo",
     "LastName": "Erkkilä",
     "Email": "timo.u.erkkila@gmail.com",
+    "Phone": "",
+    "Company": ""
+  },
+  {
+    "Country": "",
+    "FirstName": "",
+    "LastName": "",
+    "Email": "",
     "Phone": "",
     "Company": ""
   }
