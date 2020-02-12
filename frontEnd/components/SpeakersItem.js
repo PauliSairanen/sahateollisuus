@@ -35,7 +35,7 @@ export const namesAndImages = [
   { "name": "Esa Mikkonen", "image": image11 },
   { "name": "Antti Koskinen", "image": image12 },
   { "name": "Kimmo Tiilikainen", "image": image13 },
-  { "name": "Markku Ollikainen", "image": noSpeakerImage },
+  { "name": "Peter D. Lund", "image": noSpeakerImage },
   { "name": "Thorsten Leicht", "image": noSpeakerImage },
 ]
 
