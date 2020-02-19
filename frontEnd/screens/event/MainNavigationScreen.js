@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, StyleSheet, FlatList, Dimensions, Platform} from 'react-native'
+import { View, Text,  StyleSheet, FlatList, Dimensions, Platform } from 'react-native'
 
 import NavigationTile from '../../components/NavigationTile'
+import Colors from '../../constants/Colors'
 
 const numberOfColumns = 2
 
@@ -37,13 +38,20 @@ const MainNavigationScreen = props => {
 MainNavigationScreen.navigationOptions = navData => {
   return {
     // This should be dynamic
-    headerTitle: 'Wood from Finland Conference 2020'
+    headerTitle: () => (
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitleStyle}>Wood from Finland Conference 2020</Text>
+      </View>), 
   }
 }
 
 const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
+  },
+  headerTitleStyle: {
+    fontFamily: 'Rubik-Bold',
+    color: Platform.OS === 'android' ? 'white' : Colors.primary
   },
   item: {
     backgroundColor: '#FFB400',

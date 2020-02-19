@@ -6,18 +6,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Card from '../../components/Card'
 import Colors from '../../constants/Colors'
 
-
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
 }
 
-// ToDo
-// 1. Get the users email
-// 2. Set the email, where the emails are sent to
-let userEmail = 'dummyemail@email.com'
-let recepientEmail = 'pauli.sairanen@gmail.com'
-
+let recepientEmail = 'info@sahateollisuus.com'
 
 const FeedbackScreen = props => {
   return (

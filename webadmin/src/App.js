@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import PrivateRoute from './assets/context/PrivateRoute';
 import { AuthContext } from './assets/context/Auth';
 import { Jumbotron, Form } from 'reactstrap';
@@ -8,18 +7,22 @@ import './App.css';
 
 // Components imports
 
-import EditingNavi from './assets/components/editingnavi/EditingNavi';
-import EventMaterials from './assets/components/eventmaterials/EventMaterials';
+//import EventMaterials from './assets/components/eventmaterials/EventMaterials';
 import EventsNavi from './assets/components/eventsnavi/EventsNavi';
-import Info from './assets/components/info/InfoEdit';
+//import Info from './assets/components/info/InfoEdit';
 import Login from './assets/components/login/Login';
-import FormParticipant from './assets/components/participants/FormParticipant';
-import FormSpeaker from './assets/components/speakers/FormSpeaker';
-import FormSponsor from './assets/components/sponsors/FormSponsor';
+//import FormParticipant from './assets/components/participants/FormParticipant';
+//import FormSpeaker from './assets/components/speakers/FormSpeaker';
+//import FormSponsor from './assets/components/sponsors/FormSponsor';
 
-const App = () => {
+const App = props => {
+  const [authTokens, setAuthTokens] = useState();
+  const setTokens = (data) => {
+    localStorage.setItem("tokens", JSON.stringify(data));
+    setAuthTokens(data);
+  }
   return (
-    <AuthContext.Provider value={false}>
+    <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Router>
         <div>
         <Jumbotron>
@@ -34,4 +37,3 @@ const App = () => {
 }
 
 export default App
-

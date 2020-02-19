@@ -1,35 +1,98 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions } from 'react-native'
+import Communications from 'react-native-communications'
 
 import Card from '../../components/Card'
+import Colors from '../../constants/Colors'
 import aboutData from '../../data/jsonFiles/about.json'
+
+let TouchableComponent = TouchableOpacity
+if (Platform.OS === 'android' && Platform.Version >= 21) {
+  TouchableComponent = TouchableNativeFeedback
+}
 
 const AboutScreen = props => {
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.content} >
         <Card style={styles.card}>
-          <View style={styles.title}>
-            <Text style={{ fontWeight: 'bold' }}>{aboutData.about.title}</Text>
+          <Text style={styles.title}>Welcome</Text>
+
+          <View style={styles.contentContainer}>
+            <Text style={styles.bodyText}>{aboutData.bodyText1}</Text>
+            <Text style={styles.bodyText}>{aboutData.bodyText2}</Text>
+            <Text style={styles.bodyText}>{aboutData.bodyText3}</Text>
+            <Text style={styles.bodyText}>{aboutData.bodyText4}</Text>
           </View>
-          <View style={styles.mainTextWrapper}>
-            <View style={styles.bodyText}>
-              <Text>{aboutData.about.bodyText0}</Text>
-            </View>
-            <View style={styles.bodyText}>
-              <Text>{aboutData.about.bodyText1}</Text>
-            </View>
-            <View style={styles.bodyText}>
-              <Text>{aboutData.about.bodyText2}</Text>
-            </View>
-            <View style={styles.bodyText}>
-              <Text>{aboutData.about.bodyText3}</Text>
-            </View>
+
+          <Text style={styles.title}>Location</Text>
+          <View style={styles.contentContainer}>
+            <Text style={styles.infoText}>{aboutData.eventPlace.name}</Text>
+            <Text style={styles.infoText}>{aboutData.eventPlace.address}</Text>
+
+            <TouchableComponent
+              onPress={() => {
+                Communications.phonecall(`${aboutData.eventPlace.phone}`, true)
+              }}>
+                <Text style={styles.infoText}>{aboutData.eventPlace.phone}</Text>
+            </TouchableComponent>
+
+            <TouchableComponent
+              style={styles.button}
+              onPress={() => {
+                Communications.email(
+                  ['', `${aboutData.eventPlace.email}`]
+                  , null
+                  , null
+                  , 'Please give a subject to this email'
+                  , '')
+              }}>
+                <Text style={styles.infoText}>{aboutData.eventPlace.email}</Text>
+            </TouchableComponent>
           </View>
-          <View style={styles.bodyText}>
-            <Text>{aboutData.about.writerName}, {aboutData.about.writerPosition}</Text>
-            <Text>{aboutData.about.company}</Text>
+
+          <Text style={styles.title}>More information</Text>
+          <View style={styles.contentContainer}>
+
+          <TouchableComponent
+              onPress={() => {
+                Communications.web(`${aboutData.eventWebUrl}`)
+              }}>
+              <View style={styles.button}>
+                <Text style={styles.link}>{aboutData.moreInformation.eventWebsite}</Text>
+              </View>
+            </TouchableComponent>
+
+            {/* <TouchableComponent
+              onPress={() => {
+                Communications.web(`${aboutData.eventWebUrl}`)
+              }}>
+              <View style={styles.button}>
+                <Text style={styles.link}>{aboutData.moreInformation.organizer}</Text>
+              </View>
+            </TouchableComponent> */}
+
+            <TouchableComponent
+              style={styles.button}
+              onPress={() => {
+                Communications.email(
+                  ['', 'info@sahateollisuus.com']
+                  , null
+                  , null
+                  , 'Please give a subject to this email'
+                  , '')
+              }}>
+              <View style={styles.button}>
+                <Text style={styles.link}>{aboutData.moreInformation.email}</Text>
+              </View>
+            </TouchableComponent>
           </View>
+
+          <View style={styles.contentContainer}>
+            <Text style={styles.disclaimerText}>{aboutData.disclaimer1}</Text>
+            <Text style={styles.disclaimerText}>{aboutData.disclaimer2}</Text>
+          </View>
+
         </Card>
       </ScrollView>
     </View>
@@ -49,17 +112,39 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   title: {
-    padding: 10,
-    fontWeight: 'bold'
+    marginTop: 10,
+    fontSize: 15,
+    fontWeight: 'bold',
   },
   about: {
-    padding: 10
+    margin: 10
   },
-  mainTextWrapper: {
-    textAlign: 'center'
+  contentContainer: {
+    margin: 15,
   },
   bodyText: {
-    padding: 10
+    fontSize: 12,
+    paddingBottom: 5,
+    textAlign: 'justify'
+  },
+  infoText: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginBottom: 2,
+  },
+  button: {
+    height: Dimensions.get('window').width / 100 * 7,
+    justifyContent: 'center',
+  },
+  link: {
+    fontSize: 12,
+    textAlign: 'center',
+    color: Colors.link
+  },
+  disclaimerText: {
+    textAlign: 'justify',
+    fontSize: 9,
+    paddingBottom: 5
   },
 })
 

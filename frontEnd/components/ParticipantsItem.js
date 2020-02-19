@@ -78,18 +78,23 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   company: {
-    fontSize: 18,
-    padding: 15
+    fontSize: 15,
+    padding: 5,
+    fontWeight: 'bold'
   },
   text: {
     paddingLeft: 15,
+    fontSize: 12,
   },
   buttonContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    alignItems: 'center',
     paddingLeft: 15,
-    padding: 10
+    padding: 5,
+    borderColor: Colors.defaultText,
+    borderBottomWidth: 1,
   }
 })
 

@@ -5,6 +5,7 @@
   "Description": "Breakfast",
   "NameOfSpeaker": "",
   "TitleOfSpeaker": "",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": ""
  },
  {
@@ -13,6 +14,7 @@
   "Description": "Registration",
   "NameOfSpeaker": "",
   "TitleOfSpeaker": "",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": ""
  },
  {
@@ -20,25 +22,27 @@
   "Location": "Congress Hall",
   "Description": "Welcome",
   "NameOfSpeaker": "Tommi Sneck",
-  "TitleOfSpeaker": "Director Saw Timber Industry, Chairman of Finnish Sawmills Association",
+  "TitleOfSpeaker": "Director Sawn Timber Industry",
+  "SpecialTitleOfSpeaker": "Chairman of Finnish Sawmills Association",
   "CompanyOfSpeaker": "Koskisen Oy"
  },
-
  {
   "Time": "09.15-09.30",
   "Location": "Congress Hall",
   "Description": "Opening",
-  "NameOfSpeaker": "Ville Skinnari",
-  "TitleOfSpeaker": "Minister for Development Cooperation and Foreign Trade",
-  "CompanyOfSpeaker": "Finnish Government"
+  "NameOfSpeaker": "Kimmo Tiilikainen",
+  "TitleOfSpeaker": "State Secretary",
+  "SpecialTitleOfSpeaker": "",
+  "CompanyOfSpeaker": "Ministry of Economic Affairs"
  },
  {
   "Time": "09.30-10.00",
   "Location": "Congress Hall",
   "Description": "Climate Change and Wood Products",
-  "NameOfSpeaker": "Markku Ollikainen",
-  "TitleOfSpeaker": "Professor, Chairman of thr Finnish Climate Change Panel ",
-  "CompanyOfSpeaker": ""
+  "NameOfSpeaker": "Peter D. Lund",
+  "TitleOfSpeaker": "Professor ",
+  "SpecialTitleOfSpeaker": "Vice Chairman of the Finnish Climate Change Panel",
+  "CompanyOfSpeaker": "Aalto University"
  },
  {
   "Time": "10.00-10.30",
@@ -46,6 +50,7 @@
   "Description": "Sawmills' Raw Material Outlook",
   "NameOfSpeaker": "Paula Horne",
   "TitleOfSpeaker": "Research Director",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": "Pellervo Economic Research PTT"
  },
  {
@@ -54,14 +59,16 @@
   "Description": "The Environment program of Finnish Sawmills",
   "NameOfSpeaker": "Anniina Kostilainen",
   "TitleOfSpeaker": "Public Relations Manager",
-  "CompanyOfSpeaker": "Finnish Sawmill Association"
+  "SpecialTitleOfSpeaker": "",
+  "CompanyOfSpeaker": "Finnish Sawmills Association"
  },
  {
   "Time": "10.45-11.15",
-  "Location": "",
-  "Description": "Break",
+  "Location": "Restaurant Paasi",
+  "Description": "Coffee",
   "NameOfSpeaker": "",
   "TitleOfSpeaker": "",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": ""
  },
  {
@@ -70,14 +77,16 @@
   "Description": "Economic Outlook",
   "NameOfSpeaker": "Tuuli Koivu",
   "TitleOfSpeaker": "Chief Economist",
-  "CompanyOfSpeaker": "Nordea"
+  "SpecialTitleOfSpeaker": "",
+  "CompanyOfSpeaker": "Nordea Bank"
  },
  {
   "Time": "11.45-12.00",
   "Location": "Congress Hall",
   "Description": "Nordic Timber-Grading Rules",
   "NameOfSpeaker": "Mika Lehmonen",
-  "TitleOfSpeaker": "Sales Manager",
+  "TitleOfSpeaker": "Export Manager",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": "Koskisen Oy"
  },
  {
@@ -86,6 +95,7 @@
   "Description": "eSaha and Timber Academy 2020",
   "NameOfSpeaker": "Esa Mikkonen",
   "TitleOfSpeaker": "Course Director",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": "LAB University of Applied Sciences"
  },
  {
@@ -94,6 +104,7 @@
   "Description": "Lunch",
   "NameOfSpeaker": "",
   "TitleOfSpeaker": "",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": ""
  },
  {
@@ -102,15 +113,17 @@
   "Description": "Overview and Outlook of Finnish Sawmill Industries",
   "NameOfSpeaker": "Kai Merivuori",
   "TitleOfSpeaker": "Managing Director",
-  "CompanyOfSpeaker": "Finnish Sawmill Association"
+  "SpecialTitleOfSpeaker": "",
+  "CompanyOfSpeaker": "Finnish Sawmills Association"
  },
  {
   "Time": "13.30-14.00",
   "Location": "Congress Hall",
   "Description": "Global Sawn Softwood Outlook",
-  "NameOfSpeaker": "Thorsten Leicht",
-  "TitleOfSpeaker": "Principal",
-  "CompanyOfSpeaker": "P�yry Management Consulting"
+  "NameOfSpeaker": "Antti Koskinen",
+  "TitleOfSpeaker": "Senior Consultant",
+  "SpecialTitleOfSpeaker": "",
+  "CompanyOfSpeaker": "AFRY management consulting"
  },
  {
   "Time": "14.00-14.30",
@@ -118,30 +131,34 @@
   "Description": "Coffee",
   "NameOfSpeaker": "",
   "TitleOfSpeaker": "",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": ""
  },
  {
   "Time": "14.30-15.00",
   "Location": "Congress Hall",
-  "Description": "Sawn Softwood Market Outlook Japan",
-  "NameOfSpeaker": "Kimihiro Yazawa",
-  "TitleOfSpeaker": "Managing Director",
-  "CompanyOfSpeaker": "Polus-Tec Helsinki Oy"
+  "Description": "Sawn Softwood Market Outlook China/Skype",
+  "NameOfSpeaker": "Anna Ni",
+  "TitleOfSpeaker": "Senior Advisor",
+  "SpecialTitleOfSpeaker": "",
+  "CompanyOfSpeaker": "Business Finland Oy"
  },
  {
   "Time": "15.00-15.30",
   "Location": "Congress Hall",
-  "Description": "Sawn Softwood Market Outlook China",
-  "NameOfSpeaker": "Anna Ni",
-  "TitleOfSpeaker": "Senior Advisor",
-  "CompanyOfSpeaker": "Business Finland Oy"
+  "Description": "Sawn Softwood Market Outlook Japan",
+  "NameOfSpeaker": "Kimihiro Yazawa",
+  "TitleOfSpeaker": "Managing Director",
+  "SpecialTitleOfSpeaker": "",
+  "CompanyOfSpeaker": "Polus-Tec Helsinki Oy"
  },
  {
   "Time": "15.30-16.00",
   "Location": "Congress Hall",
-  "Description": "Russian Sawmill Industry Update",
+  "Description": "Russian Sawmill Industry Uptade",
   "NameOfSpeaker": "Alexander Aleksin",
   "TitleOfSpeaker": "Head of Sawn Timber Sales",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": "Company Group VLP"
  },
  {
@@ -150,7 +167,26 @@
   "Description": "Discussion and Conclusions",
   "NameOfSpeaker": "",
   "TitleOfSpeaker": "",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": ""
+ },
+ {
+  "Time": "16.30",
+  "Location": "Congress Hall",
+  "Description": "Closing of the seminar",
+  "NameOfSpeaker": "",
+  "TitleOfSpeaker": "",
+  "SpecialTitleOfSpeaker": "",
+  "CompanyOfSpeaker": ""
+ },
+ {
+  "Time": "",
+  "Location": "",
+  "Description": "Chairman of the Day",
+  "NameOfSpeaker": "Anniina Kostilainen",
+  "TitleOfSpeaker": "Public Relations Manager",
+  "SpecialTitleOfSpeaker": "",
+  "CompanyOfSpeaker": "Finnish Sawmills Association"
  },
  {
   "Time": "18.00-18.30",
@@ -158,6 +194,7 @@
   "Description": "Cocktails",
   "NameOfSpeaker": "",
   "TitleOfSpeaker": "",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": ""
  },
  {
@@ -166,6 +203,7 @@
   "Description": "Dinner",
   "NameOfSpeaker": "",
   "TitleOfSpeaker": "",
+  "SpecialTitleOfSpeaker": "",
   "CompanyOfSpeaker": ""
  }
 ]
