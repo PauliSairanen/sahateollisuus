@@ -87,7 +87,7 @@ var event1 = new Event({
         },     
         participants : [
           {
-           "FirstName": "Frederasdasdasdasdsdic",
+           "FirstName": "Frederic",
            "LastName": "Boinet",
            "Email": "f.boinet@gmail.com",
            "Phone": "+33607337469",

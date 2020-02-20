@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react'
-import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert, Dimensions, Platform } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert, Platform } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import Card from '../../components/Card'
@@ -16,6 +16,8 @@ const LoginScreen = props => {
   const adminEmail = 'admin@test'
   const adminPassword = 'admin'
 
+  const guestEmail = 'guest@wffc'
+
   let loginFailed = false
 
   const loginFunction = () => {
@@ -24,7 +26,14 @@ const LoginScreen = props => {
       console.log('Admin login!')
       loginFailed = false
       props.navigation.navigate('MainNavScreen')
-    } else {
+    }
+    // Login as guest
+    else if (inputEmail === guestEmail && inputPassword === eventPassword) {
+      console.log('Admin login!')
+      loginFailed = false
+      props.navigation.navigate('MainNavScreen')
+    }
+    else {
       // Check if user exits
       setIsLoading(true)
       for (const object of participantData) {

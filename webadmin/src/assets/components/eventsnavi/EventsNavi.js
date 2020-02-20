@@ -2,6 +2,8 @@ import React from "react";
 import { useAuth } from '../../context/Auth';
 import "./EventsNavi.css";
 
+import EditingNavi from '../editingnavi/EditingNaviff';
+
 const EventNavi = props =>{
     const { setAuthTokens } = useAuth();
     function logOut() {
@@ -26,6 +28,7 @@ const EventNavi = props =>{
                     <a href="/"><button>7</button></a>
                     <a href="/"><button>8</button></a>
                     <a href="/"><button>9</button></a>
+                    LUO UUSI
                 </nav>
             </div>
         </div>

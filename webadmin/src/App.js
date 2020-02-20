@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import PrivateRoute from './assets/context/PrivateRoute';
 import { AuthContext } from './assets/context/Auth';
-import { Jumbotron } from 'reactstrap';
+import { Jumbotron, Form } from 'reactstrap';
 import './App.css';
 
 // Components imports
 
-//import EditingNavi from './assets/components/editingnavi/EditingNavi';
 //import EventMaterials from './assets/components/eventmaterials/EventMaterials';
 import EventsNavi from './assets/components/eventsnavi/EventsNavi';
 //import Info from './assets/components/info/InfoEdit';
@@ -28,7 +27,7 @@ const App = props => {
         <div>
         <Jumbotron>
         
-          <Route exact path="/" component={EventsNavi} />
+          <Route exact path="/" component={FormParticipant} />
           <PrivateRoute path="/eventsnavi" component={EventsNavi} />
         </Jumbotron>
         </div>
