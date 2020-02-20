@@ -1,5 +1,8 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.sahateollisuus.sawmillevents">
+<manifest 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.sahateollisuus.sawmillevents"
+  >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -9,7 +12,9 @@
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
-      android:theme="@style/AppTheme">
+      android:theme="@style/AppTheme"
+      android:usesCleartextTraffic="true" tools:targetApi="28"
+      >
       
       <activity
         android:name=".MainActivity"
