@@ -1,10 +1,15 @@
+//Server CONSTS
+const fs = require('fs');
+const https = require('https');
+const privateKey  = fs.readFileSync('/etc/pki/tls/private/sahat.lamk.fi.key', 'utf8');
+const certificate = fs.readFileSync('/etc/pki/tls/certs/sahat.lamk.fi.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+var express = require('express');
+var app = express();
+
 const mongoose = require('mongoose');
-const express = require('express')
-const app = express()
-const request = require('http')
-//DB CONSTS
 const Event = require('../models/events');
-// this starting code for node
 
 // Create routes
 const routes = require('../routes/routes.js');
@@ -12,12 +17,9 @@ const routes = require('../routes/routes.js');
 // Make app use the routes
 app.use(routes)
 
-// To serve static content (images, html pages etc..)
-app.use(express.static('public'))
+const httpsServer = https.createServer(credentials, app);
 
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => console.info(`Server has started on port: ${PORT}`))
-
+httpsServer.listen(443, () => console.info('Server has started on port: 443'));
 // DB THINGS
 //mongoose.connect('mongodb://localhost:27017/testdb',{ useNewUrlParser: true }); //local db connection string
 mongoose.connect('mongodb://owner:in@localhost:27017/sahateollisuus',{ useNewUrlParser: true });
