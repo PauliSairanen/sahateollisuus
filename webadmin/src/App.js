@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import PrivateRoute from './assets/context/PrivateRoute';
 import { AuthContext } from './assets/context/Auth';
-import { Jumbotron } from 'reactstrap';
+import { Jumbotron, Form } from 'reactstrap';
 import './App.css';
 
 // Components imports
@@ -26,7 +26,8 @@ const App = props => {
       <Router>
         <div>
         <Jumbotron>
-          <Route exact path="/" component={Login} />
+        
+          <Route exact path="/" component={FormParticipant} />
           <PrivateRoute path="/eventsnavi" component={EventsNavi} />
         </Jumbotron>
         </div>
