@@ -1,60 +1,41 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const EventSchema = new Schema(
+  {
+    eventId : String,
+    about : JSON,
+    participants : JSON,
+    programme : JSON,
+    speakers : JSON,
+    sponsors : JSON
+  }
+);
+
 const ItemSchema = new Schema(
         {
         eventId : String,
         eventIdForVisibilityRegardingUser : String,
-        info: {
-            eventName: String,
-            titleName: Boolean,
-            startTime: String,
-            endTime : String,
-            place: String,
-            image: { data: String, contentType: String },
-            eventColor: String
-        },
-        programme: {
-          timeTableObject : {
-            name : String,
-            startTime : String,
-            endTime : String,
-            performerName: String,
-            performerTitle : String,
-            date : String, 
-            description : String
-          }
-        },
-        maps: { 
-            colors: {
-              restaurants : String,
-              hotels : String,
-              venue : String,
-            },
-            restaurants : {   // Restaurant array needs to have ID for color comparison
-              restaurantObject: {
-                name : String,
-                address : String,
-                latitude : Number,
-                longitude : Number,
-              }
-            },
-            hotels : {
-              hotelObject: {
-                name : String,
-                address : String,
-                latitude : String,
-                longitude : String,
-              }
-            },
-            venue: {
-              location: {
-                name : String,
-                address : String,
-                latitude : String,
-                longitude : String,
-              } 
-            }   
+        about: {
+          "eventWebUrl": String,
+          "eventPlace": {
+            "name": String,
+            "address": String,
+            "phone": String,
+            "email": String
+          },
+          "title": String,
+          "bodyText1": String,
+          "bodyText2": String,
+          "bodyText3": String,
+          "bodyText4": String,
+          "moreInformation": {
+            "eventWebsite": String,
+            "organizer": String,
+            "email": String
+          },
+          "disclaimer1": String,
+          "disclaimer2": String
         },
         participants : [
           {
@@ -65,53 +46,36 @@ const ItemSchema = new Schema(
             "Company": String,
             "Country": String,
             "Icomefrom": String
-           }
+          }
         ],
-        schedule : [
+        programme: [
           {
-            category: String,
-            presentation : [
-              {
-                time : String,
-                title : String,
-                description : String
-              }
-            ]
+            "Time": String,
+            "Location": String,
+            "Description": String,
+            "NameOfSpeaker": String,
+            "TitleOfSpeaker": String,
+            "SpecialTitleOfSpeaker": String,
+            "CompanyOfSpeaker": String
+          }
+        ],
+        speakers: [
+          {
+           "Speaker": String,
+           "Title": String,
+           "SpecialTitle": String,
+           "Company": String
+          }
+        ],
+        sponsors : [
+          {
+           "CompanyName": String,
+           "CompanyUrl": String
           }
         ]
-          
 });
 
-const Event = mongoose.model('events',ItemSchema);
+//const Event = mongoose.model('events',ItemSchema);
+const Event = mongoose.model('events',EventSchema);
 
 module.exports = Event;
-
-participants : [{
-            company: String,
-            country : String,
-            participant: [{
-                lastname : String,
-                firstname : String,
-                role : String,
-                contact : [{
-                    email : [],
-                    telephone : []
-                }]
-            }]
-        }]
-
-        Participants : [
-          {
-            firstname : String,
-            lastname : String,
-            email : String,
-            telephone : String,
-            company : String,
-            country : String,
-            iComeFrom : String,
-            participation : {
-              marketDay : Boolean,
-              dinner : Boolean
-            }
-          }
-        ]
