@@ -1,17 +1,25 @@
-import React from "react";
-import "./Participants.css";
-import HeaderComponent from './../header_component/HeaderComponent';
-import "./../../UniversalStyles.css"
-import ButtonComponent from './../button_component/ButtonComponent';
+import React, {useEffect, useContext} from 'react';
+import { Context } from '../../context/Store';
 
-const FormParticipant = props => {
+
+import "./Participants.css";
+import HeaderComponent from "../../particulars/header_component/HeaderComponent";
+import "./../../UniversalStyles.css"
+import ButtonComponent from '../../particulars/button_component/ButtonComponent';
+import EventNavi from "../eventsnavi/EventsNavi";
+
+const FormParticipant = () => {
+
+  const [state, dispatch] = useContext(Context);
 
   return (
     <div>
       <HeaderComponent
         title={"Osallistujat"}
       />
-      <div class="allignHorizantally">
+      <EventNavi
+      />
+      <div class="allignHorizontally">
         <div class="formContainer">
           <div class="formInputListLeft">
             <div class="formElement">Etunimi</div>
@@ -33,20 +41,20 @@ const FormParticipant = props => {
       </div>
 
 
-      <div class="allignHorizantally">
+      <div class="allignHorizontally">
         <input type="file" multiple></input>
       </div>
 
 
 
-      <div class="allignHorizantally">
+      <div class="allignHorizontally">
         <div class="dragAndDropContainer">
           <p>This is drag and drop container</p>
         </div>
       </div>
 
 
-      <div class="allignHorizantally">
+      <div class="allignHorizontally">
         <div class="formContainer">
           <div class="formInputListLeft">
             <ButtonComponent
@@ -62,13 +70,6 @@ const FormParticipant = props => {
           </div>
         </div>
       </div>
-
-
-
-      <form name="form2" action="upload.php" method="POST">
-
-
-      </form>
 
       <div>
 

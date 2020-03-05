@@ -12,8 +12,8 @@ const HeaderComponent = props => {
       <div>
         <ButtonComponent
           title = {"Log out"}
-          style = {"buttonDecline"}
-          icon = {"Icon comes here"}
+          style = {"buttonLogOut"}
+          icon = {"(Icon comes next to text)"}
         />
       </div>
     </div>
