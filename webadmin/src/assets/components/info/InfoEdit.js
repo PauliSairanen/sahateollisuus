@@ -5,8 +5,9 @@ import EventNavi from "../eventsnavi/EventsNavi";
 import ButtonComponent from './../button_component/ButtonComponent';
 
 
-const InfoEdit = props => {
-  return (
+const InfoEdit = () => {
+
+  return(
     <div>
       
       <HeaderComponent

@@ -5,7 +5,7 @@ import "./../../UniversalStyles.css"
 import ButtonComponent from './../button_component/ButtonComponent';
 import EventNavi from "../eventsnavi/EventsNavi";
 
-const FormParticipant = props => {
+const FormParticipant = () => {
 
   return (
     <div>

@@ -39,7 +39,6 @@ const FormLogin = props => {
     if ((userName === username) && (password === okpw)) {
       setAuthTokens(200)
       setLoggedIn(true) 
-      console.log(userName + password)
     }
   }
 

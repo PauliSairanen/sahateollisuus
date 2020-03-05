@@ -1,5 +1,5 @@
 .taustakuva {
-    background-color: orange;
+    background-color: gray;
     height: 100vh;
     width: 100%;
     background-position: center;
@@ -25,7 +25,7 @@
 
 .buttonAccept:hover {
     background-color: white;
-    color: rgb(10, 231, 10);
+    color: rgb(12, 193, 12);
     
 }
 
@@ -41,6 +41,11 @@
     font-size: 16;
     font-weight: 600;
     padding: 15px 32px;
+}
+
+.buttonDecline:hover {
+    background-color: white;
+    color: rgb(187, 6, 6);
 }
 
 .buttonLogOut {

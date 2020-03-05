@@ -5,7 +5,7 @@ import EventNavi from "../eventsnavi/EventsNavi";
 import ButtonComponent from './../button_component/ButtonComponent';
 import HeaderComponent from './../header_component/HeaderComponent'
 
-const FormSponsors = props => {
+const FormSponsors = () => {
   return (
     <div>
       <HeaderComponent

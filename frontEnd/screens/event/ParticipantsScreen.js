@@ -5,11 +5,20 @@ import { SearchBar } from 'react-native-elements'
 import participantsData from '../../data/jsonFiles/participants.json'
 import ParticipantsItem from '../../components/ParticipantsItem'
 
-// __________ Function that gets data from the server __________
-//  async function getParticipantsFromApi() {
-//   try {
-//     let response = await fetch('http://sahat.lamk.fi/findParticipants')
-//     let responseJson = await response.json();
+//__________ Function that gets data from the server __________
+ async function getParticipantsFromApi() {
+  try {
+    let response = await fetch('https://sahat.lamk.fi/findparticipants')
+    let responseJson = await response.json()
+    console.log(responseJson)
+    return responseJson
+  } catch (error) {
+    console.log(error)
+  }
+}
+  
+const dataFromServer = getParticipantsFromApi()
+console.log(dataFromServer)
 
 const ParticipantsScreen = props => {
   // const [isLoading, setIsLoading] = useState(false)

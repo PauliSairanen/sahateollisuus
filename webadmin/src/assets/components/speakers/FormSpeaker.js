@@ -4,7 +4,7 @@ import HeaderComponent from "../header_component/HeaderComponent";
 import EventNavi from "../eventsnavi/EventsNavi";
 import ButtonComponent from './../button_component/ButtonComponent';
 
-const FormSpeakers = props => {
+const FormSpeakers = () => {
   return (
     <div>
       <HeaderComponent

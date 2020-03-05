@@ -1,7 +1,7 @@
 .buttonNavi {
   background-color: white; 
   color: black; 
-  border: 2px solid orange;
+  border: 2px solid hotpink;
   font-size: 20px;
   border-radius: 40px;
   width: 120px;
@@ -9,17 +9,17 @@
 
   box-shadow: 0 9px #777777;
 
-  transition-duration: 0.4s;
+  transition-duration: 0.3s;
   cursor: pointer;
 }
 
 .buttonNavi:hover {
-  background-color: orange;
+  background-color: hotpink;
   color: white;
 }
 
 .buttonNavi:active {
-  background-color: orange;
+  background-color: hotpink;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
@@ -62,8 +62,21 @@
     grid-template-columns: repeat(3, auto);
     align-items: center;
     justify-items: center;
-    height: 100px;
-    width: 200px;
-    margin: 100px;
-    color: hotpink;
-} */
+}
+*/
+
+.event {
+  height: 100px;
+  width: 200px;
+  margin: 100px;
+  color: hotpink;
+}
+
+.event:hover, .event:focus {
+  height: 110px;
+  width: 210px;
+}
+
+.event:visited, .event:active {
+  color: hotpink;
+}

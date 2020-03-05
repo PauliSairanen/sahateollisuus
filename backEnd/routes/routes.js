@@ -6,11 +6,11 @@ const Event = require('../models/events')
 events = new Events();
 
 router.get('/findAll', events.findAll);
-router.get('/findInfo', events.findInfo);
-router.get('/findProgramme', events.findProgramme);
-router.get('/findMaps', events.findMaps);
+router.get('/findAbout', events.findAbout);
 router.get('/findParticipants', events.findParticipants);
-router.get('/findVisibility', events.findVisibility);
+router.get('/findProgramme', events.findProgramme);
+router.get('/findSpeakers', events.findSpeakers);
+router.get('/findSponsors', events.findSponsors);
 
 router.get('/getfile/*', events.getOneFile);
 //router.get('/putfile*', events.putOneFile);
