@@ -2,7 +2,7 @@ import React, {useEffect, useContext} from 'react';
 import { Context } from '../../context/Store';
 import "./Info.css";
 
-const InfoEdit = () => {
+const FormProgram = () => {
 
   const [state, dispatch] = useContext(Context);
 
@@ -10,10 +10,14 @@ const InfoEdit = () => {
   
   return(
     <div>
-      <h1>Create and modify event info data:</h1>
-      Tekstieditori
+      <h1>Create and modify event program data:</h1>
+      Formi
+      Drag&Drop
+
+      Joku missä näytetään speakerin esittely
+
     </div>
   )
 }
 
-export default InfoEdit;
+export default FormProgram;

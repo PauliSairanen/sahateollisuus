@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useEffect, useContext} from 'react';
+import { Context } from '../../context/Store';
+
+
 import "./Participants.css";
 import HeaderComponent from './../header_component/HeaderComponent';
 import "./../../UniversalStyles.css"
 import ButtonComponent from './../button_component/ButtonComponent';
 
 const FormParticipant = () => {
+
+  const [state, dispatch] = useContext(Context);
 
   return (
     <div>

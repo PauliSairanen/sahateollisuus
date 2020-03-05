@@ -1,7 +1,12 @@
-import React from "react";
+import React, {useEffect, useContext} from 'react';
+import { Context } from '../../context/Store';
+
 import "./Speakers.css";
 
 const FormSpeakers = () => {
+
+  const [state, dispatch] = useContext(Context);
+
   return (
     <div>
       <h1>Create and modify event speaker data:</h1>
@@ -24,8 +29,6 @@ const FormSpeakers = () => {
 
       Dropbox, johon voi pudottaa logon (kuva x1080px, kuvan poistaminen/vaihtaminen)
       Dropbox, johon voi pudottaa puhujan materiaalit (materiaalien poistaminen/vaihtaminen)
-
-      ViewPresentation, johon liitetään ViewPresentation-luokan sisältö
 
     </div>
   )
