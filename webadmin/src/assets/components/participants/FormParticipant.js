@@ -1,7 +1,7 @@
 import React from "react";
 import "./Participants.css";
 
-const FormParticipant = props => {
+const FormParticipant = () => {
 
   return (
     <div>

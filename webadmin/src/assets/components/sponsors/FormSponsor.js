@@ -1,7 +1,7 @@
 import React from "react";
 import "./Sponsors.css";
 
-const FormSponsors = props => {
+const FormSponsors = () => {
   return (
     <div>
       <h1>Create and modify event sponsor data:</h1>

@@ -32,8 +32,20 @@
     grid-template-columns: repeat(3, auto);
     align-items: center;
     justify-items: center;
-    height: 100px;
-    width: 200px;
-    margin: 100px;
-    color: hotpink;
+}
+
+.event {
+  height: 100px;
+  width: 200px;
+  margin: 100px;
+  color: hotpink;
+}
+
+.event:hover, .event:focus {
+  height: 110px;
+  width: 210px;
+}
+
+.event:visited, .event:active {
+  color: hotpink;
 }

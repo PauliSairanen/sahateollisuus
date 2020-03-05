@@ -1,7 +1,7 @@
 import React from "react";
 import "./Speakers.css";
 
-const FormSpeakers = props => {
+const FormSpeakers = () => {
   return (
     <div>
       <h1>Create and modify event speaker data:</h1>

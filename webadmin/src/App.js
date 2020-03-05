@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './assets/context/PrivateRoute';
 import { AuthContext } from './assets/context/Auth';
 import { Jumbotron } from 'reactstrap';
@@ -7,15 +7,11 @@ import './App.css';
 
 // Components imports
 
-//import EventMaterials from './assets/components/eventmaterials/EventMaterials';
-import EventsNavi from './assets/components/eventsnavi/EventsNavi';
-//import Info from './assets/components/info/InfoEdit';
 import Login from './assets/components/login/Login';
-//import FormParticipant from './assets/components/participants/FormParticipant';
-//import FormSpeaker from './assets/components/speakers/FormSpeaker';
-//import FormSponsor from './assets/components/sponsors/FormSponsor';
+import EventsNavi from './assets/components/eventsnavi/EventsNavi';
+import EditingNavi from './assets/components/editingnavi/EditingNavi';
 
-const App = props => {
+const App = () => {
   const [authTokens, setAuthTokens] = useState();
   const setTokens = (data) => {
     localStorage.setItem("tokens", JSON.stringify(data));
@@ -27,7 +23,10 @@ const App = props => {
         <div>
         <Jumbotron>
           <Route exact path="/" component={Login} />
-          <PrivateRoute path="/eventsnavi" component={EventsNavi} />
+            <Switch>
+              <PrivateRoute path="/eventsnavi" component={EventsNavi} />
+              <PrivateRoute path="/editingnavi" component={EditingNavi} />
+            </Switch>
         </Jumbotron>
         </div>
       </Router>
