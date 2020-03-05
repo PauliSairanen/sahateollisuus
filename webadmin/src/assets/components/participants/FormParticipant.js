@@ -3,6 +3,7 @@ import "./Participants.css";
 import HeaderComponent from './../header_component/HeaderComponent';
 import "./../../UniversalStyles.css"
 import ButtonComponent from './../button_component/ButtonComponent';
+import EventNavi from "../eventsnavi/EventsNavi";
 
 const FormParticipant = props => {
 
@@ -11,7 +12,9 @@ const FormParticipant = props => {
       <HeaderComponent
         title={"Osallistujat"}
       />
-      <div class="allignHorizantally">
+      <EventNavi
+      />
+      <div class="allignHorizontally">
         <div class="formContainer">
           <div class="formInputListLeft">
             <div class="formElement">Etunimi</div>
@@ -33,20 +36,20 @@ const FormParticipant = props => {
       </div>
 
 
-      <div class="allignHorizantally">
+      <div class="allignHorizontally">
         <input type="file" multiple></input>
       </div>
 
 
 
-      <div class="allignHorizantally">
+      <div class="allignHorizontally">
         <div class="dragAndDropContainer">
           <p>This is drag and drop container</p>
         </div>
       </div>
 
 
-      <div class="allignHorizantally">
+      <div class="allignHorizontally">
         <div class="formContainer">
           <div class="formInputListLeft">
             <ButtonComponent
@@ -62,13 +65,6 @@ const FormParticipant = props => {
           </div>
         </div>
       </div>
-
-
-
-      <form name="form2" action="upload.php" method="POST">
-
-
-      </form>
 
       <div>
 

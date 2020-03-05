@@ -11,7 +11,10 @@ import './App.css';
 import EventsNavi from './assets/components/eventsnavi/EventsNavi';
 //import Info from './assets/components/info/InfoEdit';
 import Login from './assets/components/login/Login';
-//import FormParticipant from './assets/components/participants/FormParticipant';
+import FormParticipant from './assets/components/participants/FormParticipant';
+import InfoEdit from './assets/components/info/InfoEdit';
+import FormSpeakers from './assets/components/speakers/FormSpeaker';
+import FormSponsors from './assets/components/sponsors/FormSponsor';
 //import FormSpeaker from './assets/components/speakers/FormSpeaker';
 //import FormSponsor from './assets/components/sponsors/FormSponsor';
 
@@ -27,7 +30,7 @@ const App = props => {
         <div>
         <Jumbotron>
         
-          <Route exact path="/" component={FormParticipant} />
+          <Route exact path="/" component={InfoEdit} />
           <PrivateRoute path="/eventsnavi" component={EventsNavi} />
         </Jumbotron>
         </div>
