@@ -1,46 +1,59 @@
-import React from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
+import React, { useState, useCallback, useEffect } from 'react'
+import { View, FlatList } from 'react-native'
+import { SearchBar } from 'react-native-elements'
 
-// import participantsData from '../../data/jsonFiles/participants'
+import participantsData from '../../data/jsonFiles/participants.json'
 import ParticipantsItem from '../../components/ParticipantsItem'
 
-const sortedCompanies = []
-
+//__________ Function that gets data from the server __________
  async function getParticipantsFromApi() {
   try {
-    let response = await fetch('http://sahat.lamk.fi/findParticipants')
-    let responseJson = await response.json();
-
-    // Sorting data got from Json
-    responseJson.participants.forEach(object => {
-      
-      if (!sortedCompanies.includes(object.Company)) {
-        sortedCompanies.push(object)
-      }
-    });
-    sortedCompanies.sort(function (a, b) {
-      if (a.Company < b.Company) { return -1; }
-      if (a.Company > b.Company) { return 1; }
-      return 0;
-    });
-    console.log(sortedCompanies)
-    return sortedCompanies
+    let response = await fetch('https://sahat.lamk.fi/findparticipants')
+    let responseJson = await response.json()
+    console.log(responseJson)
+    return responseJson
   } catch (error) {
-    console.error(error);
+    console.log(error)
   }
 }
-
-getParticipantsFromApi()
-console.log('Log from outside Async')
-console.log(sortedCompanies)
-
+  
+const dataFromServer = getParticipantsFromApi()
+console.log(dataFromServer)
 
 const ParticipantsScreen = props => {
+  // const [isLoading, setIsLoading] = useState(false)
+  const [dataInState, setDataInState] = useState(participantsData)
+  const [searchText, setSearchText] = useState()
+
+  const searchFilterFunction = (text) => {
+    setSearchText(text)
+    // Filtering always starts from fresh data
+    const newData = participantsData.filter(item => {
+      // Converting both company name and search text to uppercase to avoid missmatch
+      const itemData = `${item.Company.toUpperCase()} ${item.FirstName.toUpperCase()} ${item.LastName.toUpperCase()}`
+      const searchText = text.toUpperCase()
+      return itemData.includes(searchText)
+    }).sort()
+    setDataInState(newData)
+  }
+
   return (
     <View>
       <FlatList
-        data={sortedCompanies}
+        data={dataInState}
         keyExtractor={(item, index) => index.toString()}
+        ListHeaderComponent={
+          <SearchBar
+            key='input'
+            placeholder="Search"
+            lightTheme
+            round
+            onChangeText={text => searchFilterFunction(text)}
+            autoCorrect={false}
+            value={searchText}
+          />
+        }
+        stickyHeaderIndices={[0]}
         renderItem={itemData =>
           <ParticipantsItem
             company={itemData.item.Company}

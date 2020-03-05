@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-const EventSchema = require('../models/event');
+const EventSchema = require('../models/DEPRECATEDevent');
 const config = require('../config/config')
 const Event = require('../models/events');
-const SortedParticipants = require('../bin/startnode')
 
 //for file uploads and downloads
 var formidable = require('formidable');
@@ -155,64 +154,58 @@ class Events {
             res.end();
         });
     }
-    findInfo(req, res){
-        var a = Event.find({"eventId": "1"},{"info": 1, _id: 0}).then(function(a){
+    findAbout(req, res){
+        var a = Event.find({"eventId": "1"},{"about": 1, _id: 0}).then(function(a){
             console.log(a);
             
-            res.send(a[0].info);
+            res.send(a[0]);
 
+            res.end();
+        });
+    }
+    findParticipants(req, res){
+        
+        var a = Event.find({"eventId": "1"},{"participants": 1, _id: 0}).then(function(a){
+            //let muuttuja = sortParticipants(a[0].participants)
+            
+            a[0].participants.forEach(function(e, i) {
+                // Kaikkien henkilöiden looppaamiseen
+                console.log(a[0].participants[i]);
+            });
+            console.log(a[0].participants[0]); // Loggaa ensimmäisen henkilön
+            res.send(a[0]);
+            //res.send(a[0].participants);
+            //console.log(a[0].participants);
             res.end();
         });
     }
     findProgramme(req, res){
         var a = Event.find({"eventId": "1"},{"programme": 1, _id: 0}).then(function(a){
             console.log(a);
-
-            res.send(a[0].programme);
+            
+            res.send(a[0]);
 
             res.end();
         });
     }
-    findMaps(req, res){
-        var a = Event.find({"eventId": "1"},{"maps": 1, _id: 0}).then(function(a){
+    findSpeakers(req, res){
+        var a = Event.find({"eventId": "1"},{"speakers": 1, _id: 0}).then(function(a){
+            console.log(a);
+
+            res.send(a[0]);
+
+            res.end();
+        });
+    }
+    findSponsors(req, res){
+        var a = Event.find({"eventId": "1"},{"sponsors": 1, _id: 0}).then(function(a){
             console.log(a);
             
-            res.send(a[0].maps);
+            res.send(a[0]);
 
             res.end();
         });
     }
-
-    
-    findParticipants(req, res){
-        
-            var a = Event.find({"eventId": "1"},{"participants": 1, _id: 0}).then(function(a){
-                //let muuttuja = sortParticipants(a[0].participants)
-                
-                a[0].participants.forEach(function(e, i) {
-                    // Kaikkien henkilöiden looppaamiseen
-                    console.log(a[0].participants[i]);
-                });
-                console.log(a[0].participants[0]); // Loggaa ensimmäisen henkilön
-                res.send(a[0]);
-                //res.send(a[0].participants);
-                //console.log(a[0].participants);
-                res.end();
-            });
-
-    }
-    
-    findVisibility(req, res){
-        var a = Event.find({"eventId": "1"},{"eventIdForVisibilityRegardingUser": 1, _id: 0}).then(function(a){
-            console.log(a);
-            
-            res.send(a[0].eventIdForVisibilityRegardingUser);
-
-            res.end();
-        });
-    }
-
-
     getOneFile(req, res){
         var tmpreq=req.url.split("/");
         var filenametmp = fileslocation + tmpreq[tmpreq.length-1];

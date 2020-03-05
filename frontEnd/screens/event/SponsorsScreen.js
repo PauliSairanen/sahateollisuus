@@ -49,11 +49,11 @@ export const companyLinksAndImages = [
     "CompanyUrl": "https://www.hoolistevedoring.fi",
     "image": require('../../assets/images/sponsors_logos2020/Hoolin_1080.jpg')
   },
-  // {
-  //   "CompanyName": "Kalajoen Satama",
-  //   "CompanyUrl": "https://www.portofkalajoki.fi",
-  //   "image": ''
-  // },
+  {
+    "CompanyName": "Kalajoen Satama",
+    "CompanyUrl": "https://www.portofkalajoki.fi",
+    "image": require('../../assets/images/sponsors_logos2020/portofkalajoki_1080.jpg')
+  },
   {
     "CompanyName": "MSC",
     "CompanyUrl": "https://www.msc.com",
@@ -98,6 +98,11 @@ export const companyLinksAndImages = [
     "CompanyName": "Steveco Oy",
     "CompanyUrl": "https://www.steveco.fi",
     "image": require('../../assets/images/sponsors_logos2020/steveco_1080.jpg')
+  },
+  {
+    "CompanyName": "Timber Exhange",
+    "CompanyUrl": "https://www.timber.exchange",
+    "image": require('../../assets/images/sponsors_logos2020/TE_logo_1080.png')
   },
   {
     "CompanyName": "VR-Yhtymä Oy ",

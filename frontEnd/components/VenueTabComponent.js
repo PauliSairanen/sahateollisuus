@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, Image, } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { View, Text, StyleSheet, Dimensions, Image, } from 'react-native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ImageZoom from 'react-native-image-pan-zoom'
 
 import firstFloorImage from '../assets/images/venue_maps/paasiekakerros1080.jpg'
 import secondFloorImage from '../assets/images/venue_maps/paasitokakerros1080.jpg'
+import Colors from '../constants/Colors'
 
 const initialLayout = { width: Dimensions.get('window').width }
 
@@ -62,12 +63,27 @@ const VenueTabComponent = props => {
     second: SecondRoute,
   });
 
+  // ______ Settings styles for tabs _____
+  const renderTabBar = props => (
+    <TabBar 
+      {...props}
+      indicatorStyle={{backgroundColor: Colors.primary}}
+      style={{backgroundColor: 'white'}}
+      renderLabel={({route, focused, color}) => (
+        <Text style={{color: Colors.primary}}>
+          {route.title}
+        </Text>
+      )}
+      />
+  )
+
   return (
     <TabView
       navigationState={{ index, routes }}
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={initialLayout}
+      renderTabBar={renderTabBar}
     />
   );
 }

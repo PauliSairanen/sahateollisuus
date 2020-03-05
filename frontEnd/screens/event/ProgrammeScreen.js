@@ -1,7 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, FlatList, Dimensions } from 'react-native'
+import { View, FlatList, } from 'react-native'
 
-import programmeData from '../../data/jsonFiles/programme_2020.json'
+import programmeData from '../../data/jsonFiles/programme.json'
 import ProgrammeItem from '../../components/ProgrammeItem'
 
 const ProgrammeScreen = props => {
@@ -17,6 +17,7 @@ const ProgrammeScreen = props => {
             description={programmeData.item.Description}
             speaker={programmeData.item.NameOfSpeaker}
             titleOfSpeaker={programmeData.item.TitleOfSpeaker}
+            specialTitleOfSpeaker={programmeData.item.SpecialTitleOfSpeaker}
             companyOfSpeaker={programmeData.item.CompanyOfSpeaker}
           />
         }
