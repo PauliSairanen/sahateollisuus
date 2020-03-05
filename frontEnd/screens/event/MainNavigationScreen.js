@@ -41,7 +41,8 @@ MainNavigationScreen.navigationOptions = navData => {
     headerTitle: () => (
       <View style={styles.headerContainer}>
         <Text style={styles.headerTitleStyle}>Wood from Finland Conference 2020</Text>
-      </View>), 
+      </View>),
+
   }
 }
 

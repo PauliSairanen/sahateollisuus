@@ -6,6 +6,7 @@ import Colors from '../constants/Colors'
 
 import LoginScreen from '../screens/user/LoginScreen'
 import MainNavigationScreen from '../screens/event/MainNavigationScreen'
+import SelectEventsScreen from '../screens/user/SelectEventScreen'
 
 import AboutScreen from '../screens/event/AboutScreen'
 import ParticipantsScreen from '../screens/event/ParticipantsScreen'
@@ -31,8 +32,9 @@ const defaultNavOptions = {
 }
 
 // _____ Navigators _____
-const ScreenNavigator = createStackNavigator(
+const EventNavigator = createStackNavigator(
   {
+    SelectEvent: SelectEventsScreen,
     MainScreen: MainNavigationScreen,
     About: AboutScreen,
     Participants: ParticipantsScreen,
@@ -57,7 +59,7 @@ const LoginNavigator = createStackNavigator(
 
 const MainNavigator = createSwitchNavigator({
   Login: LoginNavigator,
-  MainNavScreen: ScreenNavigator
+  EventNavi: EventNavigator
 })
 
 export default createAppContainer(MainNavigator)
