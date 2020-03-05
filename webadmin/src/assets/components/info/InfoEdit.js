@@ -1,12 +1,17 @@
-import React from "react";
+import React, {useEffect, useContext} from 'react';
+import { Context } from '../../context/Store';
 import "./Info.css";
-import HeaderComponent from "../header_component/HeaderComponent";
+import HeaderComponent from "../../particulars/header_component/HeaderComponent";
 import EventNavi from "../eventsnavi/EventsNavi";
-import ButtonComponent from './../button_component/ButtonComponent';
+import ButtonComponent from '../../particulars/button_component/ButtonComponent';
 
 
 const InfoEdit = () => {
 
+  const [state, dispatch] = useContext(Context);
+
+  console.log(state.event);
+  
   return(
     <div>
       

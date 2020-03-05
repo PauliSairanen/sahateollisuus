@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useEffect, useContext} from 'react';
+import { Context } from '../../context/Store';
+
 import "./Speakers.css";
-import HeaderComponent from "../header_component/HeaderComponent";
+import HeaderComponent from "../../particulars/header_component/HeaderComponent";
 import EventNavi from "../eventsnavi/EventsNavi";
-import ButtonComponent from './../button_component/ButtonComponent';
+import ButtonComponent from '../../particulars/button_component/ButtonComponent';
 
 const FormSpeakers = () => {
+
+  const [state, dispatch] = useContext(Context);
+
   return (
     <div>
       <HeaderComponent
@@ -93,10 +98,8 @@ const FormSpeakers = () => {
 
       Dropbox, johon voi pudottaa logon (kuva x1080px, kuvan poistaminen/vaihtaminen)
       Dropbox, johon voi pudottaa puhujan materiaalit (materiaalien poistaminen/vaihtaminen)
-
-      ViewPresentation, johon liitetään ViewPresentation-luokan sisältö */}
-
-    </div>
+*/}
+      </div>
   )
 }
 

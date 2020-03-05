@@ -1,11 +1,16 @@
-import React from "react";
+import React, {useEffect, useContext} from 'react';
+import { Context } from '../../context/Store';
+
 import "./Sponsors.css";
 import "./../../UniversalStyles.css"
 import EventNavi from "../eventsnavi/EventsNavi";
-import ButtonComponent from './../button_component/ButtonComponent';
-import HeaderComponent from './../header_component/HeaderComponent'
+import ButtonComponent from '../../particulars/button_component/ButtonComponent';
+import HeaderComponent from "../../particulars/header_component/HeaderComponent";
 
 const FormSponsors = () => {
+  
+  const [state, dispatch] = useContext(Context);
+
   return (
     <div>
       <HeaderComponent

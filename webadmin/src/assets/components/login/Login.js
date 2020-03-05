@@ -7,7 +7,7 @@ import './Login.css';
 
 const FormLogin = props => {
 
-  // Tämä pitää saada ensimmäisenä toimimaan https://react-hook-form.com/
+  // Pois kommentoidut ovat backendiä varten
 
   const [isLoggedIn, setLoggedIn] = useState(false);
   //const [isError, setIsError] = useState(false);

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './assets/context/PrivateRoute';
 import { AuthContext } from './assets/context/Auth';
-import { Jumbotron, Form } from 'reactstrap';
+import Store from './assets/context/Store';
+import { Jumbotron } from 'reactstrap';
 import './App.css';
 
 // Components imports
@@ -23,9 +24,13 @@ const App = () => {
       <Router>
         <div>
         <Jumbotron>
-        
           <Route exact path="/" component={Login} />
-          <PrivateRoute path="/eventsnavi" component={EventsNavi} />
+            <Switch>
+              <Store>
+                <PrivateRoute path="/eventsnavi" component={EventsNavi} />
+                <PrivateRoute path="/editingnavi" component={EditingNavi} />
+              </Store>
+            </Switch>
         </Jumbotron>
         </div>
       </Router>
