@@ -1,152 +1,111 @@
-const mongoose = require('mongoose');
 const EventSchema = require('../models/DEPRECATEDevent');
 const config = require('../config/config')
+const mongoose = require('mongoose');
 const Event = require('../models/events');
-
-//for file uploads and downloads
-var formidable = require('formidable');
-const fileslocation = "./permfiles/";
-
-const maxcachestorage=50;
-var cachestorage = [];
-//in ms milliseconds
-const timeoutcache=3600000;
-//this is caching function, iden is input and return is output
-//actual function to be cached is inside, see nearby
-function cachenow(iden) {
-    
-    //here is the function to be cached
-    //funcin = function(inp){return "edited:"+inp;};
-    //copy funtion, do not run the function,function is run elsewhere
-    funcin = giveinfo;
-    
-    var dataout
-    //var tmpref=-1;
-    var ii;
-    for(ii=0;ii<cachestorage.length;ii++)
-    {
-        if(cachestorage[ii].iden==iden)
-        {
-            tmpref=ii;
-        
-            if(cachestorage[ii].time<(new Date()).getTime() -timeoutcache)
-            {
-
-                //dataout = sortingfunc(iden);
-                dataout = funcin(iden);
-                cachestorage[ii].data=dataout;
-                cachestorage[ii].time=(new Date()).getTime();
-    
-                //console.log("old data, refreshing");
-                return dataout;
-
-            }
-            //(new Date()).getTime()
-            dataout=cachestorage[ii].data;
-            //console.log("data is already");
-
-            return dataout;
-        }
-    } 
-    
-
-    ii=cachestorage.length;
-    
-    if(ii>=maxcachestorage)
-    {
-
-        for(ii=1;ii<cachestorage.length;ii++)
-        {
-            cachestorage[ii-1]=cachestorage[ii];
-        }
-        ii--
-    }
-    
-
-    //console.log(ii);
-    //console.log(maxcachestorage);
-
-    cachestorage[ii]={};
-    cachestorage[ii].iden =iden;
-    
-    //dataout = sortingfunc(iden);
-    dataout = funcin(iden);
-    cachestorage[ii].data=dataout;
-    cachestorage[ii].time=(new Date()).getTime();
-    
-    //console.log("data stored into cache");
-    return dataout;
-}
-
-function sortInfo(sorted){
-
-
-
-    console.log(sorted);
-    return sorted;
-}
-
-function sortProgramme(sorted){
-
-
-
-    console.log(sorted);
-    return sorted;
-}
-
-function sortMaps(sorted){
-
-
-
-    console.log(sorted);
-    return sorted;
-}
-
-function sortParticipants(participants){
-
-    let sortedCompanies = [];
-    let finalArray = [];
-    participants.forEach(participant => {
-        if(!sortedCompanies.includes(participant.company)){
-            sortedCompanies.push(participant)
-        }
-    });
-    sortedCompanies.sort(function(a, b){
-        if(a.company < b.company) { return -1; }
-        if(a.company > b.company) { return 1; }
-        return 0;
-    });
-    sortedCompanies.forEach(company=>{
-        if(finalArray[company.company] == undefined){
-            finalArray[company.company] = [];
-            participants.forEach(participant=>{
-                if(participant.company == company.company){
-                    finalArray[company.company].push({
-                    
-                    FirstName: participant.firstname,
-                    LastName: participant.lastname,
-                    Country: participant.country,
-                    Role: participant.role,
-                    Telephone: participant.telephone.split(" "),
-                    Email: participant.email.split(" ")});
-                }
-            });
-            finalArray[company.company].sort(function(a, b){
-                if(a.LastName < b.LastName) { return -1; }
-                if(a.LastName > b.LastName) { return 1; }
-                return 0;
-            });
-        }
-    });
-    return finalArray;
-}
+const Auth = require('../models/auth');
 
 class Events {
 
+    createEvents(req, res){
+        
+        Event.collection.drop();
 
+        var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
+        var metadataJSON2 = require('../jsonFiles/event2Metadata.json');
+        var aboutJSON = require('../jsonFiles/about.json');
+        var participantsJSON = require('../jsonFiles/participants.json');
+        var programmeJSON = require('../jsonFiles/programme.json');
+        var speakerJSON = require('../jsonFiles/speakers.json');
+        var sponsorsJSON = require('../jsonFiles/sponsors_Urls.json');
 
-    findAll(req, res){
-        var a = Event.find({"eventId": "1"}).then(function(a){
+        var event1 = new Event({
+            metadata: metadataJSON1,
+            about : aboutJSON,
+            participants : participantsJSON,
+            programme : programmeJSON,
+            speakers : speakerJSON,
+            sponsors : sponsorsJSON,
+        });
+
+        var event2 = new Event({
+            metadata: metadataJSON2,
+            about : aboutJSON,
+            participants : participantsJSON,
+            programme : programmeJSON,
+            speakers : speakerJSON,
+            sponsors : sponsorsJSON,
+        });
+
+        // var event1 = new Event({
+        //   eventId : "1",
+        //   eventIdForVisibilityRegardingUser : "String",
+        //   about : aboutJSON,
+        //   participants : participantJSON,
+        //   programme : programmeJSON,
+        //   speakers : speakerJSON,
+        //   sponsors : sponsorsJSON
+        // });
+
+        // Creating a event according to schema
+        // var event1 = new Event({
+            
+        // });
+                
+        //Insert to DB
+        event1.save().then(function(){
+            console.log("Event was saved");
+        });
+
+        event2.save().then(function(){
+            console.log("Event was saved");
+        });
+
+        res.send(200);
+
+        res.end();
+    }
+
+    updateEvent(req, res){
+
+        var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
+
+        Event.update({ _id: "5e69f7b299f21917d5e7022d"}, {$set: {metadata: metadataJSON1}});
+
+        res.send(200);
+
+        res.end();
+    }
+
+    findAdmin(req, res){
+        var a = Auth.find({}, {"admin": 1}).then(function(a){
+            
+            res.send(a);
+
+            res.end();
+        });
+    }
+
+    Authenticate(req, res){
+        var a = Auth.find({}, {"admin": 1}).then(function(a){
+
+            // var name = req.body.userName;
+            // var pass = req.body.password;
+
+            // if(name == a.username && pass == a.password){
+            //     res.send(200);
+            //     res.end();
+            // }
+            // else {
+            //     res.send(404); res.end();
+            // }
+
+            res.send(200);
+                res.end();
+        });
+    }
+
+    findMetadata(req, res){
+        var a = Event.find({}, {"metadata": 1}).then(function(a){
             console.log(a);
             
             res.send(a);
@@ -154,8 +113,19 @@ class Events {
             res.end();
         });
     }
+    
+    findAllParticipants(req, res){
+        var a = Event.find({}, {"participants": 1}).then(function(a){
+            console.log(a);
+            
+            res.send(a);
+
+            res.end();
+        });
+    }
+
     findAbout(req, res){
-        var a = Event.find({"eventId": "1"},{"about": 1, _id: 0}).then(function(a){
+        var a = Event.find({"_id": "5e69f7b299f21917d5e7022d"},{"about": 1}).then(function(a){
             console.log(a);
             
             res.send(a[0]);
@@ -165,7 +135,7 @@ class Events {
     }
     findParticipants(req, res){
         
-        var a = Event.find({"eventId": "1"},{"participants": 1, _id: 0}).then(function(a){
+        var a = Event.find({"_id": req},{"participants": 1}).then(function(a){
             //let muuttuja = sortParticipants(a[0].participants)
             
             a[0].participants.forEach(function(e, i) {
@@ -180,7 +150,7 @@ class Events {
         });
     }
     findProgramme(req, res){
-        var a = Event.find({"eventId": "1"},{"programme": 1, _id: 0}).then(function(a){
+        var a = Event.find({"_id": req},{"programme": 1}).then(function(a){
             console.log(a);
             
             res.send(a[0]);
@@ -189,7 +159,7 @@ class Events {
         });
     }
     findSpeakers(req, res){
-        var a = Event.find({"eventId": "1"},{"speakers": 1, _id: 0}).then(function(a){
+        var a = Event.find({"_id": req},{"speakers": 1}).then(function(a){
             console.log(a);
 
             res.send(a[0]);
@@ -198,7 +168,7 @@ class Events {
         });
     }
     findSponsors(req, res){
-        var a = Event.find({"eventId": "1"},{"sponsors": 1, _id: 0}).then(function(a){
+        var a = Event.find({"_id": req},{"sponsors": 1}).then(function(a){
             console.log(a);
             
             res.send(a[0]);
@@ -206,6 +176,8 @@ class Events {
             res.end();
         });
     }
+
+    //Mitä nämä on?
     getOneFile(req, res){
         var tmpreq=req.url.split("/");
         var filenametmp = fileslocation + tmpreq[tmpreq.length-1];
@@ -274,7 +246,7 @@ class Events {
 
 module.exports = Events;
 
-// Alternativa way to use funtions in routes
+// Alternative way to use funtions in routes
 //module.exports.findAll = function(){
 //    var a = Item.find().then(function(a){
 //        console.log(a);

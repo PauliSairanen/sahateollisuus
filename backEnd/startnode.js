@@ -3,13 +3,14 @@ const fs = require('fs');
 const https = require('https');
 const privateKey  = fs.readFileSync('/etc/pki/tls/private/sahat.lamk.fi.key', 'utf8');
 const certificate = fs.readFileSync('/etc/pki/tls/certs/sahat.lamk.fi.bundle.crt', 'utf8');
+const mongoose = require('mongoose');
+const Auth = require('./models/auth');
+const Event = require('./models/events');
+const bodyParser = require('body-parser')
 
 var credentials = {key: privateKey, cert: certificate};
 var express = require('express');
 var app = express();
-
-const mongoose = require('mongoose');
-const Event = require('./models/events');
 
 // Create routes
 const routes = require('./routes/routes.js');
@@ -29,42 +30,52 @@ mongoose.connection.once('open',function(){
     console.log('Connection error:', error);
 });
 
-Event.collection.drop();
+// Event.collection.drop();
 
-var aboutJSON = require('./jsonFiles/about.json');
-var participantsJSON = require('./jsonFiles/participants.json');
-var programmeJSON = require('./jsonFiles/programme.json');
-var speakerJSON = require('./jsonFiles/speakers.json');
-var sponsorsJSON = require('./jsonFiles/sponsors_Urls.json');
+//         var metadataJSON = require('./jsonFiles/metadata.json');
+//         var aboutJSON = require('./jsonFiles/about.json');
+//         var participantsJSON = require('./jsonFiles/participants.json');
+//         var programmeJSON = require('./jsonFiles/programme.json');
+//         var speakerJSON = require('./jsonFiles/speakers.json');
+//         var sponsorsJSON = require('./jsonFiles/sponsors_Urls.json');
 
-var event1 = new Event({
-  eventId : "1",
-  about : aboutJSON,
-  participants : participantsJSON,
-  programme : programmeJSON,
-  speakers : speakerJSON,
-  sponsors : sponsorsJSON,
+//         var event1 = new Event({
+//             metadata: metadataJSON,
+//             about : aboutJSON,
+//             participants : participantsJSON,
+//             programme : programmeJSON,
+//             speakers : speakerJSON,
+//             sponsors : sponsorsJSON,
+//         });
+
+//         var event2 = new Event({
+//             metadata: metadataJSON,
+//             about : aboutJSON,
+//             participants : participantsJSON,
+//             programme : programmeJSON,
+//             speakers : speakerJSON,
+//             sponsors : sponsorsJSON,
+//         });
+
+//         Insert to DB
+//         event1.save().then(function(){
+//             console.log("Event was saved");
+//         });
+
+//         event2.save().then(function(){
+//             console.log("Event was saved");
+//         });
+
+//Auth.collection.drop();
+
+var adminJSON = require('./jsonFiles/admin.json');
+
+var adminAuth = new Auth({
+    admin: adminJSON
 });
 
-// var event1 = new Event({
-//   eventId : "1",
-//   eventIdForVisibilityRegardingUser : "String",
-//   about : aboutJSON,
-//   participants : participantJSON,
-//   programme : programmeJSON,
-//   speakers : speakerJSON,
-//   sponsors : sponsorsJSON
-// });
-
-// Creating a event according to schema
-// var event1 = new Event({
-    
-// });
-        
-//Insert to DB
-event1.save().then(function(){
+adminAuth.save().then(function(){
     console.log("Event was saved");
 });
 
-
-
+Auth.collection.drop();
