@@ -3,8 +3,15 @@ import { Context } from '../../context/Store';
 
 
 import "./Participants.css";
+<<<<<<< HEAD
 import "./../../UniversalStyles.css"
 import ButtonComponent from './../../particulars/button_component/ButtonComponent';
+=======
+import HeaderComponent from "../../particulars/header_component/HeaderComponent";
+import "./../../UniversalStyles.css"
+import ButtonComponent from '../../particulars/button_component/ButtonComponent';
+import EventNavi from "../eventsnavi/EventsNavi";
+>>>>>>> 7d826c0115b9c20c0bacb9d68ba6ba4badd58c99
 
 const FormParticipant = () => {
 
@@ -12,7 +19,16 @@ const FormParticipant = () => {
 
   return (
     <div>
+<<<<<<< HEAD
       <div class="allignHorizantally">
+=======
+      <HeaderComponent
+        title={"Osallistujat"}
+      />
+      <EventNavi
+      />
+      <div class="allignHorizontally">
+>>>>>>> 7d826c0115b9c20c0bacb9d68ba6ba4badd58c99
         <div class="formContainer">
           <div class="formInputListLeft">
             <div class="formElement">Etunimi</div>
@@ -34,20 +50,20 @@ const FormParticipant = () => {
       </div>
 
 
-      <div class="allignHorizantally">
+      <div class="allignHorizontally">
         <input type="file" multiple></input>
       </div>
 
 
 
-      <div class="allignHorizantally">
+      <div class="allignHorizontally">
         <div class="dragAndDropContainer">
           <p>This is drag and drop container</p>
         </div>
       </div>
 
 
-      <div class="allignHorizantally">
+      <div class="allignHorizontally">
         <div class="formContainer">
           <div class="formInputListLeft">
             <ButtonComponent
@@ -63,13 +79,6 @@ const FormParticipant = () => {
           </div>
         </div>
       </div>
-
-
-
-      <form name="form2" action="upload.php" method="POST">
-
-
-      </form>
 
       <div>
 

@@ -1,26 +1,67 @@
+.taustakuva {
+    background-color: gray;
+    height: 100vh;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .buttonAccept {
-    background-color: chartreuse;
-    border: none;
-    color: darkgray;
-    padding: 15px 32px;
+    background-color: rgb(10, 231, 10) ;
+    border: solid rgb(10, 231, 10) 1px;
+    color: black;
+    padding: 16px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    border-radius: 40px;
+    margin: 4px 2px;
+    font-weight: bold;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.buttonAccept:hover {
+    background-color: white;
+    color: rgb(12, 193, 12);
+    
 }
 
 .buttonDecline {
-    background-color: red;
-    border: none;
-    color: darkgray;
+    background-color: white;
+    border-radius: 5;
+    border-width: 1;
+    border-color:red;
+    margin-left: 5;
+    margin-right: 5;
+    text-align: center;
+    color:red;
+    font-size: 16;
+    font-weight: 600;
+    padding: 15px 32px;
+}
+
+.buttonDecline:hover {
+    background-color: white;
+    color: rgb(187, 6, 6);
+}
+
+.buttonLogOut {
+    background-color: black;
+    color: blanchedalmond;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    font-weight: bold;
+    border-radius: 40px;
 }
 
-.allignHorizantally{
+
+.allignHorizontally{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -45,20 +86,6 @@
     border-width: 1px;;
     width: 15%;
     height: 200px;
-}
-
-.formInputListLeft{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.formInputListRight{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: flex-end;
 }
 
 .formElement {

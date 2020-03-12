@@ -11,6 +11,7 @@ import './App.css';
 import Login from './assets/components/login/Login';
 import EventsNavi from './assets/components/eventsnavi/EventsNavi';
 import EditingNavi from './assets/components/editingnavi/EditingNavi';
+import InfoEdit from './assets/components/info/InfoEdit';
 
 const App = () => {
   const [authTokens, setAuthTokens] = useState();

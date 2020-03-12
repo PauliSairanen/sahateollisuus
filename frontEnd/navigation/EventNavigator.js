@@ -6,6 +6,7 @@ import Colors from '../constants/Colors'
 
 import LoginScreen from '../screens/user/LoginScreen'
 import MainNavigationScreen from '../screens/event/MainNavigationScreen'
+import SelectEventsScreen from '../screens/user/SelectEventScreen'
 
 import AboutScreen from '../screens/event/AboutScreen'
 import ParticipantsScreen from '../screens/event/ParticipantsScreen'
@@ -31,35 +32,73 @@ const defaultNavOptions = {
 }
 
 // _____ Navigators _____
-const ScreenNavigator = createStackNavigator(
+const EventNavigator = createStackNavigator(
   {
-    MainScreen: MainNavigationScreen,
-    About: AboutScreen,
-    Participants: ParticipantsScreen,
-    Programme: ProgrammeScreen,
-    Speakers: SpeakersScreen,
-    Sponsors: SponsorsScreen,
-    Venue: VenueScreen,
-    Feedback: FeedbackScreen,
-
-  }, {
-    defaultNavigationOptions: defaultNavOptions
-  }
-)
-
-const LoginNavigator = createStackNavigator(
-  {
-    Login: LoginScreen
+    SelectEvent: {
+      screen: SelectEventsScreen,
+      navigationOptions: {
+        headerTitle: 'Select Event'
+      }
+    },
+    MainScreen: {
+      screen: MainNavigationScreen,
+      navigationOptions: {
+        headerBackTitle: 'Events'
+      }
+    },
+    About: {
+      screen: AboutScreen,
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Participants: {
+      screen: ParticipantsScreen,
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Programme: {
+      screen: ProgrammeScreen,
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Speakers: {
+      screen: SpeakersScreen,
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Sponsors: {
+      screen: SponsorsScreen, 
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Venue: {
+      screen: VenueScreen, 
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Feedback: {
+      screen: FeedbackScreen, 
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
   }, {
   defaultNavigationOptions: defaultNavOptions
 }
 )
 
-const MainNavigator = createSwitchNavigator({
-  Login: LoginNavigator,
-  MainNavScreen: ScreenNavigator
-})
+const MainNavigator = createSwitchNavigator(
+  {
+    Login: LoginScreen,
+    EventNavi: EventNavigator
+  })
 
-export default createAppContainer(MainNavigator)
+export default createAppContainer(EventNavigator)
 
 

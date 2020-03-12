@@ -40,8 +40,8 @@ MainNavigationScreen.navigationOptions = navData => {
     // This should be dynamic
     headerTitle: () => (
       <View style={styles.headerContainer}>
-        <Text style={styles.headerTitleStyle}>Wood from Finland Conference 2020</Text>
-      </View>), 
+        <Text style={styles.headerTitleStyle}>Wood from Finland 2020</Text>
+      </View>),
   }
 }
 
