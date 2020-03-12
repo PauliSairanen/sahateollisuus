@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, FlatList } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 
-import eventsData from '../../data/jsonFiles/events.json'
+import * as eventDataActions from '../../store/actions/eventData'
+
+// import eventsData from '../../data/jsonFiles/events.json'
 import EventListItem from '../../components/EventsListItem'
 
 const SelectEventScreen = props => {
+  const eventsData = useSelector(state => state.eventData.eventsMetaData)
+  const dispatch = useDispatch()
 
+  console.log(eventsData)
+
+  useEffect(() => {
+    dispatch(eventDataActions.fetchEventMetaData())
+    console.log('Action dispatched for fetching new data!')
+  }, [dispatch])
+
+ 
   return (
     <View>
       <FlatList
@@ -15,8 +28,7 @@ const SelectEventScreen = props => {
         renderItem={eventsData =>
           <EventListItem
             eventId={eventsData.item.id}
-            eventName={eventsData.item.eventName}
-            eventDescription={eventsData.item.eventDescription}
+            eventName={eventsData.item.name}
             eventImage={eventsData.item.eventImage}
           />
         }
