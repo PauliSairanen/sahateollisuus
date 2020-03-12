@@ -3,9 +3,8 @@ import { Context } from '../../context/Store';
 
 
 import "./Participants.css";
-import HeaderComponent from './../header_component/HeaderComponent';
 import "./../../UniversalStyles.css"
-import ButtonComponent from './../button_component/ButtonComponent';
+import ButtonComponent from './../../particulars/button_component/ButtonComponent';
 
 const FormParticipant = () => {
 
@@ -13,9 +12,6 @@ const FormParticipant = () => {
 
   return (
     <div>
-      <HeaderComponent
-        title={"Osallistujat"}
-      />
       <div class="allignHorizantally">
         <div class="formContainer">
           <div class="formInputListLeft">
