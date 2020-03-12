@@ -34,34 +34,71 @@ const defaultNavOptions = {
 // _____ Navigators _____
 const EventNavigator = createStackNavigator(
   {
-    SelectEvent: SelectEventsScreen,
-    MainScreen: MainNavigationScreen,
-    About: AboutScreen,
-    Participants: ParticipantsScreen,
-    Programme: ProgrammeScreen,
-    Speakers: SpeakersScreen,
-    Sponsors: SponsorsScreen,
-    Venue: VenueScreen,
-    Feedback: FeedbackScreen,
-
-  }, {
-    defaultNavigationOptions: defaultNavOptions
-  }
-)
-
-const LoginNavigator = createStackNavigator(
-  {
-    Login: LoginScreen
+    SelectEvent: {
+      screen: SelectEventsScreen,
+      navigationOptions: {
+        headerTitle: 'Select Event'
+      }
+    },
+    MainScreen: {
+      screen: MainNavigationScreen,
+      navigationOptions: {
+        headerBackTitle: 'Events'
+      }
+    },
+    About: {
+      screen: AboutScreen,
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Participants: {
+      screen: ParticipantsScreen,
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Programme: {
+      screen: ProgrammeScreen,
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Speakers: {
+      screen: SpeakersScreen,
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Sponsors: {
+      screen: SponsorsScreen, 
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Venue: {
+      screen: VenueScreen, 
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
+    Feedback: {
+      screen: FeedbackScreen, 
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
   }, {
   defaultNavigationOptions: defaultNavOptions
 }
 )
 
-const MainNavigator = createSwitchNavigator({
-  Login: LoginNavigator,
-  EventNavi: EventNavigator
-})
+const MainNavigator = createSwitchNavigator(
+  {
+    Login: LoginScreen,
+    EventNavi: EventNavigator
+  })
 
-export default createAppContainer(MainNavigator)
+export default createAppContainer(EventNavigator)
 
 

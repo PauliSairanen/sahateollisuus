@@ -1,7 +1,5 @@
 import React from 'react'
-import { View, FlatList, Text, StyleSheet } from 'react-native'
-
-import Colors from '../../constants/Colors'
+import { View, FlatList } from 'react-native'
 
 import eventsData from '../../data/jsonFiles/events.json'
 import EventListItem from '../../components/EventsListItem'
@@ -29,22 +27,8 @@ const SelectEventScreen = props => {
 
 SelectEventScreen.navigationOptions = navData => {
   return {
-    headerTitle: () => (
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerTitleStyle}>Select Event</Text>
-      </View>)
-    ,
+    headerBackTitle: null
   }
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
-  headerTitleStyle: {
-    fontFamily: 'Rubik-Bold',
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
-  },
-})
 
 export default SelectEventScreen

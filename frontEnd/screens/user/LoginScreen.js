@@ -96,13 +96,6 @@ const LoginScreen = props => {
   )
 }
 
-LoginScreen.navigationOptions = {
-  headerTitle: () => (
-    <View style={styles.headerContainer}>
-      <Text style={styles.headerTitleStyle}>Wood from Finland Conference 2020</Text>
-    </View>),
-}
-
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

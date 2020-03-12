@@ -29,13 +29,14 @@ const EventsListItem = props => {
             style={styles.image}
             resizeMode='contain'
           />
+          <Text>{props.eventName}</Text>
         </View>
-        <Text>{props.eventName}</Text>
-        <Text>{props.eventDescription}</Text>
       </TouchableComponent>
     </Card>
   )
 }
+
+
 
 const styles = StyleSheet.create({
   card: {
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: '100%',
+    padding: 10,
   },
   image: {
     width: '80%',
