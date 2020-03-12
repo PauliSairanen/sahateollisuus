@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Image, Text } from 'react-native'
 import { withNavigation } from 'react-navigation'
 
@@ -35,8 +35,6 @@ const EventsListItem = props => {
     </Card>
   )
 }
-
-
 
 const styles = StyleSheet.create({
   card: {
