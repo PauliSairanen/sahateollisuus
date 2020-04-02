@@ -3,10 +3,8 @@ import { Context } from '../../context/Store';
 
 
 import "./Participants.css";
-import HeaderComponent from "../../particulars/header_component/HeaderComponent";
 import "./../../UniversalStyles.css"
-import ButtonComponent from '../../particulars/button_component/ButtonComponent';
-import EventNavi from "../eventsnavi/EventsNavi";
+import ButtonComponent from './../../particulars/button_component/ButtonComponent';
 
 const FormParticipant = () => {
 
@@ -14,12 +12,7 @@ const FormParticipant = () => {
 
   return (
     <div>
-      <HeaderComponent
-        title={"Osallistujat"}
-      />
-      <EventNavi
-      />
-      <div class="allignHorizontally">
+      <div class="allignHorizantally">
         <div class="formContainer">
           <div class="formInputListLeft">
             <div class="formElement">Etunimi</div>
