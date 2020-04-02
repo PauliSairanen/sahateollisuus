@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react'
-import { View, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Image, Text } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Image, Text, ActivityIndicator } from 'react-native'
 import { withNavigation } from 'react-navigation'
+import { useSelector, useDispatch } from 'react-redux'
+import * as eventDataActions from '../store/actions/eventData'
 
 import Card from './Card'
+import Colors from '../constants/Colors'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -10,16 +13,26 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const EventsListItem = props => {
-
+  const [isLoading, setIsLoading] = useState(false)
+  const dispatch = useDispatch()
   // Fetch data about all events and list it
   const imageUrl = props.eventImage
+
+  // Async function for fetching data from server
+  const fetchAllDataFromBackend = () => {
+    console.log('Action dispatched for fetching ALL data!')
+    // ToDo: dispatch action to set global state to loading
+    dispatch(eventDataActions.fetchSpeakers())
+    // ToDo: dispatch action to set global state to finished loading
+  }
 
   return (
     <Card style={styles.card}>
       <TouchableComponent
         style={styles.touchable}
         onPress={() => {
-          // Fetch all Data from server about selected event
+          fetchAllDataFromBackend()
+          // ToDo: While loading, display activity indicator
           props.navigation.navigate('MainScreen')
         }}
       >

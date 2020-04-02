@@ -1,16 +1,43 @@
 import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
 
-const CustomComponent = props => {
+// Parent Component
+const ExampleComponent = props => {
   return (
-    <View>
-      <Text></Text>
-    </View>
+    <Hello name="Paul" />
   )
 }
 
-const styles = StyleSheet.create({
+// Child Component
+const Hello = props => {
+  return <h1>Hello, {props.name}</h1>
+}
 
-})
+export default ExampleComponent
 
-export default CustomComponent
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react'
+// import {View, Text, StyleSheet} from 'react-native'
+
+// const CustomComponent = props => {
+//   return (
+//     <View>
+//       <Text></Text>
+//     </View>
+//   )
+// }
+
+// const styles = StyleSheet.create({
+
+// })
+
+// export default CustomComponent

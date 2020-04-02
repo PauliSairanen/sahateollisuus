@@ -1,35 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { View, FlatList, ActivityIndicator } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Colors from '../../constants/Colors'
+import * as eventDataActions from '../../store/actions/eventData'
 
 // import speakersData from '../../data/jsonFiles/speakers.json'
 import SpeakersItem from '../../components/SpeakersItem'
 
 const SpeakersScreen = props => {
-  const [dataFromServer, setDataFromServer] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
-  //__________ Function that gets data from the server __________
-  const fetchData = async () => {
-    setIsLoading(true)
-    try {
-      let response = await fetch('https://sahat.lamk.fi/findSpeakers')
-      let responseJson = await response.json()
-      
-      // DB returns an array with a key named speakers
-      setDataFromServer(responseJson.speakers)
-      setIsLoading(false)
-      console.log(responseJson)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  // Calls the function only once, when screen is laucnhed
-  useEffect(() => {
-    fetchData()
-  }, [])
+  //_____ Fetch data from global state ______
+   const speakersData = useSelector(state => state.eventData.speakersData)
+   console.log('_____ Log from Speakers Screen _____')
+   console.log(speakersData)
 
   if (isLoading === true) {
     return (
@@ -41,8 +26,8 @@ const SpeakersScreen = props => {
     return (
       <View>
         <FlatList
-          data={dataFromServer}
-          extraData={dataFromServer}
+          data={speakersData}
+          extraData={speakersData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={speakersData =>
             <SpeakersItem
@@ -50,6 +35,7 @@ const SpeakersScreen = props => {
               title={speakersData.item.Title}
               company={speakersData.item.Company}
               specialTitle={speakersData.item.SpecialTitle}
+              image={speakersData.item.ImageID}
             />
           }
         />

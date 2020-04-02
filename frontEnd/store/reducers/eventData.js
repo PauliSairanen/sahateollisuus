@@ -1,8 +1,9 @@
-import { SET_EVENTS_METADATA } from '../actions/eventData'
+import { SET_EVENTS_METADATA, FETCH_SPEAKERS, IS_LOADING_TRUE, IS_LOADING_FALSE } from '../actions/eventData'
 
 // Set the data as initial state
 const initialState = {
-  eventsMetaData: []
+  eventsMetaData: [],
+  speakersData: []
 }
 
 const eventDataReducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const eventDataReducer = (state = initialState, action) => {
       console.log('entering Set events case')
       return {
         eventsMetaData: action.eventsMetaData
+      }
+    case FETCH_SPEAKERS:
+      console.log('entering Set events case')
+      return {
+        speakersData: action.fetchedSpeakers
       }
     default:
       return state
