@@ -3,19 +3,15 @@ import { Context } from '../../context/Store';
 
 import "./Speakers.css";
 import EventNavi from "../eventsnavi/EventsNavi";
-import DragAndDrop from '../../particulars/header_component/DragAndDrop';
 
 const FormSpeakers = () => {
 
   const [state, dispatch] = useContext(Context);
 
+  const url = 'https://sahat.lamk.fi/testFormSpeakers';
+
   return (
     <div>
-      <HeaderComponent
-        title={"Puhujat"}
-      />
-      <EventNavi
-      />
       <div class="allignHorizontally">
         <div class="formContainer">
           <div class="formInputListLeft">
@@ -61,35 +57,17 @@ const FormSpeakers = () => {
           </div>
         </div>
       </div>
+      
+      {/*  Form, johon voi myös ladata tietokannasta arvot:
+      Nimi: etu (required), suku (required) ja toinen nimi
+      rooli/asema (agentti/toimitusjohtaja tms)
+      firma
 
-      <div class="allignHorizontally">
-        <div class="textEditor">
-        <textarea id="Speakers" rows="4" cols="50">
-          Tää olis helpoin Tekstieditori toteuttaa, voi määrittää koon ja ID:n
-        </textarea>
-      </div>
-      </div>
+      Tekstieditori, johon voi kirjoittaa tai kopioida esittelyn
 
-
-
-
-      <div class="allignHorizontally">
-        <div class="formContainer">
-          <div class="formInputListLeft">
-            <ButtonComponent
-              title={"Save"}
-              style={"buttonAccept"}
-            />
-          </div>
-          <div class="formInputListRight">
-            <ButtonComponent
-              title={"Cancel"}
-              style={"buttonDecline"}
-            />
-          </div>
-        </div>
-      </div>
-
+      Dropbox, johon voi pudottaa logon (kuva x1080px, kuvan poistaminen/vaihtaminen)
+      Dropbox, johon voi pudottaa puhujan materiaalit (materiaalien poistaminen/vaihtaminen)
+*/}
       </div>
   )
 }

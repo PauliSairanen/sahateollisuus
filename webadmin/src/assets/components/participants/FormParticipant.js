@@ -1,10 +1,8 @@
 import React, {useEffect, useContext} from 'react';
 import { Context } from '../../context/Store';
 
-
 import "./Participants.css";
 import "./../../UniversalStyles.css"
-import EventNavi from "../eventsnavi/EventsNavi";
 
 import DragAndDrop from '../../particulars/header_component/DragAndDrop';
 
@@ -12,14 +10,11 @@ const FormParticipant = () => {
 
   const [state, dispatch] = useContext(Context);
 
+  const url = 'https://sahat.lamk.fi/testFormParticipant';
+
   return (
     <div>
-      <HeaderComponent
-        title={"Osallistujat"}
-      />
-      <EventNavi
-      />
-      <div class="allignHorizontally">
+      <div class="allignHorizantally">
         <div class="formContainer">
           <div class="formInputListLeft">
             <div class="formElement">Etunimi</div>
@@ -40,34 +35,13 @@ const FormParticipant = () => {
         </div>
       </div>
 
-
       <div class="allignHorizontally">
         <input type="file" multiple></input>
       </div>
 
-
-
       <div class="allignHorizontally">
         <div class="dragAndDropContainer">
           <DragAndDrop/>
-        </div>
-      </div>
-
-
-      <div class="allignHorizontally">
-        <div class="formContainer">
-          <div class="formInputListLeft">
-            <ButtonComponent
-              title={"Save"}
-              style={"buttonAccept"}
-            />
-          </div>
-          <div class="formInputListRight">
-            <ButtonComponent
-              title={"Cancel"}
-              style={"buttonDecline"}
-            />
-          </div>
         </div>
       </div>
 

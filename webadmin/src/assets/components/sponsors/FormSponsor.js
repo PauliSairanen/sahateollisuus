@@ -4,19 +4,15 @@ import { Context } from '../../context/Store';
 import "./Sponsors.css";
 import "./../../UniversalStyles.css"
 import EventNavi from "../eventsnavi/EventsNavi";
-import DragAndDrop from '../../particulars/header_component/DragAndDrop';
 
 const FormSponsors = () => {
   
   const [state, dispatch] = useContext(Context);
 
+  const url = 'https://sahat.lamk.fi/testFormSponsors';
+
   return (
     <div>
-      <HeaderComponent
-        title={"Sponsorit"}
-      />
-      <EventNavi
-      />
       <div class="allignHorizontally">
         <div class="formContainer">
           <div class="formInputListLeft">
@@ -48,33 +44,7 @@ const FormSponsors = () => {
           <DragAndDrop/>
         </div>
       </div>
-
-
-      <div class="allignHorizontally">
-        <div class="formContainer">
-          <div class="formInputListLeft">
-            <ButtonComponent
-              title={"Save"}
-              style={"buttonAccept"}
-            />
-          </div>
-          <div class="formInputListRight">
-            <ButtonComponent
-              title={"Cancel"}
-              style={"buttonDecline"}
-            />
-          </div>
-        </div>
-      </div>
-
-
-
-
-
-
-
-
-
+      
       {/* <h1>Create and modify event sponsor data:</h1>
       Form, johon voi myös ladata tietokannasta arvot:
       nettiosoite
