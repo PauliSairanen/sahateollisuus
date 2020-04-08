@@ -1,11 +1,11 @@
 import React, {useEffect, useContext} from 'react';
 import { Context } from '../../context/Store';
 
-import "./EventMaterials.css";
-
 const EventMaterials = () => {
 
   const [state, dispatch] = useContext(Context);
+
+  const url = 'https://sahat.lamk.fi/testEventMaterials';
 
   return (
     <div>
