@@ -1,10 +1,11 @@
 import React, {useEffect, useContext} from 'react';
 import { Context } from '../../context/Store';
-import "./Info.css";
 
 const FormProgram = () => {
 
   const [state, dispatch] = useContext(Context);
+
+  const url = 'https://sahat.lamk.fi/testFormProgram';
 
   console.log(state.event);
   

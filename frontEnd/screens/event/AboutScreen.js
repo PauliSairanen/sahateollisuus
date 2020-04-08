@@ -11,20 +11,6 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
 }
 
-//__________ Function that gets data from the server __________
- async function getAboutFromApi() {
-  try {
-    let response = await fetch('https://sahat.lamk.fi/findAbout')
-    let responseJson = await response.json()
-    console.log(responseJson)
-    return responseJson
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-
-
 const AboutScreen = props => {
   return (
     <View style={{ flex: 1 }}>

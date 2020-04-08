@@ -5,7 +5,6 @@ import NavigationTile from '../../components/NavigationTile'
 import Colors from '../../constants/Colors'
 
 const numberOfColumns = 2
-
 const naviScreenData = [
   { id: 1, title: 'Programme', link: 'Programme', icon: Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar' },
   { id: 2, title: 'Speakers', link: 'Speakers', icon: Platform.OS === 'android' ? 'md-microphone' : 'ios-microphone' },
@@ -40,8 +39,8 @@ MainNavigationScreen.navigationOptions = navData => {
     // This should be dynamic
     headerTitle: () => (
       <View style={styles.headerContainer}>
-        <Text style={styles.headerTitleStyle}>Wood from Finland Conference 2020</Text>
-      </View>), 
+        <Text style={styles.headerTitleStyle}>Wood from Finland 2020</Text>
+      </View>),
   }
 }
 
