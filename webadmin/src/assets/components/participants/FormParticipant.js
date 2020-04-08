@@ -3,10 +3,10 @@ import { Context } from '../../context/Store';
 
 
 import "./Participants.css";
-import HeaderComponent from "../../particulars/header_component/HeaderComponent";
 import "./../../UniversalStyles.css"
-import ButtonComponent from '../../particulars/button_component/ButtonComponent';
 import EventNavi from "../eventsnavi/EventsNavi";
+
+import DragAndDrop from '../../particulars/header_component/DragAndDrop';
 
 const FormParticipant = () => {
 
@@ -49,7 +49,7 @@ const FormParticipant = () => {
 
       <div class="allignHorizontally">
         <div class="dragAndDropContainer">
-          <p>This is drag and drop container</p>
+          <DragAndDrop/>
         </div>
       </div>
 

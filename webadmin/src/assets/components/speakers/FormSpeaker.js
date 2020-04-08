@@ -2,9 +2,8 @@ import React, {useEffect, useContext} from 'react';
 import { Context } from '../../context/Store';
 
 import "./Speakers.css";
-import HeaderComponent from "../../particulars/header_component/HeaderComponent";
 import EventNavi from "../eventsnavi/EventsNavi";
-import ButtonComponent from '../../particulars/button_component/ButtonComponent';
+import DragAndDrop from '../../particulars/header_component/DragAndDrop';
 
 const FormSpeakers = () => {
 
@@ -56,13 +55,20 @@ const FormSpeakers = () => {
 
             <div class="allignHorizontally">
               <div class="dragAndDropContainer">
-                <p>Tähän puhujan materiaali</p>
+                <DragAndDrop/>
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <div class="allignHorizontally">
+        <div class="textEditor">
+        <textarea id="Speakers" rows="4" cols="50">
+          Tää olis helpoin Tekstieditori toteuttaa, voi määrittää koon ja ID:n
+        </textarea>
+      </div>
+      </div>
 
 
 
@@ -84,21 +90,6 @@ const FormSpeakers = () => {
         </div>
       </div>
 
-
-
-
-
-
-      {/*  Form, johon voi myös ladata tietokannasta arvot:
-      Nimi: etu (required), suku (required) ja toinen nimi
-      rooli/asema (agentti/toimitusjohtaja tms)
-      firma
-
-      Tekstieditori, johon voi kirjoittaa tai kopioida esittelyn
-
-      Dropbox, johon voi pudottaa logon (kuva x1080px, kuvan poistaminen/vaihtaminen)
-      Dropbox, johon voi pudottaa puhujan materiaalit (materiaalien poistaminen/vaihtaminen)
-*/}
       </div>
   )
 }

@@ -4,8 +4,7 @@ import { Context } from '../../context/Store';
 import "./Sponsors.css";
 import "./../../UniversalStyles.css"
 import EventNavi from "../eventsnavi/EventsNavi";
-import ButtonComponent from '../../particulars/button_component/ButtonComponent';
-import HeaderComponent from "../../particulars/header_component/HeaderComponent";
+import DragAndDrop from '../../particulars/header_component/DragAndDrop';
 
 const FormSponsors = () => {
   
@@ -46,7 +45,7 @@ const FormSponsors = () => {
 
       <div class="allignHorizontally">
         <div class="dragAndDropContainer">
-          <p>This is drag and drop container</p>
+          <DragAndDrop/>
         </div>
       </div>
 
