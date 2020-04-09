@@ -27,7 +27,7 @@ const EventsListItem = props => {
     console.log('Action dispatched for fetching ALL data!')
     // dispatch(eventDataActions.fetchAllData(eventId))
     // ToDo: dispatch action to set global state to loading
-    // dispatch(eventDataActions.fetchSpeakers())
+    dispatch(eventDataActions.fetchSpeakers())
     dispatch(eventDataActions.authenticate())
     // ToDo: dispatch action to set global state to finished loading
   }
