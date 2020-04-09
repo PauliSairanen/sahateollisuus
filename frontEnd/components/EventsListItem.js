@@ -17,12 +17,18 @@ const EventsListItem = props => {
   const dispatch = useDispatch()
   // Fetch data about all events and list it
   const imageUrl = props.eventImage
+  const eventId = props.eventId
+
+  console.log(eventId)
+  console.log(imageUrl)
 
   // Async function for fetching data from server
   const fetchAllDataFromBackend = () => {
     console.log('Action dispatched for fetching ALL data!')
+    // dispatch(eventDataActions.fetchAllData(eventId))
     // ToDo: dispatch action to set global state to loading
-    dispatch(eventDataActions.fetchSpeakers())
+    // dispatch(eventDataActions.fetchSpeakers())
+    dispatch(eventDataActions.authenticate())
     // ToDo: dispatch action to set global state to finished loading
   }
 

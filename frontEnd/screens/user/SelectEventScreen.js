@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { View, FlatList } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import { NavigationEvents } from 'react-navigation'
 
 import LoadingIndicator from '../../components/LoadingIndicator'
 
@@ -11,7 +12,7 @@ import EventListItem from '../../components/EventsListItem'
 
 const SelectEventScreen = props => {
   const [isLoading, setIsLoading] = useState(false)
-  const eventsData = useSelector(state => state.eventData.eventsMetaData)
+  const eventsMetaData = useSelector(state => state.eventData.eventsMetaData)
   const dispatch = useDispatch()
 
   // Async function for fetching data from server
@@ -21,8 +22,8 @@ const SelectEventScreen = props => {
     await dispatch(eventDataActions.fetchEventMetaData())
     setIsLoading(false)
   }
- 
-   // Calls the data fetch function, when screen is entered
+
+  // Calls the data fetch function, when screen is entered
   // useEffect(() => {
   //   props.navigation.addListener('didFocus', () => {
   //     setIsLoading(true)
@@ -31,20 +32,22 @@ const SelectEventScreen = props => {
   //   })
   // }, [])
 
+
+
   useEffect(() => {
     fetchEventsFromBackend()
-  },[dispatch])
+  }, [dispatch]);
 
   if (isLoading == true) {
     return (
-      <LoadingIndicator/>
+      <LoadingIndicator />
     )
   } else {
     return (
       <View>
         <FlatList
-          data={eventsData}
-          extraData={eventsData}
+          data={eventsMetaData}
+          extraData={eventsMetaData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={eventsData =>
             <EventListItem
@@ -59,10 +62,10 @@ const SelectEventScreen = props => {
   }
 }
 
-  SelectEventScreen.navigationOptions = navData => {
-    return {
-      headerBackTitle: null
-    }
+SelectEventScreen.navigationOptions = navData => {
+  return {
+    headerBackTitle: null
   }
+}
 
-  export default SelectEventScreen
+export default SelectEventScreen

@@ -29,7 +29,7 @@ const LoginScreen = props => {
     }
     // Login as guest
     else if (inputEmail === guestEmail && inputPassword === eventPassword) {
-      console.log('Admin login!')
+      console.log('Guest login!')
       loginFailed = false
       props.navigation.navigate('EventNavi')
     }
@@ -48,7 +48,7 @@ const LoginScreen = props => {
           loginFailed = true
         }
       }
-      if (loginFailed = true) {
+      if (loginFailed == true) {
         Alert.alert('Login failed', 'Incorrect login credentials', [{ text: 'Okay' }])
       }
     }
