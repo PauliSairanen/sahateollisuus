@@ -79,13 +79,7 @@
 }
 
 .dragAndDropContainer {
-    display: flex;
     align-items: center;
-    justify-content: center;
-    border: solid;
-    border-width: 1px;;
-    width: 15%;
-    height: 200px;
 }
 
 .formElement {

@@ -2,21 +2,16 @@ import React, {useEffect, useContext} from 'react';
 import { Context } from '../../context/Store';
 
 import "./Speakers.css";
-import HeaderComponent from "../../particulars/header_component/HeaderComponent";
 import EventNavi from "../eventsnavi/EventsNavi";
-import ButtonComponent from '../../particulars/button_component/ButtonComponent';
 
 const FormSpeakers = () => {
 
   const [state, dispatch] = useContext(Context);
 
+  const url = 'https://sahat.lamk.fi/testFormSpeakers';
+
   return (
     <div>
-      <HeaderComponent
-        title={"Puhujat"}
-      />
-      <EventNavi
-      />
       <div class="allignHorizontally">
         <div class="formContainer">
           <div class="formInputListLeft">
@@ -56,39 +51,13 @@ const FormSpeakers = () => {
 
             <div class="allignHorizontally">
               <div class="dragAndDropContainer">
-                <p>Tähän puhujan materiaali</p>
+                <DragAndDrop/>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-
-
-
-
-      <div class="allignHorizontally">
-        <div class="formContainer">
-          <div class="formInputListLeft">
-            <ButtonComponent
-              title={"Save"}
-              style={"buttonAccept"}
-            />
-          </div>
-          <div class="formInputListRight">
-            <ButtonComponent
-              title={"Cancel"}
-              style={"buttonDecline"}
-            />
-          </div>
-        </div>
-      </div>
-
-
-
-
-
-
+      
       {/*  Form, johon voi myös ladata tietokannasta arvot:
       Nimi: etu (required), suku (required) ja toinen nimi
       rooli/asema (agentti/toimitusjohtaja tms)
