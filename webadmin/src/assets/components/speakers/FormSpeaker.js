@@ -28,7 +28,11 @@ const FormSpeakers = () => {
           </div>
         </div>
       </div>
-
+      
+      <div class= "allignHorizontally">
+        <label for="speaker">Puhujan esittely</label>
+        <textarea id="speaker" rows="6" cols="100">Tää vaati hienosäätöö viel...</textarea>
+      </div>
 
       <div class="allignHorizontally">
         <div class="formContainer">
@@ -39,7 +43,7 @@ const FormSpeakers = () => {
 
             <div class="allignHorizontally">
               <div class="dragAndDropContainer">
-                <p>Tähän Logo</p>
+                <p></p>
               </div>
             </div>
           </div>
@@ -48,14 +52,12 @@ const FormSpeakers = () => {
             <div class="allignHorizontally">
               <input type="file" multiple></input>
             </div>
-
-            <div class="allignHorizontally">
-              <div class="dragAndDropContainer">
-                <DragAndDrop/>
-              </div>
-            </div>
           </div>
         </div>
+      </div>
+      
+      <div class="allignHorizontally">
+        <button class="submit-button">Upload</button>
       </div>
       
       {/*  Form, johon voi myös ladata tietokannasta arvot:
