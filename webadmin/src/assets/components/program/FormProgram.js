@@ -1,5 +1,7 @@
 import React, {useEffect, useContext} from 'react';
 import { Context } from '../../context/Store';
+import "./../../UniversalStyles.css"
+
 
 const FormProgram = () => {
 
@@ -9,7 +11,23 @@ const FormProgram = () => {
 
   console.log(state.event);
   
-  return(
+    return (
+      <div className="fileDrop">
+        <div>
+          <form>
+            <h2>Add event program data</h2>
+            <div className="allignHorizontally">
+              <input type="file" id="FormProgram" multiple/>
+            </div>
+            <div className="allignHorizontally">
+              <button className="submit-button" type="submit">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )
+  }
+  /*return(
     <div>
       <h1>Create and modify event program data:</h1>
       Formi
@@ -17,8 +35,7 @@ const FormProgram = () => {
 
       Joku missä näytetään speakerin esittely
 
-    </div>
-  )
-}
+    </div>*/
+  
 
 export default FormProgram;
