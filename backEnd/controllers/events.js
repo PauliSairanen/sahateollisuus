@@ -1,11 +1,13 @@
 const EventSchema = require('../models/DEPRECATEDevent');
-const config = require('../config/config')
+const config = require('../config/config');
 const mongoose = require('mongoose');
 const Event = require('../models/events');
 const Auth = require('../models/auth');
+const {v1: uuidv1} = require('uuid');
 
 class Events {
 
+    //Event creation functions
     createEvents(req, res){
         
         Event.collection.drop();
@@ -65,15 +67,75 @@ class Events {
         res.end();
     }
 
-    updateEvent(req, res){
+    createEvent(req, res){
 
         var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
+        var aboutJSON = require('../jsonFiles/about.json');
+        var participantsJSON = require('../jsonFiles/participants.json');
+        var programmeJSON = require('../jsonFiles/programme.json');
+        var speakerJSON = require('../jsonFiles/speakers.json');
+        var sponsorsJSON = require('../jsonFiles/sponsors_Urls.json');
 
-        Event.update({ _id: "5e69f7b299f21917d5e7022d"}, {$set: {metadata: metadataJSON1}});
+        var event1 = new Event({
+            metadata: metadataJSON1,
+            about : aboutJSON,
+            participants : participantsJSON,
+            programme : programmeJSON,
+            speakers : speakerJSON,
+            sponsors : sponsorsJSON,
+        });
+
+        event1.save().then(function(){
+            console.log("Event was saved");
+        });
 
         res.send(200);
 
         res.end();
+    }
+
+    //Event delete functions
+    deleteEvent(req, res){
+        Event.findByIdAndDelete({_id: req.body.id}, function(err, doc){
+            console.log(err);
+        });
+        var a = Event.find({}, {"metadata": 1}).then(function(a){
+            res.send(a);
+
+            res.end();
+        });
+    }
+
+    //Event update functions
+    updateEvent(req, res){
+
+        var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
+
+        Event.findOne({_id: "5e8dfbce0482b55473e7988b"}, function(err, event){
+            event.metadata = metadataJSON1;
+            event.save(function(err){
+            });
+        });
+
+        res.send(200);
+
+        res.end();
+    }
+
+    //Event get functions
+    findEvent(req, res){
+        var a = Event.find({_id: req.body.id}).then(function(a){
+            res.send(a[0]);
+            res.end();
+        });
+    }
+
+    findAll(req, res){
+        var a = Event.find({}).then(function(a){
+            console.log(a);
+            res.send(a[0]);
+            res.end();
+        });
     }
 
     findAdmin(req, res){
@@ -88,26 +150,25 @@ class Events {
     Authenticate(req, res){
         var a = Auth.find({}, {"admin": 1}).then(function(a){
 
-            // var name = req.body.userName;
-            // var pass = req.body.password;
+            var name = req.body.un;
+            var pass = req.body.pw;
 
-            // if(name == a.username && pass == a.password){
-            //     res.send(200);
-            //     res.end();
-            // }
-            // else {
-            //     res.send(404); res.end();
-            // }
-
-            res.send(200);
+            if(name == a[0].admin.username && pass == a[0].admin.password){
+                res.send(200);
                 res.end();
+            }
+            
+            else {
+                res.send(req.body); res.end();
+            }
+
+            // res.send(200);
+            // res.end();
         });
     }
 
     findMetadata(req, res){
         var a = Event.find({}, {"metadata": 1}).then(function(a){
-            console.log(a);
-            
             res.send(a);
 
             res.end();
@@ -115,7 +176,7 @@ class Events {
     }
     
     findAllParticipants(req, res){
-        var a = Event.find({}, {"participants": 1}).then(function(a){
+        var a = Event.find({"_id": "5e8587bcb60163143f5cc292"},{"participants": 1}).then(function(a){
             console.log(a);
             
             res.send(a);
@@ -125,7 +186,7 @@ class Events {
     }
 
     findAbout(req, res){
-        var a = Event.find({"_id": "5e69f7b299f21917d5e7022d"},{"about": 1}).then(function(a){
+        var a = Event.find({"_id": "5e8587bcb60163143f5cc292"},{"about": 1}).then(function(a){
             console.log(a);
             
             res.send(a[0]);
@@ -159,7 +220,7 @@ class Events {
         });
     }
     findSpeakers(req, res){
-        var a = Event.find({"_id": req},{"speakers": 1}).then(function(a){
+        var a = Event.find({"_id": "5e8dfbce0482b55473e7988b"},{"speakers": 1}).then(function(a){
             console.log(a);
 
             res.send(a[0]);
@@ -177,72 +238,98 @@ class Events {
         });
     }
 
-    //Mitä nämä on?
-    getOneFile(req, res){
-        var tmpreq=req.url.split("/");
-        var filenametmp = fileslocation + tmpreq[tmpreq.length-1];
+    // Test functions
+    saveSpeakers(req, res){
+        // req on JSON
+        var i = 0;
+        var arr = [];
 
-        var fs=require('fs');
-        var filebuf;
-
-        res.setHeader("Content-Type","text/plain");
-        try
-        {
+        req[0].forEach(function(){
             
-            fs.accessSync(filenametmp,fs.constants.F_OK);
-            filebuf=fs.readFileSync(filenametmp,{});
-            res.setHeader("Content-Type","image/jpg");
-            
-        }
-        catch(err)
-        {filebuf=""}
+            var id = uuidv1();
+            var image = req[1][i];
 
+            if(image == "missing"){
+                var obj = {
+                    "Speaker": req[0][i].Speaker,
+                    "Title": req[0][i].Title,
+                    "SpecialTitle": req[0][i].SpecialTitle,
+                    "Company": req[0][i].Company,
+                    "imageID": "missing image"
+                }
+                i++;
+                arr.push(obj);
+            }
+            else{
+                var obj = {
+                    "Speaker": req[0][i].Speaker,
+                    "Title": req[0][i].Title,
+                    "SpecialTitle": req[0][i].SpecialTitle,
+                    "Company": req[0][i].Company,
+                    "imageID": id
+                }
+                i++;
+                arr.push(obj);
+            }
+        });
 
-        //filebuf=fs.readFileSync(filenametmp,{});
+        Event.updateOne({ speakers: arr }, function(err, res){
+        });
         
-        //console.log(filebuf);
-        res.send(filebuf);
+        res.send(arr);
         res.end();
     }
-    putOneFile(req, res){
 
-        var fs=require('fs');
-        var form = new formidable.IncomingForm();
-
-        //console.log(req);
-        form.parse(req, function (err, fields, files) {
-        console.log(files.filetoupload.path);
-        var newpath = fileslocation + files.filetoupload.name;
-        
-        fs.rename(files.filetoupload.path,newpath,(err) =>
-        {
-            if(err)
-            {
-                res.setHeader("Content-Type","text/plain");
-                res.write('File not uploaded and moved!');
-            
-                res.end();
-        
-            }
-            else
-            {
-                res.setHeader("Content-Type","text/plain");
-                res.write('File uploaded and moved!');
-                res.end();
-            }
-        }
-        );
-
-        //res.write('File not uploaded and moved!');
-        //res.end();
-        //res.setHeader("Content-Type","text/plain");
-        //res.send("");
-
-        //res.end();
+    testEventMaterials(req, res){
+            res.write(JSON.stringify(req.body));
+            res.write('\n');
+            res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+            res.end();
+    }
+    testEventsNavi(req, res){
+        var a = Event.find({}).then(function(a){
+            console.log(a);
+            res.send(a);
+            res.end();
         });
     }
+    testInfoEdit(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
+    }
+    testLogin(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
+    }
+    testParticipants(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
+    }
+    testProgram(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
+    }
+    testSpeakers(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
+    }
+    testSponsors(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
+    }
 }
-
 
 module.exports = Events;
 

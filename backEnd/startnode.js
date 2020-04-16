@@ -6,7 +6,8 @@ const certificate = fs.readFileSync('/etc/pki/tls/certs/sahat.lamk.fi.bundle.crt
 const mongoose = require('mongoose');
 const Auth = require('./models/auth');
 const Event = require('./models/events');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 var credentials = {key: privateKey, cert: certificate};
 var express = require('express');
@@ -17,6 +18,13 @@ const routes = require('./routes/routes.js');
 
 // Make app use the routes
 app.use(routes)
+const corsOptions = {
+    origin: '*',
+    methods: 'POST'
+  }
+
+app.use(express.static('public'));
+app.use('/images', express.static(__dirname + '/images'));
 
 const httpsServer = https.createServer(credentials, app);
 
