@@ -1,10 +1,13 @@
 import React from 'react'
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions } from 'react-native'
 import Communications from 'react-native-communications'
+import {useSelector} from 'react-redux'
 
 import Card from '../../components/Card'
 import Colors from '../../constants/Colors'
-import aboutData from '../../data/jsonFiles/about.json'
+// import aboutData from '../../data/jsonFiles/about.json'
+
+
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -12,6 +15,8 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const AboutScreen = props => {
+  const aboutData = useSelector(state => state.eventData.aboutData)
+  
   return (
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.content} >

@@ -27,14 +27,7 @@ export const fetchEventMetaData = () => {
   }
 }
 
-export const fetchSpeakers = () => {
-  return async dispatch => {
-    const response = await fetch('https://sahat.lamk.fi/findSpeakers')
-    const responseData = await response.json()
-    const fetchedData = responseData.speakers
-    dispatch({ type: FETCH_SPEAKERS, fetchedSpeakers: fetchedData })
-  }
-}
+
 
 export const fetchAllData = (id) => {
   console.log('Fetching data using id:' + id)
@@ -50,18 +43,25 @@ export const fetchAllData = (id) => {
         
     })
     console.log(response.status)
-    if (response.ok) {
-      console.log('request was ok, 200!')
-      const responseData = await response.text()
-      const fetchedData = responseData
-      console.log(fetchedData)
-    } else {
-      console.log('Something is fucked up :)')
-    }
+    const responseData = await response.json()
+    const fetchedData = responseData
+    console.log(fetchedData)
 
-    // dispatch({type: FETCH_ALL_DATA, allFetchedData: fetchedData})
+    dispatch({type: FETCH_ALL_DATA, allData: fetchedData})
   }
 }
+
+// _______________ OTHER ACTIONS _______________
+
+export const fetchSpeakers = () => {
+  return async dispatch => {
+    const response = await fetch('https://sahat.lamk.fi/findSpeakers')
+    const responseData = await response.json()
+    const fetchedData = responseData.speakers
+    dispatch({ type: FETCH_SPEAKERS, fetchedSpeakers: fetchedData })
+  }
+}
+
 export const authenticate = () => {
   const un = 'test'
   const pw = 'test'

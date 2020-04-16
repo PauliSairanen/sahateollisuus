@@ -25,10 +25,10 @@ const EventsListItem = props => {
   // Async function for fetching data from server
   const fetchAllDataFromBackend = () => {
     console.log('Action dispatched for fetching ALL data!')
-    // dispatch(eventDataActions.fetchAllData(eventId))
+    dispatch(eventDataActions.fetchAllData(eventId))
     // ToDo: dispatch action to set global state to loading
-    dispatch(eventDataActions.fetchSpeakers())
-    dispatch(eventDataActions.authenticate())
+    // dispatch(eventDataActions.fetchSpeakers())
+    // dispatch(eventDataActions.authenticate())
     // ToDo: dispatch action to set global state to finished loading
   }
 
