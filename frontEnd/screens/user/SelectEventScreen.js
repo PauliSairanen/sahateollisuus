@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { View, FlatList } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { NavigationEvents } from 'react-navigation'
+import { withNavigation } from 'react-navigation'
+
 
 import LoadingIndicator from '../../components/LoadingIndicator'
 
@@ -12,31 +13,28 @@ import EventListItem from '../../components/EventsListItem'
 
 const SelectEventScreen = props => {
   const [isLoading, setIsLoading] = useState(false)
-  const eventsMetaData = useSelector(state => state.eventData.eventsMetaData)
   const dispatch = useDispatch()
 
-  // Async function for fetching data from server
-  const fetchEventsFromBackend = async () => {
-    console.log('Action dispatched for fetching events metadata')
-    setIsLoading(true)
-    await dispatch(eventDataActions.fetchEventMetaData())
-    setIsLoading(false)
-  }
-
-  // Calls the data fetch function, when screen is entered
-  // useEffect(() => {
-  //   props.navigation.addListener('didFocus', () => {
-  //     setIsLoading(true)
-  //     console.log('Select Event screen is focused!')
-  //     fetchEventsFromBackend()
-  //   })
-  // }, [])
-
-
-
   useEffect(() => {
-    fetchEventsFromBackend()
-  }, [dispatch]);
+    dispatch(eventDataActions.fetchEventMetaData())
+    console.log('Dispatching action to fetch metadata!')
+  }, [])
+
+  const eventsMetaData = useSelector(state => state.eventData.eventsMetaData)
+  console.log(eventsMetaData)
+
+  // Async function for fetching data from server
+  // const fetchEventsFromBackend = async () => {
+  //   console.log('Action dispatched for fetching events metadata')
+  //   await dispatch(eventDataActions.fetchEventMetaData())
+  // }
+
+  // useEffect(() => {
+  //   fetchEventsFromBackend()
+  //   props.navigation.addListener('didFocus', payload => {})
+  // }, [dispatch]);
+
+
 
   if (isLoading == true) {
     return (
@@ -68,4 +66,4 @@ SelectEventScreen.navigationOptions = navData => {
   }
 }
 
-export default SelectEventScreen
+export default withNavigation(SelectEventScreen)

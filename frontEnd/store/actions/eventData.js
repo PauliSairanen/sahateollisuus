@@ -88,5 +88,3 @@ export const authenticate = () => {
     }
   }
 }
-
-// `un=${un}&pw=${pw}`
