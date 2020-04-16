@@ -1,18 +1,14 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState } from 'react'
 import { View, FlatList } from 'react-native'
+import { useSelector } from 'react-redux'
 import { SearchBar } from 'react-native-elements'
 
-import participantsData from '../../data/jsonFiles/participants.json'
 import ParticipantsItem from '../../components/ParticipantsItem'
 
-// __________ Function that gets data from the server __________
-//  async function getParticipantsFromApi() {
-//   try {
-//     let response = await fetch('http://sahat.lamk.fi/findParticipants')
-//     let responseJson = await response.json();
-
 const ParticipantsScreen = props => {
-  // const [isLoading, setIsLoading] = useState(false)
+ const participantsData = useSelector(state => state.eventData.participantsData)
+ console.log(participantsData)
+
   const [dataInState, setDataInState] = useState(participantsData)
   const [searchText, setSearchText] = useState()
 

@@ -13,8 +13,8 @@ const LoginScreen = props => {
   const [isLoading, setIsLoading] = useState(false)
   const eventPassword = 'WFFC2020'
 
-  const adminEmail = 'admin@test'
-  const adminPassword = 'admin'
+  const adminEmail = 'test'
+  const adminPassword = 'test'
 
   const guestEmail = 'guest@wffc'
 
@@ -25,13 +25,13 @@ const LoginScreen = props => {
     if (inputEmail === adminEmail && inputPassword === adminPassword) {
       console.log('Admin login!')
       loginFailed = false
-      props.navigation.navigate('MainNavScreen')
+      props.navigation.navigate('EventNavi')
     }
     // Login as guest
     else if (inputEmail === guestEmail && inputPassword === eventPassword) {
-      console.log('Admin login!')
+      console.log('Guest login!')
       loginFailed = false
-      props.navigation.navigate('MainNavScreen')
+      props.navigation.navigate('EventNavi')
     }
     else {
       // Check if user exits
@@ -41,14 +41,14 @@ const LoginScreen = props => {
           setIsLoading(false)
           loginFailed = false
           console.log('Authenticatication success!')
-          props.navigation.navigate('MainNavScreen')
+          props.navigation.navigate('EventNavi')
           return
         } else {
           setIsLoading(false)
           loginFailed = true
         }
       }
-      if (loginFailed = true) {
+      if (loginFailed == true) {
         Alert.alert('Login failed', 'Incorrect login credentials', [{ text: 'Okay' }])
       }
     }
@@ -94,13 +94,6 @@ const LoginScreen = props => {
       </View>
     </TouchableWithoutFeedback>
   )
-}
-
-LoginScreen.navigationOptions = {
-  headerTitle: () => (
-    <View style={styles.headerContainer}>
-      <Text style={styles.headerTitleStyle}>Wood from Finland Conference 2020</Text>
-    </View>),
 }
 
 const styles = StyleSheet.create({

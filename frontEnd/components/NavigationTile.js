@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { withNavigation } from 'react-navigation'
 
@@ -19,9 +19,7 @@ const NavigationTile = props => {
   // If the component has invisible, render it, but don´t show anything
   if (invisible === 'invisible') {
     return (
-      <View style={styles.invisibleTile}>
-        
-      </View>
+      <View style={styles.invisibleTile}></View>
     )
   } else {
     return (
@@ -57,6 +55,7 @@ const styles = StyleSheet.create({
     margin: 15,
     borderRadius: 20,
     height: Dimensions.get('window').width / 100 * 45,
+    aspectRatio: 1,
   },
   touchable: {
     height: Dimensions.get('window').width / 100 * 45,

@@ -23,7 +23,7 @@ const SponsorLogoItem = props => {
           <Image
             source={props.image}
             style={styles.image}
-            resizeMode='contain'
+            resizeMode= 'contain'
           />
         </View>
       </TouchableComponent>

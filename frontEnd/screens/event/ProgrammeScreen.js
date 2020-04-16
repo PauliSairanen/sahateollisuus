@@ -1,10 +1,17 @@
 import React from 'react'
-import { View, StyleSheet, FlatList, Dimensions } from 'react-native'
+import { View, FlatList, } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 
-import programmeData from '../../data/jsonFiles/programme.json'
+// import programmeData from '../../data/jsonFiles/programme.json'
+import * as eventDataActions from '../../store/actions/eventData'
+
 import ProgrammeItem from '../../components/ProgrammeItem'
 
 const ProgrammeScreen = props => {
+  const programmeData = useSelector(state => state.eventData.programmeData)
+  console.log('_____ Log from Programme Screen _____')
+  console.log(programmeData)
+
   return (
     <View>
       <FlatList

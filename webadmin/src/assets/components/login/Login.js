@@ -1,46 +1,78 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-//import axios from 'axios';
+import axios from 'axios';
 import { useAuth } from '../../context/Auth';
 import './Login.css';
 //import LoginLost from "./assets/components/login/LoginLost";
 
+import qs from 'qs'
+
 const FormLogin = props => {
 
-  // Tämä pitää saada ensimmäisenä toimimaan https://react-hook-form.com/
+  // Pois kommentoidut ovat backendiä varten
 
   const [isLoggedIn, setLoggedIn] = useState(false);
-  //const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const { setAuthTokens } = useAuth();
   const referer = '/eventsnavi' || props.location.state.referer;
-
-  const username = 'test';
-  const okpw = 'test';
-
+  
   // function postLogin() {
-  //   axios.post("https://www.somePlace.com/auth/login", {
-  //     userName,
-  //     password
-  //   }).then(result => {
+
+  //   const auth = {
+  //     un: userName,
+  //     pw: password,
+  //   }
+
+  //   const url = 'https://sahat.lamk.fi/authenticate';
+
+  //   const options = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': "Basic " + btoa("userName" + ":" + "password")
+  //     }
+  //   }
+
+  //   axios.post(url, options).then(
+  //     result => {
+  //       console.log(result.status)
   //     if (result.status === 200) {
-  //       setAuthTokens(result.data);
+  //       setAuthTokens(200);
   //       setLoggedIn(true);
   //     } else {
+  //       console.log(result.status)
   //       setIsError(true);
   //     }
-  //   }).catch(e => {
+  //   }).catch(error => {
   //     setIsError(true);
+  //     if (error.response) {
+  //       // The request was made and the server responded with a status code
+  //       // that falls out of the range of 2xx
+  //       console.log(error.response.data);
+  //       console.log(error.response.status);
+  //       console.log(error.response.headers);
+  //     } else if (error.request) {
+  //       // The request was made but no response was received
+  //       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+  //       // http.ClientRequest in node.js
+  //       console.log(error.request);
+  //     } else {
+  //       // Something happened in setting up the request that triggered an Error
+  //       console.log('Error', error.message);
+  //     }
   //   });
   // }
 
+  // const username = 'test';
+  // const okpw = 'test';
+
   function postLogin() {
-    if ((userName === username) && (password === okpw)) {
+    // if ((userName === username) && (password === okpw)) {
       setAuthTokens(200)
       setLoggedIn(true) 
-      console.log(userName + password)
-    }
+    // }
   }
 
   if (isLoggedIn) {
@@ -62,7 +94,7 @@ const FormLogin = props => {
         </div>
         <div id="formPw">
           <input 
-            type="password" 
+            type="text" 
             placeholder="Password" 
             onChange={e => {
               setPassword(e.target.value);

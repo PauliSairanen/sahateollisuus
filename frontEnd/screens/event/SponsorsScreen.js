@@ -1,5 +1,6 @@
 import React from 'react'
 import { View,FlatList } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 
 import SponsorLogoItem from '../../components/SponsorLogoItem'
 
@@ -111,7 +112,11 @@ export const companyLinksAndImages = [
   }
 ]
 
+
+
+
 const SponsorsScreen = props => {
+  const sponsorsData = useSelector(state => state.eventData.sponsorsData)
   return (
     <View>
       <FlatList
