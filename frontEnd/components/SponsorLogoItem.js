@@ -11,6 +11,8 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const SponsorLogoItem = props => {  
+  const imageID = props.imageID
+  console.log(imageID)
   return (
     <Card style={styles.card}>
       <TouchableComponent
@@ -21,7 +23,7 @@ const SponsorLogoItem = props => {
       >
         <View style={styles.imageContainer}>
           <Image
-            source={props.image}
+            source={{uri: `https://sahat.lamk.fi/images/sponsorImages/${imageID}`}}
             style={styles.image}
             resizeMode= 'contain'
           />

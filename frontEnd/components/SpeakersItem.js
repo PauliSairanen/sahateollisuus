@@ -49,7 +49,7 @@ const SpeakersItem = props => {
   const title = props.title
   const specialTitle = props.specialTitle
   const company = props.company
-  const imageName = props.image
+  const imageID = props.image
 
 
   // const arrayOfImages = namesAndImages
@@ -74,7 +74,7 @@ const SpeakersItem = props => {
             </View>
             <View style={styles.imageContainer}>
               <Image
-                source={{uri: `https://sahat.lamk.fi/images/${imageName}`}}
+                source={{uri: `https://sahat.lamk.fi/images/speakerImages/${imageID}`}}
                 style={styles.image}
                 resizeMode={'cover'}
               />
@@ -98,7 +98,7 @@ const SpeakersItem = props => {
             </View>
             <View style={styles.imageContainer}>
               <Image
-                source={{uri: `https://sahat.lamk.fi/images/${imageName}`}}
+                source={{uri: `https://sahat.lamk.fi/images/speakerImages/${imageID}`}}
                 style={styles.image}
                 resizeMode={'cover'}
               />

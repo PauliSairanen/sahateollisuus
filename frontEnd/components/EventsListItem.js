@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import * as eventDataActions from '../store/actions/eventData'
 
 import Card from './Card'
-import Colors from '../constants/Colors'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -17,22 +16,9 @@ const EventsListItem = props => {
   const dispatch = useDispatch()
   // Fetch data about all events and list it
 
-  const eventId = props.eventId
-  const eventName = props.eventName
-  const imageUrl = props.eventImage
-
-
-  console.log("Event id: " + eventId)
-  console.log("Event name: " + eventName)
-  console.log("Event image URL: " + imageUrl)
-  console.log("")
-
-  // Async function for fetching data from server
-  const fetchAllDataFromBackend = () => {
+  const fetchAllEventData = () => {
     console.log('Action dispatched for fetching ALL data!')
     dispatch(eventDataActions.fetchAllData(eventId))
-    // ToDo: dispatch action to set global state to loading
-    // ToDo: dispatch action to set global state to finished loading
   }
 
   return (
@@ -40,7 +26,7 @@ const EventsListItem = props => {
       <TouchableComponent
         style={styles.touchable}
         onPress={() => {
-          fetchAllDataFromBackend()
+          fetchAllEventData()
           // ToDo: While loading, display activity indicator
           props.navigation.navigate('MainScreen')
         }}
