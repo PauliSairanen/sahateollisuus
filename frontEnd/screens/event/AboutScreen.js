@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions } from 'react-native'
 import Communications from 'react-native-communications'
+import { useSelector } from 'react-redux'
 
 import Card from '../../components/Card'
 import Colors from '../../constants/Colors'
-import aboutData from '../../data/jsonFiles/about.json'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -12,6 +12,8 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const AboutScreen = props => {
+  const aboutData = useSelector(state => state.eventData.aboutData)
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.content} >
@@ -34,7 +36,7 @@ const AboutScreen = props => {
               onPress={() => {
                 Communications.phonecall(`${aboutData.eventPlace.phone}`, true)
               }}>
-                <Text style={styles.infoText}>{aboutData.eventPlace.phone}</Text>
+              <Text style={styles.infoText}>{aboutData.eventPlace.phone}</Text>
             </TouchableComponent>
 
             <TouchableComponent
@@ -47,14 +49,14 @@ const AboutScreen = props => {
                   , 'Please give a subject to this email'
                   , '')
               }}>
-                <Text style={styles.infoText}>{aboutData.eventPlace.email}</Text>
+              <Text style={styles.infoText}>{aboutData.eventPlace.email}</Text>
             </TouchableComponent>
           </View>
 
           <Text style={styles.title}>More information</Text>
           <View style={styles.contentContainer}>
 
-          <TouchableComponent
+            <TouchableComponent
               onPress={() => {
                 Communications.web(`${aboutData.eventWebUrl}`)
               }}>

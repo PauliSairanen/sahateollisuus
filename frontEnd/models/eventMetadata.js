@@ -1,8 +1,8 @@
 class EventMetadata {
-  constructor (id, name, imageUrl) {
+  constructor (id, name, eventImage) {
     this.id = id
     this.name = name
-    this.imageUrl = imageUrl
+    this.eventImage = eventImage
   }
 }
 

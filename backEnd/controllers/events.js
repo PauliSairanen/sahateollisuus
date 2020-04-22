@@ -1,152 +1,182 @@
-const mongoose = require('mongoose');
 const EventSchema = require('../models/DEPRECATEDevent');
-const config = require('../config/config')
+const config = require('../config/config');
+const mongoose = require('mongoose');
 const Event = require('../models/events');
-
-//for file uploads and downloads
-var formidable = require('formidable');
-const fileslocation = "./permfiles/";
-
-const maxcachestorage=50;
-var cachestorage = [];
-//in ms milliseconds
-const timeoutcache=3600000;
-//this is caching function, iden is input and return is output
-//actual function to be cached is inside, see nearby
-function cachenow(iden) {
-    
-    //here is the function to be cached
-    //funcin = function(inp){return "edited:"+inp;};
-    //copy funtion, do not run the function,function is run elsewhere
-    funcin = giveinfo;
-    
-    var dataout
-    //var tmpref=-1;
-    var ii;
-    for(ii=0;ii<cachestorage.length;ii++)
-    {
-        if(cachestorage[ii].iden==iden)
-        {
-            tmpref=ii;
-        
-            if(cachestorage[ii].time<(new Date()).getTime() -timeoutcache)
-            {
-
-                //dataout = sortingfunc(iden);
-                dataout = funcin(iden);
-                cachestorage[ii].data=dataout;
-                cachestorage[ii].time=(new Date()).getTime();
-    
-                //console.log("old data, refreshing");
-                return dataout;
-
-            }
-            //(new Date()).getTime()
-            dataout=cachestorage[ii].data;
-            //console.log("data is already");
-
-            return dataout;
-        }
-    } 
-    
-
-    ii=cachestorage.length;
-    
-    if(ii>=maxcachestorage)
-    {
-
-        for(ii=1;ii<cachestorage.length;ii++)
-        {
-            cachestorage[ii-1]=cachestorage[ii];
-        }
-        ii--
-    }
-    
-
-    //console.log(ii);
-    //console.log(maxcachestorage);
-
-    cachestorage[ii]={};
-    cachestorage[ii].iden =iden;
-    
-    //dataout = sortingfunc(iden);
-    dataout = funcin(iden);
-    cachestorage[ii].data=dataout;
-    cachestorage[ii].time=(new Date()).getTime();
-    
-    //console.log("data stored into cache");
-    return dataout;
-}
-
-function sortInfo(sorted){
-
-
-
-    console.log(sorted);
-    return sorted;
-}
-
-function sortProgramme(sorted){
-
-
-
-    console.log(sorted);
-    return sorted;
-}
-
-function sortMaps(sorted){
-
-
-
-    console.log(sorted);
-    return sorted;
-}
-
-function sortParticipants(participants){
-
-    let sortedCompanies = [];
-    let finalArray = [];
-    participants.forEach(participant => {
-        if(!sortedCompanies.includes(participant.company)){
-            sortedCompanies.push(participant)
-        }
-    });
-    sortedCompanies.sort(function(a, b){
-        if(a.company < b.company) { return -1; }
-        if(a.company > b.company) { return 1; }
-        return 0;
-    });
-    sortedCompanies.forEach(company=>{
-        if(finalArray[company.company] == undefined){
-            finalArray[company.company] = [];
-            participants.forEach(participant=>{
-                if(participant.company == company.company){
-                    finalArray[company.company].push({
-                    
-                    FirstName: participant.firstname,
-                    LastName: participant.lastname,
-                    Country: participant.country,
-                    Role: participant.role,
-                    Telephone: participant.telephone.split(" "),
-                    Email: participant.email.split(" ")});
-                }
-            });
-            finalArray[company.company].sort(function(a, b){
-                if(a.LastName < b.LastName) { return -1; }
-                if(a.LastName > b.LastName) { return 1; }
-                return 0;
-            });
-        }
-    });
-    return finalArray;
-}
+const Auth = require('../models/auth');
+const {v1: uuidv1} = require('uuid');
 
 class Events {
 
+    //Event creation functions
+    createEvents(req, res){
+        
+        Event.collection.drop();
 
+        var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
+        var metadataJSON2 = require('../jsonFiles/event2Metadata.json');
+        var aboutJSON = require('../jsonFiles/about.json');
+        var participantsJSON = require('../jsonFiles/participants.json');
+        var programmeJSON = require('../jsonFiles/programme.json');
+        var speakerJSON = require('../jsonFiles/speakers.json');
+        var sponsorsJSON = require('../jsonFiles/sponsors_Urls.json');
+
+        var event1 = new Event({
+            metadata: metadataJSON1,
+            about : aboutJSON,
+            participants : participantsJSON,
+            programme : programmeJSON,
+            speakers : speakerJSON,
+            sponsors : sponsorsJSON,
+        });
+
+        var event2 = new Event({
+            metadata: metadataJSON2,
+            about : aboutJSON,
+            participants : participantsJSON,
+            programme : programmeJSON,
+            speakers : speakerJSON,
+            sponsors : sponsorsJSON,
+        });
+
+        // var event1 = new Event({
+        //   eventId : "1",
+        //   eventIdForVisibilityRegardingUser : "String",
+        //   about : aboutJSON,
+        //   participants : participantJSON,
+        //   programme : programmeJSON,
+        //   speakers : speakerJSON,
+        //   sponsors : sponsorsJSON
+        // });
+
+        // Creating a event according to schema
+        // var event1 = new Event({
+            
+        // });
+                
+        //Insert to DB
+        event1.save().then(function(){
+            console.log("Event was saved");
+        });
+
+        event2.save().then(function(){
+            console.log("Event was saved");
+        });
+
+        res.send(200);
+
+        res.end();
+    }
+
+    createEvent(req, res){
+
+        var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
+        var aboutJSON = require('../jsonFiles/about.json');
+        var participantsJSON = require('../jsonFiles/participants.json');
+        var programmeJSON = require('../jsonFiles/programme.json');
+        var speakerJSON = require('../jsonFiles/speakers.json');
+        var sponsorsJSON = require('../jsonFiles/sponsors_Urls.json');
+
+        var event1 = new Event({
+            metadata: metadataJSON1,
+            about : aboutJSON,
+            participants : participantsJSON,
+            programme : programmeJSON,
+            speakers : speakerJSON,
+            sponsors : sponsorsJSON,
+        });
+
+        event1.save().then(function(){
+            console.log("Event was saved");
+        });
+
+        res.send(200);
+
+        res.end();
+    }
+
+    //Event delete functions
+    deleteEvent(req, res){
+        Event.findByIdAndDelete({_id: req.body.id}, function(err, doc){
+            console.log(err);
+        });
+        var a = Event.find({}, {"metadata": 1}).then(function(a){
+            res.send(a);
+
+            res.end();
+        });
+    }
+
+    //Event update functions
+    updateEvent(req, res){
+
+        var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
+
+        Event.findOne({_id: "5e8dfbce0482b55473e7988b"}, function(err, event){
+            event.metadata = metadataJSON1;
+            event.save(function(err){
+            });
+        });
+
+        res.send(200);
+
+        res.end();
+    }
+
+    //Event get functions
+    findEvent(req, res){
+        var a = Event.find({_id: req.body.id}).then(function(a){
+            res.send(a[0]);
+            res.end();
+        });
+    }
 
     findAll(req, res){
-        var a = Event.find({"eventId": "1"}).then(function(a){
+        var a = Event.find({}).then(function(a){
+            console.log(a);
+            res.send(a[0]);
+            res.end();
+        });
+    }
+
+    findAdmin(req, res){
+        var a = Auth.find({}, {"admin": 1}).then(function(a){
+            
+            res.send(a);
+
+            res.end();
+        });
+    }
+
+    Authenticate(req, res){
+        var a = Auth.find({}, {"admin": 1}).then(function(a){
+
+            var name = req.body.un;
+            var pass = req.body.pw;
+
+            if(name == a[0].admin.username && pass == a[0].admin.password){
+                res.send(200);
+                res.end();
+            }
+            
+            else {
+                res.send(req.body); res.end();
+            }
+
+            // res.send(200);
+            // res.end();
+        });
+    }
+
+    findMetadata(req, res){
+        var a = Event.find({}, {"metadata": 1}).then(function(a){
+            res.send(a);
+
+            res.end();
+        });
+    }
+    
+    findAllParticipants(req, res){
+        var a = Event.find({"_id": "5e8587bcb60163143f5cc292"},{"participants": 1}).then(function(a){
             console.log(a);
             
             res.send(a);
@@ -154,8 +184,9 @@ class Events {
             res.end();
         });
     }
+
     findAbout(req, res){
-        var a = Event.find({"eventId": "1"},{"about": 1, _id: 0}).then(function(a){
+        var a = Event.find({"_id": "5e8587bcb60163143f5cc292"},{"about": 1}).then(function(a){
             console.log(a);
             
             res.send(a[0]);
@@ -165,7 +196,7 @@ class Events {
     }
     findParticipants(req, res){
         
-        var a = Event.find({"eventId": "1"},{"participants": 1, _id: 0}).then(function(a){
+        var a = Event.find({"_id": req},{"participants": 1}).then(function(a){
             //let muuttuja = sortParticipants(a[0].participants)
             
             a[0].participants.forEach(function(e, i) {
@@ -180,7 +211,7 @@ class Events {
         });
     }
     findProgramme(req, res){
-        var a = Event.find({"eventId": "1"},{"programme": 1, _id: 0}).then(function(a){
+        var a = Event.find({"_id": req},{"programme": 1}).then(function(a){
             console.log(a);
             
             res.send(a[0]);
@@ -189,7 +220,7 @@ class Events {
         });
     }
     findSpeakers(req, res){
-        var a = Event.find({"eventId": "1"},{"speakers": 1, _id: 0}).then(function(a){
+        var a = Event.find({"_id": "5e8dfbce0482b55473e7988b"},{"speakers": 1}).then(function(a){
             console.log(a);
 
             res.send(a[0]);
@@ -198,7 +229,7 @@ class Events {
         });
     }
     findSponsors(req, res){
-        var a = Event.find({"eventId": "1"},{"sponsors": 1, _id: 0}).then(function(a){
+        var a = Event.find({"_id": req},{"sponsors": 1}).then(function(a){
             console.log(a);
             
             res.send(a[0]);
@@ -206,75 +237,103 @@ class Events {
             res.end();
         });
     }
-    getOneFile(req, res){
-        var tmpreq=req.url.split("/");
-        var filenametmp = fileslocation + tmpreq[tmpreq.length-1];
 
-        var fs=require('fs');
-        var filebuf;
+    // Test functions
+    saveSpeakers(req, res){
+        // req on JSON
+        var i = 0;
+        var arr = [];
 
-        res.setHeader("Content-Type","text/plain");
-        try
-        {
+        req[0].forEach(function(){
             
-            fs.accessSync(filenametmp,fs.constants.F_OK);
-            filebuf=fs.readFileSync(filenametmp,{});
-            res.setHeader("Content-Type","image/jpg");
-            
-        }
-        catch(err)
-        {filebuf=""}
+            var id = uuidv1();
+            var image = req[1][i];
 
+            if(image == "missing"){
+                var obj = {
+                    "Speaker": req[0][i].Speaker,
+                    "Title": req[0][i].Title,
+                    "SpecialTitle": req[0][i].SpecialTitle,
+                    "Company": req[0][i].Company,
+                    "imageID": "missing image"
+                }
+                i++;
+                arr.push(obj);
+            }
+            else{
+                var obj = {
+                    "Speaker": req[0][i].Speaker,
+                    "Title": req[0][i].Title,
+                    "SpecialTitle": req[0][i].SpecialTitle,
+                    "Company": req[0][i].Company,
+                    "imageID": id
+                }
+                i++;
+                arr.push(obj);
+            }
+        });
 
-        //filebuf=fs.readFileSync(filenametmp,{});
+        Event.updateOne({ speakers: arr }, function(err, res){
+        });
         
-        //console.log(filebuf);
-        res.send(filebuf);
+        res.send(arr);
         res.end();
     }
-    putOneFile(req, res){
 
-        var fs=require('fs');
-        var form = new formidable.IncomingForm();
-
-        //console.log(req);
-        form.parse(req, function (err, fields, files) {
-        console.log(files.filetoupload.path);
-        var newpath = fileslocation + files.filetoupload.name;
-        
-        fs.rename(files.filetoupload.path,newpath,(err) =>
-        {
-            if(err)
-            {
-                res.setHeader("Content-Type","text/plain");
-                res.write('File not uploaded and moved!');
-            
-                res.end();
-        
-            }
-            else
-            {
-                res.setHeader("Content-Type","text/plain");
-                res.write('File uploaded and moved!');
-                res.end();
-            }
-        }
-        );
-
-        //res.write('File not uploaded and moved!');
-        //res.end();
-        //res.setHeader("Content-Type","text/plain");
-        //res.send("");
-
-        //res.end();
+    testEventMaterials(req, res){
+            res.write(JSON.stringify(req.body));
+            res.write('\n');
+            res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+            res.end();
+    }
+    testEventsNavi(req, res){
+        var a = Event.find({}).then(function(a){
+            console.log(a);
+            res.send(a);
+            res.end();
         });
+    }
+    testInfoEdit(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
+    }
+    testLogin(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
+    }
+    testParticipants(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
+    }
+    testProgram(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
+    }
+    testSpeakers(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
+    }
+    testSponsors(req, res){
+        res.write(JSON.stringify(req.body));
+        res.write('\n');
+        res.write("Jos mukana tuli se mitä lähetit niin tämä toimii");
+        res.end();
     }
 }
 
-
 module.exports = Events;
 
-// Alternativa way to use funtions in routes
+// Alternative way to use funtions in routes
 //module.exports.findAll = function(){
 //    var a = Item.find().then(function(a){
 //        console.log(a);

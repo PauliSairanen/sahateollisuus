@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { View, FlatList, ActivityIndicator } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import Colors from '../../constants/Colors'
 import * as eventDataActions from '../../store/actions/eventData'
@@ -12,9 +12,9 @@ const SpeakersScreen = props => {
   const [isLoading, setIsLoading] = useState(false)
 
   //_____ Fetch data from global state ______
-   const speakersData = useSelector(state => state.eventData.speakersData)
-   console.log('_____ Log from Speakers Screen _____')
-   console.log(speakersData)
+  const speakersData = useSelector(state => state.eventData.speakersData)
+  console.log('_____ Log from Speakers Screen _____')
+  console.log(speakersData)
 
   if (isLoading === true) {
     return (
@@ -45,3 +45,4 @@ const SpeakersScreen = props => {
 }
 
 export default SpeakersScreen
+

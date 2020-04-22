@@ -55,12 +55,12 @@ const FormSponsors = () => {
       <div class="allignHorizontally">
         <div class="formContainer">
           <div class="formInputListLeft">
-            <div class="formElement">Nettiosoite</div>
             <div class="formElement">Yrityksen nimi</div>
+            <div class="formElement">Nettiosoite</div>
           </div>
           <div class="formInputListRight">
-            <input class="formElement" type="text" name="nosoite"></input>
             <input class="formElement" type="text" name="yrnimi"></input>
+            <input class="formElement" type="text" name="nosoite"></input>
           </div>
         </div>
       </div>
@@ -77,11 +77,13 @@ const FormSponsors = () => {
       </div>
 
 
-
       <div class="allignHorizontally">
         <div class="dragAndDropContainer">
-          {/* <DragAndDrop/> */}
         </div>
+      </div>
+
+      <div class="allignHorizontally">
+        <button class="submit-button">Upload</button>
       </div>
       
       {/* <h1>Create and modify event sponsor data:</h1>

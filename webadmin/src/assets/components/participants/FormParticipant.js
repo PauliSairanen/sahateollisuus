@@ -6,8 +6,6 @@ import axios from 'axios';
 import "./Participants.css";
 import "./../../UniversalStyles.css"
 
-import DragAndDrop from '../../particulars/header_component/DragAndDrop';
-
 const FormParticipant = () => {
 
   const [state, dispatch] = useContext(Context);
@@ -53,7 +51,8 @@ const FormParticipant = () => {
   return (
     <div>
       <button onClick={sendData} className="sendData">Lähetä</button>
-      <div class="allignHorizantally">
+      <form>
+      <div class="allignHorizontally">
         <div class="formContainer">
           <div class="formInputListLeft">
             <div class="formElement">Etunimi</div>
@@ -62,6 +61,7 @@ const FormParticipant = () => {
             <div class="formElement">Kansalaisuus</div>
             <div class="formElement">Sähköposti</div>
             <div class="formElement">Puhelinnumero</div>
+            <div class="formElement">Osallistuu aterialle</div>
           </div>
           <div class="formInputListRight">
             <input class="formElement" type="text" name="enimi"></input>
@@ -70,6 +70,10 @@ const FormParticipant = () => {
             <input class="formElement" type="text" name="kansalaisuus"></input>
             <input class="formElement" type="text" name="sposti"></input>
             <input class="formElement" type="text" name="puh"></input>
+            <input class="formElement" type="radio" name="ateria" value="ylempi"></input>
+            <label for="ylempi">Osallistuu</label>
+            <input class="formElement" type="radio" name="ateria" value="alempi"></input>
+            <label for="alempi">Ei Osallistu</label>
           </div>
         </div>
       </div>
@@ -77,27 +81,27 @@ const FormParticipant = () => {
       <div class="allignHorizontally">
         <input type="file" multiple></input>
       </div>
-
       <div class="allignHorizontally">
-        <div class="dragAndDropContainer">
-          <DragAndDrop/>
-        </div>
+        <button class="submit-button">Upload</button>
       </div>
+      
 
-      <div>
 
-        Form, johon voi myös ladata tietokannasta arvot:
-        Nimi: etu (required), suku (required) ja toinen nimi
-        sähköposti (array, required)
-        puhelinnumero (array, required, muodon pakotus)
-        firma
-        osallistuu aterialle (checkbox ja ruokarajoitukset)
-
-        Dropbox, johon voi pudottaa Excelin (Excelin poistaminen, vaihtaminen)
-    </div>
-
+    </form>
     </div>
   )
 }
+
+/*<div>
+
+Form, johon voi myös ladata tietokannasta arvot:
+Nimi: etu (required), suku (required) ja toinen nimi
+sähköposti (array, required)
+puhelinnumero (array, required, muodon pakotus)
+firma
+osallistuu aterialle (checkbox ja ruokarajoitukset)
+
+Dropbox, johon voi pudottaa Excelin (Excelin poistaminen, vaihtaminen)
+</div> */
 
 export default FormParticipant;

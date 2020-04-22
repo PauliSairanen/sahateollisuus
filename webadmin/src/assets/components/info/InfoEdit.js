@@ -51,18 +51,22 @@ const InfoEdit = () => {
     <div>
       <button onClick={sendData} className="sendData">Lähetä</button>
       <div class= "allignHorizontally">
-        <label for="testi">Näil voi antaa labelit</label>
-        <textarea id="testi" rows="6" cols="100">Täsä voi olla tää teksti, mutta sen voi ottaa pois ja jättää tyhjän tekstikentän</textarea>
+        <label for="testi1">Ensimmäinen kappale</label>
+        <textarea id="testi1" rows="6" cols="100">Täsä voi olla tää teksti, mutta sen voi ottaa pois ja jättää tyhjän tekstikentän</textarea>
       </div>
 
       <div class= "allignHorizontally">
-        <label for="testi"></label>
-        <textarea id="testi" rows="6" cols="100">Täsä voi olla tää teksti, mutta sen voi ottaa pois ja jättää tyhjän tekstikentän</textarea>
+        <label for="testi2">Toinen kappale</label>
+        <textarea id="testi2" rows="6" cols="100">Täsä voi olla tää teksti, mutta sen voi ottaa pois ja jättää tyhjän tekstikentän</textarea>
       </div>
 
       <div class= "allignHorizontally">
-        <label for="testi"></label>
-        <textarea id="testi" rows="6" cols="100">Täsä voi olla tää teksti, mutta sen voi ottaa pois ja jättää tyhjän tekstikentän</textarea>
+        <label for="testi3">Kolmas kappale</label>
+        <textarea id="testi3" rows="6" cols="100">Täsä voi olla tää teksti, mutta sen voi ottaa pois ja jättää tyhjän tekstikentän</textarea>
+      </div>
+
+      <div class="allignHorizontally">
+        <button class="submit-button">Upload</button>
       </div>
     </div>
   )

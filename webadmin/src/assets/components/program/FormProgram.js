@@ -2,6 +2,8 @@ import React, {useEffect, useContext} from 'react';
 
 import { Context } from '../../context/Store';
 import axios from 'axios';
+import "./../../UniversalStyles.css"
+
 
 const FormProgram = () => {
 
@@ -45,7 +47,23 @@ const FormProgram = () => {
     });
   }
   
-  return(
+    return (
+      <div className="fileDrop">
+        <div>
+          <form>
+            <h2>Add event program data</h2>
+            <div className="allignHorizontally">
+              <input type="file" id="FormProgram" multiple/>
+            </div>
+            <div className="allignHorizontally">
+              <button className="submit-button" type="submit">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )
+  }
+  /*return(
     <div>
       <button onClick={sendData} className="sendData">Lähetä</button>
       <h1>Create and modify event program data:</h1>
@@ -54,8 +72,7 @@ const FormProgram = () => {
 
       Joku missä näytetään speakerin esittely
 
-    </div>
-  )
-}
+    </div>*/
+  
 
 export default FormProgram;

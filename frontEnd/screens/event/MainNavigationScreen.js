@@ -13,7 +13,8 @@ const naviScreenData = [
   { id: 5, title: 'Venue', link: 'Venue', icon: Platform.OS === 'android' ? 'md-pin' : 'ios-pin' },
   { id: 6, title: 'About', link: 'About', icon: Platform.OS === 'android' ? 'md-information-circle' : 'ios-information-circle' },
   { id: 7, title: 'Feedback', link: 'Feedback', icon: Platform.OS === 'android' ? 'md-thumbs-up' : 'ios-thumbs-up' },
-  { id: 8, title: 'invisible', link: 'blank', icon: Platform.OS === 'android' ? '' : '' },
+  { id: 8, title: 'invisible', link: 'Example', icon: Platform.OS === 'android' ? '' : '' },
+  { id: 8, title: 'invisible', link: '', icon: Platform.OS === 'android' ? '' : '' },
 ]
 
 const MainNavigationScreen = props => {

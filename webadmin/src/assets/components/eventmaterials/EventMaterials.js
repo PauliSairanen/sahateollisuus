@@ -2,6 +2,8 @@ import React, {useEffect, useContext} from 'react';
 
 import { Context } from '../../context/Store';
 import axios from 'axios';
+import "./../../UniversalStyles.css"
+
 
 const EventMaterials = () => {
 
@@ -51,7 +53,15 @@ const EventMaterials = () => {
       <h1>Create and modify general materials:</h1>
       Dropbox, johon voi pudottaa materiaalit (materiaalien poistaminen/vaihtaminen)
     </div>
-  );
+  )
 }
 
-export default EventMaterials;
+
+  
+
+      //<h1>Create and modify general materials:</h1>
+      //Dropbox, johon voi pudottaa materiaalit (materiaalien poistaminen/vaihtaminen)
+
+
+
+export default EventMaterials ;
