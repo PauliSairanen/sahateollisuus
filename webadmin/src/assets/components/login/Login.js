@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import axios from 'axios';
 import { useAuth } from '../../context/Auth';
+import axios from 'axios';
+
 import './Login.css';
 //import LoginLost from "./assets/components/login/LoginLost";
 
-import qs from 'qs'
 
 const FormLogin = props => {
 
@@ -18,62 +18,62 @@ const FormLogin = props => {
   const { setAuthTokens } = useAuth();
   const referer = '/eventsnavi' || props.location.state.referer;
   
-  // function postLogin() {
+  function postLogin() {
 
-  //   const auth = {
-  //     un: userName,
-  //     pw: password,
-  //   }
+    const url = 'https://sahat.lamk.fi/authenticate';
 
-  //   const url = 'https://sahat.lamk.fi/authenticate';
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'un': `${userName}`,
+        'pw': `${password}`
+      })
+    }
 
-  //   const options = {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': "Basic " + btoa("userName" + ":" + "password")
-  //     }
-  //   }
+    console.log(options.body)
 
-  //   axios.post(url, options).then(
-  //     result => {
-  //       console.log(result.status)
-  //     if (result.status === 200) {
-  //       setAuthTokens(200);
-  //       setLoggedIn(true);
-  //     } else {
-  //       console.log(result.status)
-  //       setIsError(true);
-  //     }
-  //   }).catch(error => {
-  //     setIsError(true);
-  //     if (error.response) {
-  //       // The request was made and the server responded with a status code
-  //       // that falls out of the range of 2xx
-  //       console.log(error.response.data);
-  //       console.log(error.response.status);
-  //       console.log(error.response.headers);
-  //     } else if (error.request) {
-  //       // The request was made but no response was received
-  //       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-  //       // http.ClientRequest in node.js
-  //       console.log(error.request);
-  //     } else {
-  //       // Something happened in setting up the request that triggered an Error
-  //       console.log('Error', error.message);
-  //     }
-  //   });
-  // }
+    axios(url, options).then(
+      result => {
+        console.log(result.status)
+      if (result.status === 200) {
+        setAuthTokens(200);
+        setLoggedIn(true);
+      } else {
+        console.log(result.status)
+        setIsError(true);
+      }
+    }).catch(error => {
+      setIsError(true);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+    });
+  }
 
   // const username = 'test';
   // const okpw = 'test';
 
-  function postLogin() {
+  // function postLogin() {
     // if ((userName === username) && (password === okpw)) {
-      setAuthTokens(200)
-      setLoggedIn(true) 
+      // setAuthTokens(200)
+      // setLoggedIn(true) 
     // }
-  }
+  // }
 
   if (isLoggedIn) {
     return <Redirect to={referer} />;
