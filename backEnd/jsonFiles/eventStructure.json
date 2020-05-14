@@ -1,0 +1,64 @@
+{
+    "metadata": {
+        "eventName": "Test Event 1",
+        "eventImage": "Test"
+    },
+    "about": {
+        "eventWebUrl": "Test",
+        "eventPlace": {
+            "name": "Test",
+            "address": "Test",
+            "phone": "Test",
+            "email": "Test"
+        },
+        "title": "Test",
+        "bodyText1": "Test",
+        "bodyText2": "Test",
+        "bodyText3": "Test",
+        "bodyText4": "Test",
+        "moreInformation": {
+            "eventWebsite": "Test",
+            "organizer": "Test",
+            "email": "Test"
+        },
+        "disclaimer1": "Test",
+        "disclaimer2": "Test"
+    },
+    "participants": [
+        {
+            "Country": "Test",
+            "FirstName": "Test",
+            "LastName": "Test",
+            "Email": "Test",
+            "Phone": "Test",
+            "Company": "Test"
+        }
+    ],
+    "programme": [
+        {
+            "Time": "Test",
+            "Location": "Test",
+            "Description": "Test",
+            "NameOfSpeaker": "Test",
+            "TitleOfSpeaker": "Test",
+            "SpecialTitleOfSpeaker": "Test",
+            "CompanyOfSpeaker": "Test"
+        }
+    ],
+    "speakers": [
+        {
+            "Speaker": "Test",
+            "Title": "Test",
+            "SpecialTitle": "Test",
+            "Company": "Test",
+            "ImageID": "Test"
+        }
+    ],
+    "sponsors": [
+        {
+            "CompanyName": "Test",
+            "CompanyUrl": "Test",
+            "ImageID": "Test"
+        }
+    ]
+}

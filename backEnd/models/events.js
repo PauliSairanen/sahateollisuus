@@ -1,3 +1,5 @@
+//Model eventille
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -12,7 +14,6 @@ const EventSchema = new Schema(
   }
 );
 
-//const Event = mongoose.model('events',ItemSchema);
 const Event = mongoose.model('events',EventSchema);
 
 module.exports = Event;

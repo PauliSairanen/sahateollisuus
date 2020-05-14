@@ -1,9 +1,12 @@
+//Model salasanoille
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const AuthSchema = new Schema(
   {
-    admin : JSON
+    admin : JSON,
+    events: JSON
   }
 );
 

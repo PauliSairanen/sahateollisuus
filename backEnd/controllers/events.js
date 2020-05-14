@@ -1,152 +1,13 @@
-const EventSchema = require('../models/DEPRECATEDevent');
-const config = require('../config/config');
 const mongoose = require('mongoose');
 const Event = require('../models/events');
 const Auth = require('../models/auth');
+const EventAuth = require('../models/eventAuth');
 const {v1: uuidv1} = require('uuid');
 
 class Events {
 
-    //Event creation functions
-    createEvents(req, res){
-        
-        Event.collection.drop();
-
-        var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
-        var metadataJSON2 = require('../jsonFiles/event2Metadata.json');
-        var aboutJSON = require('../jsonFiles/about.json');
-        var participantsJSON = require('../jsonFiles/participants.json');
-        var programmeJSON = require('../jsonFiles/programme.json');
-        var speakerJSON = require('../jsonFiles/speakers.json');
-        var sponsorsJSON = require('../jsonFiles/sponsors_Urls.json');
-
-        var event1 = new Event({
-            metadata: metadataJSON1,
-            about : aboutJSON,
-            participants : participantsJSON,
-            programme : programmeJSON,
-            speakers : speakerJSON,
-            sponsors : sponsorsJSON,
-        });
-
-        var event2 = new Event({
-            metadata: metadataJSON2,
-            about : aboutJSON,
-            participants : participantsJSON,
-            programme : programmeJSON,
-            speakers : speakerJSON,
-            sponsors : sponsorsJSON,
-        });
-
-        // var event1 = new Event({
-        //   eventId : "1",
-        //   eventIdForVisibilityRegardingUser : "String",
-        //   about : aboutJSON,
-        //   participants : participantJSON,
-        //   programme : programmeJSON,
-        //   speakers : speakerJSON,
-        //   sponsors : sponsorsJSON
-        // });
-
-        // Creating a event according to schema
-        // var event1 = new Event({
-            
-        // });
-                
-        //Insert to DB
-        event1.save().then(function(){
-            console.log("Event was saved");
-        });
-
-        event2.save().then(function(){
-            console.log("Event was saved");
-        });
-
-        res.send(200);
-
-        res.end();
-    }
-
-    createEvent(req, res){
-
-        var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
-        var aboutJSON = require('../jsonFiles/about.json');
-        var participantsJSON = require('../jsonFiles/participants.json');
-        var programmeJSON = require('../jsonFiles/programme.json');
-        var speakerJSON = require('../jsonFiles/speakers.json');
-        var sponsorsJSON = require('../jsonFiles/sponsors_Urls.json');
-
-        var event1 = new Event({
-            metadata: metadataJSON1,
-            about : aboutJSON,
-            participants : participantsJSON,
-            programme : programmeJSON,
-            speakers : speakerJSON,
-            sponsors : sponsorsJSON,
-        });
-
-        event1.save().then(function(){
-            console.log("Event was saved");
-        });
-
-        res.send(200);
-
-        res.end();
-    }
-
-    //Event delete functions
-    deleteEvent(req, res){
-        Event.findByIdAndDelete({_id: req.body.id}, function(err, doc){
-            console.log(err);
-        });
-        var a = Event.find({}, {"metadata": 1}).then(function(a){
-            res.send(a);
-
-            res.end();
-        });
-    }
-
-    //Event update functions
-    updateEvent(req, res){
-
-        var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
-
-        Event.findOne({_id: "5e8dfbce0482b55473e7988b"}, function(err, event){
-            event.metadata = metadataJSON1;
-            event.save(function(err){
-            });
-        });
-
-        res.send(200);
-
-        res.end();
-    }
-
-    //Event get functions
-    findEvent(req, res){
-        var a = Event.find({_id: req.body.id}).then(function(a){
-            res.send(a[0]);
-            res.end();
-        });
-    }
-
-    findAll(req, res){
-        var a = Event.find({}).then(function(a){
-            console.log(a);
-            res.send(a[0]);
-            res.end();
-        });
-    }
-
-    findAdmin(req, res){
-        var a = Auth.find({}, {"admin": 1}).then(function(a){
-            
-            res.send(a);
-
-            res.end();
-        });
-    }
-
+    //Testilogiikka autentikoinnille
+    //Testaa täsmääkö lähetetyt käyttäjätunnus ja salasana adminin tietokannasta löytyviä arvoja
     Authenticate(req, res){
         var a = Auth.find({}, {"admin": 1}).then(function(a){
 
@@ -159,6 +20,7 @@ class Events {
             }
             
             else {
+                
                 res.send(req.body); res.end();
             }
 
@@ -167,6 +29,184 @@ class Events {
         });
     }
 
+    //Login
+
+    login(req, res, next){
+        Auth.find({}, {"admin": 1})
+        .exec()
+        .then(user => {
+            console.log(user);
+            if(user[0].admin.password == req.body.pass){
+                res.send(200)
+            }
+            else res.send(404)
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
+
+    //Eventin luontiin liittyvät funktiot
+
+    //Luo yhden uuden eventin kovakoodattujen jsonien pohjalta
+    createEventFromJSON(req, res){
+
+        var metadataJSON2 = require('../jsonFiles/event2Metadata.json');
+        var aboutJSON = require('../jsonFiles/about.json');
+        var participantsJSON = require('../jsonFiles/participants.json');
+        var programmeJSON = require('../jsonFiles/programme.json');
+        var speakerJSON = require('../jsonFiles/speakers.json');
+        var sponsorsJSON = require('../jsonFiles/sponsors_Urls.json');
+
+        var event = new Event({
+            metadata: metadataJSON2,
+            about : aboutJSON,
+            participants : participantsJSON,
+            programme : programmeJSON,
+            speakers : speakerJSON,
+            sponsors : sponsorsJSON,
+        });
+
+        event.save().then(function(err){
+            console.log("Event was saved");
+        });
+
+        res.send("Event was created");
+        res.end();
+    }
+
+    //Luo yhden uuden eventin res bodyn pohjalta pohjalta
+    createEvent(req, res){
+
+        var metadataJSON = req.body.metadata;
+        var aboutJSON = req.body.about;
+        var participantsJSON = req.body.participants;
+        var programmeJSON = req.body.programme;
+        var speakerJSON = req.body.speakers;
+        var sponsorsJSON = req.body.sponsors;
+
+        var event = new Event({
+            metadata: metadataJSON,
+            about : aboutJSON,
+            participants : participantsJSON,
+            programme : programmeJSON,
+            speakers : speakerJSON,
+            sponsors : sponsorsJSON
+        });
+
+        event.save().then(function(err){
+            console.log("Event was saved");
+            var eventAuth = new EventAuth({
+                eventName: req.body.metadata.eventName,
+                eventPass: req.body.eventPass
+            });
+    
+            eventAuth.save().then(function(err){
+                console.log("EventAuth was saved");
+            });
+        });
+
+        res.send("Event was created");
+        res.end();
+    }
+
+    findEventPass(req, res){
+        var b = EventAuth.find({}).then(function(b){
+            res.send(b);
+            res.end();
+        });
+        // EventAuth.collection.drop();
+    }
+
+
+    //Eventin delete funktiot
+
+    //Poistaa eventin id mukaan
+    deleteEvent(req, res){
+        var a = Event.find({_id: req.body.id}).then(function(a){
+            var e = a[0].metadata.eventName;
+            
+            Event.findByIdAndDelete({_id: req.body.id}, function(err, doc){
+                console.log(err);
+            });
+            EventAuth.deleteOne({eventName: e}, function(err, doc){
+                console.log(err);
+            });
+            res.send("Event was deleted")
+            res.end();
+        });
+        // var b = Event.find({}, {"metadata": 1}).then(function(b){
+        //     res.send(b);
+
+        //     res.end();
+        // });
+    }
+
+    //Eventin update funktiot
+
+    //Päivittää testimielessä sponsorit
+    updateEvent(req, res){
+
+        var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
+        var sponsorsJSON = require('../jsonFiles/sponsors_Urls.json');
+
+        Event.findOne({_id: req.body.id}, function(err, event){
+            event.metadata = req.body.metadata;
+            event.about = req.body.about;
+            event.participants = req.body.participants;
+            event.programme = req.body.programme;
+            event.speakers = req.body.speakers;
+            event.sponsors = req.body.sponsors;
+            event.save(function(err){
+                console.log("Event was updated");
+            });
+        });
+
+        res.send("Event was updated");
+
+        res.end();
+    }
+
+    //Tallentaa kuvan tiedosksi
+    saveImage(req, res){
+        if(req.file) {
+            res.json(req.file);
+        }
+        else throw 'error';
+    }
+
+    //Event get functions
+
+    //Hakee eventin idn mukaan
+    findEvent(req, res){
+        var a = Event.find({_id: req.body.id}).then(function(a){
+            res.send(a);
+            res.end();
+        });
+    }
+
+    findEventsByEmail(req, res){
+        var a = Event.find({"participants.Email": req.body.email},{metadata: 1}).then(function(a){
+            res.send(a);
+            res.end();
+        });
+    }
+
+    //Hakee aivan kaiken
+    findAll(req, res){
+        var a = Event.find({}).then(function(a){
+            console.log(a);
+            res.send(a[0]);
+            res.end();
+        });
+    }
+
+    
+
+    //Etsii kaikkien eventtien metadata kentät
     findMetadata(req, res){
         var a = Event.find({}, {"metadata": 1}).then(function(a){
             res.send(a);
@@ -175,8 +215,9 @@ class Events {
         });
     }
     
+    //Etsii kaikkien eventtien participants kentät
     findAllParticipants(req, res){
-        var a = Event.find({"_id": "5e8587bcb60163143f5cc292"},{"participants": 1}).then(function(a){
+        var a = Event.find({},{"participants": 1}).then(function(a){
             console.log(a);
             
             res.send(a);
@@ -185,8 +226,9 @@ class Events {
         });
     }
 
+    //Etsii about kentän eventin idn mukaan
     findAbout(req, res){
-        var a = Event.find({"_id": "5e8587bcb60163143f5cc292"},{"about": 1}).then(function(a){
+        var a = Event.find({_id: req.body.id},{"about": 1}).then(function(a){
             console.log(a);
             
             res.send(a[0]);
@@ -194,24 +236,24 @@ class Events {
             res.end();
         });
     }
+
+    //Etsii participants kentän eventin idn mukaan
     findParticipants(req, res){
         
-        var a = Event.find({"_id": req},{"participants": 1}).then(function(a){
-            //let muuttuja = sortParticipants(a[0].participants)
+        var a = Event.find({_id: req.body.id},{"participants": 1}).then(function(a){
             
             a[0].participants.forEach(function(e, i) {
-                // Kaikkien henkilöiden looppaamiseen
                 console.log(a[0].participants[i]);
             });
-            console.log(a[0].participants[0]); // Loggaa ensimmäisen henkilön
+            console.log(a[0].participants[0]);
             res.send(a[0]);
-            //res.send(a[0].participants);
-            //console.log(a[0].participants);
             res.end();
         });
     }
+    
+    //Etsii programme kentän eventin idn mukaan
     findProgramme(req, res){
-        var a = Event.find({"_id": req},{"programme": 1}).then(function(a){
+        var a = Event.find({_id: req.body.id},{"programme": 1}).then(function(a){
             console.log(a);
             
             res.send(a[0]);
@@ -219,67 +261,30 @@ class Events {
             res.end();
         });
     }
+
+    //Etsii speakers kentän eventin idn mukaan
     findSpeakers(req, res){
-        var a = Event.find({"_id": "5e8dfbce0482b55473e7988b"},{"speakers": 1}).then(function(a){
+        var a = Event.find({_id: req.body.id},{"speakers": 1}).then(function(a){
             console.log(a);
 
-            res.send(a[0]);
+            res.send(a);
 
             res.end();
         });
     }
+
+    //Etsii sponsors kentän eventin idn mukaan
     findSponsors(req, res){
-        var a = Event.find({"_id": req},{"sponsors": 1}).then(function(a){
+        var a = Event.find({_id: req.body.id},{"sponsors": 1}).then(function(a){
             console.log(a);
             
-            res.send(a[0]);
+            res.send(a);
 
             res.end();
         });
     }
 
-    // Test functions
-    saveSpeakers(req, res){
-        // req on JSON
-        var i = 0;
-        var arr = [];
-
-        req[0].forEach(function(){
-            
-            var id = uuidv1();
-            var image = req[1][i];
-
-            if(image == "missing"){
-                var obj = {
-                    "Speaker": req[0][i].Speaker,
-                    "Title": req[0][i].Title,
-                    "SpecialTitle": req[0][i].SpecialTitle,
-                    "Company": req[0][i].Company,
-                    "imageID": "missing image"
-                }
-                i++;
-                arr.push(obj);
-            }
-            else{
-                var obj = {
-                    "Speaker": req[0][i].Speaker,
-                    "Title": req[0][i].Title,
-                    "SpecialTitle": req[0][i].SpecialTitle,
-                    "Company": req[0][i].Company,
-                    "imageID": id
-                }
-                i++;
-                arr.push(obj);
-            }
-        });
-
-        Event.updateOne({ speakers: arr }, function(err, res){
-        });
-        
-        res.send(arr);
-        res.end();
-    }
-
+    // Testi funktiot
     testEventMaterials(req, res){
             res.write(JSON.stringify(req.body));
             res.write('\n');
@@ -332,13 +337,5 @@ class Events {
 }
 
 module.exports = Events;
-
-// Alternative way to use funtions in routes
-//module.exports.findAll = function(){
-//    var a = Item.find().then(function(a){
-//        console.log(a);
-//        return 1;
-//    });
-//}
 
 

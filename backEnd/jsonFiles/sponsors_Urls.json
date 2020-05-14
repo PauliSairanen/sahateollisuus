@@ -1,82 +1,102 @@
 [
  {
   "CompanyName": "DB Schenker",
-  "CompanyUrl": "dbschenker.com"
+  "CompanyUrl": "dbschenker.com",
+  "ImageID": "db-schenker_1080.jpg"
  },
  {
   "CompanyName": "DHL",
-  "CompanyUrl": "dhl.com"
+  "CompanyUrl": "dhl.com",
+  "ImageID": "DHL_1080.jpg"
  },
  {
   "CompanyName": "Euroports Finland",
-  "CompanyUrl": "euroports.fi"
+  "CompanyUrl": "euroports.fi",
+  "ImageID": "Euroports_1080.jpg"
  },
  {
   "CompanyName": "Fenniarail",
-  "CompanyUrl": "fenniarail.fi"
+  "CompanyUrl": "fenniarail.fi",
+  "ImageID": "fenniarail_1080.jpg"
  },
  {
   "CompanyName": "Fracht Finland Oy Ltd",
-  "CompanyUrl": "fracht.com"
+  "CompanyUrl": "fracht.com",
+  "ImageID": "Fracht_1080.jpg"
  },
  {
   "CompanyName": "Greencarrier�Liner Agency Finland Oy",
-  "CompanyUrl": "greencarrier.fi"
+  "CompanyUrl": "greencarrier.fi",
+  "ImageID": "Greencarrier_1080.jpg"
  },
  {
   "CompanyName": "Hacklin Oy",
-  "CompanyUrl": "hacklin.fi"
+  "CompanyUrl": "hacklin.fi",
+  "ImageID": "hacklin_1080.jpg"
  },
  {
   "CompanyName": "Helsingin Satama",
-  "CompanyUrl": "portofhelsinki.fi"
+  "CompanyUrl": "portofhelsinki.fi",
+  "ImageID": "portofhelsinki_1080.jpg"
  },
  {
   "CompanyName": "Hooli Stevedoring Oy",
-  "CompanyUrl": "hoolistevedoring.fi"
+  "CompanyUrl": "hoolistevedoring.fi",
+  "ImageID": "Hoolin_1080.jpg"
  },
  {
   "CompanyName": "Kalajoen Satama",
-  "CompanyUrl": "portofkalajoki.fi"
+  "CompanyUrl": "portofkalajoki.fi",
+  "ImageID": "portofkalajoki_1080.jpg"
  },
  {
   "CompanyName": "MSC",
-  "CompanyUrl": "msc.com"
+  "CompanyUrl": "msc.com",
+  "ImageID": "MSC_1080.jpg"
  },
  {
   "CompanyName": "Pietarsaaren satama ",
-  "CompanyUrl": "portofpietarsaari.fi"
+  "CompanyUrl": "portofpietarsaari.fi",
+  "ImageID": "portofpietarsaari_1080.jpg"
  },
  {
   "CompanyName": "Porin Satama Oy",
-  "CompanyUrl": "portofpori.fi"
+  "CompanyUrl": "portofpori.fi",
+  "ImageID": "portofpori_1080.jpg"
  },
  {
   "CompanyName": "Raahen Satama",
-  "CompanyUrl": "raahensatama.fi"
+  "CompanyUrl": "raahensatama.fi",
+  "ImageID": "raahe_1080.jpg"
  },
  {
   "CompanyName": "Rauanheimo M Oy",
-  "CompanyUrl": "rauanheimo.com"
+  "CompanyUrl": "rauanheimo.com",
+  "ImageID": "Rauanheimo_1080.jpg"
  },
  {
   "CompanyName": "Rauman Satama ",
-  "CompanyUrl": "portofrauma.com"
+  "CompanyUrl": "portofrauma.com",
+  "ImageID": "rauma_1080.jpg"
  },
  {
   "CompanyName": "RP-Group",
-  "CompanyUrl": "rpgroup.fi"
+  "CompanyUrl": "rpgroup.fi",
+  "ImageID": "rpgroup_1080.jpg"
  },
  {
   "CompanyName": "Scan Global Logistics (Finland) Oy",
-  "CompanyUrl": "scangl.com"
+  "CompanyUrl": "scangl.com",
+  "ImageID": "scan_global_1080.jpg"
  },
  {
   "CompanyName": "Steveco Oy",
-  "CompanyUrl": "steveco.fi"
+  "CompanyUrl": "steveco.fi",
+  "ImageID": "steveco_1080.jpg"
  },
  {
   "CompanyName": "VR-Yhtym� Oy ",
-  "CompanyUrl": "vrtranspoint.fi"
+  "CompanyUrl": "vrtranspoint.fi",
+  "ImageID": "VRtranspoint_1080.jpg"
  }
 ]
