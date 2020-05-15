@@ -8,7 +8,8 @@ const Auth = require('./models/auth');
 const Event = require('./models/events');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+//API version
+let APIv = 2020051513 // vuosi.kuukausi.päivä.tunti
 //Credentials
 var credentials = {key: privateKey, cert: certificate};
 var express = require('express');
@@ -21,6 +22,13 @@ app.options('*', cors()) // include before other routes. Enables PF for all rout
 const routes = require('./routes/routes.js');
 
 app.use(routes);
+// Default route
+app.get('/',
+	function(req, res)
+	{
+		res.send(`<h1>API versio: ${APIv}</h1>`);
+	}
+);
 
 //Cors asetukset
 const corsOptions = {
