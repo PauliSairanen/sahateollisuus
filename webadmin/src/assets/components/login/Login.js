@@ -18,8 +18,48 @@ const FormLogin = props => {
   const { setAuthTokens } = useAuth();
   const referer = '/eventsnavi' || props.location.state.referer;
   
-  function postLogin() {
+  function testi(){
+    // tää toimii (bäkkärin headeristä löytyy cors)
+    const url = 'https://sahat.lamk.fi/authenticate';
 
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'un': `${userName}`,
+        'pw': `${password}`
+      })
+    }
+    axios(url,options)
+    .then(res =>{
+      console.log("fubar");
+      console.log(res);
+    })
+    // tää ei toimi (väittää ettei bäkkärissä ole cors hederiä?????)
+
+    axios.post(url,
+      {
+        'un': `${userName}`, 
+        'pw': `${password}`
+      },
+      {
+        headers: {
+          "Content-Type": "application/json"
+      }
+  })
+    .then(res => {
+      console.log("fobar");
+      console.log(res);
+    }).catch(error =>{
+      console.log("foobar");
+      console.log(error);
+    })
+  }
+
+  function postLogin(e) {
+    e.preventDefault(); // estää formin sivun päivityksen (alt fix, siirtää nappula formin ulkopuolelle)
     const url = 'https://sahat.lamk.fi/authenticate';
 
     const options = {
@@ -38,10 +78,10 @@ const FormLogin = props => {
     axios(url, options).then(
       result => {
         console.log(result.status)
-      if (result.status === 200) {
+      if (result.status === 200) { // kun bäkkäri onnistuu palauttamaan tietoa status on 200.
         setAuthTokens(200);
         setLoggedIn(true);
-      } else {
+      } else { // tapahtuu vain jos bäkkärissä on vikaa
         console.log(result.status)
         setIsError(true);
       }
@@ -80,6 +120,7 @@ const FormLogin = props => {
   }
 
   return (
+    <div>
     <form autoComplete="off">
       <div className="centered">
         <div id="formLogin">
@@ -111,6 +152,8 @@ const FormLogin = props => {
         <br/>
       </div>
     </form>
+    <button onClick={testi}>Login</button>
+    </div>
   );
 }
 
