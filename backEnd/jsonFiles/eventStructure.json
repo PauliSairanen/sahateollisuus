@@ -1,4 +1,5 @@
 {
+    "eventPass": "Test",
     "metadata": {
         "eventName": "Test Event 1",
         "eventImage": "Test"

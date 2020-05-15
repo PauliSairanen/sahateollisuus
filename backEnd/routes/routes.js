@@ -7,6 +7,10 @@ const bodyParser = require('body-parser')
 const cors = require('cors');
 const path = require('path');
 
+//Middlewares
+const checkAdminAuth = require('../middleware/checkAdminToken');
+const checkAppAuth = require('../middleware/checkAppToken');
+
 // Multer setup
 const multer = require('multer');
 const fs = require('fs');
@@ -42,13 +46,14 @@ router.post('/add', jsonParser, (req, res) => {
 router.post('/authenticate', cors(), jsonParser, events.Authenticate);
 router.post('/findEventPass', cors(), jsonParser, events.findEventPass);
 router.post('/login', cors(), jsonParser, events.login);
+router.post('/adminLogin', cors(), jsonParser, events.adminLogin);
 
 // Test routet create, update and delete db queryille
-router.post('/createEventFromJSON', cors(), jsonParser, events.createEventFromJSON);
-router.post('/createEvent', cors(), jsonParser, events.createEvent);
-router.post('/updateEvent', cors(), jsonParser, events.updateEvent);
-router.post('/deleteEvent', cors(), jsonParser, events.deleteEvent);
-router.post('/saveImage', cors(), upload.single('file'), events.saveImage);
+router.post('/createEventFromJSON', checkAdminAuth, cors(), jsonParser, events.createEventFromJSON);
+router.post('/createEvent', checkAdminAuth, cors(), jsonParser, events.createEvent);
+router.post('/updateEvent', checkAdminAuth, cors(), jsonParser, events.updateEvent);
+router.post('/deleteEvent', checkAdminAuth, cors(), jsonParser, events.deleteEvent);
+router.post('/saveImage', checkAdminAuth, cors(), upload.single('file'), events.saveImage);
 
 // Event data get routet
 router.post('/findAll', cors(), jsonParser, events.findAll);

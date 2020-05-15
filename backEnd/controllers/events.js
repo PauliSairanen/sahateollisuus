@@ -3,6 +3,10 @@ const Event = require('../models/events');
 const Auth = require('../models/auth');
 const EventAuth = require('../models/eventAuth');
 const {v1: uuidv1} = require('uuid');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const ADMIN_KEY = "secretkeyforadmin";
+const APP_KEY = "secretkeyforapp";
 
 class Events {
 
@@ -47,6 +51,63 @@ class Events {
                 error: err
             });
         });
+    }
+
+    adminLogin(req, res, next){
+        Auth.find({})
+        .exec()
+        .then(user => {
+            if(user[0].username == req.body.username){
+                bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+                    if(err){
+                        return res.status(401).json({
+                            message: 'Auth failed'
+                        })
+                    }
+                    if(result){
+                        const token = jwt.sign(
+                            {
+                                username: req.body.username
+                            },
+                            ADMIN_KEY,
+                            {
+                                expiresIn: "1h"
+                            }
+                        );
+                        return res.status(200).json({
+                            message: 'Auth successful',
+                            token: token
+                        })
+                    }
+                    else return res.status(401).json({
+                        message: 'Auth failed'
+                    })
+                })
+            }
+            else return res.status(401).json({
+                message: 'Auth failed'
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+
+        //Luonti
+        // bcrypt.hash("SahaPäälikkö1", 10, (err, hash) => {
+        //     var auth = new Auth({
+        //         username: "SahaAdmin1",
+        //         password: hash
+        //     });
+        //     auth.save().then(function(err){
+        //         Auth.find({}).then(function(a){
+        //             res.send(a);
+        //             res.end();
+        //         });
+        //     });
+        // })
     }
 
     //Eventin luontiin liittyvät funktiot
@@ -99,18 +160,18 @@ class Events {
 
         event.save().then(function(err){
             console.log("Event was saved");
-            var eventAuth = new EventAuth({
-                eventName: req.body.metadata.eventName,
-                eventPass: req.body.eventPass
-            });
-    
-            eventAuth.save().then(function(err){
-                console.log("EventAuth was saved");
-            });
+            bcrypt.hash(req.body.eventPass, 10, (err, hash) => {
+                var eventAuth = new EventAuth({
+                    eventName: req.body.metadata.eventName,
+                    eventPass: hash
+                });
+                eventAuth.save().then(function(err){
+                    console.log("EventAuth was saved");
+                    res.send("Event was created");
+                    res.end();
+                });
+            })
         });
-
-        res.send("Event was created");
-        res.end();
     }
 
     findEventPass(req, res){
