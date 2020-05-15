@@ -14,6 +14,9 @@ var credentials = {key: privateKey, cert: certificate};
 var express = require('express');
 var app = express();
 
+//Pre-flight asetus JSON post routeille.
+app.options('*', cors()) // include before other routes. Enables PF for all routes
+
 // Routejen käyttöönotto
 const routes = require('./routes/routes.js');
 
