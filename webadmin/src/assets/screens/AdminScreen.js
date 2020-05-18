@@ -12,8 +12,9 @@ const AdminScreen = (props) => {
         props.changeContent("LoginScreen");
     }
     return (
-        <div>
-            <h1>Admin Panel</h1>
+        <div className="AdminScreen">
+            <h1 className="AdminScreen">Admin Panel</h1>
+            <p className="AdminScreen">Session admin token: {props.readSession()}</p>
             <button onClick={()=>{
                 props.changeSession("");
                 props.changeContent("LoginScreen");

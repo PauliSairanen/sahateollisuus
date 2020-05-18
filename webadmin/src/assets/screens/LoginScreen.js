@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import '../screens/LoginScreen.css';
 /**
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
@@ -11,6 +10,7 @@ const LoginScreen = (props) => {
     const [Details, setDetails] = useState("")
     const baseURL = 'https://sahat.lamk.fi';
     let session = props.readSession();
+    let canLogin = true;
 
     if(session != null){
         //console.log("Session in progress, initiate automatic login");
@@ -25,37 +25,47 @@ const LoginScreen = (props) => {
             [e.target.name]: e.target.value
         });
     };
-    function clickHandler(e)
+    async function clickHandler(e)
     {
-        e.preventDefault();
-        if('un' in form && 'pw' in form){
-            //username and password set
-            axios.post(baseURL+'/adminLogin',{
-                "username": form.un, // SahaAdmin1
-                "password": form.pw // SahaPäälikkö1
-              })
-              .then(function (response) {
-                // handle success
-                console.log("admin login success");
-                console.log(response);
-                console.log("admin token:");
-                console.log(response.data);
-                props.changeSession(response.data.token);
-                props.changeContent("AdminScreen");
-              })
-              .catch(function (error) {
-                // handle error
-                console.log("admin login fail");
-                console.log(error);
-                if(error.toString().includes("401")){
-                    //console.log("Login incorrect");
-                    setDetails("Incorrect username and/or password");
-                }
-            })
+        if(canLogin){
+            e.preventDefault();
+            if('un' in form && 'pw' in form){
+                canLogin = false;
+                setDetails("Processing ..."); //
+                //username and password set
+                await axios.post(baseURL+'/adminLogin',{
+                    "username": form.un, // SahaAdmin1
+                    "password": form.pw // SahaPäälikkö1
+                })
+                .then(function (response) {
+                    // handle success
+                    canLogin = true;
+                    setDetails("Success");
+                    //console.log("admin login success");
+                    //console.log(response);
+                    //console.log("admin token:");
+                    //console.log(response.data);
+                    props.changeSession(response.data.token);
+                    props.changeContent("AdminScreen");
+                })
+                .catch(function (error) {
+                    // handle error
+                    canLogin = true;
+                    //console.log("admin login fail");
+                    //console.log(error);
+                    if(error.toString().includes("401")){
+                        //console.log("Login incorrect");
+                        setDetails("Incorrect username and/or password");
+                    }
+                })
+                canLogin = true;
+            }
+            else{
+                //either username or password fields are empty
+                setDetails("Please input username and password");
+            }
         }
-        else{
-            //either username or password fields are empty
-        }
+        
         
     }
     function test()
@@ -65,17 +75,18 @@ const LoginScreen = (props) => {
         //props.changeSession("");
     }
     return(
-        <div>
-            <h1>Login</h1>
-            <form autoComplete="off">
-                <input type="text" name="un" onChange={updateField} placeholder="username"/>
-                <input type="password" name="pw" onChange={updateField} placeholder="password"/>
-                <button type="submit" onClick={clickHandler}>Login</button>
+        <div className="LoginScreen">
+            <h1 className="LoginScreen">Login</h1>
+            <form className="LoginScreen" autoComplete="off">
+                <input className="LoginScreen" 
+                type="text" name="un" onChange={updateField} placeholder="username"/>
+                <input className="LoginScreen" 
+                type="password" name="pw" onChange={updateField} placeholder="password"/>
+                <button className="LoginScreen" 
+                type="submit" onClick={clickHandler}>Login</button>
             </form>
-            <p>{Details}</p>
-            <br/>
-            <button onClick={test}>Bypass</button>
-            <br/>
+            <p className="LoginScreen">{Details}</p>
+            <button className="LoginScreen" onClick={test}>Bypass</button>
         </div>
     )
 }
