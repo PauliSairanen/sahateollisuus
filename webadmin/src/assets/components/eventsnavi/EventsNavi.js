@@ -1,3 +1,4 @@
+//deprecated, do not use
 import React, {useEffect, useContext} from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/Auth';
@@ -17,7 +18,11 @@ const EventNavi = props =>{
     const [state, dispatch] = useContext(Context);
     
     function getData() {
-
+        if(state){
+            if(useEffect){
+                
+            }
+        }
         const url = 'https://sahat.lamk.fi/testEventsNavi';
 
         const options = {

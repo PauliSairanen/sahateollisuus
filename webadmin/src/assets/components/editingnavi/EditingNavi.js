@@ -16,7 +16,9 @@ const EditingNavi = () => {
 
     const { setAuthTokens } = useAuth();
     const history = useHistory();
-
+    if(Redirect){
+      
+    }
     function returnReset() {
       if (window.confirm("BETA\nHaluatko palata takaisin?\nMenetät kaiken tallettamattoman tiedon."))
       history.push('../eventsnavi/EventsNavi');

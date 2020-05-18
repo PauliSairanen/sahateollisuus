@@ -1,3 +1,5 @@
+//do not use
+
 import React, {useEffect, useContext} from 'react';
 
 import { Context } from '../../context/Store';
@@ -10,7 +12,12 @@ const EventMaterials = () => {
   const [state, dispatch] = useContext(Context);
     
   function sendData() {
+    if(useEffect){
 
+    }
+    else if(dispatch){
+      
+    }
     const url = 'https://sahat.lamk.fi/testEventMaterials';
 
     const options = {

@@ -1,3 +1,5 @@
+//deprecated, do not use
+
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useAuth } from '../../context/Auth';
@@ -20,6 +22,9 @@ const FormLogin = props => {
   
   function testi(){
     const baseURL = 'https://sahat.lamk.fi';
+    if(isError){
+      console.log("there is error"); // käyttämätön muuttuja errorin poisto
+    }
     if(false){
       //iqnore toimii
       axios.get(baseURL+'/findAbout')
@@ -79,7 +84,7 @@ const FormLogin = props => {
         console.log(error);
       })
     }
-    
+    //Täältä kopsat
     //---------------------------------------
     // toimii
     if(true){
@@ -224,12 +229,12 @@ const FormLogin = props => {
     }
     
     //-------------------------------------
-
+    // toimii
     if(true){
-      let adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNhaGFBZG1pbjEiLCJpYXQiOjE1ODk1NDQ5OTUsImV4cCI6MTU4OTU0ODU5NX0.uBV1GI6W0PilXQvUu2Z8Ei1PnQNTKuo4mm9B2n5Ugvc"
+      let adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNhaGFBZG1pbjEiLCJpYXQiOjE1ODk3Nzg4NTQsImV4cCI6MTU4OTc4MjQ1NH0.pdtDS_NK1eFlOIXl6g0blIsYDObfcxHddSI23oNs6RY"
       axios.post(baseURL+'/deleteEvent', 
       {
-        "id": "5ebe9155c002f65aad8fcb2d"
+        "id": "5ebe9094c002f65aad8fcb2b"
       },
       {
         headers:{
@@ -249,6 +254,9 @@ const FormLogin = props => {
       })
     }
   }
+
+
+
   function postLogin(e) {
     e.preventDefault(); // estää formin sivun päivityksen (alt fix, siirtää nappula formin ulkopuolelle)
     const url = 'https://sahat.lamk.fi/authenticate';
