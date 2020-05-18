@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 // import Store from './assets/context/Store';
 // import { Jumbotron } from 'reactstrap';
 import './App.css';
-
 // Components imports
 
 // import Login from './assets/components/login/Login';
@@ -45,8 +44,6 @@ const App = () => {
     </div>
   )
 }
-
-
 
 export default App
 

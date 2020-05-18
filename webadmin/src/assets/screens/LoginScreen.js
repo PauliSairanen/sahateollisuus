@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-
+import '../screens/LoginScreen.css';
 /**
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
@@ -66,6 +66,7 @@ const LoginScreen = (props) => {
     }
     return(
         <div>
+            <h1>Login</h1>
             <form autoComplete="off">
                 <input type="text" name="un" onChange={updateField} placeholder="username"/>
                 <input type="password" name="pw" onChange={updateField} placeholder="password"/>
@@ -73,7 +74,7 @@ const LoginScreen = (props) => {
             </form>
             <p>{Details}</p>
             <br/>
-            <button onClick={test}>Test</button>
+            <button onClick={test}>Bypass</button>
             <br/>
         </div>
     )
