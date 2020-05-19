@@ -82,11 +82,12 @@ const LoginScreen = (props) => {
                 type="text" name="un" onChange={updateField} placeholder="username"/>
                 <input className="LoginScreen" 
                 type="password" name="pw" onChange={updateField} placeholder="password"/>
+                <br/>
                 <button className="LoginScreen" 
                 type="submit" onClick={clickHandler}>Login</button>
             </form>
             <p className="LoginScreen">{Details}</p>
-            <button className="LoginScreen" onClick={test}>Bypass</button>
+            
         </div>
     )
 }

@@ -1,7 +1,6 @@
 /*App*/
 div.App {
-  padding: 20px;
-  text-align: center;
+
 }
 
 /*LoginScreen*/
@@ -17,29 +16,99 @@ input.LoginScreen[type=text], input.LoginScreen[type=password] {
   box-sizing: border-box;
   text-align: center;
 }
-button {
+button.LoginScreen, button.AdminScreen {
   background-color: #4CAF50;
+  font-size: 17px;
+  font-weight: bold;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
   width: 50%;
-  box-shadow: 0px 0px 14px 2px rgba(0,0,0,0.75);
+  max-width: 128px;
+  min-width: 80px;
+  box-shadow: 0px 0px 0px 4px rgba(204,245,216,1);
   transition: 0.3s;
 }
-button:hover {
+button.LoginScreen:hover, button.AdminScreen:hover {
   opacity: 0.8;
-  box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.75);
+  font-size: 16px;
+  box-shadow: 0px 0px 0px 6px rgba(237,252,241,1);
 }
 div.LoginScreen {
+  width: 50%;
+  margin: 0 auto;
   border: solid;
   text-align: center;
   background-color: #f1f1f1;
+  max-width: 400px;
+  min-width: 400px;
+  flex: 1;
+  flex-direction: column;
 }
 
 /*AdminScreen*/
+#ReAuth{
+  visibility: hidden;
+  position: absolute;
+  margin-left: 25%;
+  margin-right: 25%;
+  padding-bottom: 20px;
+  border: solid;
+  text-align: center;
+  min-width: 412px;
+  max-width: 475px;
+}
+
 div.AdminScreen {
   background-color: #f1f1f1;
+}
+h1.AdminScreen {
+  padding-left: 10px;
+  color: whitesmoke;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+#Toolbar {
+  display: flex;
+  flex-direction: column;
+  background: rgb(1,71,0);
+  background: linear-gradient(0deg, rgba(1,71,0,1) 0%, rgba(20,159,24,1) 30%, rgba(0,255,50,1) 100%);
+}
+#Toolbar-text{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#Toolbar-tools{
+  display: flex;
   border: solid;
+  position: relative;
+  flex-wrap: wrap;
+}
+#Logout {
+  margin-right: 20px;
+}
+.ToolButton {
+  flex: 1;
+  background: rgb(1,71,0);
+  background: linear-gradient(0deg, rgba(1,71,0,1) 0%, rgba(20,159,24,1) 30%, rgba(0,255,50,1) 100%);
+  font-size: 17px;
+  font-weight: bold;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  cursor: pointer;
+  border-right: solid;
+  border-top: solid 3px;
+  margin: 0 auto;
+  transition: 0.05s;
+}
+.ToolButton:hover{
+  opacity: 0.9;
+}
+.ToolButton:active {
+  background: rgb(1,71,0);
+  background: linear-gradient(180deg, rgba(1,71,0,1) 0%, rgba(20,159,24,1) 30%, rgba(0,255,50,1) 100%);
+  opacity: 1;
 }

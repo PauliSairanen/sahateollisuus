@@ -31,9 +31,18 @@ const App = () => {
   function getSession(){
     return localStorage.getItem("Session");
   }
+  function test()
+  {
+    setSession("token");
+    setContent("AdminScreen");
+    //props.changeSession("");
+  }
   console.log("Session: " +getSession());
   if(Content === "LoginScreen"){
-    container = <LoginScreen changeContent={setContent} readSession={getSession} changeSession={setSession}/>
+    container = <>
+    <LoginScreen changeContent={setContent} readSession={getSession} changeSession={setSession}/>
+    <button className="LoginScreen" onClick={test}>Bypass</button>
+    </>
   }
   else{
     container = <AdminScreen changeContent={setContent} readSession={getSession} changeSession={setSession}/>
