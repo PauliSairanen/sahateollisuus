@@ -9,15 +9,12 @@ import LoginScreen from '../screens/LoginScreen';
  * @param getSession    - gets current session (from localstorage)
  */
 const AdminScreen = (props) => {
+    const [LoginVisibility, setLoginVisibility] = useState(false);
     const baseURL = 'https://sahat.lamk.fi';
     let session = props.readSession();
-    let inheritFunctions = {
-        readsession: props.readSession,
-        changecontent: props.changeContent,
-        changesession: props.changeSession
-    }
     const [EventList, setEventList] = useState();
     let eventList;
+
     if(session === null){
         console.log("Never should have come here.");
         props.changeContent("LoginScreen");
@@ -37,7 +34,12 @@ const AdminScreen = (props) => {
             })
         }
         else if(e.target.id === "1"){
-
+            setLoginVisibility(true);
+        }
+        else if(e.target.id === "2"){
+            console.log(session);
+            console.log(props.readSession());
+            props.changeContent("AdminScreen");
         }
     }
 
@@ -47,7 +49,7 @@ const AdminScreen = (props) => {
         <div id="Toolbar">
             <div id="Toolbar-text">
                 <h1 className="AdminScreen">Admin Panel</h1>
-                {/* <p className="AdminScreen">Testing session admin token: {props.readSession()}</p> */}
+                {/* <p className="AdminScreen">Testing session admin token(not updated btw): {props.readSession()}</p> */}
                 
                 <button id="Logout" className="AdminScreen" onClick={()=>{
                     props.changeSession("");
@@ -67,13 +69,16 @@ const AdminScreen = (props) => {
                     {eventList}
                 </div>
         </div>
-        <div id="ReAuth">
-            <p>Authecation token invalid. Re-new login token by login</p>
-            <LoginScreen 
-            changeContent={inheritFunctions.changecontent} 
-            readSession={inheritFunctions.readsession} 
-            changeSession={inheritFunctions.changesession}/>
-        </div>
+        {LoginVisibility ? 
+            <div id="ReAuth">
+                <p id="ReAuthText">Authecation token invalid.</p>
+                <LoginScreen 
+                changeContent={(cont) => {props.changeContent(cont)}}
+                readSession={() => {props.readSession()}} 
+                changeSession={(sess) => {props.changeSession(sess)}}
+                visibility={setLoginVisibility}/>
+            </div> : null}
+        
         </>
     )
 }

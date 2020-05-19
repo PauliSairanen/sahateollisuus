@@ -4,6 +4,7 @@ import axios from 'axios';
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
  * @param getSession    - gets current session (from localstorage)
+ * @param visibility    - changes visibility in AdminScreen
  */
 const LoginScreen = (props) => {
     const [form, setForm] = useState({});
@@ -45,12 +46,14 @@ const LoginScreen = (props) => {
                     //console.log(response);
                     //console.log("admin token:");
                     //console.log(response.data);
+                    props.visibility(false);
                     props.changeSession(response.data.token);
                     props.changeContent("AdminScreen");
                 })
                 .catch(function (error) {
                     // handle error
                     canLogin = true;
+                    props.visibility(false);
                     //console.log("admin login fail");
                     //console.log(error);
                     if(error.toString().includes("401")){
@@ -68,12 +71,12 @@ const LoginScreen = (props) => {
         
         
     }
-    function test()
-    {
-        props.changeSession("token");
-        props.changeContent("AdminScreen");
-        //props.changeSession("");
-    }
+    // function test()
+    // {
+    //     props.changeSession("token");
+    //     props.changeContent("AdminScreen");
+    //     //props.changeSession("");
+    // }
     return(
         <div className="LoginScreen">
             <h1 className="LoginScreen">Login</h1>

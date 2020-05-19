@@ -40,7 +40,10 @@ const App = () => {
   console.log("Session: " +getSession());
   if(Content === "LoginScreen"){
     container = <>
-    <LoginScreen changeContent={setContent} readSession={getSession} changeSession={setSession}/>
+    <LoginScreen changeContent={setContent} 
+    readSession={getSession} 
+    changeSession={setSession}
+    visibility={()=>{}}/>
     <button className="LoginScreen" onClick={test}>Bypass</button>
     </>
   }
