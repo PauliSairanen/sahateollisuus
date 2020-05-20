@@ -53,7 +53,7 @@ const LoginScreen = (props) => {
                 .catch(function (error) {
                     // handle error
                     canLogin = true;
-                    props.visibility(false);
+                    //props.visibility(false);
                     //console.log("admin login fail");
                     //console.log(error);
                     if(error.toString().includes("401")){

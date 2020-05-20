@@ -7,7 +7,6 @@ import React, { useState } from 'react';
 import './App.css';
 // Components imports
 
-// import Login from './assets/components/login/Login';
 // import EventsNavi from './assets/components/eventsnavi/EventsNavi';
 // import EditingNavi from './assets/components/editingnavi/EditingNavi';
 // import InfoEdit from './assets/components/info/InfoEdit';
@@ -37,7 +36,7 @@ const App = () => {
     setContent("AdminScreen");
     //props.changeSession("");
   }
-  console.log("Session: " +getSession());
+  //console.log("Session: " +getSession());
   if(Content === "LoginScreen"){
     container = <>
     <LoginScreen changeContent={setContent} 

@@ -8,6 +8,27 @@ import axios from 'axios';
 import './Login.css';
 //import LoginLost from "./assets/components/login/LoginLost";
 
+export function testi(){
+  const baseURL = 'https://sahat.lamk.fi';
+  axios.post(baseURL+'/findEvent',{
+    id: "5ebe7f27f5f9314cbf189996"
+  },
+  {
+    headers: {
+      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNhaGFBZG1pbjEiLCJpYXQiOjE1ODk5NTM5MTUsImV4cCI6MTU4OTk1NzUxNX0.GdJ18GIBQg4dLmrwXPV5LjLMqBf0Pgr395YYYWFhqAI"
+    }
+  })
+  .then(function (response) {
+    // handle success
+    console.log("post test 4 success");
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log("post test 4 fail");
+    console.log(error);
+  })
+}
 
 const FormLogin = props => {
 
@@ -104,7 +125,7 @@ const FormLogin = props => {
 
     //---------------------------------------
     //toimii
-    if(false){
+    if(true){
       axios.post(baseURL+'/findEvent',{
         id: "5ebe7f27f5f9314cbf189996"
       })

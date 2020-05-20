@@ -11,11 +11,10 @@ import LoginScreen from '../screens/LoginScreen';
 const AdminScreen = (props) => {
     const [LoginVisibility, setLoginVisibility] = useState(false);
     const baseURL = 'https://sahat.lamk.fi';
-    let session = props.readSession();
     const [EventList, setEventList] = useState();
     let eventList;
 
-    if(session === null){
+    if(props.readSession() === null){
         console.log("Never should have come here.");
         props.changeContent("LoginScreen");
     }
@@ -37,9 +36,28 @@ const AdminScreen = (props) => {
             setLoginVisibility(true);
         }
         else if(e.target.id === "2"){
-            console.log(session);
             console.log(props.readSession());
             props.changeContent("AdminScreen");
+        }
+        else if(e.target.id === "3"){
+            console.log("Session is " + props.readSession())
+            await axios.post(baseURL+"/findEvent",{
+                id: "5ec4db740019ec1703c04fed"
+              },
+              {
+                headers:{
+                  Authorization: "Bearer "+props.readSession()
+                }
+                
+              })
+            .then(function (res) {
+                // handle success
+                console.log(res.data);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
         }
     }
 
@@ -58,7 +76,7 @@ const AdminScreen = (props) => {
             </div>
             <div id="Toolbar-tools">
                 <button className="ToolButton" id="0" onClick={clickHandler}>Find metadata</button>
-                <button className="ToolButton" id="1" onClick={clickHandler}>Test 2</button>
+                <button className="ToolButton" id="1" onClick={clickHandler}>Reauth test</button>
                 <button className="ToolButton" id="2" onClick={clickHandler}>Test 3</button>
                 <button className="ToolButton" id="3" onClick={clickHandler}>Test 4</button>
                 <button className="ToolButton" id="4" onClick={clickHandler}>Test 5</button>
@@ -67,6 +85,11 @@ const AdminScreen = (props) => {
         <div className="AdminScreen">
                 <div id="EventList">
                     {eventList}
+                    <div style={{backgroundColor: "lightblue", width:300, height:300,margin:30}}></div>
+                    <div style={{backgroundColor: "lightblue", width:300, height:300,margin:30}}></div>
+                    <div style={{backgroundColor: "lightblue", width:300, height:300,margin:30}}></div>
+                
+                
                 </div>
         </div>
         {LoginVisibility ? 
