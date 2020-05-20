@@ -20,6 +20,7 @@ const AdminScreen = (props) => {
     }
     async function clickHandler(e){
         console.log(e.target.id);
+
         if(e.target.id === "0"){
             await axios.get(baseURL+"/findMetadata")
             .then(function (res) {

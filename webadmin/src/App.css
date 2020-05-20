@@ -76,6 +76,7 @@ div.AdminScreen {
 }
 h1.AdminScreen {
   padding-left: 10px;
+  padding-right: 10px;
   color: whitesmoke;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
