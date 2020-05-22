@@ -11,9 +11,12 @@ const FormParticipant = () => {
   const [state, dispatch] = useContext(Context);
     
   function sendData() {
-
+    
     const url = 'https://sahat.lamk.fi/testFormParticipant';
-
+    dispatch();
+    if(useEffect){
+      
+    }
     const options = {
         method: 'POST',
         headers: {

@@ -5,50 +5,72 @@ const Event = require('../models/events')
 const Auth = require('../models/auth')
 const bodyParser = require('body-parser')
 const cors = require('cors');
+const path = require('path');
 
+// Multer setup
+const multer = require('multer');
+const fs = require('fs');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join(__dirname, '../images/'));
+    },
+    filename: function (req, file, cb) {
+      cb(null, req.body.id + '.png') //Appending .png
+      console.log(req.body.id);
+    }
+  })
+  
+const upload = multer({ storage: storage });
+
+//Funktioiden importtaus
 events = new Events();
 
-var urlencodedParser = bodyParser.json({extended: false});
+//Bodyparse
+var jsonParser = bodyParser.json({extended: false});
 
-// ONGELMA JOHTUI HEADEREISTÄ
-router.post('/add', urlencodedParser, (req, res) => {
+//Testiroute parserille
+router.post('/add', jsonParser, (req, res) => {
     if(req.body.variable == "jotain"){
         res.send(200)
     }
     else res.send(404);
     res.end();
 });
+//jotain
+// Autentikaatio routet
+router.post('/authenticate', cors(), jsonParser, events.Authenticate);
+router.post('/findEventPass', cors(), jsonParser, events.findEventPass);
+router.post('/login', cors(), jsonParser, events.login);
 
-// Authentication routes
-router.post('/authenticate', cors(), urlencodedParser, events.Authenticate);
-router.get('/findAdmin', events.findAdmin);
+// Test routet create, update and delete db queryille
+router.post('/createEventFromJSON', cors(), jsonParser, events.createEventFromJSON);
+router.post('/createEvent', cors(), jsonParser, events.createEvent);
+router.post('/updateEvent', cors(), jsonParser, events.updateEvent);
+router.post('/deleteEvent', cors(), jsonParser, events.deleteEvent);
+router.post('/saveImage', cors(), upload.single('file'), events.saveImage);
 
-// Test routes routes for create, update and delete db queries
-router.post('/createEvents', cors(), urlencodedParser, events.createEvents);
-router.post('/createEvent', cors(), urlencodedParser, events.createEvent);
-router.post('/updateEvent', cors(), urlencodedParser, events.updateEvent);
-router.post('/deleteEvent', cors(), urlencodedParser, events.deleteEvent);
+// Event data get routet
+router.post('/findAll', cors(), jsonParser, events.findAll);
+router.post('/findEvent', cors(), jsonParser, events.findEvent);
+router.post('/findEventsByEmail', cors(), jsonParser, events.findEventsByEmail);
+router.get('/findMetadata', cors(), jsonParser, events.findMetadata);
+router.get('/findAllParticipants', cors(), jsonParser, events.findAllParticipants);
+router.get('/findAbout', cors(), jsonParser, events.findAbout);
+router.get('/findParticipants', cors(), jsonParser, events.findParticipants);
+router.get('/findProgramme', cors(), jsonParser, events.findProgramme);
+router.get('/findSpeakers', cors(), jsonParser, events.findSpeakers);
+router.get('/findSponsors', cors(), jsonParser, events.findSponsors);
 
-// Event data get routes
-router.post('/findAll', cors(), urlencodedParser, events.findAll);
-router.post('/findEvent', cors(), urlencodedParser, events.findEvent);
-router.get('/findMetadata', events.findMetadata);
-router.get('/findAllParticipants', events.findAllParticipants);
-router.get('/findAbout', events.findAbout);
-router.get('/findParticipants', events.findParticipants);
-router.get('/findProgramme', events.findProgramme);
-router.get('/findSpeakers', events.findSpeakers);
-router.get('/findSponsors', events.findSponsors);
-
-// Save routes (currently test routes for admin panel)
-router.post('/testEventMaterials', cors(), urlencodedParser, events.testEventMaterials);
-router.post('/testEventsNavi', cors(), urlencodedParser, events.testEventsNavi);
-router.post('/testInfoEdit', cors(), urlencodedParser, events.testInfoEdit);
-router.post('/testLogin', cors(), urlencodedParser, events.testLogin);
-router.post('/testParticipants', cors(), urlencodedParser, events.testParticipants);
-router.post('/testProgram', cors(), urlencodedParser, events.testProgram);
-router.post('/testSpeakers', cors(), urlencodedParser, events.testSpeakers);
-router.post('/testSponsors', cors(), urlencodedParser, events.testSponsors);
+// Save routet (tällähetkellä testi routet admin paneelille)
+router.post('/testEventMaterials', cors(), jsonParser, events.testEventMaterials);
+router.post('/testEventsNavi', cors(), jsonParser, events.testEventsNavi);
+router.post('/testInfoEdit', cors(), jsonParser, events.testInfoEdit);
+router.post('/testLogin', cors(), jsonParser, events.testLogin);
+router.post('/testParticipants', cors(), jsonParser, events.testParticipants);
+router.post('/testProgram', cors(), jsonParser, events.testProgram);
+router.post('/testSpeakers', cors(), jsonParser, events.testSpeakers);
+router.post('/testSponsors', cors(), jsonParser, events.testSponsors);
 
 module.exports = router
 

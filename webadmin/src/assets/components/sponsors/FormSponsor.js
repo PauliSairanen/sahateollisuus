@@ -12,7 +12,13 @@ const FormSponsors = () => {
   const [state, dispatch] = useContext(Context);
     
   function sendData() {
-
+    if(dispatch){
+      if(EventNavi){
+        if(useEffect){
+          
+        }
+      }
+    }
     const url = 'https://sahat.lamk.fi/testFormSponsors';
 
     const options = {
