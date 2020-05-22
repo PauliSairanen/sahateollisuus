@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
+
 import ImageZoom from 'react-native-image-pan-zoom'
 
 import firstFloorImage from '../assets/images/venue_maps/paasiekakerros1080.jpg'
@@ -13,41 +15,42 @@ const VenueTabComponent = props => {
 
   const FirstRoute = () => (
     <View style={[styles.scene, { backgroundColor: 'white' }]} >
-      <View style={styles.imageContainer}>
-        <ImageZoom
-          cropWidth={Dimensions.get('window').width}
-          cropHeight={Dimensions.get('window').height}
-          imageWidth={Dimensions.get('window').width / 100 * 90}
-          imageHeight={Dimensions.get('window').width /100 * 90}
-        >
-          <Image
-            style={styles.image}
-            source={firstFloorImage}
-            resizeMode='center'
-          />
-        </ImageZoom>
-      </View>
+
+      <ReactNativeZoomableView
+        maxZoom={1.5}
+        minZoom={1}
+        zoomStep={1.5}
+        initialZoom={1}
+        bindToBorders={true}
+        captureEvent={true}
+      >
+        <Image
+          style={styles.image}
+          source={firstFloorImage}
+          resizeMode='contain'
+        />
+      </ReactNativeZoomableView>
+
     </View>
   );
 
   const SecondRoute = () => (
     <View style={[styles.scene, { backgroundColor: 'white' }]} >
-      <View style={styles.imageContainer}>
-        <ImageZoom
-          cropWidth={Dimensions.get('window').width}
-          cropHeight={Dimensions.get('window').height}
-          imageWidth={Dimensions.get('window').width / 100 * 90}
-          imageHeight={Dimensions.get('window').width /100 * 90}
-          panToMove={true}
-        >
-          <Image
-            style={styles.image}
-            source={secondFloorImage}
-            resizeMethod='scale'
-            resizeMode='center'
-          />
-        </ImageZoom>
-      </View>
+      <ReactNativeZoomableView
+        maxZoom={1.5}
+        minZoom={1}
+        zoomStep={1.5}
+        initialZoom={1}
+        bindToBorders={true}
+        captureEvent={true}
+      >
+        <Image
+          style={styles.image}
+          source={secondFloorImage}
+    
+          resizeMode='contain'
+        />
+      </ReactNativeZoomableView>
     </View>
   );
 
@@ -65,16 +68,16 @@ const VenueTabComponent = props => {
 
   // ______ Settings styles for tabs _____
   const renderTabBar = props => (
-    <TabBar 
+    <TabBar
       {...props}
-      indicatorStyle={{backgroundColor: Colors.primary}}
-      style={{backgroundColor: 'white'}}
-      renderLabel={({route, focused, color}) => (
-        <Text style={{color: Colors.primary}}>
+      indicatorStyle={{ backgroundColor: Colors.primary }}
+      style={{ backgroundColor: 'white' }}
+      renderLabel={({ route, focused, color }) => (
+        <Text style={{ color: Colors.primary }}>
           {route.title}
         </Text>
       )}
-      />
+    />
   )
 
   return (
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    width: '100%',
+    width: null,
     height: '100%',
   }
 });
