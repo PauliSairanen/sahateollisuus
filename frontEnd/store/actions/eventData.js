@@ -37,15 +37,14 @@ export const fetchAllData = (id) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({'id': `${id}`})
-        
+      body: JSON.stringify({ 'id': `${id}` })
+
     })
     console.log(response.status)
     const responseData = await response.json()
     const fetchedData = responseData
-    console.log(fetchedData)
 
-    dispatch({type: FETCH_ALL_DATA, allData: fetchedData})
+    dispatch({ type: FETCH_ALL_DATA, allData: fetchedData })
   }
 }
 

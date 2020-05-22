@@ -18,7 +18,7 @@ const EventsListItem = props => {
 
   const fetchAllEventData = () => {
     console.log('Action dispatched for fetching ALL data!')
-    dispatch(eventDataActions.fetchAllData(eventId))
+    dispatch(eventDataActions.fetchAllData(props.eventId))
   }
 
   return (
@@ -33,7 +33,7 @@ const EventsListItem = props => {
       >
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: imageUrl }}
+            source={{ uri: props.eventImage }}
             style={styles.image}
             resizeMode='contain'
           />

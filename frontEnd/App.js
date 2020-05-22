@@ -11,6 +11,8 @@ const rootReducer = combineReducers({
   eventData: eventDataReducer
 })
 
+console.disableYellowBox = true  // Disables the yellow warnings
+
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
 export default function App() {
   return (

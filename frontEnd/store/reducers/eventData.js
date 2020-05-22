@@ -25,7 +25,6 @@ const eventDataReducer = (state = initialState, action) => {
       }
     case FETCH_ALL_DATA:
       console.log('entering Fetch all data')
-      console.log(action.allData.programme)
       return {
         programmeData :  action.allData.programme,
         speakersData :  action.allData.speakers,

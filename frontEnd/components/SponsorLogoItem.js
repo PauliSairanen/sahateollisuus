@@ -12,13 +12,16 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 
 const SponsorLogoItem = props => {  
   const imageID = props.imageID
+  const link = props.link
+
   console.log(imageID)
+  console.log(link)
   return (
     <Card style={styles.card}>
       <TouchableComponent
         style={styles.touchable}
         onPress={() => {
-          Communications.web(props.link)
+          Communications.web(`https://`+`${link}`)
         }}
       >
         <View style={styles.imageContainer}>
