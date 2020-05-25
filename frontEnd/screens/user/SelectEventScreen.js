@@ -3,7 +3,6 @@ import { View, FlatList } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 
-
 import LoadingIndicator from '../../components/LoadingIndicator'
 
 import * as eventDataActions from '../../store/actions/eventData'
@@ -15,28 +14,27 @@ const SelectEventScreen = props => {
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
 
+  //_____ Initially load data from server to Redux
   useEffect(() => {
     dispatch(eventDataActions.fetchEventMetaData())
     console.log('Dispatching action to fetch metadata!')
   }, [])
 
+  //_____ Fetch data from Redux _____
   const eventsMetaData = useSelector(state => state.eventData.eventsMetaData)
   console.log(eventsMetaData)
 
-  // Async function for fetching data from server
-  // const fetchEventsFromBackend = async () => {
-  //   console.log('Action dispatched for fetching events metadata')
-  //   await dispatch(eventDataActions.fetchEventMetaData())
-  // }
+  // _____ On back navigation, reload data and refresh page
+  useEffect( () => {
+    props.navigation.addListener('didFocus', () => {
+      setIsLoading(true)
+      dispatch(eventDataActions.fetchEventMetaData())
+      setIsLoading(false)
+      console.log('Go back pressed, reloading data again!')
+    })
+  },[])
 
-  // useEffect(() => {
-  //   fetchEventsFromBackend()
-  //   props.navigation.addListener('didFocus', payload => {})
-  // }, [dispatch]);
-
-
-
-  if (isLoading == true) {
+  if (isLoading === true) {
     return (
       <LoadingIndicator />
     )
