@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, Dimensions, Image, } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
 
-import ImageZoom from 'react-native-image-pan-zoom'
-
 import firstFloorImage from '../assets/images/venue_maps/paasiekakerros1080.jpg'
 import secondFloorImage from '../assets/images/venue_maps/paasitokakerros1080.jpg'
 import Colors from '../constants/Colors'
@@ -12,10 +10,9 @@ import Colors from '../constants/Colors'
 const initialLayout = { width: Dimensions.get('window').width }
 
 const VenueTabComponent = props => {
-
+  
   const FirstRoute = () => (
     <View style={[styles.scene, { backgroundColor: 'white' }]} >
-
       <ReactNativeZoomableView
         maxZoom={1.5}
         minZoom={1}
@@ -30,7 +27,6 @@ const VenueTabComponent = props => {
           resizeMode='contain'
         />
       </ReactNativeZoomableView>
-
     </View>
   );
 
@@ -47,7 +43,6 @@ const VenueTabComponent = props => {
         <Image
           style={styles.image}
           source={secondFloorImage}
-    
           resizeMode='contain'
         />
       </ReactNativeZoomableView>
@@ -80,6 +75,7 @@ const VenueTabComponent = props => {
     />
   )
 
+  //_____ Tab bar related props come here _____
   return (
     <TabView
       navigationState={{ index, routes }}
@@ -87,6 +83,7 @@ const VenueTabComponent = props => {
       onIndexChange={setIndex}
       initialLayout={initialLayout}
       renderTabBar={renderTabBar}
+      swipeEnabled={false}
     />
   );
 }
