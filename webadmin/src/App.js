@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 // import { AuthContext } from './assets/context/Auth';
 // import Store from './assets/context/Store';
 // import { Jumbotron } from 'reactstrap';
-import './App.css';
+//import './App.css';
+import './App.scss';
 // Components imports
 
 // import EventsNavi from './assets/components/eventsnavi/EventsNavi';
