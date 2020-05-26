@@ -25,7 +25,6 @@ const SpeakersItem = props => {
             <View style={styles.textContainer}>
               <Text style={styles.nameText}>{props.speaker}</Text>
               <Text style={styles.text}>{props.title}</Text>
-
               <Text style={styles.text}>{props.company}</Text>
             </View>
             <View style={styles.imageContainer}>
@@ -47,16 +46,14 @@ const SpeakersItem = props => {
             <View style={styles.textContainer}>
               <Text style={styles.nameText}>{props.speaker}</Text>
               <Text style={styles.text}>{props.title}</Text>
-
               <Text style={styles.text}>{props.company}</Text>
               <Text style={styles.text}>{props.specialTitle}</Text>
-
             </View>
             <View style={styles.imageContainer}>
-              <Image
+            <FastImage
                 source={{ uri: `https://sahat.lamk.fi/images/speakerImages/${imageID}` }}
                 style={styles.image}
-                resizeMode={'cover'}
+                resizeMode={FastImage.resizeMode.cover}
               />
             </View>
           </View>
