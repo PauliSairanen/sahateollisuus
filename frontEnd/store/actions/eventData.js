@@ -42,7 +42,6 @@ export const fetchAllData = (id) => {
     })
     console.log(response.status)
     const responseData = await response.json()
-    console.log(responseData.venue[0])
     console.log('Data received from server. Dispatching on!')
     dispatch({ type: FETCH_ALL_DATA, responseData: responseData })
   }

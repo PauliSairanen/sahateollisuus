@@ -11,7 +11,7 @@ const initialState = {
   speakersData: [],
   sponsorsData: [],
   participantsData: [],
-  venueData: [],
+  // venueData: [],
   aboutData: [],
 }
 
@@ -30,7 +30,7 @@ const eventDataReducer = (state = initialState, action) => {
         speakersData :  action.responseData.speakers,
         sponsorsData :  action.responseData.sponsors,
         participantsData :  action.responseData.participants,
-        venueData : action.responseData.venue,
+        // venueData : action.responseData.venue,
         aboutData :  action.responseData.about,
       }
     default:
