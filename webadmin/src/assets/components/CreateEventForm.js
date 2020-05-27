@@ -10,19 +10,19 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const [ActiveForm, setActiveForm] = useState("AboutForm")
     let container;
 
-    if(ActiveForm == "AboutForm"){
+    if(ActiveForm === "AboutForm"){
         container = <AboutForm editForm={changeHandler}/>
     }
-    else if(ActiveForm == "ParticipantsForm"){
+    else if(ActiveForm === "ParticipantsForm"){
         container = <ParticipantsForm editForm={appendForm}/>
     }
-    else if(ActiveForm == "ProgrammeForm"){
+    else if(ActiveForm === "ProgrammeForm"){
         container = <ProgrammeForm editForm={appendForm}/>
     }
-    else if(ActiveForm == "SpeakersForm"){
+    else if(ActiveForm === "SpeakersForm"){
         container = <SpeakersForm editForm={appendForm}/>
     }
-    else if(ActiveForm == "SponsorsForm"){
+    else if(ActiveForm === "SponsorsForm"){
         container = <SponsorsForm editForm={appendForm}/>
     }
     else{
