@@ -1,15 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, } from 'react-native';
+import { useSelector } from 'react-redux'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
-
-import firstFloorImage from '../assets/images/venue_maps/paasiekakerros1080.jpg'
-import secondFloorImage from '../assets/images/venue_maps/paasitokakerros1080.jpg'
+import FastImage from 'react-native-fast-image'
 import Colors from '../constants/Colors'
 
 const initialLayout = { width: Dimensions.get('window').width }
 
 const VenueTabComponent = props => {
+  const venueData = useSelector(state => state.eventData.venueData)
+  const ImageID1 = venueData[0].image
+  const ImageID2 = venueData[1].image
   
   const FirstRoute = () => (
     <View style={[styles.scene, { backgroundColor: 'white' }]} >
@@ -21,10 +23,10 @@ const VenueTabComponent = props => {
         bindToBorders={true}
         captureEvent={true}
       >
-        <Image
+        <FastImage
+          source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID1}` }}
           style={styles.image}
-          source={firstFloorImage}
-          resizeMode='contain'
+          resizeMode={FastImage.resizeMode.contain}
         />
       </ReactNativeZoomableView>
     </View>
@@ -40,10 +42,10 @@ const VenueTabComponent = props => {
         bindToBorders={true}
         captureEvent={true}
       >
-        <Image
+        <FastImage
+          source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID2}` }}
           style={styles.image}
-          source={secondFloorImage}
-          resizeMode='contain'
+          resizeMode={FastImage.resizeMode.contain}
         />
       </ReactNativeZoomableView>
     </View>
