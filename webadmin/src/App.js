@@ -14,6 +14,7 @@ import './App.scss';
 
 import LoginScreen from './assets/screens/LoginScreen'
 import AdminScreen from './assets/screens/AdminScreen';
+import CreateEventForm from './assets/components/CreateEventForm'
 
 const App = () => {
   const [Content, setContent] = useState("LoginScreen");
@@ -39,12 +40,13 @@ const App = () => {
   }
   //console.log("Session: " +getSession());
   if(Content === "LoginScreen"){
-    container = <>
-    <LoginScreen changeContent={setContent} 
-    readSession={getSession} 
-    changeSession={setSession}
-    visibility={()=>{}}/>
-    <button className="LoginScreen" onClick={test}>Bypass</button>
+    container = 
+    <>
+      <LoginScreen changeContent={setContent} 
+      readSession={getSession} 
+      changeSession={setSession}
+      visibility={()=>{}}/>
+      <button className="LoginScreen" onClick={test}>Bypass</button>
     </>
   }
   else{
@@ -53,6 +55,7 @@ const App = () => {
   return (
     <div className="App">
       {container}
+      <CreateEventForm/>
     </div>
   )
 }
