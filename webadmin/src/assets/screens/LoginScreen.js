@@ -8,6 +8,7 @@ import axios from 'axios';
  */
 const LoginScreen = (props) => {
     const [form, setForm] = useState({});
+    localStorage.setItem("Form", form);
     const [Details, setDetails] = useState("")
     const baseURL = 'https://sahat.lamk.fi';
     let session = props.readSession();

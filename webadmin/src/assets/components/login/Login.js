@@ -251,7 +251,7 @@ const FormLogin = props => {
     
     //-------------------------------------
     // toimii
-    if(true){
+    if(false){
       let adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNhaGFBZG1pbjEiLCJpYXQiOjE1ODk3Nzg4NTQsImV4cCI6MTU4OTc4MjQ1NH0.pdtDS_NK1eFlOIXl6g0blIsYDObfcxHddSI23oNs6RY"
       axios.post(baseURL+'/deleteEvent', 
       {
