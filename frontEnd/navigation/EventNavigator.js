@@ -15,6 +15,7 @@ import SpeakersScreen from '../screens/event/SpeakersScreen'
 import SponsorsScreen from '../screens/event/SponsorsScreen'
 import VenueScreen from '../screens/event/VenueScreen'
 import FeedbackScreen from '../screens/event/FeedbaackScreen'
+import SpeakerDetailsScreen from '../screens/event/SpeakerDetailsScreen'
 
 
 import Example from '../screens/event/Example'
@@ -97,6 +98,13 @@ const EventNavigator = createStackNavigator(
         headerBackTitle: 'Navigation'
       }
     },
+    SpeakerDetails: {
+      screen: SpeakerDetailsScreen,
+      navigationOptions: {
+        headerBackTitle: 'Speakers',
+        headerTitle: 'Speaker Details'
+      }
+    }
   }, {
   defaultNavigationOptions: defaultNavOptions
 }
