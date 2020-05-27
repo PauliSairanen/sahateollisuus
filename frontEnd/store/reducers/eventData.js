@@ -11,7 +11,7 @@ const initialState = {
   speakersData: [],
   sponsorsData: [],
   participantsData: [],
-  // venueData: [],
+  venueData: [],
   aboutData: [],
 }
 
@@ -26,19 +26,13 @@ const eventDataReducer = (state = initialState, action) => {
     case FETCH_ALL_DATA:
       console.log('entering Fetch all data')
       return {
-        programmeData :  action.allData.programme,
-        speakersData :  action.allData.speakers,
-        sponsorsData :  action.allData.sponsors,
-        participantsData :  action.allData.participants,
-        // venueData :  action.allFetchedData.about,
-        aboutData :  action.allData.about,
+        programmeData :  action.responseData.programme,
+        speakersData :  action.responseData.speakers,
+        sponsorsData :  action.responseData.sponsors,
+        participantsData :  action.responseData.participants,
+        venueData : action.responseData.venue,
+        aboutData :  action.responseData.about,
       }
-
-    // case FETCH_SPEAKERS:
-    //   console.log('entering Set events case')
-    //   return {
-    //     speakersData: action.fetchedSpeakers
-    //   }
     default:
       return state
   }
