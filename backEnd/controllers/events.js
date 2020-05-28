@@ -10,40 +10,42 @@ const APP_KEY = "secretkeyforapp";
 
 class Events {
 
-    //Testilogiikka autentikoinnille
-    //Testaa täsmääkö lähetetyt käyttäjätunnus ja salasana adminin tietokannasta löytyviä arvoja
-    Authenticate(req, res){
-        var a = Auth.find({}, {"admin": 1}).then(function(a){
+    //Loginasd
 
-            var name = req.body.un;
-            var pass = req.body.pw;
-
-            if(name == a[0].admin.username && pass == a[0].admin.password){
-                res.send(200);
-                res.end();
-            }
-            
-            else {
-                
-                res.send(req.body); res.end();
-            }
-
-            // res.send(200);
-            // res.end();
-        });
-    }
-
-    //Login
-
-    login(req, res, next){
-        Auth.find({}, {"admin": 1})
+    mobileLogin(req, res, next){
+        EventAuth.find({eventName: req.body.eventName})
         .exec()
         .then(user => {
-            console.log(user);
-            if(user[0].admin.password == req.body.pass){
-                res.send(200)
+            if(user[0].eventName == req.body.eventName){
+                bcrypt.compare(req.body.password, user[0].eventPass, (err, result) => {
+                    if(err){
+                        return res.status(401).json({
+                            message: 'Auth failed'
+                        })
+                    }
+                    if(result){
+                        const token = jwt.sign(
+                            {
+                                username: req.body.eventName
+                            },
+                            APP_KEY,
+                            {
+                                expiresIn: "1h"
+                            }
+                        );
+                        return res.status(200).json({
+                            message: 'Auth successful',
+                            token: token
+                        })
+                    }
+                    else return res.status(401).json({
+                        message: 'Auth failed',
+                    })
+                })
             }
-            else res.send(404)
+            else return res.status(401).json({
+                message: 'Auth failed'
+            })
         })
         .catch(err => {
             console.log(err);
@@ -51,6 +53,20 @@ class Events {
                 error: err
             });
         });
+
+        //Luonti
+        // bcrypt.hash("SahaPäälikkö1", 10, (err, hash) => {
+        //     var auth = new Auth({
+        //         username: "SahaAdmin1",
+        //         password: hash
+        //     });
+        //     auth.save().then(function(err){
+        //         Auth.find({}).then(function(a){
+        //             res.send(a);
+        //             res.end();
+        //         });
+        //     });
+        // })
     }
 
     adminLogin(req, res, next){
@@ -141,37 +157,43 @@ class Events {
 
     //Luo yhden uuden eventin res bodyn pohjalta pohjalta
     createEvent(req, res){
+        if(req.body.eventPass && req.body.metadata.eventName){
+            var metadataJSON = req.body.metadata;
+            var aboutJSON = req.body.about;
+            var participantsJSON = req.body.participants;
+            var programmeJSON = req.body.programme;
+            var speakerJSON = req.body.speakers;
+            var sponsorsJSON = req.body.sponsors;
+            var venueJSON = req.body.venue;
 
-        var metadataJSON = req.body.metadata;
-        var aboutJSON = req.body.about;
-        var participantsJSON = req.body.participants;
-        var programmeJSON = req.body.programme;
-        var speakerJSON = req.body.speakers;
-        var sponsorsJSON = req.body.sponsors;
+            var event = new Event({
+                metadata: metadataJSON,
+                about : aboutJSON,
+                participants : participantsJSON,
+                programme : programmeJSON,
+                speakers : speakerJSON,
+                sponsors : sponsorsJSON,
+                venue : venueJSON
+            });
 
-        var event = new Event({
-            metadata: metadataJSON,
-            about : aboutJSON,
-            participants : participantsJSON,
-            programme : programmeJSON,
-            speakers : speakerJSON,
-            sponsors : sponsorsJSON
-        });
-
-        event.save().then(function(err){
-            console.log("Event was saved");
-            bcrypt.hash(req.body.eventPass, 10, (err, hash) => {
-                var eventAuth = new EventAuth({
-                    eventName: req.body.metadata.eventName,
-                    eventPass: hash
-                });
-                eventAuth.save().then(function(err){
-                    console.log("EventAuth was saved");
-                    res.send("Event was created");
-                    res.end();
-                });
-            })
-        });
+            event.save().then(function(err){
+                console.log("Event was saved");
+                bcrypt.hash(req.body.eventPass, 10, (err, hash) => {
+                    var eventAuth = new EventAuth({
+                        eventName: req.body.metadata.eventName,
+                        eventPass: hash
+                    });
+                    eventAuth.save().then(function(err){
+                        console.log("EventAuth was saved");
+                        res.send("Event was created");
+                        res.end();
+                    });
+                })
+            });
+        }
+        else res.status(400).json({
+            message: 'Missing required event information'
+        })
     }
 
     findEventPass(req, res){
@@ -187,72 +209,118 @@ class Events {
 
     //Poistaa eventin id mukaan
     deleteEvent(req, res){
+        if((req.body.id).length == 24)
         var a = Event.find({_id: req.body.id}).then(function(a){
-            var e = a[0].metadata.eventName;
-            
-            Event.findByIdAndDelete({_id: req.body.id}, function(err, doc){
-                console.log(err);
-            });
-            EventAuth.deleteOne({eventName: e}, function(err, doc){
-                console.log(err);
-            });
-            res.send("Event was deleted")
-            res.end();
+            if(a[0]){
+                var e = a[0].metadata.eventName;
+                
+                Event.findByIdAndDelete({_id: req.body.id}, function(err, doc){
+                    console.log(err);
+                });
+                EventAuth.deleteOne({eventName: e}, function(err, doc){
+                    console.log(err);
+                });
+                res.status(200).json({
+                    message: 'Event was deleted'
+                })
+                res.end();
+            }
+            else res.status(404).json({
+                message: 'No event was found'
+            })
         });
-        // var b = Event.find({}, {"metadata": 1}).then(function(b){
-        //     res.send(b);
-
-        //     res.end();
-        // });
+        else res.status(400).json({
+            message: 'Incorrect id format'
+        })
     }
 
     //Eventin update funktiot
 
-    //Päivittää testimielessä sponsorit
+    //Päivittää eventin
     updateEvent(req, res){
+        if((req.body.id).length == 24){ 
+            Event.findOne({_id: req.body.id}, function(err, event){
+                if(event){
+                    EventAuth.findOne({eventName: event.metadata.eventName}, function(err, auth){
+                        if(auth){
+                            auth.eventName = req.body.metadata.eventName;
+                            auth.save(function(err){
+                                console.log("Auth was updated");
+                            });
+                            event.metadata = req.body.metadata;
+                            event.about = req.body.about;
+                            event.participants = req.body.participants;
+                            event.programme = req.body.programme;
+                            event.speakers = req.body.speakers;
+                            event.sponsors = req.body.sponsors;
+                            event.venue = req.body.venue;
 
-        var metadataJSON1 = require('../jsonFiles/event1Metadata.json');
-        var sponsorsJSON = require('../jsonFiles/sponsors_Urls.json');
-
-        Event.findOne({_id: req.body.id}, function(err, event){
-            event.metadata = req.body.metadata;
-            event.about = req.body.about;
-            event.participants = req.body.participants;
-            event.programme = req.body.programme;
-            event.speakers = req.body.speakers;
-            event.sponsors = req.body.sponsors;
-            event.save(function(err){
-                console.log("Event was updated");
-            });
-        });
-
-        res.send("Event was updated");
-
-        res.end();
+                            event.save(function(err){
+                                console.log("Event was updated");
+                            });
+                        }
+                        else {
+                            res.status(404).json({
+                                message: 'Matching auth was not found'
+                            })
+                        }
+                    });
+                    res.status(200).json({
+                        message: 'Event updated'
+                    });
+                    res.end();   
+                }
+                else {
+                        
+                }
+            });        
+        }
+        else {
+            res.status(401).json({
+                message: 'Incorrect id format'
+            })
+        }
     }
 
     //Tallentaa kuvan tiedosksi
     saveImage(req, res){
-        if(req.file) {
-            res.json(req.file);
-        }
-        else throw 'error';
+        //res.status(200).send(req.body);
+        res.end()
     }
 
     //Event get functions
 
     //Hakee eventin idn mukaan
     findEvent(req, res){
-        var a = Event.find({_id: req.body.id}).then(function(a){
-            res.send(a);
-            res.end();
-        });
+        if((req.body.id).length == 24){
+            var a = Event.find({_id: req.body.id}).then(function(a){
+                if(a[0]){
+                    res.status(200).send(a[0]);
+                    res.end();
+                }
+                else {
+                    res.status(404).json({
+                        message: 'No events were found'
+                    });
+                    res.end();
+                }
+            });
+        }
+        else res.status(400).json({
+            message: 'Incorrect id format'
+        })
     }
-
+    //asdasd
     findEventsByEmail(req, res){
         var a = Event.find({"participants.Email": req.body.email},{metadata: 1}).then(function(a){
-            res.send(a);
-            res.end();
+            if(a[0]){
+                res.status(200).json(a);
+            }
+            else {
+                res.status(404).json({
+                    message: 'No events found'
+                })
+            }
         });
     }
 

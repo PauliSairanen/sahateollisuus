@@ -1,4 +1,7 @@
 //Requires
+var express = require('express');
+var app = express();
+var path = require('path')
 const fs = require('fs');
 const https = require('https');
 const privateKey  = fs.readFileSync('/etc/pki/tls/private/sahat.lamk.fi.key', 'utf8');
@@ -8,12 +11,17 @@ const Auth = require('./models/auth');
 const Event = require('./models/events');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load(path.join(__dirname, './jsonFiles/swagger.yaml'));
+
 //API version
 let APIv = 2020051513 // vuosi.kuukausi.päivä.tunti
 //Credentials
 var credentials = {key: privateKey, cert: certificate};
-var express = require('express');
-var app = express();
+
+//Swagger setup
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //Pre-flight asetus JSON post routeille.
 app.options('*', cors()) // include before other routes. Enables PF for all routes
@@ -39,7 +47,7 @@ const corsOptions = {
 //Express static kuville
 app.use(express.static('public'));
 app.use('/images', express.static(__dirname + '/images'));
-
+app.use('/jsonFiles', express.static(__dirname + '/jsonFiles'));
 
 //Express serverin luonti
 const httpsServer = https.createServer(credentials, app);

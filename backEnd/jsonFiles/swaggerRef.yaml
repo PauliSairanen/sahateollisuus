@@ -1,0 +1,247 @@
+ components:
+  schemas:
+    metadata:
+      type: object
+      properties:
+        _id:
+          type: string
+        metadata:
+          type: object
+          properties:
+            eventName:
+              type: string
+            eventImage:
+              type: string
+    eventPass:
+      type: object
+      properties:
+        _id:
+          type: string
+        eventName:
+          type: string
+        eventPass:
+          type: string
+    event:
+      type: object
+      properties:
+        metadata: 
+          type: object
+          properties: 
+            eventName: 
+              type: string
+            eventImage: 
+              type: string
+        about: 
+          type: object
+          properties: 
+            eventWebUrl: 
+              type: string
+            eventPlace: 
+              type: object
+              properties: 
+                name: 
+                  type: string
+                address: 
+                  type: string
+                phone: 
+                  type: string
+                email: 
+                  type: string
+            title: 
+              type: string
+            bodyText1: 
+              type: string
+            bodyText2: 
+              type: string
+            bodyText3: 
+              type: string
+            bodyText4: 
+              type: string
+            moreInformation: 
+              type: object
+              properties: 
+                eventWebsite: 
+                  type: string
+                organizer: 
+                  type: string
+                email: 
+                  type: string
+            disclaimer1: 
+              type: string
+            disclaimer2: 
+              type: string
+        participants: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              Country: 
+                type: string
+              FirstName: 
+                type: string
+              LastName: 
+                type: string
+              Email: 
+                type: string
+              Phone: 
+                type: string
+              Company: 
+                type: string
+        programme: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              Time: 
+                type: string
+              Location: 
+                type: string
+              Description: 
+                type: string
+              NameOfSpeaker: 
+                type: string
+              TitleOfSpeaker: 
+                type: string
+              SpecialTitleOfSpeaker: 
+                type: string
+              CompanyOfSpeaker: 
+                type: string
+        speakers: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              Speaker: 
+                type: string
+              Title: 
+                type: string
+              SpecialTitle: 
+                type: string
+              Company: 
+                type: string
+              ImageID: 
+                type: string
+        sponsors: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              CompanyName: 
+                type: string
+              CompanyUrl: 
+                type: string
+              ImageID: 
+                type: string
+    create:
+      type: object
+      properties:
+        eventPass:
+          type: string
+        metadata: 
+          type: object
+          properties: 
+            eventName: 
+              type: string
+            eventImage: 
+              type: string
+        about: 
+          type: object
+          properties: 
+            eventWebUrl: 
+              type: string
+            eventPlace: 
+              type: object
+              properties: 
+                name: 
+                  type: string
+                address: 
+                  type: string
+                phone: 
+                  type: string
+                email: 
+                  type: string
+            title: 
+              type: string
+            bodyText1: 
+              type: string
+            bodyText2: 
+              type: string
+            bodyText3: 
+              type: string
+            bodyText4: 
+              type: string
+            moreInformation: 
+              type: object
+              properties: 
+                eventWebsite: 
+                  type: string
+                organizer: 
+                  type: string
+                email: 
+                  type: string
+            disclaimer1: 
+              type: string
+            disclaimer2: 
+              type: string
+        participants: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              Country: 
+                type: string
+              FirstName: 
+                type: string
+              LastName: 
+                type: string
+              Email: 
+                type: string
+              Phone: 
+                type: string
+              Company: 
+                type: string
+        programme: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              Time: 
+                type: string
+              Location: 
+                type: string
+              Description: 
+                type: string
+              NameOfSpeaker: 
+                type: string
+              TitleOfSpeaker: 
+                type: string
+              SpecialTitleOfSpeaker: 
+                type: string
+              CompanyOfSpeaker: 
+                type: string
+        speakers: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              Speaker: 
+                type: string
+              Title: 
+                type: string
+              SpecialTitle: 
+                type: string
+              Company: 
+                type: string
+              ImageID: 
+                type: string
+        sponsors: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              CompanyName: 
+                type: string
+              CompanyUrl: 
+                type: string
+              ImageID: 
+                type: string
