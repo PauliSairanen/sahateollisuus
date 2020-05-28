@@ -9,7 +9,6 @@ import KeynoteAndProgrammeItem from '../../components/KeynoteAndProgrammeItem'
 
 const SpeakerDetailsScreen = props => {
   const { navigation } = props
-
   const speakerName = navigation.getParam('speakerName')
   const title = navigation.getParam('title')
   const specialTitle = navigation.getParam('specialTitle')
@@ -23,11 +22,16 @@ const SpeakerDetailsScreen = props => {
   for (const index in programmeData) {
     if (programmeData[index].NameOfSpeaker === speakerName) {
       arrayOfProgramme.push(programmeData[index])
+      arrayOfProgramme.push(programmeData[index])
+      arrayOfProgramme.push(programmeData[index])
+      arrayOfProgramme.push(programmeData[index])
+      arrayOfProgramme.push(programmeData[index])
     }
   }
   console.log(arrayOfProgramme[0].Time)
 
-  headerComponent1 = () => {
+  // Different header components for different Data entries
+  headerWithSpecialTitle = () => {
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
@@ -50,7 +54,7 @@ const SpeakerDetailsScreen = props => {
     )
   }
 
-  headerComponent2 = () => {
+  headerNoSpecialTitle = () => {
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
@@ -80,7 +84,7 @@ const SpeakerDetailsScreen = props => {
           <View style={styles.container}>
             <FlatList
               nestedScrollEnabled={true}
-              ListHeaderComponent={headerComponent1}
+              ListHeaderComponent={headerWithSpecialTitle}
               data={arrayOfProgramme}
               extraData={arrayOfProgramme}
               keyExtractor={(item, index) => index.toString()}
@@ -104,7 +108,7 @@ const SpeakerDetailsScreen = props => {
           <View style={styles.container}>
             <FlatList
               nestedScrollEnabled={true}
-              ListHeaderComponent={headerComponent2}
+              ListHeaderComponent={headerNoSpecialTitle}
               data={arrayOfProgramme}
               extraData={arrayOfProgramme}
               keyExtractor={(item, index) => index.toString()}

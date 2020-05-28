@@ -9,9 +9,9 @@ import Colors from '../constants/Colors'
 const initialLayout = { width: Dimensions.get('window').width }
 
 const VenueTabComponent = props => {
-  // const venueData = useSelector(state => state.eventData.venueData)
-  // const ImageID1 = venueData[0].image
-  // const ImageID2 = venueData[1].image
+  const venueData = useSelector(state => state.eventData.venueData)
+  const ImageID1 = venueData[0].image
+  const ImageID2 = venueData[1].image
 
   // Create a switch case structure
   
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    width: null,
+    width: '100%',
     height: '100%',
   }
 });

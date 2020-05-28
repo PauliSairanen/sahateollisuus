@@ -14,20 +14,29 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 const KeynoteAndProgrammeItem = props => {
   return (
     <Card style={styles.card}>
-      <View>
-
-        <View>
+      <View style={styles.row}>
+        <View style={styles.textContainer}>
           <Text>8:00</Text>
+        </View>
+        <View style={styles.textContainer}>
           <Text>Welcome</Text>
+        </View>
+        <View style={styles.textContainer}>
           <Text>Congresss hall</Text>
         </View>
+      </View>
 
-        <View>
-          <Card>
-            <Text>PDF comes here :D</Text>
-          </Card>
-        </View>
-
+      <View style={styles.pdfContainer}>
+        <Card>
+          <TouchableComponent
+            onPress={() => {
+              console.log('This button should open PDF in modal')
+            }}
+        
+          >
+            <Text>Asdasd</Text>
+            </TouchableComponent>
+        </Card>
       </View>
     </Card>
   )
@@ -37,14 +46,18 @@ const styles = StyleSheet.create({
   card: {
     margin: 15,
   },
-  content: {
-    margin: 20,
+  pdfContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 15
   },
   row: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    backgroundColor: '#e0e0e0'
   },
   textContainer: {
+    margin: 8,
     flex: 2,
     alignItems: 'flex-start',
     justifyContent: 'center'
