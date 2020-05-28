@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions } from 'react-native'
+import React, {  useState } from 'react'
+import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Modal } from 'react-native'
 import FastImage from 'react-native-fast-image'
 
 import Card from './Card'
@@ -12,6 +12,8 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const KeynoteAndProgrammeItem = props => {
+  const [modalVisible, setModalVisible] = useState('false')
+  
   return (
     <Card style={styles.card}>
       <View style={styles.row}>
@@ -30,12 +32,11 @@ const KeynoteAndProgrammeItem = props => {
         <Card>
           <TouchableComponent
             onPress={() => {
-              console.log('This button should open PDF in modal')
+              
             }}
-        
           >
-            <Text>Asdasd</Text>
-            </TouchableComponent>
+            <Text>This button should open modal</Text>
+          </TouchableComponent>
         </Card>
       </View>
     </Card>
@@ -50,6 +51,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 15
+  },
+  modal: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: Dimensions.get('window').width / 100 * 30,
+    height: Dimensions.get('window').width / 100 * 30
   },
   row: {
     flex: 1,
