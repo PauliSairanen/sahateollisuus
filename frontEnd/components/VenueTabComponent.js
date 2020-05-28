@@ -12,6 +12,8 @@ const VenueTabComponent = props => {
   // const venueData = useSelector(state => state.eventData.venueData)
   // const ImageID1 = venueData[0].image
   // const ImageID2 = venueData[1].image
+
+  // Create a switch case structure
   
   const FirstRoute = () => (
     <View style={[styles.scene, { backgroundColor: 'white' }]} >
