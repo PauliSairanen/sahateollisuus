@@ -47,9 +47,6 @@ export const fetchAllData = (id) => {
   }
 }
 
-
-
-
 // _______________ OTHER ACTIONS _______________
 
 export const fetchSpeakers = () => {

@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import LoginScreen from '../screens/LoginScreen';
 
+import Button from 'react-bootstrap/Button'
+import Navbar from 'react-bootstrap/Navbar'
 /**
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
@@ -149,9 +151,18 @@ const AdminScreen = (props) => {
     const saveImages = function(category) {
         
     }
+    
+    function test(){
+        console.log("fubar")
+    }
 
     return (
         <>
+        <Navbar bg="light" variant="light" expand="lg">
+            <Navbar.Brand>Admin Toolbar</Navbar.Brand>
+            <Button variant="outline-success" onClick={test}>Logout</Button>
+        </Navbar>
+
         <div id="Toolbar">
             <div id="Toolbar-text">
                 <h1 className="AdminScreen">Admin Panel</h1>
@@ -175,11 +186,6 @@ const AdminScreen = (props) => {
         <div className="AdminScreen">
                 <div id="EventList">
                     {eventList}
-                    <div style={{backgroundColor: "lightblue", width:300, height:300,margin:30}}></div>
-                    <div style={{backgroundColor: "lightblue", width:300, height:300,margin:30}}></div>
-                    <div style={{backgroundColor: "lightblue", width:300, height:300,margin:30}}></div>
-                
-                
                 </div>
         </div>
         {LoginVisibility ? 
