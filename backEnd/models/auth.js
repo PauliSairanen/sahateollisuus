@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 
 const AuthSchema = new Schema(
   {
-    admin : JSON,
-    events: JSON
+    username: String,
+    password: String
   }
 );
 

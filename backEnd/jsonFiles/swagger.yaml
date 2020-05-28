@@ -1,0 +1,363 @@
+openapi: 3.0.0
+info:
+  title: Sahateolisuus event API
+  description: API for Sahateollisuus event mobile application.
+  version: 1.0.0
+servers:
+  - url: https://sahat.lamk.fi
+            
+paths:
+  #Mobile application operations
+  /findEventsByEmail:
+    post:
+      summary: Returns a list of metadatas from events containing email defined in request.
+      description: Used for mobile application to find correct events to display.
+      tags:
+        - mobile
+      requestBody:
+        description: Requires email which events get filtered by
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of event metadatas.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'https://sahat.lamk.fi/jsonFiles/swaggerRef.yaml#/components/schemas/metadata'
+        '404':    # status code
+          description: Message indicating that nothing was found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    
+  /findEvent:
+    post:
+      summary: Returns a single event with id defined in request.
+      description: Used for mobile application to find correct events to display.
+      tags:
+        - mobile
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: Requires id to find event with
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of events.
+          content:
+            application/json:
+              schema:
+                $ref: 'https://sahat.lamk.fi/jsonFiles/swaggerRef.yaml#/components/schemas/event'
+        '404':    # status code
+          description: Message indicating that nothing was found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':    # status code
+          description: Error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /mobileLogin:
+    post:
+      summary: Returns a message of success or failure and a token if succesfull
+      description: Used for mobile application login
+      tags:
+        - mobile
+      requestBody:
+        description: Requires event name and password
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventName:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':    # status code
+          description: Message of success with token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+        '401':    # status code
+          description: Message of failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':    # status code
+          description: Error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  #admin operations
+  /createEvent:
+    post:
+      summary: Creates a new event
+      description: Used to create a new event
+      tags:
+        - admin
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: Requires all event information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'https://sahat.lamk.fi/jsonFiles/swaggerRef.yaml#/components/schemas/create'
+      responses:
+        '200':    # status code
+          description: Message indicating success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+        '400':    # status code
+          description: Error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+  /deleteEvent:
+    post:
+      summary: Deletes a event
+      description: Deletes a event filtered by id
+      tags:
+        - admin
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: Requires id for selecting event to be deleted
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+      responses:
+        '200':    # status code
+          description: Message indicating success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+        '404':    # status code
+          description: Message indicating that nothing was found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+        '401':    # status code
+          description: Error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+  /updateEvent:
+    post:
+      summary: Updates a event
+      description: Updates a event filtered by id
+      tags:
+        - admin
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: Requires id for selecting event to be updated and data used for update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'https://sahat.lamk.fi/jsonFiles/swaggerRef.yaml#/components/schemas/create'
+      responses:
+        '200':    # status code
+          description: Message indicating success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+        '404':    # status code
+          description: Message indicating that nothing was found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+        '401':    # status code
+          description: Error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+
+  /adminLogin:
+    post:
+      summary: Returns a message of success or failure and a token if succesfull
+      description: Used for admin panel login
+      tags:
+        - admin
+      requestBody:
+        description: Requires admin name and password
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventName:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':    # status code
+          description: Message of success with token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+        '401':    # status code
+          description: Message of failure
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':    # status code
+          description: Error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  #Testing routes
+  /findMetadata:
+    get:
+      summary: Returns a list of event metadatas.
+      description: Mainly used for testing.
+      tags:
+        - testing
+      responses:
+        '200':    # status code
+          description: A JSON array of event metadatas.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'https://sahat.lamk.fi/jsonFiles/swaggerRef.yaml#/components/schemas/metadata'
+
+  /findEventPass:
+    get:
+      summary: Returns a list of event authetication information.
+      description: Mainly used for testing.
+      tags:
+        - testing
+      responses:
+        '200':    # status code
+          description: A JSON array of event metadatas.
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: 'https://sahat.lamk.fi/jsonFiles/swaggerRef.yaml#/components/schemas/eventPass'
+
+
+

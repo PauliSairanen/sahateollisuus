@@ -1,5 +1,5 @@
 //Component for handling event creation
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 
 
@@ -10,24 +10,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const [ActiveForm, setActiveForm] = useState("AboutForm")
     let container;
 
-    if(ActiveForm === "AboutForm"){
-        container = <AboutForm editForm={changeHandler}/>
-    }
-    else if(ActiveForm === "ParticipantsForm"){
-        container = <ParticipantsForm editForm={appendForm}/>
-    }
-    else if(ActiveForm === "ProgrammeForm"){
-        container = <ProgrammeForm editForm={appendForm}/>
-    }
-    else if(ActiveForm === "SpeakersForm"){
-        container = <SpeakersForm editForm={appendForm}/>
-    }
-    else if(ActiveForm === "SponsorsForm"){
-        container = <SponsorsForm editForm={appendForm}/>
-    }
-    else{
-        container = null
-    }
+    
     //Form variables
     const [FormObjects, setFormObjects] = useState({
         //About Form
@@ -45,9 +28,29 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         participants: [],
         programme: [],
         speakers: [],
-        sponsors: []
+        sponsors: [],
+        bodyText: []
     })
+    if(ActiveForm === "AboutForm"){
+        container = <AboutForm editForm={changeHandler} bodyTexts={FormObjects.bodyText}/>
+    }
+    else if(ActiveForm === "ParticipantsForm"){
+        container = <ParticipantsForm editForm={appendForm}/>
+    }
+    else if(ActiveForm === "ProgrammeForm"){
+        container = <ProgrammeForm editForm={appendForm}/>
+    }
+    else if(ActiveForm === "SpeakersForm"){
+        container = <SpeakersForm editForm={appendForm}/>
+    }
+    else if(ActiveForm === "SponsorsForm"){
+        container = <SponsorsForm editForm={appendForm}/>
+    }
+    else{
+        container = null
+    }
     function changeHandler(e){ //tuntuu redundantilta, vois poistaa myöhemmin emt.
+        console.log(e)
         setFormObjects({
             ...FormObjects,
             [e.target.name]: [e.target.value]
@@ -75,10 +78,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 email: `${FormObjects.placeEmail}`
             },
             title: `${FormObjects.eventTitle}`,
-            bodyText1: "Not implemented",
-            bodyText2: "Not implemented",
-            bodyText3: "Not implemented",
-            bodyText4: "Not implemented",
+            bodyText: FormObjects.bodyText, //Not implemented
             moreInformation: {
                 eventWebsite: `${FormObjects.MiWebsite}`,
                 organizer: `${FormObjects.MiOrg}`,
@@ -132,9 +132,39 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
 }
 
 const AboutForm = (props) => {
-    
+    const [Form, setForm] = useState(props.bodyTexts)
+    const [Fields, setFields] = useState(createFields)
+    useEffect(() => {
+        console.log("Effect:")
+        console.log(Form)
+    })
+    function createFields(){
+        let list = Form.map((items,index)=>{
+            return (
+            <div key={index} id={'ta'+index}>
+                <textarea defaultValue={items} name={index} onChange={changeHandler}/>
+                {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
+            </div>
+            )
+        })
+        return list;
+    }
+    function changeHandler(e){
+        let temp = Form;
+        temp[e.target.name] = e.target.value;
+        setForm(temp)
+    }
+    function remHandler(e){
+        
+    }
+    function clickHandler(e){
+        let temp = Form;
+        temp.push("")
+        setFields(createFields)
+    }
     return(
-        <form onChange={props.editForm} autoComplete="off">
+        <div>
+        <form onChange={props.editForm} autoComplete="off" id="abtform">
             <input type="text" name="eventPass" placeholder="Event Password"/>
             <input type="text" name="eventName" placeholder="Event Name"/>
             <input type="text" name="eventWebUrl" placeholder="Event URL"/>
@@ -146,8 +176,11 @@ const AboutForm = (props) => {
             <input type="text" name="MiWebsite" placeholder="More info Website"/>
             <input type="text" name="MiOrg" placeholder="More info Organizer"/>
             <input type="text" name="MiEmail" placeholder="More info Email"/>
-
+            
         </form>
+        {Fields}
+        <button onClick={clickHandler}>+</button>
+        </div>
     )
 }
 /*

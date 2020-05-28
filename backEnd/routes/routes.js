@@ -7,17 +7,34 @@ const bodyParser = require('body-parser')
 const cors = require('cors');
 const path = require('path');
 
+// Middlewares
+const checkAdminAuth = require('../middleware/checkAdminToken');
+const checkAppAuth = require('../middleware/checkAppToken');
+
 // Multer setup
 const multer = require('multer');
 const fs = require('fs');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, path.join(__dirname, '../images/'));
+      console.log(req.headers.category)
+      if(req.headers.category == "venue"){
+        cb(null, path.join(__dirname, '../images/venueImages'));
+      }
+      if(req.headers.category == "speakers"){
+        cb(null, path.join(__dirname + '../images/speakerImages'));
+      }
+      if(req.headers.category == "sponsors"){
+        cb(null, path.join(__dirname + '../images/sponsorImages'));
+      }
+      if(req.headers.category == "test"){
+        cb(null, path.join(__dirname + '../images'));
+      }
+      else{
+      }
     },
     filename: function (req, file, cb) {
-      cb(null, req.body.id + '.png') //Appending .png
-      console.log(req.body.id);
+      cb(null, file.originalname) //array.originalname
     }
   })
   
@@ -27,7 +44,7 @@ const upload = multer({ storage: storage });
 events = new Events();
 
 //Bodyparse
-var jsonParser = bodyParser.json({extended: false});
+var jsonParser = bodyParser.json({limit: '50mb', extended: true});
 
 //Testiroute parserille
 router.post('/add', jsonParser, (req, res) => {
@@ -37,40 +54,35 @@ router.post('/add', jsonParser, (req, res) => {
     else res.send(404);
     res.end();
 });
-//jotain
+
 // Autentikaatio routet
-router.post('/authenticate', cors(), jsonParser, events.Authenticate);
-router.post('/findEventPass', cors(), jsonParser, events.findEventPass);
-router.post('/login', cors(), jsonParser, events.login);
+router.get('/findEventPass', cors(), jsonParser, events.findEventPass);
+router.post('/mobileLogin', cors(), jsonParser, events.mobileLogin);
+router.post('/adminLogin', cors(), jsonParser, events.adminLogin);
 
 // Test routet create, update and delete db queryille
 router.post('/createEventFromJSON', cors(), jsonParser, events.createEventFromJSON);
 router.post('/createEvent', cors(), jsonParser, events.createEvent);
 router.post('/updateEvent', cors(), jsonParser, events.updateEvent);
 router.post('/deleteEvent', cors(), jsonParser, events.deleteEvent);
-router.post('/saveImage', cors(), upload.single('file'), events.saveImage);
+router.post('/saveImage', cors(), upload.array('myFiles'), events.saveImage); //upload.array('array[]', 1000),
 
-// Event data get routet
-router.post('/findAll', cors(), jsonParser, events.findAll);
-router.post('/findEvent', cors(), jsonParser, events.findEvent);
+// Relevantit event data get routet
+
 router.post('/findEventsByEmail', cors(), jsonParser, events.findEventsByEmail);
+
+router.post('/findEvent', cors(), jsonParser, events.findEvent);
+
 router.get('/findMetadata', cors(), jsonParser, events.findMetadata);
+
+// Ei niin relevantit tai toimimattomat event data get routet
+router.post('/findAll', cors(), jsonParser, events.findAll);
 router.get('/findAllParticipants', cors(), jsonParser, events.findAllParticipants);
 router.get('/findAbout', cors(), jsonParser, events.findAbout);
 router.get('/findParticipants', cors(), jsonParser, events.findParticipants);
 router.get('/findProgramme', cors(), jsonParser, events.findProgramme);
 router.get('/findSpeakers', cors(), jsonParser, events.findSpeakers);
 router.get('/findSponsors', cors(), jsonParser, events.findSponsors);
-
-// Save routet (tällähetkellä testi routet admin paneelille)
-router.post('/testEventMaterials', cors(), jsonParser, events.testEventMaterials);
-router.post('/testEventsNavi', cors(), jsonParser, events.testEventsNavi);
-router.post('/testInfoEdit', cors(), jsonParser, events.testInfoEdit);
-router.post('/testLogin', cors(), jsonParser, events.testLogin);
-router.post('/testParticipants', cors(), jsonParser, events.testParticipants);
-router.post('/testProgram', cors(), jsonParser, events.testProgram);
-router.post('/testSpeakers', cors(), jsonParser, events.testSpeakers);
-router.post('/testSponsors', cors(), jsonParser, events.testSponsors);
 
 module.exports = router
 

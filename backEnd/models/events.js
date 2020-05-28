@@ -5,12 +5,16 @@ const Schema = mongoose.Schema;
 
 const EventSchema = new Schema(
   {
-    metadata : JSON,
+    metadata : {
+      eventName: String,
+      eventImage: String
+    },
     about : JSON,
     participants : JSON,
     programme : JSON,
     speakers : JSON,
-    sponsors : JSON
+    sponsors : JSON,
+    venue: JSON
   }
 );
 
