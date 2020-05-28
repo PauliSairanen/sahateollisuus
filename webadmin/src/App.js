@@ -55,6 +55,8 @@ const App = () => {
   return (
     <div className="App">
       {container}
+      <br/>
+      <p>----------------------------------------------------</p>
       <CreateEventForm/>
     </div>
   )
