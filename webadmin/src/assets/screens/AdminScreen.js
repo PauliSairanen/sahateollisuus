@@ -43,7 +43,7 @@ const AdminScreen = (props) => {
         else if(e.target.id === "3"){
             console.log("Session is " + props.readSession())
             await axios.post(baseURL+"/findEvent",{
-                id: "5ec4db740019ec1703c04fed"
+                id: "5e8dfbce0482b55473e7988b"
               },
               {
                 headers:{
@@ -60,8 +60,95 @@ const AdminScreen = (props) => {
                 console.log(error);
             })
         }
+        else if(e.target.id === "5"){
+            const data = findMetadata();
+            data.then(function(result){
+                console.log(result);
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        }
+        else if(e.target.id === "6"){
+            const data = findEvent("5e8dfbce0482b55473e7988b");
+            data.then(function(result){
+                console.log(result);
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        }
     }
 
+    const findMetadata = function() {
+        return axios.get(baseURL+"/findMetadata", {
+            headers:{
+              Authorization: "Bearer "+props.readSession()
+            }
+          }).then(function (res) {
+            eventList = (res.data);
+            return eventList;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+    
+    const findEvent = function(eventId) {
+        return axios.post(baseURL+"/findEvent",{
+            id: eventId
+          },
+          {
+            headers:{
+              Authorization: "Bearer "+props.readSession()
+            }
+          })
+        .then(function (res) {
+            return res.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    const updateEvent = function(form) {
+        let adminToken = localStorage.getItem("Session")
+        axios.post(baseURL+"/updateEvent",{
+            form
+          },
+          {
+            headers:{
+              Authorization: "Bearer "+props.readSession()
+            }
+          })
+        .then(function (res) {
+            return res.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    const deleteEvent = function(eventId) {
+        axios.post(baseURL+"/deleteEvent",{
+            id: eventId
+          },
+          {
+            headers:{
+              Authorization: "Bearer "+props.readSession()
+            }
+          })
+        .then(function (res) {
+            return res.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    const saveImages = function(category) {
+        
+    }
 
     return (
         <>
@@ -81,6 +168,8 @@ const AdminScreen = (props) => {
                 <button className="ToolButton" id="2" onClick={clickHandler}>Test 3</button>
                 <button className="ToolButton" id="3" onClick={clickHandler}>Test 4</button>
                 <button className="ToolButton" id="4" onClick={clickHandler}>Test 5</button>
+                <button className="ToolButton" id="5" onClick={clickHandler}>Test 6</button>
+                <button className="ToolButton" id="6" onClick={clickHandler}>Test 7</button>
             </div>
         </div>
         <div className="AdminScreen">
@@ -108,4 +197,5 @@ const AdminScreen = (props) => {
 }
 
 export default AdminScreen
+
 
