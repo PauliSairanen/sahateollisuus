@@ -13,7 +13,15 @@ const FormSpeakers = () => {
   function sendData() {
 
     const url = 'https://sahat.lamk.fi/testFormSpeakers';
+    if(dispatch){
 
+    }
+    if(EventNavi){
+
+    }
+    if(useEffect){
+      
+    }
     const options = {
         method: 'POST',
         headers: {

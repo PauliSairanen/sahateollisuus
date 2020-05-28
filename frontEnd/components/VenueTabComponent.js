@@ -1,53 +1,53 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, } from 'react-native';
+import { useSelector } from 'react-redux'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import ImageZoom from 'react-native-image-pan-zoom'
-
-import firstFloorImage from '../assets/images/venue_maps/paasiekakerros1080.jpg'
-import secondFloorImage from '../assets/images/venue_maps/paasitokakerros1080.jpg'
+import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
+import FastImage from 'react-native-fast-image'
 import Colors from '../constants/Colors'
 
 const initialLayout = { width: Dimensions.get('window').width }
 
 const VenueTabComponent = props => {
-
+  // const venueData = useSelector(state => state.eventData.venueData)
+  // const ImageID1 = venueData[0].image
+  // const ImageID2 = venueData[1].image
+  
   const FirstRoute = () => (
     <View style={[styles.scene, { backgroundColor: 'white' }]} >
-      <View style={styles.imageContainer}>
-        <ImageZoom
-          cropWidth={Dimensions.get('window').width}
-          cropHeight={Dimensions.get('window').height}
-          imageWidth={Dimensions.get('window').width / 100 * 90}
-          imageHeight={Dimensions.get('window').width /100 * 90}
-        >
-          <Image
-            style={styles.image}
-            source={firstFloorImage}
-            resizeMode='center'
-          />
-        </ImageZoom>
-      </View>
+      <ReactNativeZoomableView
+        maxZoom={1.5}
+        minZoom={1}
+        zoomStep={1.5}
+        initialZoom={1}
+        bindToBorders={true}
+        captureEvent={true}
+      >
+        <FastImage
+          source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID1}` }}
+          style={styles.image}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      </ReactNativeZoomableView>
     </View>
   );
 
   const SecondRoute = () => (
     <View style={[styles.scene, { backgroundColor: 'white' }]} >
-      <View style={styles.imageContainer}>
-        <ImageZoom
-          cropWidth={Dimensions.get('window').width}
-          cropHeight={Dimensions.get('window').height}
-          imageWidth={Dimensions.get('window').width / 100 * 90}
-          imageHeight={Dimensions.get('window').width /100 * 90}
-          panToMove={true}
-        >
-          <Image
-            style={styles.image}
-            source={secondFloorImage}
-            resizeMethod='scale'
-            resizeMode='center'
-          />
-        </ImageZoom>
-      </View>
+      <ReactNativeZoomableView
+        maxZoom={1.5}
+        minZoom={1}
+        zoomStep={1.5}
+        initialZoom={1}
+        bindToBorders={true}
+        captureEvent={true}
+      >
+        <FastImage
+          source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID2}` }}
+          style={styles.image}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      </ReactNativeZoomableView>
     </View>
   );
 
@@ -65,18 +65,19 @@ const VenueTabComponent = props => {
 
   // ______ Settings styles for tabs _____
   const renderTabBar = props => (
-    <TabBar 
+    <TabBar
       {...props}
-      indicatorStyle={{backgroundColor: Colors.primary}}
-      style={{backgroundColor: 'white'}}
-      renderLabel={({route, focused, color}) => (
-        <Text style={{color: Colors.primary}}>
+      indicatorStyle={{ backgroundColor: Colors.primary }}
+      style={{ backgroundColor: 'white' }}
+      renderLabel={({ route, focused, color }) => (
+        <Text style={{ color: Colors.primary }}>
           {route.title}
         </Text>
       )}
-      />
+    />
   )
 
+  //_____ Tab bar related props come here _____
   return (
     <TabView
       navigationState={{ index, routes }}
@@ -84,6 +85,7 @@ const VenueTabComponent = props => {
       onIndexChange={setIndex}
       initialLayout={initialLayout}
       renderTabBar={renderTabBar}
+      swipeEnabled={false}
     />
   );
 }
@@ -99,7 +101,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    width: '100%',
+    width: null,
     height: '100%',
   }
 });

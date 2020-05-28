@@ -4,6 +4,7 @@ export const SET_EVENTS_METADATA = 'SET_EVENTS_METADATA'
 export const FETCH_SPEAKERS = 'FETCH_SPEAKERS'
 export const FETCH_ALL_DATA = 'FETCH_ALL_DATA'
 export const AUTHENTICATE = 'AUTHENTICATE'
+export const PRELOAD_IMAGES = 'PRELOAD_IMAGES'
 
 // Fetching the metadata of events from server
 export const fetchEventMetaData = () => {
@@ -27,11 +28,8 @@ export const fetchEventMetaData = () => {
   }
 }
 
-
-
 export const fetchAllData = (id) => {
   console.log('Fetching data using id:' + id)
- 
   return async dispatch => {
     const response = await fetch('https://sahat.lamk.fi/findEvent', {
       method: 'POST',
@@ -39,17 +37,18 @@ export const fetchAllData = (id) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({'id': `${id}`})
-        
+      body: JSON.stringify({ 'id': `${id}` })
+
     })
     console.log(response.status)
     const responseData = await response.json()
-    const fetchedData = responseData
-    console.log(fetchedData)
-
-    dispatch({type: FETCH_ALL_DATA, allData: fetchedData})
+    console.log('Data received from server. Dispatching on!')
+    dispatch({ type: FETCH_ALL_DATA, responseData: responseData })
   }
 }
+
+
+
 
 // _______________ OTHER ACTIONS _______________
 

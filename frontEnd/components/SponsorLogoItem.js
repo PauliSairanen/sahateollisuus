@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Image, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import Communications from 'react-native-communications'
+import FastImage from 'react-native-fast-image'
 
 import Card from './Card'
 
@@ -10,20 +11,25 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
 }
 
-const SponsorLogoItem = props => {  
+const SponsorLogoItem = props => {
+  const imageID = props.imageID
+  const link = props.link
+
+  console.log(imageID)
+  console.log(link)
   return (
     <Card style={styles.card}>
       <TouchableComponent
         style={styles.touchable}
         onPress={() => {
-          Communications.web(props.link)
+          Communications.web(`https://` + `${link}`)
         }}
       >
         <View style={styles.imageContainer}>
-          <Image
-            source={props.image}
+          <FastImage
+            source={{ uri: `https://sahat.lamk.fi/images/sponsorImages/${imageID}` }}
             style={styles.image}
-            resizeMode= 'contain'
+            resizeMode={FastImage.resizeMode.contain}
           />
         </View>
       </TouchableComponent>

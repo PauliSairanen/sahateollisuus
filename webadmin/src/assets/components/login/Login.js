@@ -1,3 +1,5 @@
+//deprecated, do not use
+
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useAuth } from '../../context/Auth';
@@ -6,11 +8,32 @@ import axios from 'axios';
 import './Login.css';
 //import LoginLost from "./assets/components/login/LoginLost";
 
+export function testi(){
+  const baseURL = 'https://sahat.lamk.fi';
+  axios.post(baseURL+'/findEvent',{
+    id: "5ebe7f27f5f9314cbf189996"
+  },
+  {
+    headers: {
+      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNhaGFBZG1pbjEiLCJpYXQiOjE1ODk5NTM5MTUsImV4cCI6MTU4OTk1NzUxNX0.GdJ18GIBQg4dLmrwXPV5LjLMqBf0Pgr395YYYWFhqAI"
+    }
+  })
+  .then(function (response) {
+    // handle success
+    console.log("post test 4 success");
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log("post test 4 fail");
+    console.log(error);
+  })
+}
 
 const FormLogin = props => {
 
   // Pois kommentoidut ovat backendiä varten
-
+  
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState("");
@@ -19,44 +42,241 @@ const FormLogin = props => {
   const referer = '/eventsnavi' || props.location.state.referer;
   
   function testi(){
-    // tää toimii (bäkkärin headeristä löytyy cors)
-    const url = 'https://sahat.lamk.fi/authenticate';
+    const baseURL = 'https://sahat.lamk.fi';
+    if(isError){
+      console.log("there is error"); // käyttämätön muuttuja errorin poisto
+    }
+    if(false){
+      //iqnore toimii
+      axios.get(baseURL+'/findAbout')
+      .then(function (response) {
+        // handle success
+        console.log("get test 1 success");
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("get test 1 fail");
+        console.log(error);
+      })
+      // ------------------------------------
+      //iqnore ei toimi error 500
+      axios.post(baseURL+'/findAll')
+      .then(function (response) {
+        // handle success
+        console.log("post test 1 success");
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("post test 1 fail");
+        console.log(error);
+      })
+      //------------------------------------
+      //iqnore ei toimi error 500
+      axios.post(baseURL+'/login', {
+        pass: "test"
+      })
+      .then(function (response) {
+        // handle success
+        console.log("post test 2 success");
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("post test 2 fail");
+        console.log(error);
+      })
 
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'un': `${userName}`,
-        'pw': `${password}`
+      //------------------------------------
+      //iqnore ei toimi error 500
+      const qs = require('qs');
+      axios.post(baseURL+'/login', qs.stringify({
+        'pass':"test"
+      }))
+      .then(function (response) {
+        // handle success
+        console.log("post test 3 success");
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("post test 3 fail");
+        console.log(error);
       })
     }
-    axios(url,options)
-    .then(res =>{
-      console.log("fubar");
-      console.log(res);
-    })
-    // tää ei toimi (väittää ettei bäkkärissä ole cors hederiä?????)
+    //Täältä kopsat
+    //---------------------------------------
+    // toimii
+    if(true){
+      axios.get(baseURL+'/findMetadata')
+      .then(function (response) {
+        // handle success
+        console.log("get metadata success");
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("get metadata fail");
+        console.log(error);
+      })
+    }
+    
 
-    axios.post(url,
+    //---------------------------------------
+    //toimii
+    if(true){
+      axios.post(baseURL+'/findEvent',{
+        id: "5ebe7f27f5f9314cbf189996"
+      })
+      .then(function (response) {
+        // handle success
+        console.log("post test 4 success");
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("post test 4 fail");
+        console.log(error);
+      })
+    }
+    
+
+    //--------------------------------------
+    if(false){ // toimii
+      axios.post(baseURL+'/adminLogin',{
+        "username": "SahaAdmin1",
+        "password": "SahaPäälikkö1"
+      })
+      .then(function (response) {
+        // handle success
+        console.log("admin login success");
+        console.log(response);
+        console.log("admin token:");
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("admin login fail");
+        console.log(error);
+      })
+    }
+    //-------------------------------------
+    // (ei toimi cors error) nyt toimii. muista auth menee headers objektin sisälle config objecktiin axioksen kolmas parametri
+    if(false){
+      let adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNhaGFBZG1pbjEiLCJpYXQiOjE1ODk1NDQ5OTUsImV4cCI6MTU4OTU0ODU5NX0.uBV1GI6W0PilXQvUu2Z8Ei1PnQNTKuo4mm9B2n5Ugvc"
+      axios.post(baseURL+'/createEvent', 
       {
-        'un': `${userName}`, 
-        'pw': `${password}`
+        "eventPass": "Koodaus1",
+          "metadata": {
+              "eventName": "Simon posti testi",
+              "eventImage": "Test"
+          },
+          "about": {
+              "eventWebUrl": "Test",
+              "eventPlace": {
+                  "name": "Test",
+                  "address": "Test",
+                  "phone": "Test",
+                  "email": "Test"
+              },
+              "title": "Test",
+              "bodyText1": "Test",
+              "bodyText2": "Test",
+              "bodyText3": "Test",
+              "bodyText4": "Test",
+              "moreInformation": {
+                  "eventWebsite": "Test",
+                  "organizer": "Test",
+                  "email": "Test"
+              },
+              "disclaimer1": "Test",
+              "disclaimer2": "Test"
+          },
+          "participants": [
+              {
+                  "Country": "Test",
+                  "FirstName": "Test",
+                  "LastName": "Test",
+                  "Email": "Test",
+                  "Phone": "Test",
+                  "Company": "Test"
+              }
+          ],
+          "programme": [
+              {
+                  "Time": "Test",
+                  "Location": "Test",
+                  "Description": "Test",
+                  "NameOfSpeaker": "Test",
+                  "TitleOfSpeaker": "Test",
+                  "SpecialTitleOfSpeaker": "Test",
+                  "CompanyOfSpeaker": "Test"
+              }
+          ],
+          "speakers": [
+              {
+                  "Speaker": "Test",
+                  "Title": "Test",
+                  "SpecialTitle": "Test",
+                  "Company": "Test",
+                  "ImageID": "Test"
+              }
+          ],
+          "sponsors": [
+              {
+                  "CompanyName": "Test",
+                  "CompanyUrl": "Test",
+                  "ImageID": "Test"
+              }
+          ]
       },
       {
-        headers: {
-          "Content-Type": "application/json"
-      }
-  })
-    .then(res => {
-      console.log("fobar");
-      console.log(res);
-    }).catch(error =>{
-      console.log("foobar");
-      console.log(error);
-    })
+        headers:{
+          Authorization: "Bearer "+adminToken
+        }
+        
+      })
+      .then(function (response) {
+        // handle success
+        console.log("event create success");
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("event create fail");
+        console.log(error);
+      })
+    }
+    
+    //-------------------------------------
+    // toimii
+    if(false){
+      let adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNhaGFBZG1pbjEiLCJpYXQiOjE1ODk3Nzg4NTQsImV4cCI6MTU4OTc4MjQ1NH0.pdtDS_NK1eFlOIXl6g0blIsYDObfcxHddSI23oNs6RY"
+      axios.post(baseURL+'/deleteEvent', 
+      {
+        "id": "5ebe9094c002f65aad8fcb2b"
+      },
+      {
+        headers:{
+          Authorization: "Bearer "+adminToken
+        }
+        
+      })
+      .then(function (response) {
+        // handle success
+        console.log("event delete success");
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("event delete fail");
+        console.log(error);
+      })
+    }
   }
+
+
 
   function postLogin(e) {
     e.preventDefault(); // estää formin sivun päivityksen (alt fix, siirtää nappula formin ulkopuolelle)

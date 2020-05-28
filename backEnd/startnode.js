@@ -16,7 +16,14 @@ const YAML = require('yamljs');
 const swaggerDocument = YAML.load(path.join(__dirname, './jsonFiles/swagger.yaml'));
 
 //API version
-let APIv = 2020051513 // vuosi.kuukausi.päivä.tunti
+let APIv = 2020051550 // vuosi.kuukausi.päivä.tunti
+const dateObj = new Date();
+APIv = dateObj.getFullYear() +
+  ("0" + (dateObj.getMonth()+1)).slice(-2) +
+  ("0" + (dateObj.getDate())).slice(-2) +
+  ("0" + (dateObj.getHours())).slice(-2) +
+  ("0" + (dateObj.getMinutes())).slice(-2);
+
 //Credentials
 var credentials = {key: privateKey, cert: certificate};
 
