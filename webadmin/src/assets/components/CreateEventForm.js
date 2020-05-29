@@ -10,7 +10,6 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const [ActiveForm, setActiveForm] = useState("AboutForm")
     let container;
 
-    
     //Form variables
     const [FormObjects, setFormObjects] = useState({
         //About Form
@@ -30,7 +29,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         speakers: [],
         sponsors: [],
         bodyText: [],
-        disclaimer: []
+        disclaimer: [],
+        venue: []
     })
     if(ActiveForm === "AboutForm"){
         container = <AboutForm editForm={changeHandler} bodyTexts={FormObjects.bodyText} disclaimers={FormObjects.disclaimer}/>
@@ -46,6 +46,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     }
     else if(ActiveForm === "SponsorsForm"){
         container = <SponsorsForm editForm={appendForm}/>
+    }
+    else if(ActiveForm === "VenueTabForm"){
+        container = <VenueTabForm editForm={appendForm}/>
     }
     else{
         container = null
@@ -88,9 +91,10 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             disclaimer: FormObjects.disclaimer
         },
         participants: FormObjects.participants,
-        programme: FormObjects.programme,
+        programme: FormObjects.programme, //pdf not implemented
         speakers: FormObjects.speakers,
-        sponsors: FormObjects.sponsors
+        sponsors: FormObjects.sponsors,
+        venue: FormObjects.venue //implemented?
     }
     //func to create event
     function createEventPost(form){
@@ -124,6 +128,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             <button name="ProgrammeForm" onClick={selectForm}>Programme</button>
             <button name="SpeakersForm" onClick={selectForm}>Speakers</button>
             <button name="SponsorsForm" onClick={selectForm}>Sponsors</button>
+            <button name="VenueTabForm" onClick={selectForm}>VenueTab</button>
             {container}
             <button onClick={()=>createEventPost(finalForm)}>Submit Event</button>
             <p>{JSON.stringify(finalForm, null, 2)}</p>
@@ -362,13 +367,29 @@ const SponsorsForm = (props) => {
     )
 }
 const VenueTabForm = (props) => {
-
+    const [Form, setForm] = useState([])
+    function clickHandler(e){
+        e.preventDefault(); //prevents page refresh
+        let form = Form;
+        form.push({
+            title: e.target.form[0].value,
+            image: "Not implemented"
+        })
+        document.getElementById("form").reset();
+        setForm(form)
+        props.editForm("venue", Form)
+    }
     return(
-        null
+        <form autoComplete="off" id="form">
+            <input type="text" name="title" placeholder="Venue Title"/>
+            {/*TODO: Implement image input*/}
+            <button onClick={clickHandler}>Add Venue</button>
+        </form>
     )
 }
 
 export default CreateEventForm
+
 /*
     let formObject = {
         eventPass: "eventin passu",
