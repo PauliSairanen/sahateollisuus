@@ -22,7 +22,6 @@ const SpeakerDetailsScreen = props => {
   for (const index in programmeData) {
     if (programmeData[index].NameOfSpeaker === speakerName) {
       arrayOfProgramme.push(programmeData[index])
-      arrayOfProgramme.push(programmeData[index])
     }
   }
 
@@ -104,6 +103,7 @@ const SpeakerDetailsScreen = props => {
                   time={arrayOfProgramme.item.Time}
                   location={arrayOfProgramme.item.Location}
                   description={arrayOfProgramme.item.Description}
+                  pdf={arrayOfProgramme.item.Pdf}
                 />
               }
             />

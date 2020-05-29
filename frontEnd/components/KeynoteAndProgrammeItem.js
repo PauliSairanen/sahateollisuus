@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Modal, Button } from 'react-native'
-import FastImage from 'react-native-fast-image'
 import Icon from 'react-native-vector-icons/AntDesign'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import Pdf from 'react-native-pdf'
 
 import Card from './Card'
 import Colors from '../constants/Colors'
-import { withNavigation } from 'react-navigation'
+import { withNavigation, SafeAreaView } from 'react-navigation'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -15,41 +16,67 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 const KeynoteAndProgrammeItem = props => {
   const [modalVisible, setModalVisible] = useState(false);
 
+  const time = props.time
+  const location = props.location
+  const description = props.description
+  const pdfFileName = props.pdf
+  
+  const pdfFile = require('../assets/examplePDF.pdf')
+
+  const webSource = {uri:`https://sahat.lamk.fi/images/programmeImages/${pdfFileName}`,cache:true};
+
   return (
     <View>
       <Modal
         animationType="slide"
         visible={modalVisible}
       >
-        <Card>
-          <View style={styles.modal}>
-            <TouchableComponent
-              title={'Close modal'}
-              onPress={() => {
-                setModalVisible(!modalVisible);
+        <SafeAreaView style={styles.modalContainer}>
+          <View style={styles.pdfContainer}>
+            <Pdf
+              source={webSource}
+              onLoadComplete={(numberOfPages, filePath) => {
+                console.log(`number of pages: ${numberOfPages}`);
               }}
-            >
-              <Icon
-                name={'pdffile1'}
-                size={Dimensions.get('window').width / 100 * 15}
-                color={Colors.pdf}
-              />
-            </TouchableComponent>
+              onPageChanged={(page, numberOfPages) => {
+                console.log(`current page: ${page}`);
+              }}
+              onError={(error) => {
+                console.log(error);
+              }}
+              onPressLink={(uri) => {
+                console.log(`Link presse: ${uri}`)
+              }}
+              style={styles.pdf} />
           </View>
-        </Card>
+          <TouchableComponent
+            title={'Close modal'}
+            onPress={() => {
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <Ionicons
+              name={Platform.OS === 'android' ? 'md-close' : 'ios-close'}
+              size={Dimensions.get('window').width / 100 * 15}
+              color={Colors.pdf}
+            />
+          </TouchableComponent>
+
+
+        </SafeAreaView>
       </Modal>
 
 
       <View style={styles.listElement}>
         <View style={styles.row}>
           <View style={styles.textContainer}>
-            <Text>8:00</Text>
+          <Text>{time}</Text>
           </View>
           <View style={styles.textContainer}>
-            <Text>Welcome</Text>
+          <Text>{description}</Text>
           </View>
           <View style={styles.textContainer}>
-            <Text>Congresss hall</Text>
+          <Text>{location}</Text>
           </View>
         </View>
         <View style={styles.pdfContainer}>
@@ -79,9 +106,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
   },
   pdfContainer: {
-    justifyContent: 'center',
+    flex: 1,
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    margin: 15,
+    marginTop: 25,
+  },
+  pdf: {
+    flex: 1,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
   pdfCardContainer: {
     width: Dimensions.get('window').width / 100 * 19,
@@ -90,9 +123,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 10,
   },
-  modal: {
+  modalContainer: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  card: {
+    flex: 1,
+    margin: 20,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: Dimensions.get('window').width / 100 * 95,
   },
   row: {
     flex: 1,
