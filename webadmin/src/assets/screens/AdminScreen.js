@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 
 import LoginScreen from '../screens/LoginScreen';
-
+import Event from '../components/Event'
 import Button from 'react-bootstrap/Button'
 import Navbar from 'react-bootstrap/Navbar'
 /**
@@ -13,27 +13,21 @@ import Navbar from 'react-bootstrap/Navbar'
 const AdminScreen = (props) => {
     const [LoginVisibility, setLoginVisibility] = useState(false);
     const baseURL = 'https://sahat.lamk.fi';
-    const [EventList, setEventList] = useState();
+    const [EventList, setEventList] = useState([]);
+    const [EventObject, setEventObject] = useState()
+    const [Search, setSearch] = useState("")
     let eventList;
 
     if(props.readSession() === null){
         console.log("Never should have come here.");
         props.changeContent("LoginScreen");
     }
+
     async function clickHandler(e){
-        console.log(e.target.id);
+        //console.log(e.target.id);
 
         if(e.target.id === "0"){
-            await axios.get(baseURL+"/findMetadata")
-            .then(function (res) {
-                // handle success
-                //console.log( (res.data)[0]._id );
-                eventList = (res.data).map(x=>x._id);
-                console.log(eventList);
-            })
-            .catch(function (error) {
-                // handle error
-            })
+            setEventList(await findMetadata())
         }
         else if(e.target.id === "1"){
             setLoginVisibility(true);
@@ -82,18 +76,20 @@ const AdminScreen = (props) => {
         }
     }
 
-    const findMetadata = function() {
-        return axios.get(baseURL+"/findMetadata", {
+    async function findMetadata() {
+        const req = axios.get(baseURL+"/findMetadata", {
             headers:{
               Authorization: "Bearer "+props.readSession()
             }
-          }).then(function (res) {
+        })
+        return req
+            .then(function (res) {
             eventList = (res.data);
             return eventList;
-        })
-        .catch(function (error) {
+            })
+            .catch(function (error) {
             console.log(error);
-        })
+            })
     }
     
     const findEvent = function(eventId) {
@@ -151,11 +147,25 @@ const AdminScreen = (props) => {
     const saveImages = function(category) {
         
     }
-    
-    function test(){
-        console.log("fubar")
-    }
+    //EventList creation
+    useEffect(() => { //filter metadata based on Search state
+        let listObjects = EventList.map((item, index)=>{
+            console.log(item.metadata.eventName)
+            if(item.metadata.eventName.includes(Search)){
+                return <li key={index}>
+                        <Event name={item.metadata.eventName} 
+                            id={item._id}
+                            delet={deleteEvent}/>
+                </li> 
+            }
+        })
+        
+        setEventObject(listObjects)
+    }, [EventList])
 
+    async function test(){
+        setEventList(await findMetadata())
+    }
     return (
         <>
         <Navbar bg="light" variant="light" expand="lg">
@@ -174,7 +184,8 @@ const AdminScreen = (props) => {
                 }}>Logout</button>
             </div>
             <div id="Toolbar-tools">
-                <button className="ToolButton" id="0" onClick={clickHandler}>Find metadata</button>
+                <button className="ToolButton" id="0" onClick={clickHandler}>Get Event</button>
+                <input type="text" name="search" onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search Field"/>
                 <button className="ToolButton" id="1" onClick={clickHandler}>Reauth test</button>
                 <button className="ToolButton" id="2" onClick={clickHandler}>Test 3</button>
                 <button className="ToolButton" id="3" onClick={clickHandler}>Test 4</button>
@@ -183,6 +194,18 @@ const AdminScreen = (props) => {
                 <button className="ToolButton" id="6" onClick={clickHandler}>Test 7</button>
             </div>
         </div>
+            <ul>
+                {
+                    // EventList.map((item, index)=>{
+                    //     return <li key={index}>
+                    //             <Event name={item.metadata.eventName} 
+                    //             id={item._id}
+                    //             delet={deleteEvent}/>
+                    //         </li> 
+                    // })
+                }
+                {EventObject}
+            </ul>
         <div className="AdminScreen">
                 <div id="EventList">
                     {eventList}
