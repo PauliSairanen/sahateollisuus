@@ -1,5 +1,5 @@
 //Component for handling event creation
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import axios from 'axios';
 
 
@@ -15,6 +15,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         //About Form
         eventPass: "",
         eventName: "",
+        eventImage: "", //https://sahat.lamk.fi/saveFile
         eventWebUrl: "",
         placeName: "",
         placeAddress: "",
@@ -33,7 +34,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         venue: []
     })
     if(ActiveForm === "AboutForm"){
-        container = <AboutForm editForm={changeHandler} bodyTexts={FormObjects.bodyText} disclaimers={FormObjects.disclaimer}/>
+        container = <AboutForm editForm={changeHandler} appendForm={appendForm} bodyTexts={FormObjects.bodyText} disclaimers={FormObjects.disclaimer}/>
     }
     else if(ActiveForm === "ParticipantsForm"){
         container = <ParticipantsForm editForm={appendForm}/>
@@ -54,7 +55,6 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         container = null
     }
     function changeHandler(e){ //tuntuu redundantilta, vois poistaa myöhemmin emt.
-        console.log(e)
         setFormObjects({
             ...FormObjects,
             [e.target.name]: [e.target.value]
@@ -71,7 +71,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         eventPass: `${FormObjects.eventPass}`,
         metadata: {
             eventName: `${FormObjects.eventName}`,
-            eventImage: "Not implemented"
+            eventImage: `${FormObjects.eventImage}`
         },
         about: {
             eventWebUrl: `${FormObjects.eventWebUrl}`,
@@ -104,6 +104,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         {
             headers:{
                 Authorization: "Bearer "+adminToken
+            },
+            onUploadProgess: function(e){
+                console.log("Upload Progress: "+ Math.round(e.loaded/e.total * 100)+"%")
             }
         })
         .then(function (response) {
@@ -207,8 +210,11 @@ const AboutForm = (props) => {
             <input type="text" name="MiWebsite" placeholder="More info Website"/>
             <input type="text" name="MiOrg" placeholder="More info Organizer"/>
             <input type="text" name="MiEmail" placeholder="More info Email"/>
-            
         </form>
+            <label>Event Image</label>
+            <input type="file" name="eventImage" onChange={(e)=>{
+                props.appendForm("eventImage", `https://sahat.lamk.fi/images/metadataImages/${e.target.files[0].name}`)
+            }}/>
         {Fields}
         <button onClick={clickHandler}>Add BodyText</button>
         {Fields2}
