@@ -1,15 +1,17 @@
 //Component for handling event creation
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 
+import Button from 'react-bootstrap/Button'
+import Navbar from 'react-bootstrap/Navbar'
 
 const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const baseURL = 'https://sahat.lamk.fi';
 
     //Visible forms controller
     const [ActiveForm, setActiveForm] = useState("AboutForm")
+    const [EditID, setEditID] = useState(props.id)
     let container;
-
     //Form variables
     const [FormObjects, setFormObjects] = useState({
         //About Form
@@ -33,6 +35,40 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         disclaimer: [],
         venue: []
     })
+    async function parseEventData(id){
+        let data = await getEventData(id);
+        setFormObjects({
+            //About Form
+            eventPass: "Not Implemented",
+            eventName: `${data.metadata.eventName}`,
+            eventImage: `${data.metadata.eventImage}`, //https://sahat.lamk.fi/saveFile
+            eventWebUrl: `${data.about.eventWebUrl}`,
+            placeName: `${data.about.eventPlace.name}`,
+            placeAddress: `${data.about.eventPlace.address}`,
+            placePhone: `${data.about.eventPlace.phone}`,
+            placeEmail: `${data.about.eventPlace.email}`,
+            eventTitle: `${data.about.title}`,
+            MiWebsite: `${data.about.moreInformation.eventWebsite}`,
+            MiOrg: `${data.about.moreInformation.organizer}`,
+            MiEmail: `${data.about.moreInformation.email}`,
+            participants: data.participants,
+            programme: data.programme,
+            speakers: data.speakers,
+            sponsors: data.sponsors,
+            bodyText: data.about.bodyText,
+            disclaimer: data.about.disclaimer,
+            venue: data.venue
+        })
+        return true;
+    }
+    useEffect(() => {
+        
+        if(EditID){
+            parseEventData(EditID);
+        }
+        else{
+        }
+    }, [EditID])
     if(ActiveForm === "AboutForm"){
         container = <AboutForm editForm={changeHandler} appendForm={appendForm} bodyTexts={FormObjects.bodyText} disclaimers={FormObjects.disclaimer}/>
     }
@@ -99,24 +135,45 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     //func to create event
     function createEventPost(form){
         let adminToken = localStorage.getItem("Session")
-        axios.post(baseURL+'/createEvent', 
+        let route;
+        if(EditID){
+            route = "/updateEvent" //TODO laita ID ({id: props.id})
+        }else{
+            route = "/createEvent"
+        }
+        axios.post(baseURL+route, 
         form,
         {
             headers:{
                 Authorization: "Bearer "+adminToken
-            },
-            onUploadProgess: function(e){
-                console.log("Upload Progress: "+ Math.round(e.loaded/e.total * 100)+"%")
             }
         })
         .then(function (response) {
             // handle success
             console.log("event create success");
             console.log(response);
+            props.changeContent("AdminScreen")
         })
         .catch(function (error) {
             // handle error
             console.log("event create fail");
+            console.log(error);
+        })
+    }
+    async function getEventData(id){
+        const req = axios.post(baseURL+"/findEvent",{
+            id: id
+        },
+        {
+            headers:{
+              Authorization: "Bearer "+localStorage.getItem("Session")
+            }
+        })
+        return req
+        .then(function (res) {
+            return res.data;
+        })
+        .catch(function (error) {
             console.log(error);
         })
     }
@@ -126,6 +183,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     //<AboutForm editForm={changeHandler}/>
     return (
         <>
+            <Navbar bg="light" variant="light" expand="lg">
+                <Navbar.Brand>Create Event Form</Navbar.Brand>
+                
+            </Navbar>
+            <div>{props.id ? <p>DebugMsg. Edit form "{props.id}"</p> : null}</div>
             <button name="AboutForm" onClick={selectForm}>About</button>
             <button name="ParticipantsForm" onClick={selectForm}>Participants</button>
             <button name="ProgrammeForm" onClick={selectForm}>Programme</button>
@@ -134,6 +196,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             <button name="VenueTabForm" onClick={selectForm}>VenueTab</button>
             {container}
             <button onClick={()=>createEventPost(finalForm)}>Submit Event</button>
+            <button onClick={()=>
+                {
+                    if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
+                        props.changeContent("AdminScreen")
+                    }  
+                }}>Cancel</button>
             <p>{JSON.stringify(finalForm, null, 2)}</p>
         </>
     )
@@ -157,7 +225,7 @@ const AboutForm = (props) => {
         return list;
     }
     function changeHandler(e){
-        console.log(Form)
+        //console.log(Form)
         let temp = Form;
         temp[e.target.name] = e.target.value;
         setForm(temp)
@@ -183,7 +251,7 @@ const AboutForm = (props) => {
         return list;
     }
     function changeHandler2(e){
-        console.log(Form2)
+        //console.log(Form2)
         let temp = Form2;
         temp[e.target.name] = e.target.value;
         setForm2(temp)
