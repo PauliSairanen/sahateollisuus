@@ -13,8 +13,13 @@ const VenueTabComponent = props => {
   const ImageID1 = venueData[0].image
   const ImageID2 = venueData[1].image
 
+  const ImageID3 = require('../assets/images/speakers_2020/Alexander_Aleksin_1080.jpg')
+
+  console.log('image ID1 = ' + ImageID1)
+  console.log('image ID2 = ' + ImageID2)
+
   // Create a switch case structure
-  
+
   const FirstRoute = () => (
     <View style={[styles.scene, { backgroundColor: 'white' }]} >
       <ReactNativeZoomableView
@@ -24,7 +29,7 @@ const VenueTabComponent = props => {
         initialZoom={1}
         bindToBorders={true}
         captureEvent={true}
-      >
+      > 
         <FastImage
           source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID1}` }}
           style={styles.image}
@@ -102,9 +107,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    flex: 1,
     width: '100%',
     height: '100%',
+
   }
 });
 

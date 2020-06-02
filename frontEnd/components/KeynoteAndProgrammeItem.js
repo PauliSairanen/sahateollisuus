@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Pdf from 'react-native-pdf'
 
+
 import Card from './Card'
 import Colors from '../constants/Colors'
 import { withNavigation, SafeAreaView } from 'react-navigation'
@@ -20,10 +21,9 @@ const KeynoteAndProgrammeItem = props => {
   const location = props.location
   const description = props.description
   const pdfFileName = props.pdf
-  
-  const pdfFile = require('../assets/examplePDF.pdf')
 
-  const webSource = {uri:`https://sahat.lamk.fi/images/programmeImages/${pdfFileName}`,cache:true};
+  const pdfFile = require('../assets/examplePDF.pdf')
+  const webSource = { uri: `https://sahat.lamk.fi/images/programmeImages/${pdfFileName}`, cache: true };
 
   return (
     <View>
@@ -61,30 +61,27 @@ const KeynoteAndProgrammeItem = props => {
               color={Colors.pdf}
             />
           </TouchableComponent>
-
-
         </SafeAreaView>
       </Modal>
-
 
       <View style={styles.listElement}>
         <View style={styles.row}>
           <View style={styles.textContainer}>
-          <Text>{time}</Text>
+            <Text style={styles.textSize}>{time}</Text>
           </View>
           <View style={styles.textContainer}>
-          <Text>{description}</Text>
+            <Text style={styles.textSize}>{description}</Text>
           </View>
           <View style={styles.textContainer}>
-          <Text>{location}</Text>
+            <Text style={styles.textSize}>{location}</Text>
           </View>
         </View>
-        <View style={styles.pdfContainer}>
-          <TouchableComponent
-            onPress={() => {
-              setModalVisible(true)
-            }}
-          >
+        <TouchableComponent
+          onPress={() => {
+            setModalVisible(true)
+          }}
+        >
+          <View style={styles.pdfContainer}>
             <Card style={styles.pdfCardContainer}>
               <Icon
                 name={'pdffile1'}
@@ -92,8 +89,8 @@ const KeynoteAndProgrammeItem = props => {
                 color={Colors.pdf}
               />
             </Card>
-          </TouchableComponent>
-        </View>
+          </View>
+        </TouchableComponent>
       </View>
     </View>
   )
@@ -141,23 +138,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // borderBottomColor: '#e0e0e0',
     // borderBottomWidth: 3,
-
   },
   textContainer: {
     margin: 8,
     flex: 2,
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   nameText: {
     fontSize: 16,
     paddingBottom: 4,
     fontWeight: 'bold'
-  },
-  text: {
-    paddingLeft: 7,
-    fontSize: 12,
-    marginBottom: 5,
   },
   imageContainer: {
     width: Dimensions.get('window').width / 100 * 30,
