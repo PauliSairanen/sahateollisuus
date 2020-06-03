@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TouchableNativeFe
 import Communications from 'react-native-communications'
 import { useSelector } from 'react-redux'
 
-import Card from '../../components/Card'
+import Card from '../../components/Universal/Card'
 import Colors from '../../constants/Colors'
 
 let TouchableComponent = TouchableOpacity

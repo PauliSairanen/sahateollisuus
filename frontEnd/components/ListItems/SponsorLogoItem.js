@@ -4,7 +4,7 @@ import { withNavigation } from 'react-navigation'
 import Communications from 'react-native-communications'
 import FastImage from 'react-native-fast-image'
 
-import Card from './Card'
+import Card from '../Universal/Card'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {

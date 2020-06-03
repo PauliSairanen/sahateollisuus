@@ -1,22 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, } from 'react-native';
-import { useSelector } from 'react-redux'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
 import FastImage from 'react-native-fast-image'
-import Colors from '../constants/Colors'
+import Colors from '../../constants/Colors'
 
 const initialLayout = { width: Dimensions.get('window').width }
 
-const Venue_2Tabs = props => {
-  const venueData = useSelector(state => state.eventData.venueData)
+const Venue_4Tabs = props => {
+  const venueData = props.data
   const ImageID1 = venueData[0].image
   const ImageID2 = venueData[1].image
+  const ImageID3 = venueData[1].image
+  const ImageID4 = venueData[1].image
 
-  console.log('image ID1 = ' + ImageID1)
-  console.log('image ID2 = ' + ImageID2)
-
-  // Create a switch case structure
 
   const FirstRoute = () => (
     <View style={[styles.scene, { backgroundColor: 'white' }]} >
@@ -27,7 +24,7 @@ const Venue_2Tabs = props => {
         initialZoom={1}
         bindToBorders={true}
         captureEvent={true}
-      > 
+      >
         <FastImage
           source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID1}` }}
           style={styles.image}
@@ -56,16 +53,58 @@ const Venue_2Tabs = props => {
     </View>
   );
 
+  const ThirdRoute = () => (
+    <View style={[styles.scene, { backgroundColor: 'white' }]} >
+      <ReactNativeZoomableView
+        maxZoom={1.5}
+        minZoom={1}
+        zoomStep={1.5}
+        initialZoom={1}
+        bindToBorders={true}
+        captureEvent={true}
+      >
+        <FastImage
+          source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID3}` }}
+          style={styles.image}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      </ReactNativeZoomableView>
+    </View>
+  );
+
+  const FourthRoute = () => (
+    <View style={[styles.scene, { backgroundColor: 'white' }]} >
+      <ReactNativeZoomableView
+        maxZoom={1.5}
+        minZoom={1}
+        zoomStep={1.5}
+        initialZoom={1}
+        bindToBorders={true}
+        captureEvent={true}
+      >
+        <FastImage
+          source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID4}` }}
+          style={styles.image}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      </ReactNativeZoomableView>
+    </View>
+  );
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'first', title: venueData[0].title },
-    { key: 'second', title: venueData[1].title },
+    { key: 'second', title: venueData[1].title  },
+    { key: 'third', title: venueData[2].title  },
+    { key: 'fourth', title: venueData[3].title  },
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
+    third: ThirdRoute,
+    fourth: FourthRoute,
+
   });
 
   // ______ Settings styles for tabs _____
@@ -75,7 +114,7 @@ const Venue_2Tabs = props => {
       indicatorStyle={{ backgroundColor: Colors.primary }}
       style={{ backgroundColor: 'white' }}
       renderLabel={({ route, focused, color }) => (
-        <Text style={{ color: Colors.primary, fontSize: 14 }}>
+        <Text style={{ color: Colors.primary, fontSize: 10 }}>
           {route.title}
         </Text>
       )}
@@ -111,4 +150,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Venue_2Tabs
+export default Venue_4Tabs

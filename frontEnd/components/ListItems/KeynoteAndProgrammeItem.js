@@ -5,8 +5,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Pdf from 'react-native-pdf'
 
 
-import Card from './Card'
-import Colors from '../constants/Colors'
+import Card from '../Universal/Card'
+import Colors from '../../constants/Colors'
 import { withNavigation, SafeAreaView } from 'react-navigation'
 
 let TouchableComponent = TouchableOpacity
@@ -22,7 +22,6 @@ const KeynoteAndProgrammeItem = props => {
   const description = props.description
   const pdfFileName = props.pdf
 
-  const pdfFile = require('../assets/examplePDF.pdf')
   const webSource = { uri: `https://sahat.lamk.fi/images/programmeImages/${pdfFileName}`, cache: true };
 
   return (

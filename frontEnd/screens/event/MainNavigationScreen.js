@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text,  StyleSheet, FlatList, Dimensions, Platform } from 'react-native'
 
-import NavigationTile from '../../components/NavigationTile'
+import NavigationTile from '../../components/ListItems/NavigationTile'
 import Colors from '../../constants/Colors'
 
 const numberOfColumns = 2

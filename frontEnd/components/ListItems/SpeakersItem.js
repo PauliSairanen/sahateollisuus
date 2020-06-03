@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions} from 'react-native'
 import FastImage from 'react-native-fast-image'
 
-import Card from './Card'
-import Colors from '../constants/Colors'
+import Card from '../Universal/Card'
+import Colors from '../../constants/Colors'
 import { withNavigation } from 'react-navigation'
 
 let TouchableComponent = TouchableOpacity

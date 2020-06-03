@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import Venue_1Tab from '../../components/Venue_1Tab'
-import Venue_2Tabs from '../../components/Venue_2Tabs'
-import Venue_3Tabs from '../../components/Venue_3Tabs'
-import Venue_4Tabs from '../../components/Venue_4Tabs'
-import Venue_5Tabs from '../../components/Venue_5Tabs'
+import Venue_1Tab from '../../components/Venue/Venue_1Tab'
+import Venue_2Tabs from '../../components/Venue/Venue_2Tabs'
+import Venue_3Tabs from '../../components/Venue/Venue_3Tabs'
+import Venue_4Tabs from '../../components/Venue/Venue_4Tabs'
+import Venue_5Tabs from '../../components/Venue/Venue_5Tabs'
 
 // Import all different venue tabs
 
@@ -49,8 +49,7 @@ const VenueScreen = props => {
           data={venueData}
         />
       )
-    }
-      
+    }  
   }
 }
 

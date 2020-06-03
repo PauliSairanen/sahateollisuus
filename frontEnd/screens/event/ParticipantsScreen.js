@@ -3,7 +3,7 @@ import { View, FlatList } from 'react-native'
 import { useSelector } from 'react-redux'
 import { SearchBar } from 'react-native-elements'
 
-import ParticipantsItem from '../../components/ParticipantsItem'
+import ParticipantsItem from '../../components/ListItems/ParticipantsItem'
 
 const ParticipantsScreen = props => {
  const participantsData = useSelector(state => state.eventData.participantsData)

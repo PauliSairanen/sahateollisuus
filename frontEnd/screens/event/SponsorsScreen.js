@@ -2,7 +2,7 @@ import React from 'react'
 import { View,FlatList } from 'react-native'
 import { useSelector } from 'react-redux'
 
-import SponsorLogoItem from '../../components/SponsorLogoItem'
+import SponsorLogoItem from '../../components/ListItems/SponsorLogoItem'
 
 
 // export const companyLinksAndImages = [

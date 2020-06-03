@@ -3,12 +3,12 @@ import { View, FlatList } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 
-import LoadingIndicator from '../../components/LoadingIndicator'
+import LoadingIndicator from '../../components/Universal/LoadingIndicator'
 
 import * as eventDataActions from '../../store/actions/eventData'
 
 // import eventsData from '../../data/jsonFiles/events.json'
-import EventListItem from '../../components/EventsListItem'
+import EventListItem from '../../components/ListItems/EventsListItem'
 
 const SelectEventScreen = props => {
   const [isLoading, setIsLoading] = useState(false)

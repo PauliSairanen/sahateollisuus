@@ -4,8 +4,8 @@ import FastImage from 'react-native-fast-image'
 import { useSelector } from 'react-redux'
 
 import Colors from '../../constants/Colors'
-import Card from '../../components/Card'
-import KeynoteAndProgrammeItem from '../../components/KeynoteAndProgrammeItem'
+import Card from '../../components/Universal/Card'
+import KeynoteAndProgrammeItem from '../../components/ListItems/KeynoteAndProgrammeItem'
 
 const SpeakerDetailsScreen = props => {
   const { navigation } = props
