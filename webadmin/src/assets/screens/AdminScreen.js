@@ -3,8 +3,12 @@ import axios from 'axios';
 
 import LoginScreen from '../screens/LoginScreen';
 import Event from '../components/Event'
+
 import Button from 'react-bootstrap/Button'
 import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import FormControl from 'react-bootstrap/FormControl'
+import Form from 'react-bootstrap/Form'
 /**
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
@@ -74,6 +78,14 @@ const AdminScreen = (props) => {
                 console.log(error)
             })
         }
+        else if(e.target.id === "7"){
+            console.log("adminscreen button")
+            await props.changeID(null)
+            await props.changeContent("CreateScreen")
+        }
+        else if (e.target.id === "8"){
+            console.log(await findEvent("5ed4dfe73b77001e6faae67b"))
+        }
     }
 
     async function findMetadata() {
@@ -93,14 +105,15 @@ const AdminScreen = (props) => {
     }
     
     const findEvent = function(eventId) {
-        return axios.post(baseURL+"/findEvent",{
+        const req = axios.post(baseURL+"/findEvent",{
             id: eventId
-          },
-          {
+        },
+        {
             headers:{
               Authorization: "Bearer "+props.readSession()
             }
-          })
+        })
+        return req
         .then(function (res) {
             return res.data;
         })
@@ -128,15 +141,17 @@ const AdminScreen = (props) => {
     }
 
     const deleteEvent = function(eventId) {
-        axios.post(baseURL+"/deleteEvent",{
+        const req = axios.post(baseURL+"/deleteEvent",{
             id: eventId
-          },
-          {
+        },
+        {
             headers:{
               Authorization: "Bearer "+props.readSession()
             }
-          })
+        })
+        return req
         .then(function (res) {
+            pageLoad()
             return res.data;
         })
         .catch(function (error) {
@@ -152,10 +167,15 @@ const AdminScreen = (props) => {
         let listObjects = EventList.map((item, index)=>{
             console.log(item.metadata.eventName)
             if(item.metadata.eventName.includes(Search)){
+
+                // return <DropdownButton key={index} id="dropdown-basic-button" title={item.metadata.eventName} variant="outline-success">
+                //     <Event name={item.metadata.eventName} id={item._id} delet={deleteEvent} edit={(nid)=>{props.changeID(nid); console.log("Screen")}}/>
+                // </DropdownButton>
                 return <li key={index}>
                         <Event name={item.metadata.eventName} 
                             id={item._id}
-                            delet={deleteEvent}/>
+                            delet={deleteEvent}
+                            edit={(nid)=>{props.changeID(nid); console.log("Screen")}}/>
                 </li> 
             }
         })
@@ -166,32 +186,47 @@ const AdminScreen = (props) => {
     async function test(){
         setEventList(await findMetadata())
     }
+    async function pageLoad(){
+        console.log("Page load")
+        setEventList(await findMetadata())
+    }
+    useEffect(() => {
+        pageLoad()
+    }, [Search])
+    useEffect(() => {
+        console.log("Admin Screen loaded")
+        pageLoad()
+    }, [])
     return (
         <>
         <Navbar bg="light" variant="light" expand="lg">
-            <Navbar.Brand>Admin Toolbar</Navbar.Brand>
-            <Button variant="outline-success" onClick={test}>Logout</Button>
+            <Navbar.Brand>Admin Panel</Navbar.Brand>
+            <Nav className="mr-auto">
+                <Nav.Link id="7" onClick={clickHandler}>Create Event</Nav.Link>
+                <Nav.Link id="0" onClick={clickHandler}>Refresh Events</Nav.Link>
+                <Form inline>
+                    <FormControl type="text" name="search" onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search" className="mr-sm-2"/>
+                </Form>
+                {/* <Button variant="outline-primary" id="7" onClick={clickHandler}>Create Event</Button>
+                <Button variant="outline-primary" id="0" onClick={clickHandler}>Refresh Events</Button>
+                <input type="text" name="search" onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search Field"/> */}
+            </Nav>
+            <Button variant="outline-success" onClick={()=>{
+                    props.changeSession("");
+                    props.changeContent("LoginScreen");
+                }}>Logout</Button>
         </Navbar>
 
         <div id="Toolbar">
-            <div id="Toolbar-text">
-                <h1 className="AdminScreen">Admin Panel</h1>
-                {/* <p className="AdminScreen">Testing session admin token(not updated btw): {props.readSession()}</p> */}
-                
-                <button id="Logout" className="AdminScreen" onClick={()=>{
-                    props.changeSession("");
-                    props.changeContent("LoginScreen");
-                }}>Logout</button>
-            </div>
             <div id="Toolbar-tools">
-                <button className="ToolButton" id="0" onClick={clickHandler}>Get Event</button>
-                <input type="text" name="search" onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search Field"/>
                 <button className="ToolButton" id="1" onClick={clickHandler}>Reauth test</button>
-                <button className="ToolButton" id="2" onClick={clickHandler}>Test 3</button>
-                <button className="ToolButton" id="3" onClick={clickHandler}>Test 4</button>
-                <button className="ToolButton" id="4" onClick={clickHandler}>Test 5</button>
-                <button className="ToolButton" id="5" onClick={clickHandler}>Test 6</button>
-                <button className="ToolButton" id="6" onClick={clickHandler}>Test 7</button>
+                <button className="ToolButton" id="2" onClick={clickHandler}>Test 2</button>
+                <button className="ToolButton" id="3" onClick={clickHandler}>Test 3</button>
+                <button className="ToolButton" id="4" onClick={clickHandler}>Test 4</button>
+                <button className="ToolButton" id="5" onClick={clickHandler}>Test 5</button>
+                <button className="ToolButton" id="6" onClick={clickHandler}>Test 6</button>
+                <button className="ToolButton" id="8" onClick={clickHandler}>Test 8</button>
+                
             </div>
         </div>
             <ul>

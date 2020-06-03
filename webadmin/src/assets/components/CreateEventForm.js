@@ -1,15 +1,17 @@
 //Component for handling event creation
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 
+import Button from 'react-bootstrap/Button'
+import Navbar from 'react-bootstrap/Navbar'
 
 const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const baseURL = 'https://sahat.lamk.fi';
 
     //Visible forms controller
-    const [ActiveForm, setActiveForm] = useState("AboutForm")
+    const [ActiveForm, setActiveForm] = useState()
+    const [EditID, setEditID] = useState(props.id)
     let container;
-
     //Form variables
     const [FormObjects, setFormObjects] = useState({
         //About Form
@@ -25,16 +27,53 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         MiWebsite: "",
         MiOrg: "",
         MiEmail: "",
+        //other forms
         participants: [],
         programme: [],
         speakers: [],
         sponsors: [],
+        //more about from stuff
         bodyText: [],
         disclaimer: [],
         venue: []
     })
+    async function parseEventData(id){
+        let data = await getEventData(id);
+        setFormObjects({
+            //About Form
+            eventPass: "",
+            eventName: `${data.metadata.eventName}`,
+            eventImage: `${data.metadata.eventImage}`, //https://sahat.lamk.fi/saveFile
+            eventWebUrl: `${data.about.eventWebUrl}`,
+            placeName: `${data.about.eventPlace.name}`,
+            placeAddress: `${data.about.eventPlace.address}`,
+            placePhone: `${data.about.eventPlace.phone}`,
+            placeEmail: `${data.about.eventPlace.email}`,
+            eventTitle: `${data.about.title}`,
+            MiWebsite: `${data.about.moreInformation.eventWebsite}`,
+            MiOrg: `${data.about.moreInformation.organizer}`,
+            MiEmail: `${data.about.moreInformation.email}`,
+            participants: data.participants,
+            programme: data.programme,
+            speakers: data.speakers,
+            sponsors: data.sponsors,
+            bodyText: data.about.bodyText,
+            disclaimer: data.about.disclaimer,
+            venue: data.venue
+        })
+        return true;
+    }
+    useEffect(() => {
+        
+        if(EditID){
+            parseEventData(EditID);
+        }
+        else{
+        }
+    }, [EditID])
+
     if(ActiveForm === "AboutForm"){
-        container = <AboutForm editForm={changeHandler} appendForm={appendForm} bodyTexts={FormObjects.bodyText} disclaimers={FormObjects.disclaimer}/>
+        container = <AboutForm editForm={changeHandler} appendForm={appendForm} bodyTexts={FormObjects.bodyText} disclaimers={FormObjects.disclaimer} FO={FormObjects}/>
     }
     else if(ActiveForm === "ParticipantsForm"){
         container = <ParticipantsForm editForm={appendForm}/>
@@ -99,24 +138,46 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     //func to create event
     function createEventPost(form){
         let adminToken = localStorage.getItem("Session")
-        axios.post(baseURL+'/createEvent', 
+        let route;
+        if(EditID){
+            route = "/updateEvent" //TODO laita ID ({id: props.id})
+            form.id = EditID;
+        }else{
+            route = "/createEvent"
+        }
+        axios.post(baseURL+route, 
         form,
         {
             headers:{
                 Authorization: "Bearer "+adminToken
-            },
-            onUploadProgess: function(e){
-                console.log("Upload Progress: "+ Math.round(e.loaded/e.total * 100)+"%")
             }
         })
         .then(function (response) {
             // handle success
             console.log("event create success");
             console.log(response);
+            props.changeContent("AdminScreen")
         })
         .catch(function (error) {
             // handle error
             console.log("event create fail");
+            console.log(error);
+        })
+    }
+    async function getEventData(id){
+        const req = axios.post(baseURL+"/findEvent",{
+            id: id
+        },
+        {
+            headers:{
+              Authorization: "Bearer "+localStorage.getItem("Session")
+            }
+        })
+        return req
+        .then(function (res) {
+            return res.data;
+        })
+        .catch(function (error) {
             console.log(error);
         })
     }
@@ -126,6 +187,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     //<AboutForm editForm={changeHandler}/>
     return (
         <>
+            <Navbar bg="light" variant="light" expand="lg">
+                <Navbar.Brand>Create Event Form</Navbar.Brand>
+                
+            </Navbar>
+            <div>{props.id ? <p>DebugMsg. Edit form "{props.id}"</p> : null}</div>
             <button name="AboutForm" onClick={selectForm}>About</button>
             <button name="ParticipantsForm" onClick={selectForm}>Participants</button>
             <button name="ProgrammeForm" onClick={selectForm}>Programme</button>
@@ -133,7 +199,13 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             <button name="SponsorsForm" onClick={selectForm}>Sponsors</button>
             <button name="VenueTabForm" onClick={selectForm}>VenueTab</button>
             {container}
-            <button onClick={()=>createEventPost(finalForm)}>Submit Event</button>
+            <button onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</button>
+            <button onClick={()=>
+                {
+                    if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
+                        props.changeContent("AdminScreen")
+                    }  
+                }}>Cancel</button>
             <p>{JSON.stringify(finalForm, null, 2)}</p>
         </>
     )
@@ -146,18 +218,20 @@ const AboutForm = (props) => {
     const [Fields2, setFields2] = useState(createFields2)
 
     function createFields(){
-        let list = Form.map((items,index)=>{
-            return (
-            <div key={index} id={'ta'+index}>
-                <textarea defaultValue={items} name={index} onChange={changeHandler}/>
-                {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
-            </div>
-            )
-        })
-        return list;
+        if(Form){
+            let list = Form.map((items,index)=>{
+                return (
+                <div key={index} id={'ta'+index}>
+                    <textarea defaultValue={items} name={index} onChange={changeHandler}/>
+                    {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
+                </div>
+                )
+            })
+            return list;
+        }
     }
     function changeHandler(e){
-        console.log(Form)
+        //console.log(Form)
         let temp = Form;
         temp[e.target.name] = e.target.value;
         setForm(temp)
@@ -172,18 +246,20 @@ const AboutForm = (props) => {
     }
     //Redundant code below, 
     function createFields2(){
-        let list = Form2.map((items,index)=>{
-            return (
-            <div key={index} id={'dis'+index}>
-                <textarea defaultValue={items} name={index} onChange={changeHandler2}/>
-                {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
-            </div>
-            )
-        })
-        return list;
+        if(Form2){
+            let list = Form2.map((items,index)=>{
+                return (
+                <div key={index} id={'dis'+index}>
+                    <textarea defaultValue={items} name={index} onChange={changeHandler2}/>
+                    {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
+                </div>
+                )
+            })
+            return list;
+        }
     }
     function changeHandler2(e){
-        console.log(Form2)
+        //console.log(Form2)
         let temp = Form2;
         temp[e.target.name] = e.target.value;
         setForm2(temp)
@@ -199,17 +275,17 @@ const AboutForm = (props) => {
     return(
         <div>
         <form onChange={props.editForm} autoComplete="off" id="abtform">
-            <input type="text" name="eventPass" placeholder="Event Password"/>
-            <input type="text" name="eventName" placeholder="Event Name"/>
-            <input type="text" name="eventWebUrl" placeholder="Event URL"/>
-            <input type="text" name="placeName" placeholder="Place Name"/>
-            <input type="text" name="placeAddress" placeholder="Place Address"/>
-            <input type="text" name="placePhone" placeholder="Place Phone"/>
-            <input type="text" name="placeEmail" placeholder="Place Email"/>
-            <input type="text" name="eventTitle" placeholder="Event Title"/>
-            <input type="text" name="MiWebsite" placeholder="More info Website"/>
-            <input type="text" name="MiOrg" placeholder="More info Organizer"/>
-            <input type="text" name="MiEmail" placeholder="More info Email"/>
+            <input type="text" name="eventPass" placeholder="Event Password" defaultValue={props.FO.eventPass}/>
+            <input type="text" name="eventName" placeholder="Event Name" defaultValue={props.FO.eventName}/>
+            <input type="text" name="eventWebUrl" placeholder="Event URL" defaultValue={props.FO.eventWebUrl}/>
+            <input type="text" name="placeName" placeholder="Place Name" defaultValue={props.FO.placeName}/>
+            <input type="text" name="placeAddress" placeholder="Place Address" defaultValue={props.FO.placeAddress}/>
+            <input type="text" name="placePhone" placeholder="Place Phone" defaultValue={props.FO.placePhone}/>
+            <input type="text" name="placeEmail" placeholder="Place Email" defaultValue={props.FO.placeEmail}/>
+            <input type="text" name="eventTitle" placeholder="Event Title" defaultValue={props.FO.eventTitle}/>
+            <input type="text" name="MiWebsite" placeholder="More info Website" defaultValue={props.FO.MiWebsite}/>
+            <input type="text" name="MiOrg" placeholder="More info Organizer" defaultValue={props.FO.MiOrg}/>
+            <input type="text" name="MiEmail" placeholder="More info Email" defaultValue={props.FO.MiEmail}/>
         </form>
             <label>Event Image</label>
             <input type="file" name="eventImage" onChange={(e)=>{
