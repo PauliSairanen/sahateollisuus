@@ -181,6 +181,10 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             console.log(error);
         })
     }
+    //Todo function that uploads files.
+    //Input: Array of files
+    //Return: True(when successful) or False(when unsuccessful)
+
     function selectForm(e){
         setActiveForm(e.target.name)
     }
@@ -349,6 +353,22 @@ const ParticipantsForm = (props) => {
     TitleOfSpeaker: "Test",
     SpecialTitleOfSpeaker: "Test",
     CompanyOfSpeaker: "Test"
+}
+TODO Change to
+{
+    "day": "Päivä 1",
+    "content": [
+        {
+            Time: "",
+            Location: "",
+            Description: "",
+            NameOfSpeaker: "",
+            TitleOfSpeaker: "",
+            SpecialTitleOfSpeaker: "",
+            CompanyOfSpeaker: "",
+            Pdf: "Testi.pdf"
+        }
+    ]
 }
 */
 const ProgrammeForm = (props) => {
