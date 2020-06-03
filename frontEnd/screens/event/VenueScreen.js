@@ -1,4 +1,5 @@
 import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import Venue_1Tab from '../../components/Venue/Venue_1Tab'
@@ -14,10 +15,10 @@ const VenueScreen = props => {
   console.log(venueData)
   const amountOfTabs = venueData.length
 
-  switch(amountOfTabs) {
+  switch (amountOfTabs) {
     case 1: {
       return (
-        <Venue_1Tab 
+        <Venue_1Tab
           data={venueData}
         />
       )
@@ -32,15 +33,15 @@ const VenueScreen = props => {
     case 3: {
       return (
         <Venue_3Tabs
-        data={venueData}
-      />
+          data={venueData}
+        />
       )
     }
     case 4: {
       return (
         <Venue_4Tabs
-        data={venueData}
-      />
+          data={venueData}
+        />
       )
     }
     case 5: {
@@ -49,8 +50,25 @@ const VenueScreen = props => {
           data={venueData}
         />
       )
-    }  
+    }
+    default: {
+      return (
+        <View style={styles.container}>
+          <Text>No Tabs enabled for this amount of content.</Text>
+          <Text>Please contact development Team</Text>
+        </View>
+      )
+    }
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  }
+})
 
 export default VenueScreen

@@ -1,50 +1,58 @@
 import React from 'react'
-import { View, FlatList, } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
+import { View, StyleSheet, Text } from 'react-native'
+import { useSelector } from 'react-redux'
 
 // import programmeData from '../../data/jsonFiles/programme.json'
 import ProgrammeTab1 from '../../components/Programme/ProgrammeTab1'
 import ProgrammeTab2 from '../../components/Programme/ProgrammeTab2'
+import ProgrammeTab3 from '../../components/Programme/ProgrammeTab3'
 
 const ProgrammeScreen = props => {
   const programmeData = useSelector(state => state.eventData.programmeData)
-  const amountOfTabs = 1
-
-  // ProgrammeData needs to have a parent object, that contains day information
-
-  switch(amountOfTabs) {
+  const amountOfTabs = programmeData.length
+  console.log(programmeData.length)
+ 
+  switch (amountOfTabs) {
     case 1: {
       return (
-        <ProgrammeTab2
+        <ProgrammeTab1
           data={programmeData}
         />
       )
     }
     case 2: {
       return (
-        <View></View>
-       
+        <ProgrammeTab2 
+          data={programmeData}
+        />
       )
     }
     case 3: {
       return (
-        <View></View>
-     
+        <ProgrammeTab3 
+        data={programmeData}
+      />
       )
     }
-    case 4: {
+    default: {
       return (
-        <View></View>
-    
+        <View style={styles.container}>
+          <Text>No Tabs enabled for this amount of content.</Text>
+          <Text>Please contact development Team</Text>
+        </View>
       )
     }
-    case 5: {
-      return (
-        <View></View>
-      )
-    }  
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  }
+})
 
 export default ProgrammeScreen
 

@@ -13,7 +13,8 @@ const ProgrammeTab2 = props => {
   // Receive data, which has days separated as objects, each object containing an array holding the programme Data
 
   const day1Data = programmeData[0].content
-  const day2Data = programmeData[0].content
+  const day2Data = programmeData[1].content
+  const day3Data = programmeData[2].content
 
   const FirstRoute = () => (
     <View>
@@ -54,17 +55,38 @@ const ProgrammeTab2 = props => {
     />
   </View>
   );
-
+  
+  const ThirdRoute = () => (
+    <View>
+    <FlatList
+      data={day3Data}
+      keyExtractor={(item, index) => index.toString()}
+      renderItem={programmeData =>
+        <ProgrammeItem
+          time={programmeData.item.Time}
+          location={programmeData.item.Location}
+          description={programmeData.item.Description}
+          speaker={programmeData.item.NameOfSpeaker}
+          titleOfSpeaker={programmeData.item.TitleOfSpeaker}
+          specialTitleOfSpeaker={programmeData.item.SpecialTitleOfSpeaker}
+          companyOfSpeaker={programmeData.item.CompanyOfSpeaker}
+        />
+      }
+    />
+  </View>
+  );
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'first', title: programmeData[0].day },
     { key: 'second', title: programmeData[1].day },
+    { key: 'third', title: programmeData[2].day },
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
+    third: ThirdRoute,
   });
 
   // ______ Settings styles for tabs _____
