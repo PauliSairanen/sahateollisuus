@@ -9,7 +9,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const baseURL = 'https://sahat.lamk.fi';
 
     //Visible forms controller
-    const [ActiveForm, setActiveForm] = useState("AboutForm")
+    const [ActiveForm, setActiveForm] = useState()
     const [EditID, setEditID] = useState(props.id)
     let container;
     //Form variables
@@ -27,10 +27,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         MiWebsite: "",
         MiOrg: "",
         MiEmail: "",
+        //other forms
         participants: [],
         programme: [],
         speakers: [],
         sponsors: [],
+        //more about from stuff
         bodyText: [],
         disclaimer: [],
         venue: []
@@ -39,7 +41,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         let data = await getEventData(id);
         setFormObjects({
             //About Form
-            eventPass: "Not Implemented",
+            eventPass: "",
             eventName: `${data.metadata.eventName}`,
             eventImage: `${data.metadata.eventImage}`, //https://sahat.lamk.fi/saveFile
             eventWebUrl: `${data.about.eventWebUrl}`,
@@ -69,8 +71,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         else{
         }
     }, [EditID])
+
     if(ActiveForm === "AboutForm"){
-        container = <AboutForm editForm={changeHandler} appendForm={appendForm} bodyTexts={FormObjects.bodyText} disclaimers={FormObjects.disclaimer}/>
+        container = <AboutForm editForm={changeHandler} appendForm={appendForm} bodyTexts={FormObjects.bodyText} disclaimers={FormObjects.disclaimer} FO={FormObjects}/>
     }
     else if(ActiveForm === "ParticipantsForm"){
         container = <ParticipantsForm editForm={appendForm}/>
@@ -138,6 +141,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         let route;
         if(EditID){
             route = "/updateEvent" //TODO laita ID ({id: props.id})
+            form.id = EditID;
         }else{
             route = "/createEvent"
         }
@@ -195,7 +199,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             <button name="SponsorsForm" onClick={selectForm}>Sponsors</button>
             <button name="VenueTabForm" onClick={selectForm}>VenueTab</button>
             {container}
-            <button onClick={()=>createEventPost(finalForm)}>Submit Event</button>
+            <button onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</button>
             <button onClick={()=>
                 {
                     if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
@@ -214,15 +218,17 @@ const AboutForm = (props) => {
     const [Fields2, setFields2] = useState(createFields2)
 
     function createFields(){
-        let list = Form.map((items,index)=>{
-            return (
-            <div key={index} id={'ta'+index}>
-                <textarea defaultValue={items} name={index} onChange={changeHandler}/>
-                {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
-            </div>
-            )
-        })
-        return list;
+        if(Form){
+            let list = Form.map((items,index)=>{
+                return (
+                <div key={index} id={'ta'+index}>
+                    <textarea defaultValue={items} name={index} onChange={changeHandler}/>
+                    {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
+                </div>
+                )
+            })
+            return list;
+        }
     }
     function changeHandler(e){
         //console.log(Form)
@@ -240,15 +246,17 @@ const AboutForm = (props) => {
     }
     //Redundant code below, 
     function createFields2(){
-        let list = Form2.map((items,index)=>{
-            return (
-            <div key={index} id={'dis'+index}>
-                <textarea defaultValue={items} name={index} onChange={changeHandler2}/>
-                {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
-            </div>
-            )
-        })
-        return list;
+        if(Form2){
+            let list = Form2.map((items,index)=>{
+                return (
+                <div key={index} id={'dis'+index}>
+                    <textarea defaultValue={items} name={index} onChange={changeHandler2}/>
+                    {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
+                </div>
+                )
+            })
+            return list;
+        }
     }
     function changeHandler2(e){
         //console.log(Form2)
@@ -267,17 +275,17 @@ const AboutForm = (props) => {
     return(
         <div>
         <form onChange={props.editForm} autoComplete="off" id="abtform">
-            <input type="text" name="eventPass" placeholder="Event Password"/>
-            <input type="text" name="eventName" placeholder="Event Name"/>
-            <input type="text" name="eventWebUrl" placeholder="Event URL"/>
-            <input type="text" name="placeName" placeholder="Place Name"/>
-            <input type="text" name="placeAddress" placeholder="Place Address"/>
-            <input type="text" name="placePhone" placeholder="Place Phone"/>
-            <input type="text" name="placeEmail" placeholder="Place Email"/>
-            <input type="text" name="eventTitle" placeholder="Event Title"/>
-            <input type="text" name="MiWebsite" placeholder="More info Website"/>
-            <input type="text" name="MiOrg" placeholder="More info Organizer"/>
-            <input type="text" name="MiEmail" placeholder="More info Email"/>
+            <input type="text" name="eventPass" placeholder="Event Password" defaultValue={props.FO.eventPass}/>
+            <input type="text" name="eventName" placeholder="Event Name" defaultValue={props.FO.eventName}/>
+            <input type="text" name="eventWebUrl" placeholder="Event URL" defaultValue={props.FO.eventWebUrl}/>
+            <input type="text" name="placeName" placeholder="Place Name" defaultValue={props.FO.placeName}/>
+            <input type="text" name="placeAddress" placeholder="Place Address" defaultValue={props.FO.placeAddress}/>
+            <input type="text" name="placePhone" placeholder="Place Phone" defaultValue={props.FO.placePhone}/>
+            <input type="text" name="placeEmail" placeholder="Place Email" defaultValue={props.FO.placeEmail}/>
+            <input type="text" name="eventTitle" placeholder="Event Title" defaultValue={props.FO.eventTitle}/>
+            <input type="text" name="MiWebsite" placeholder="More info Website" defaultValue={props.FO.MiWebsite}/>
+            <input type="text" name="MiOrg" placeholder="More info Organizer" defaultValue={props.FO.MiOrg}/>
+            <input type="text" name="MiEmail" placeholder="More info Email" defaultValue={props.FO.MiEmail}/>
         </form>
             <label>Event Image</label>
             <input type="file" name="eventImage" onChange={(e)=>{
