@@ -11,6 +11,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     //Visible forms controller
     const [ActiveForm, setActiveForm] = useState()
     const [EditID, setEditID] = useState(props.id)
+    const [Files, setFiles] = useState([])
     let container;
     //Form variables
     const [FormObjects, setFormObjects] = useState({
@@ -182,9 +183,50 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
     }
     //Todo function that uploads files.
-    //Input: Array of files
-    //Return: True(when successful) or False(when unsuccessful)
+    function uploadFile(file, cat){
+        let fd = new FormData();
 
+        axios.post(baseURL+"/saveFiles",fd,
+        {
+            headers: {
+                category: cat,
+                'content-type': "multipart/form-data"
+            }
+        })
+        .then(function (res){
+            console.log(res)
+        })
+        .catch(function (error){
+            console.log(error);
+        })
+    }
+    function fileToUpload(e){
+        let files = Files;
+        let file = e.target.files[0]
+
+        //Check if image already exists
+        let found = false;
+        let i;
+        for(i = 0; i < files.length; i++){
+            if(files[i].name == file.name){
+                found = true;
+                break;
+            }
+        }
+        if(found){
+            console.log("Dup found")
+            
+        }
+        else{
+            console.log("dup not found")
+        }
+        files.push(file);
+
+        setFiles(files)
+    }
+    function fut(){
+
+    }
     function selectForm(e){
         setActiveForm(e.target.name)
     }
@@ -209,7 +251,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
                         props.changeContent("AdminScreen")
                     }  
-                }}>Cancel</button>
+                }}>Cancel
+            </button>
+            <input type="file" name="testImage" onChange={(e)=>{
+                fileToUpload(e)
+            }}/>
+            <button onClick={fut}>File Upload Test</button>
             <p>{JSON.stringify(finalForm, null, 2)}</p>
         </>
     )
