@@ -200,32 +200,41 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             console.log(error);
         })
     }
+    function uploadFiles(files){
+        let i;
+        for(i = 0; i < files.length; i++){
+            uploadFile(files.file, files.category)
+        }
+    }
     function fileToUpload(e){
         let files = Files;
         let file = e.target.files[0]
-
-        //Check if image already exists
+        let category = e.target.name;
+        //Check if file already exists
         let found = false;
         let i;
         for(i = 0; i < files.length; i++){
-            if(files[i].name == file.name){
+            if(files[i].name === file.name){
                 found = true;
                 break;
             }
         }
         if(found){
             console.log("Dup found")
-            
+            files.splice(i,1);
         }
         else{
             console.log("dup not found")
         }
-        files.push(file);
+        files.push(
+            {
+                category: category,
+                file: file
+            }
+        );
 
         setFiles(files)
-    }
-    function fut(){
-
+        console.log(Files)
     }
     function selectForm(e){
         setActiveForm(e.target.name)
@@ -253,10 +262,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     }  
                 }}>Cancel
             </button>
-            <input type="file" name="testImage" onChange={(e)=>{
+            <input type="file" name="test" onChange={(e)=>{
                 fileToUpload(e)
             }}/>
-            <button onClick={fut}>File Upload Test</button>
             <p>{JSON.stringify(finalForm, null, 2)}</p>
         </>
     )
