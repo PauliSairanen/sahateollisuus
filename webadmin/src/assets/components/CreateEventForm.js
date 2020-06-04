@@ -191,7 +191,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         {
             headers: {
                 'category': cat,
-                'Content-Type': false,
+                'Content-Type': 'multipart/form-data',
                 'processdata': false,
             }
         })
@@ -203,6 +203,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
     }
     //FILE UPLOAD TEST METHODS
+    /*
+    {
+        category: kategoria,
+        file: tiedosto
+    }
+    */
     function uploadFiles(files){
         let i;
         for(i = 0; i < files.length; i++){
