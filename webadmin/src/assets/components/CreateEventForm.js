@@ -184,13 +184,15 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     }
     //Todo function that uploads files.
     function uploadFile(file, cat){
-        let fd = new FormData(file);
-
-        axios.post(baseURL+"/saveFiles",fd,
+        let fd = new FormData();
+        console.log(file)
+        fd.append(file.name, file)
+        axios.post(baseURL+"/saveFiles",fd, //CORS ongelma
         {
             headers: {
-                category: cat,
-                'content-type': "multipart/form-data"
+                'category': cat,
+                'Content-Type': false,
+                'processdata': false,
             }
         })
         .then(function (res){
@@ -264,8 +266,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     }  
                 }}>Cancel
             </button>
-            <input type="file" name="test" onChange={(e)=>{
-                fileToUpload(e)
+            <input type="file" name="test" encType="multipart/form-data" onChange={(e)=>{
+                //fileToUpload(e)
+                uploadFile(e.target.files[0],"test")
             }}/>
             <p>{JSON.stringify(finalForm, null, 2)}</p>
         </>
