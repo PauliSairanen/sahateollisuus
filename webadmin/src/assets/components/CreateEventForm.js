@@ -186,12 +186,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     function uploadFile(file, cat){
         let fd = new FormData();
         console.log(file)
-        fd.append(file.name, file)
-        axios.post(baseURL+"/saveFiles",fd, //CORS ongelma
+        fd.append("myFiles", file)
+        axios.post(baseURL+"/saveFile",fd, 
         {
             headers: {
                 'category': cat,
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': false,
                 'processdata': false,
             }
         })
@@ -235,7 +235,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         else{
             console.log("dup not found")
         }
-        files.push(
+        files.push( //tänne event id myös
             {
                 category: category,
                 file: file
@@ -462,7 +462,8 @@ const ProgrammeForm = (props) => {
                     NameOfSpeaker: e.target.form[4].value,
                     TitleOfSpeaker: e.target.form[5].value,
                     SpecialTitleOfSpeaker: e.target.form[6].value,
-                    Company: e.target.form[7].value
+                    Company: e.target.form[7].value,
+                    Pdf: "Testi.pdf"
                 }
             )
         }
@@ -478,7 +479,8 @@ const ProgrammeForm = (props) => {
                             NameOfSpeaker: e.target.form[4].value,
                             TitleOfSpeaker: e.target.form[5].value,
                             SpecialTitleOfSpeaker: e.target.form[6].value,
-                            Company: e.target.form[7].value
+                            Company: e.target.form[7].value,
+                            Pdf: "Testi.pdf"
                         }
                     ]
                 }
