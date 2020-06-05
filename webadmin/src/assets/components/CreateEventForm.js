@@ -11,6 +11,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     //Visible forms controller
     const [ActiveForm, setActiveForm] = useState()
     const [EditID, setEditID] = useState(props.id)
+    const [Files, setFiles] = useState([])
     let container;
     //Form variables
     const [FormObjects, setFormObjects] = useState({
@@ -181,6 +182,70 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             console.log(error);
         })
     }
+    //Todo function that uploads files.
+    function uploadFile(file, cat){
+        let fd = new FormData();
+        console.log(file)
+        fd.append("myFiles", file)
+        axios.post(baseURL+"/saveFile",fd, 
+        {
+            headers: {
+                'category': cat,
+                'Content-Type': false,
+                'processdata': false,
+            }
+        })
+        .then(function (res){
+            console.log(res)
+        })
+        .catch(function (error){
+            console.log(error);
+        })
+    }
+    //FILE UPLOAD TEST METHODS
+    /*
+    {
+        category: kategoria,
+        file: tiedosto
+    }
+    */
+    function uploadFiles(files){
+        let i;
+        for(i = 0; i < files.length; i++){
+            uploadFile(files.file, files.category)
+        }
+    }
+    function fileToUpload(e){
+        let files = Files;
+        let file = e.target.files[0]
+        let category = e.target.name;
+        //Check if file already exists
+        let found = false;
+        let i;
+        for(i = 0; i < files.length; i++){
+            if(files[i].name === file.name){
+                found = true;
+                break;
+            }
+        }
+        if(found){
+            console.log("Dup found")
+            files.splice(i,1);
+        }
+        else{
+            console.log("dup not found")
+        }
+        files.push( //tänne event id myös
+            {
+                category: category,
+                file: file
+            }
+        );
+
+        setFiles(files)
+        console.log(Files)
+    }
+    //TESTS END HERE
     function selectForm(e){
         setActiveForm(e.target.name)
     }
@@ -205,7 +270,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
                         props.changeContent("AdminScreen")
                     }  
-                }}>Cancel</button>
+                }}>Cancel
+            </button>
+            <input type="file" name="test" encType="multipart/form-data" onChange={(e)=>{
+                //fileToUpload(e)
+                uploadFile(e.target.files[0],"test")
+            }}/>
             <p>{JSON.stringify(finalForm, null, 2)}</p>
         </>
     )
@@ -350,27 +420,89 @@ const ParticipantsForm = (props) => {
     SpecialTitleOfSpeaker: "Test",
     CompanyOfSpeaker: "Test"
 }
+TODO Change to
+{
+    "day": "Päivä 1",
+    "content": [
+        {
+            Time: "",
+            Location: "",
+            Description: "",
+            NameOfSpeaker: "",
+            TitleOfSpeaker: "",
+            SpecialTitleOfSpeaker: "",
+            CompanyOfSpeaker: "",
+            Pdf: "Testi.pdf"
+        }
+    ]
+}
 */
 const ProgrammeForm = (props) => {
     const [Form, setForm] = useState([])
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
-        form.push({
-            Time: e.target.form[0].value,
-            Location: e.target.form[1].value,
-            Description: e.target.form[2].value,
-            NameOfSpeaker: e.target.form[3].value,
-            TitleOfSpeaker: e.target.form[4].value,
-            SpecialTitleOfSpeaker: e.target.form[5].value,
-            Company: e.target.form[6].value
-        })
+        
+        let i;
+        let found = false;
+        for(i = 0; i < form.length; i++){
+            if('day' in form[i]){
+                if(form[i].day === "Päivä "+e.target.form[0].value){
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if(found){
+            form[i].content.push(
+                {
+                    Time: e.target.form[1].value,
+                    Location: e.target.form[2].value,
+                    Description: e.target.form[3].value,
+                    NameOfSpeaker: e.target.form[4].value,
+                    TitleOfSpeaker: e.target.form[5].value,
+                    SpecialTitleOfSpeaker: e.target.form[6].value,
+                    Company: e.target.form[7].value,
+                    Pdf: "Testi.pdf"
+                }
+            )
+        }
+        else{
+            form.push(
+                {
+                    day: "Päivä "+e.target.form[0].value,
+                    content: [
+                        {
+                            Time: e.target.form[1].value,
+                            Location: e.target.form[2].value,
+                            Description: e.target.form[3].value,
+                            NameOfSpeaker: e.target.form[4].value,
+                            TitleOfSpeaker: e.target.form[5].value,
+                            SpecialTitleOfSpeaker: e.target.form[6].value,
+                            Company: e.target.form[7].value,
+                            Pdf: "Testi.pdf"
+                        }
+                    ]
+                }
+            )
+        }
+        // form.push({
+        //     Time: e.target.form[1].value,
+        //     Location: e.target.form[2].value,
+        //     Description: e.target.form[3].value,
+        //     NameOfSpeaker: e.target.form[4].value,
+        //     TitleOfSpeaker: e.target.form[5].value,
+        //     SpecialTitleOfSpeaker: e.target.form[6].value,
+        //     Company: e.target.form[7].value
+        // })
         document.getElementById("form").reset();
         setForm(form)
         props.editForm("programme", Form)
     }
     return(
         <form autoComplete="off" id="form">
+            <label>Day:</label>
+            <input type="number" name="Date" min="0" defaultValue="0"/>
             <input type="text" name="time" placeholder="Time"/>
             <input type="text" name="location" placeholder="Event Location"/>
             <input type="text" name="description" placeholder="Event Description"/> {/*TODO: Change into textarea*/}
@@ -378,6 +510,7 @@ const ProgrammeForm = (props) => {
             <input type="text" name="speakerTitle" placeholder="Speaker Title"/>
             <input type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
             <input type="text" name="speakerCompany" placeholder="Speaker Company"/>
+            {/* todo pdf */}
             <button onClick={clickHandler}>Add Programme</button>
         </form>
     )
