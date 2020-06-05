@@ -17,10 +17,6 @@ import VenueScreen from '../screens/event/VenueScreen'
 import FeedbackScreen from '../screens/event/FeedbaackScreen'
 import SpeakerDetailsScreen from '../screens/event/SpeakerDetailsScreen'
 
-
-import Example from '../screens/event/Example'
-
-
 // _____ Navigation Options _____
 const defaultNavOptions = {
   headerStyle: {
@@ -88,12 +84,6 @@ const EventNavigator = createStackNavigator(
     },
     Feedback: {
       screen: FeedbackScreen,
-      navigationOptions: {
-        headerBackTitle: 'Navigation'
-      }
-    },
-    Example: {
-      screen: Example,
       navigationOptions: {
         headerBackTitle: 'Navigation'
       }
