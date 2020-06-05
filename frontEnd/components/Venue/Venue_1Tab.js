@@ -3,7 +3,9 @@ import { View, Text, StyleSheet, Dimensions, Image, } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
 import FastImage from 'react-native-fast-image'
+
 import Colors from '../../constants/Colors'
+import serverURL from '../../constants/Networking'
 
 const initialLayout = { width: Dimensions.get('window').width }
 
@@ -22,7 +24,7 @@ const Venue_1Tab = props => {
         captureEvent={true}
       >
         <FastImage
-          source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID1}` }}
+          source={{ uri: `${serverURL}/images/venueImages/${ImageID1}` }}
           style={styles.image}
           resizeMode={FastImage.resizeMode.contain}
         />

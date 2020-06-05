@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions} from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions } from 'react-native'
 import FastImage from 'react-native-fast-image'
-
 import Card from '../Universal/Card'
 import Colors from '../../constants/Colors'
+import serverURL from '../../constants/Networking'
 import { withNavigation } from 'react-navigation'
 
 let TouchableComponent = TouchableOpacity
@@ -12,24 +12,11 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const SpeakersItem = props => {
-
-
   const speakerName = props.speaker
   const title = props.title
   const specialTitle = props.specialTitle
   const company = props.company
   const imageID = props.image
-
-  // useEffect(() => {
-  //   props.navigation.setParams({
-  //     speakerName: speakerName,
-  //     title: title,
-  //     specialTitle: specialTitle,
-  //     company: company,
-  //     imageID: imageID
-  //   })
-  // }, [])
-
 
   if (speakerName && title && company && !specialTitle) {
     return (
@@ -55,7 +42,7 @@ const SpeakersItem = props => {
               </View>
               <View style={styles.imageContainer}>
                 <FastImage
-                  source={{ uri: `https://sahat.lamk.fi/images/speakerImages/${imageID}` }}
+                  source={{ uri: `${serverURL}/images/speakerImages/${imageID}` }}
                   style={styles.image}
                   resizeMode={FastImage.resizeMode.cover}
                 />
@@ -89,7 +76,7 @@ const SpeakersItem = props => {
               </View>
               <View style={styles.imageContainer}>
                 <FastImage
-                  source={{ uri: `https://sahat.lamk.fi/images/speakerImages/${imageID}` }}
+                  source={{ uri: `${serverURL}/images/speakerImages/${imageID}` }}
                   style={styles.image}
                   resizeMode={FastImage.resizeMode.cover}
                 />
@@ -100,7 +87,6 @@ const SpeakersItem = props => {
       </Card>
     )
   }
-
 }
 
 const styles = StyleSheet.create({

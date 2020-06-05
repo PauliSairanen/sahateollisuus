@@ -4,6 +4,7 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
 import FastImage from 'react-native-fast-image'
 import Colors from '../../constants/Colors'
+import serverURL from '../../constants/Networking'
 
 const initialLayout = { width: Dimensions.get('window').width }
 
@@ -26,7 +27,7 @@ const Venue_4Tabs = props => {
         captureEvent={true}
       >
         <FastImage
-          source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID1}` }}
+          source={{ uri: `${serverURL}/images/venueImages/${ImageID1}` }}
           style={styles.image}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -45,7 +46,7 @@ const Venue_4Tabs = props => {
         captureEvent={true}
       >
         <FastImage
-          source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID2}` }}
+          source={{ uri: `${serverURL}/images/venueImages/${ImageID2}` }}
           style={styles.image}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -64,7 +65,7 @@ const Venue_4Tabs = props => {
         captureEvent={true}
       >
         <FastImage
-          source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID3}` }}
+          source={{ uri: `${serverURL}/images/venueImages/${ImageID3}` }}
           style={styles.image}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -83,7 +84,7 @@ const Venue_4Tabs = props => {
         captureEvent={true}
       >
         <FastImage
-          source={{ uri: `https://sahat.lamk.fi/images/venueImages/${ImageID4}` }}
+          source={{ uri: `${serverURL}/images/venueImages/${ImageID4}` }}
           style={styles.image}
           resizeMode={FastImage.resizeMode.contain}
         />

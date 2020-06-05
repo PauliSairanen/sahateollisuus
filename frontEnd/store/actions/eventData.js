@@ -6,13 +6,13 @@ export const FETCH_ALL_DATA = 'FETCH_ALL_DATA'
 export const AUTHENTICATE = 'AUTHENTICATE'
 export const PRELOAD_IMAGES = 'PRELOAD_IMAGES'
 
-import baseUrl from '../../constants/Networking'
-console.log('The base URL is = ' + baseUrl)
+import serverURL from '../../constants/Networking'
+console.log('The server URL is = ' + serverURL)
 
 // Fetching the metadata of events from server
 export const fetchEventMetaData = () => {
   return async dispatch => {
-    const response = await fetch(`${baseUrl}/findmetadata`)
+    const response = await fetch(`${serverURL}/findmetadata`)
     const responseData = await response.json()
 
     const loadedEventMetadata = []
@@ -34,7 +34,7 @@ export const fetchEventMetaData = () => {
 export const fetchAllData = (id) => {
   console.log('Fetching data using id:' + id)
   return async dispatch => {
-    const response = await fetch(`${baseUrl}/findEvent`, {
+    const response = await fetch(`${serverURL}/findEvent`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -54,7 +54,7 @@ export const fetchAllData = (id) => {
 
 export const fetchSpeakers = () => {
   return async dispatch => {
-    const response = await fetch(`${baseUrl}/findSpeakers`)
+    const response = await fetch(`${serverURL}/findSpeakers`)
     const responseData = await response.json()
     const fetchedData = responseData.speakers
     dispatch({ type: FETCH_SPEAKERS, fetchedSpeakers: fetchedData })
@@ -66,7 +66,7 @@ export const authenticate = () => {
   const pw = 'test'
   console.log('Trying to authentiate')
   return async dispatch => {
-    const response = await fetch(`${baseUrl}/authenticate`, {
+    const response = await fetch(`${serverURL}/authenticate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
