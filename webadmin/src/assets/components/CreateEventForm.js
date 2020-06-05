@@ -2,6 +2,8 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 
+import FormTable from '../components/FormTable'
+
 import Button from 'react-bootstrap/Button'
 import Navbar from 'react-bootstrap/Navbar'
 
@@ -74,31 +76,60 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     }, [EditID])
 
     if(ActiveForm === "AboutForm"){
-        container = <AboutForm editForm={changeHandler} appendForm={appendForm} bodyTexts={FormObjects.bodyText} disclaimers={FormObjects.disclaimer} FO={FormObjects}/>
+        container = <AboutForm 
+            editForm={changeHandler} 
+            appendForm={appendForm} 
+            bodyTexts={FormObjects.bodyText} 
+            disclaimers={FormObjects.disclaimer} 
+            FO={FormObjects}
+            fileToUpload={fileToUpload}
+        />
     }
     else if(ActiveForm === "ParticipantsForm"){
-        container = <ParticipantsForm editForm={appendForm}/>
+        container = <ParticipantsForm 
+        editForm={appendForm}
+        subForm={FormObjects.participants}/>
     }
     else if(ActiveForm === "ProgrammeForm"){
-        container = <ProgrammeForm editForm={appendForm}/>
+        container = <ProgrammeForm editForm={appendForm} 
+        fileToUpload={fileToUpload}
+        subForm={FormObjects.programme}/>
     }
     else if(ActiveForm === "SpeakersForm"){
-        container = <SpeakersForm editForm={appendForm}/>
+        container = <SpeakersForm 
+        editForm={appendForm} 
+        fileToUpload={fileToUpload}
+        subForm={FormObjects.speakers}
+        />
     }
     else if(ActiveForm === "SponsorsForm"){
-        container = <SponsorsForm editForm={appendForm}/>
+        container = <SponsorsForm 
+        editForm={appendForm} 
+        fileToUpload={fileToUpload}
+        subForm={FormObjects.sponsors}/>
     }
     else if(ActiveForm === "VenueTabForm"){
-        container = <VenueTabForm editForm={appendForm}/>
+        container = <VenueTabForm 
+        editForm={appendForm} 
+        fileToUpload={fileToUpload}
+        subForm={FormObjects.venue}/>
     }
     else{
         container = null
     }
     function changeHandler(e){ //tuntuu redundantilta, vois poistaa myöhemmin emt.
-        setFormObjects({
-            ...FormObjects,
-            [e.target.name]: [e.target.value]
-        })
+        if(e.target.type === "file"){
+            setFormObjects({
+                ...FormObjects,
+                [e.target.name]: [(e.target.value).match(/[^\\/]*$/)[0]]
+            })
+        }
+        else{
+            setFormObjects({
+                ...FormObjects,
+                [e.target.name]: [e.target.value]
+            })
+        }
     }
     function appendForm(target,value){
         setFormObjects({
@@ -141,7 +172,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         let adminToken = localStorage.getItem("Session")
         let route;
         if(EditID){
-            route = "/updateEvent" //TODO laita ID ({id: props.id})
+            route = "/updateEvent" 
             form.id = EditID;
         }else{
             route = "/createEvent"
@@ -157,7 +188,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             // handle success
             console.log("event create success");
             console.log(response);
-            props.changeContent("AdminScreen")
+            if(Files.length > 0){
+                uploadFiles(Files, response.data._id)
+            }
+            else{
+                props.changeContent("AdminScreen")
+            }
         })
         .catch(function (error) {
             // handle error
@@ -165,7 +201,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             console.log(error);
         })
     }
-    async function getEventData(id){
+
+    function getEventData(id){
         const req = axios.post(baseURL+"/findEvent",{
             id: id
         },
@@ -183,14 +220,16 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
     }
     //Todo function that uploads files.
-    function uploadFile(file, cat){
+    function uploadFile(file, cat, id){
         let fd = new FormData();
-        console.log(file)
+        //console.log(file)
+        //fd.append("id", id)
         fd.append("myFiles", file)
-        axios.post(baseURL+"/saveFile",fd, 
+        axios.post(baseURL+"/saveFile",
+        fd, 
         {
             headers: {
-                'category': cat,
+                'category': "test",
                 'Content-Type': false,
                 'processdata': false,
             }
@@ -206,44 +245,53 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     /*
     {
         category: kategoria,
-        file: tiedosto
+        file: tiedosto,
+        bound: (ei kahta eventImage paitsi muut)
     }
     */
-    function uploadFiles(files){
+    async function uploadFiles(files, id){
         let i;
+        //console.log("ID on " +id)
         for(i = 0; i < files.length; i++){
-            uploadFile(files.file, files.category)
+            await uploadFile(files[i].file, "myFiles", files[i].id)
         }
+        props.changeContent("AdminScreen")
     }
     function fileToUpload(e){
         let files = Files;
         let file = e.target.files[0]
-        let category = e.target.name;
-        //Check if file already exists
+        let category = e.target.id;
+        //Check if file already exists or (incase of eventImage) is already bound to input
         let found = false;
         let i;
         for(i = 0; i < files.length; i++){
-            if(files[i].name === file.name){
+            if(e.target.name === "eventImage" && 
+            files[i].bound === e.target.name){
+                found = true;
+                break;
+            }
+            else if(files[i].file.name === file.name){
                 found = true;
                 break;
             }
         }
         if(found){
-            console.log("Dup found")
+            //console.log("Dup found")
             files.splice(i,1);
         }
         else{
-            console.log("dup not found")
+            //console.log("dup not found")
         }
-        files.push( //tänne event id myös
+        files.push( //todo ID
             {
                 category: category,
-                file: file
+                file: file,
+                bound: e.target.name
             }
         );
 
         setFiles(files)
-        console.log(Files)
+        //console.log(Files)
     }
     //TESTS END HERE
     function selectForm(e){
@@ -277,6 +325,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 uploadFile(e.target.files[0],"test")
             }}/>
             <p>{JSON.stringify(finalForm, null, 2)}</p>
+            <p>{JSON.stringify(Files,null,2)}</p>
         </>
     )
 }
@@ -356,11 +405,12 @@ const AboutForm = (props) => {
             <input type="text" name="MiWebsite" placeholder="More info Website" defaultValue={props.FO.MiWebsite}/>
             <input type="text" name="MiOrg" placeholder="More info Organizer" defaultValue={props.FO.MiOrg}/>
             <input type="text" name="MiEmail" placeholder="More info Email" defaultValue={props.FO.MiEmail}/>
-        </form>
             <label>Event Image</label>
-            <input type="file" name="eventImage" onChange={(e)=>{
-                props.appendForm("eventImage", `https://sahat.lamk.fi/images/metadataImages/${e.target.files[0].name}`)
+            <input type="file" id="test" name="eventImage" onChange={(e)=>{
+                //props.appendForm("eventImage", `https://sahat.lamk.fi/images/metadataImages/${e.target.files[0].name}`)
+                props.fileToUpload(e)
             }}/>
+        </form>
         {Fields}
         <button onClick={clickHandler}>Add BodyText</button>
         {Fields2}
@@ -381,7 +431,7 @@ participants: [
 ],
 */
 const ParticipantsForm = (props) => {
-    const [Form, setForm] = useState([])
+    const [Form, setForm] = useState(props.subForm)
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
@@ -399,6 +449,7 @@ const ParticipantsForm = (props) => {
     }
     
     return(
+        <>
         <form autoComplete="off" id="form">
             <input type="text" name="country" placeholder="Country"/>
             <input type="text" name="firstName" placeholder="First Name"/>
@@ -408,6 +459,9 @@ const ParticipantsForm = (props) => {
             <input type="text" name="company" placeholder="Company"/>
             <button onClick={clickHandler}>Add Participant</button>
         </form>
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        
+        </>
     )
 }
 /*
@@ -438,7 +492,7 @@ TODO Change to
 }
 */
 const ProgrammeForm = (props) => {
-    const [Form, setForm] = useState([])
+    const [Form, setForm] = useState(props.subForm)
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
@@ -463,7 +517,7 @@ const ProgrammeForm = (props) => {
                     TitleOfSpeaker: e.target.form[5].value,
                     SpecialTitleOfSpeaker: e.target.form[6].value,
                     Company: e.target.form[7].value,
-                    Pdf: "Testi.pdf"
+                    Pdf: (e.target.form[8].value).match(/[^\\/]*$/)[0]
                 }
             )
         }
@@ -480,7 +534,7 @@ const ProgrammeForm = (props) => {
                             TitleOfSpeaker: e.target.form[5].value,
                             SpecialTitleOfSpeaker: e.target.form[6].value,
                             Company: e.target.form[7].value,
-                            Pdf: "Testi.pdf"
+                            Pdf: (e.target.form[8].value).match(/[^\\/]*$/)[0]
                         }
                     ]
                 }
@@ -500,6 +554,7 @@ const ProgrammeForm = (props) => {
         props.editForm("programme", Form)
     }
     return(
+        <>
         <form autoComplete="off" id="form">
             <label>Day:</label>
             <input type="number" name="Date" min="0" defaultValue="0"/>
@@ -510,9 +565,12 @@ const ProgrammeForm = (props) => {
             <input type="text" name="speakerTitle" placeholder="Speaker Title"/>
             <input type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
             <input type="text" name="speakerCompany" placeholder="Speaker Company"/>
-            {/* todo pdf */}
+            <input type="file" name="programmePdf" id="test" 
+            onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Programme</button>
         </form>
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        </>
     )
 }
 /*
@@ -525,7 +583,7 @@ const ProgrammeForm = (props) => {
 }
 */
 const SpeakersForm = (props) => {
-    const [Form, setForm] = useState([])
+    const [Form, setForm] = useState(props.subForm)
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
@@ -534,21 +592,25 @@ const SpeakersForm = (props) => {
             Title: e.target.form[1].value,
             SpecialTitle: e.target.form[2].value,
             Company: e.target.form[3].value,
-            ImageID: "Not Implemented"
+            ImageID: (e.target.form[4].value).match(/[^\\/]*$/)[0]
         })
         document.getElementById("form").reset();
         setForm(form)
         props.editForm("speakers", Form)
     }
     return(
+        <>
         <form autoComplete="off" id="form"> 
             <input type="text" name="speaker" placeholder="Speaker"/>
             <input type="text" name="speakerTitle" placeholder="Speaker Title"/>
             <input type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
             <input type="text" name="speakersCompany" placeholder="Speakers Company"/>
-            {/*Todo: image input*/}
+            <input type="file" name="speakerImage" id="test" 
+            onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Speaker</button>
         </form>
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        </>
     )
 }
 /*
@@ -559,47 +621,55 @@ const SpeakersForm = (props) => {
 }
 */
 const SponsorsForm = (props) => {
-    const [Form, setForm] = useState([])
+    const [Form, setForm] = useState(props.subForm)
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
         form.push({
             CompanyName: e.target.form[0].value,
             CompanyUrl: e.target.form[1].value,
-            ImageID: "Not Implemented"
+            ImageID: (e.target.form[2].value).match(/[^\\/]*$/)[0]
         })
         document.getElementById("form").reset();
         setForm(form)
         props.editForm("sponsors", Form)
     }
     return(
+        <>
         <form autoComplete="off" id="form">
             <input type="text" name="sponsorCompany" placeholder="Company Name"/>
             <input type="text" name="sponsorURL" placeholder="Company URL"/>
-            {/*TODO: image input*/}
+            <input type="file" name="sponsorImg" id="test" 
+            onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Sponsor</button>
         </form>
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        </>
     )
 }
 const VenueTabForm = (props) => {
-    const [Form, setForm] = useState([])
+    const [Form, setForm] = useState(props.subForm)
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
         form.push({
             title: e.target.form[0].value,
-            image: "Not implemented"
+            image: (e.target.form[1].value).match(/[^\\/]*$/)[0]
         })
         document.getElementById("form").reset();
         setForm(form)
         props.editForm("venue", Form)
     }
     return(
+        <>
         <form autoComplete="off" id="form">
             <input type="text" name="title" placeholder="Venue Title"/>
-            {/*TODO: Implement image input*/}
+            <input type="file" name="venueImg" id="test" 
+            onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Venue</button>
         </form>
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        </>
     )
 }
 
