@@ -4,9 +4,9 @@ import { Platform } from 'react-native'
 
 import Colors from '../constants/Colors'
 
-import LoginScreen from '../screens/user/LoginScreen'
-import MainNavigationScreen from '../screens/event/MainNavigationScreen'
-import SelectEventsScreen from '../screens/user/SelectEventScreen'
+import LoginScreen from '../screens/universal/LoginScreen'
+import MainNavigationScreen from '../screens/universal/MainNavigationScreen'
+import SelectEventsScreen from '../screens/universal/SelectEventScreen'
 
 import AboutScreen from '../screens/event/AboutScreen'
 import ParticipantsScreen from '../screens/event/ParticipantsScreen'
