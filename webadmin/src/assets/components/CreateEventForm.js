@@ -74,31 +74,46 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     }, [EditID])
 
     if(ActiveForm === "AboutForm"){
-        container = <AboutForm editForm={changeHandler} appendForm={appendForm} bodyTexts={FormObjects.bodyText} disclaimers={FormObjects.disclaimer} FO={FormObjects}/>
+        container = <AboutForm 
+            editForm={changeHandler} 
+            appendForm={appendForm} 
+            bodyTexts={FormObjects.bodyText} 
+            disclaimers={FormObjects.disclaimer} 
+            FO={FormObjects}
+            fileToUpload={fileToUpload}
+        />
     }
     else if(ActiveForm === "ParticipantsForm"){
         container = <ParticipantsForm editForm={appendForm}/>
     }
     else if(ActiveForm === "ProgrammeForm"){
-        container = <ProgrammeForm editForm={appendForm}/>
+        container = <ProgrammeForm editForm={appendForm} fileToUpload={fileToUpload}/>
     }
     else if(ActiveForm === "SpeakersForm"){
-        container = <SpeakersForm editForm={appendForm}/>
+        container = <SpeakersForm editForm={appendForm} fileToUpload={fileToUpload}/>
     }
     else if(ActiveForm === "SponsorsForm"){
-        container = <SponsorsForm editForm={appendForm}/>
+        container = <SponsorsForm editForm={appendForm} fileToUpload={fileToUpload}/>
     }
     else if(ActiveForm === "VenueTabForm"){
-        container = <VenueTabForm editForm={appendForm}/>
+        container = <VenueTabForm editForm={appendForm} fileToUpload={fileToUpload}/>
     }
     else{
         container = null
     }
     function changeHandler(e){ //tuntuu redundantilta, vois poistaa myöhemmin emt.
-        setFormObjects({
-            ...FormObjects,
-            [e.target.name]: [e.target.value]
-        })
+        if(e.target.type === "file"){
+            setFormObjects({
+                ...FormObjects,
+                [e.target.name]: [(e.target.value).match(/[^\\/]*$/)[0]]
+            })
+        }
+        else{
+            setFormObjects({
+                ...FormObjects,
+                [e.target.name]: [e.target.value]
+            })
+        }
     }
     function appendForm(target,value){
         setFormObjects({
@@ -141,7 +156,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         let adminToken = localStorage.getItem("Session")
         let route;
         if(EditID){
-            route = "/updateEvent" //TODO laita ID ({id: props.id})
+            route = "/updateEvent" 
             form.id = EditID;
         }else{
             route = "/createEvent"
@@ -157,7 +172,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             // handle success
             console.log("event create success");
             console.log(response);
-            props.changeContent("AdminScreen")
+            if(Files.length > 0){
+                uploadFiles(Files)
+            }
+            else{
+                props.changeContent("AdminScreen")
+            }
         })
         .catch(function (error) {
             // handle error
@@ -165,7 +185,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             console.log(error);
         })
     }
-    async function getEventData(id){
+
+    function getEventData(id){
         const req = axios.post(baseURL+"/findEvent",{
             id: id
         },
@@ -183,14 +204,14 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
     }
     //Todo function that uploads files.
-    function uploadFile(file, cat){
+    function uploadFile(file, cat, id){
         let fd = new FormData();
         console.log(file)
         fd.append("myFiles", file)
         axios.post(baseURL+"/saveFile",fd, 
         {
             headers: {
-                'category': cat,
+                'category': "test",
                 'Content-Type': false,
                 'processdata': false,
             }
@@ -206,24 +227,31 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     /*
     {
         category: kategoria,
+        id: eventin id(TODO)
         file: tiedosto
     }
     */
     function uploadFiles(files){
         let i;
         for(i = 0; i < files.length; i++){
-            uploadFile(files.file, files.category)
+            uploadFile(files[i].file, "myFiles", files[i].id)
         }
+        //props.changeContent("AdminScreen")
     }
     function fileToUpload(e){
         let files = Files;
         let file = e.target.files[0]
-        let category = e.target.name;
-        //Check if file already exists
+        let category = e.target.id;
+        //Check if file already exists or (incase of eventImage) is already bound to input
         let found = false;
         let i;
         for(i = 0; i < files.length; i++){
-            if(files[i].name === file.name){
+            if(e.target.name === "eventImage" && 
+            files[i].bound === e.target.name){
+                found = true;
+                break;
+            }
+            else if(files[i].file.name === file.name){
                 found = true;
                 break;
             }
@@ -235,10 +263,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         else{
             console.log("dup not found")
         }
-        files.push( //tänne event id myös
+        files.push( //todo ID
             {
                 category: category,
-                file: file
+                file: file,
+                id: "Not Implemented",
+                bound: e.target.name
             }
         );
 
@@ -272,11 +302,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     }  
                 }}>Cancel
             </button>
-            <input type="file" name="test" encType="multipart/form-data" onChange={(e)=>{
+            {/* <input type="file" name="test" encType="multipart/form-data" onChange={(e)=>{
                 //fileToUpload(e)
                 uploadFile(e.target.files[0],"test")
-            }}/>
+            }}/> */}
             <p>{JSON.stringify(finalForm, null, 2)}</p>
+            <p>{JSON.stringify(Files,null,2)}</p>
         </>
     )
 }
@@ -356,11 +387,12 @@ const AboutForm = (props) => {
             <input type="text" name="MiWebsite" placeholder="More info Website" defaultValue={props.FO.MiWebsite}/>
             <input type="text" name="MiOrg" placeholder="More info Organizer" defaultValue={props.FO.MiOrg}/>
             <input type="text" name="MiEmail" placeholder="More info Email" defaultValue={props.FO.MiEmail}/>
-        </form>
             <label>Event Image</label>
-            <input type="file" name="eventImage" onChange={(e)=>{
-                props.appendForm("eventImage", `https://sahat.lamk.fi/images/metadataImages/${e.target.files[0].name}`)
+            <input type="file" id="test" name="eventImage" onChange={(e)=>{
+                //props.appendForm("eventImage", `https://sahat.lamk.fi/images/metadataImages/${e.target.files[0].name}`)
+                props.fileToUpload(e)
             }}/>
+        </form>
         {Fields}
         <button onClick={clickHandler}>Add BodyText</button>
         {Fields2}
@@ -463,7 +495,7 @@ const ProgrammeForm = (props) => {
                     TitleOfSpeaker: e.target.form[5].value,
                     SpecialTitleOfSpeaker: e.target.form[6].value,
                     Company: e.target.form[7].value,
-                    Pdf: "Testi.pdf"
+                    Pdf: (e.target.form[8].value).match(/[^\\/]*$/)[0]
                 }
             )
         }
@@ -480,7 +512,7 @@ const ProgrammeForm = (props) => {
                             TitleOfSpeaker: e.target.form[5].value,
                             SpecialTitleOfSpeaker: e.target.form[6].value,
                             Company: e.target.form[7].value,
-                            Pdf: "Testi.pdf"
+                            Pdf: (e.target.form[8].value).match(/[^\\/]*$/)[0]
                         }
                     ]
                 }
@@ -510,7 +542,8 @@ const ProgrammeForm = (props) => {
             <input type="text" name="speakerTitle" placeholder="Speaker Title"/>
             <input type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
             <input type="text" name="speakerCompany" placeholder="Speaker Company"/>
-            {/* todo pdf */}
+            <input type="file" name="programmePdf" id="test" 
+            onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Programme</button>
         </form>
     )
@@ -534,7 +567,7 @@ const SpeakersForm = (props) => {
             Title: e.target.form[1].value,
             SpecialTitle: e.target.form[2].value,
             Company: e.target.form[3].value,
-            ImageID: "Not Implemented"
+            ImageID: (e.target.form[4].value).match(/[^\\/]*$/)[0]
         })
         document.getElementById("form").reset();
         setForm(form)
@@ -546,7 +579,8 @@ const SpeakersForm = (props) => {
             <input type="text" name="speakerTitle" placeholder="Speaker Title"/>
             <input type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
             <input type="text" name="speakersCompany" placeholder="Speakers Company"/>
-            {/*Todo: image input*/}
+            <input type="file" name="speakerImage" id="test" 
+            onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Speaker</button>
         </form>
     )
@@ -566,7 +600,7 @@ const SponsorsForm = (props) => {
         form.push({
             CompanyName: e.target.form[0].value,
             CompanyUrl: e.target.form[1].value,
-            ImageID: "Not Implemented"
+            ImageID: (e.target.form[2].value).match(/[^\\/]*$/)[0]
         })
         document.getElementById("form").reset();
         setForm(form)
@@ -576,7 +610,8 @@ const SponsorsForm = (props) => {
         <form autoComplete="off" id="form">
             <input type="text" name="sponsorCompany" placeholder="Company Name"/>
             <input type="text" name="sponsorURL" placeholder="Company URL"/>
-            {/*TODO: image input*/}
+            <input type="file" name="sponsorImg" id="test" 
+            onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Sponsor</button>
         </form>
     )
@@ -588,7 +623,7 @@ const VenueTabForm = (props) => {
         let form = Form;
         form.push({
             title: e.target.form[0].value,
-            image: "Not implemented"
+            image: (e.target.form[1].value).match(/[^\\/]*$/)[0]
         })
         document.getElementById("form").reset();
         setForm(form)
@@ -597,7 +632,8 @@ const VenueTabForm = (props) => {
     return(
         <form autoComplete="off" id="form">
             <input type="text" name="title" placeholder="Venue Title"/>
-            {/*TODO: Implement image input*/}
+            <input type="file" name="venueImg" id="test" 
+            onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Venue</button>
         </form>
     )
