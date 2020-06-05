@@ -9,7 +9,10 @@ import ProgrammeTab3 from '../../components/Programme/ProgrammeTab3'
 
 const ProgrammeScreen = props => {
   const programmeData = useSelector(state => state.eventData.programmeData)
-  const amountOfTabs = programmeData.length
+
+  // -----> Edited for showcase usage <-----
+  // const amountOfTabs =  programmeData.length
+  const amountOfTabs =  1
   console.log(programmeData.length)
  
   switch (amountOfTabs) {

@@ -106,6 +106,6 @@ const MainNavigator = createSwitchNavigator(
     EventNavi: EventNavigator
   })
 
-export default createAppContainer(EventNavigator)
+export default createAppContainer(MainNavigator)
 
 
