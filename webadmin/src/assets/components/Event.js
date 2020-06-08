@@ -10,7 +10,7 @@ const Event = (props) => {
             }            
         }
         else if(e.target.name === "edit"){
-            console.log("Event.js")
+            //console.log("Event.js")
             props.edit(props.id)
         }
     }

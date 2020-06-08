@@ -159,13 +159,10 @@ const AdminScreen = (props) => {
         })
     }
 
-    const saveImages = function(category) {
-        
-    }
     //EventList creation
     useEffect(() => { //filter metadata based on Search state
-        let listObjects = EventList.map((item, index)=>{
-            console.log(item.metadata.eventName)
+        let listObjects = EventList.slice(0).reverse().map((item, index)=>{
+            //console.log(item.metadata.eventName)
             if(item.metadata.eventName.includes(Search)){
 
                 // return <DropdownButton key={index} id="dropdown-basic-button" title={item.metadata.eventName} variant="outline-success">
@@ -175,7 +172,7 @@ const AdminScreen = (props) => {
                         <Event name={item.metadata.eventName} 
                             id={item._id}
                             delet={deleteEvent}
-                            edit={(nid)=>{props.changeID(nid); console.log("Screen")}}/>
+                            edit={(nid)=>{props.changeID(nid)}}/>
                 </li> 
             }
         })
@@ -187,14 +184,14 @@ const AdminScreen = (props) => {
         setEventList(await findMetadata())
     }
     async function pageLoad(){
-        console.log("Page load")
+        //console.log("Page load")
         setEventList(await findMetadata())
     }
     useEffect(() => {
         pageLoad()
     }, [Search])
     useEffect(() => {
-        console.log("Admin Screen loaded")
+        //console.log("Admin Screen loaded")
         pageLoad()
     }, [])
     return (
