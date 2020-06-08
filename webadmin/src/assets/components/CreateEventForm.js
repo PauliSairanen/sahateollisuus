@@ -64,7 +64,6 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             disclaimer: data.about.disclaimer,
             venue: data.venue
         })
-        return true;
     }
     useEffect(() => {
         
@@ -223,9 +222,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     function uploadFile(file, cat, id){
         let fd = new FormData();
         //console.log(file)
-        //fd.append("id", id)
+        fd.append("id", id)
         fd.append("myFiles", file)
-        axios.post(baseURL+"/saveFile",
+        const req = axios.post(baseURL+"/saveFile",
         fd, 
         {
             headers: {
@@ -234,11 +233,14 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 'processdata': false,
             }
         })
+        return req
         .then(function (res){
             console.log(res)
+            return true
         })
         .catch(function (error){
             console.log(error);
+            return false
         })
     }
     //FILE UPLOAD TEST METHODS
@@ -253,7 +255,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         let i;
         //console.log("ID on " +id)
         for(i = 0; i < files.length; i++){
-            await uploadFile(files[i].file, "myFiles", files[i].id)
+            await uploadFile(files[i].file, "myFiles", id)
         }
         props.changeContent("AdminScreen")
     }
@@ -301,7 +303,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     return (
         <>
             <Navbar bg="light" variant="light" expand="lg">
-                <Navbar.Brand>Create Event Form</Navbar.Brand>
+            <Navbar.Brand>{props.id ? <p>Edit Event {FormObjects.eventName}</p> : <p>Create Event</p>}</Navbar.Brand>
                 
             </Navbar>
             <div>{props.id ? <p>DebugMsg. Edit form "{props.id}"</p> : null}</div>
@@ -311,7 +313,6 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             <button name="SpeakersForm" onClick={selectForm}>Speakers</button>
             <button name="SponsorsForm" onClick={selectForm}>Sponsors</button>
             <button name="VenueTabForm" onClick={selectForm}>VenueTab</button>
-            {container}
             <button onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</button>
             <button onClick={()=>
                 {
@@ -320,10 +321,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     }  
                 }}>Cancel
             </button>
-            <input type="file" name="test" encType="multipart/form-data" onChange={(e)=>{
+            {container}
+            {/* <input type="file" name="test" encType="multipart/form-data" onChange={(e)=>{
                 //fileToUpload(e)
                 uploadFile(e.target.files[0],"test")
-            }}/>
+            }}/> */}
             <p>{JSON.stringify(finalForm, null, 2)}</p>
             <p>{JSON.stringify(Files,null,2)}</p>
         </>
@@ -466,16 +468,6 @@ const ParticipantsForm = (props) => {
 }
 /*
 {
-    Time: "Test",
-    Location: "Test",
-    Description: "Test",
-    NameOfSpeaker: "Test",
-    TitleOfSpeaker: "Test",
-    SpecialTitleOfSpeaker: "Test",
-    CompanyOfSpeaker: "Test"
-}
-TODO Change to
-{
     "day": "Päivä 1",
     "content": [
         {
@@ -493,6 +485,76 @@ TODO Change to
 */
 const ProgrammeForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
+    useEffect(() => {
+        props.editForm("programme", Form)
+    }, [Form])
+    const keys = 
+    [
+        "Day",
+        "Time",
+        "Location",
+        "Description",
+        "NameOfSpeaker",
+        "TitleOfSpeaker",
+        "SpecialTitleOfSpeaker",
+        "CompanyOfSpeaker",
+        "Pdf"
+    ]
+
+    function dataToForm(data){
+        let form = [];
+        //console.log(data)
+        for(let key in data){
+            let i;
+            let found = false;
+            //console.log(data[key])
+            for(i = 0; i < form.length; i++){
+                if('day' in form[i]){
+                    if(form[i].day === data[key].day){
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if(found){
+                form[i].content.push(
+                    {
+                        Time: data[key].Time,
+                        Location: data[key].Location,
+                        Description: data[key].Description,
+                        NameOfSpeaker: data[key].NameOfSpeaker,
+                        TitleOfSpeaker: data[key].TitleOfSpeaker,
+                        SpecialTitleOfSpeaker: data[key].SpecialTitleOfSpeaker,
+                        Company: data[key].Company,
+                        Pdf: data[key].Pdf
+                    }
+                )
+            }
+            else{
+                form.push(
+                    {
+                        day: data[key].day,
+                        content: [
+                            {
+                                Time: data[key].Time,
+                                Location: data[key].Location,
+                                Description: data[key].Description,
+                                NameOfSpeaker: data[key].NameOfSpeaker,
+                                TitleOfSpeaker: data[key].TitleOfSpeaker,
+                                SpecialTitleOfSpeaker: data[key].SpecialTitleOfSpeaker,
+                                Company: data[key].Company,
+                                Pdf: data[key].Pdf
+                            }
+                        ]
+                    }
+                )
+            }
+            
+            
+        }
+        setForm(form)
+        //props.editForm("programme", Form)
+    }
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
@@ -540,15 +602,6 @@ const ProgrammeForm = (props) => {
                 }
             )
         }
-        // form.push({
-        //     Time: e.target.form[1].value,
-        //     Location: e.target.form[2].value,
-        //     Description: e.target.form[3].value,
-        //     NameOfSpeaker: e.target.form[4].value,
-        //     TitleOfSpeaker: e.target.form[5].value,
-        //     SpecialTitleOfSpeaker: e.target.form[6].value,
-        //     Company: e.target.form[7].value
-        // })
         document.getElementById("form").reset();
         setForm(form)
         props.editForm("programme", Form)
@@ -560,7 +613,8 @@ const ProgrammeForm = (props) => {
             <input type="number" name="Date" min="0" defaultValue="0"/>
             <input type="text" name="time" placeholder="Time"/>
             <input type="text" name="location" placeholder="Event Location"/>
-            <input type="text" name="description" placeholder="Event Description"/> {/*TODO: Change into textarea*/}
+            {/* <input type="text" name="description" placeholder="Event Description"/> */}
+            <textarea name="description" placeholder="Event Description"/>
             <input type="text" name="speakerName" placeholder="Speaker Name"/>
             <input type="text" name="speakerTitle" placeholder="Speaker Title"/>
             <input type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
@@ -569,7 +623,7 @@ const ProgrammeForm = (props) => {
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Programme</button>
         </form>
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        {Form.length > 0 ? <FormTable form={Form} setForm={(data) => dataToForm(data)} keys={keys} programme={true}/> : null}
         </>
     )
 }
