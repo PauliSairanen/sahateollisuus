@@ -16,6 +16,7 @@ import SponsorsScreen from '../screens/event/SponsorsScreen'
 import VenueScreen from '../screens/event/VenueScreen'
 import FeedbackScreen from '../screens/event/FeedbaackScreen'
 import SpeakerDetailsScreen from '../screens/event/SpeakerDetailsScreen'
+import MapsScreen from '../screens/event/MapsScreen'
 
 // _____ Navigation Options _____
 const defaultNavOptions = {
@@ -88,6 +89,12 @@ const EventNavigator = createStackNavigator(
         headerBackTitle: 'Navigation'
       }
     },
+    Maps: {
+    screen: MapsScreen,
+    navigationOptions: {
+      headerBackTitle: 'Navigation'
+    }
+  },
     SpeakerDetails: {
       screen: SpeakerDetailsScreen,
       navigationOptions: {
@@ -106,6 +113,6 @@ const MainNavigator = createSwitchNavigator(
     EventNavi: EventNavigator
   })
 
-export default createAppContainer(MainNavigator)
+export default createAppContainer(EventNavigator)
 
 
