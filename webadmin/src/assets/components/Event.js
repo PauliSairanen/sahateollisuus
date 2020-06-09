@@ -1,5 +1,6 @@
 import React from 'react'
 
+import Card from 'react-bootstrap/Card'
 const Event = (props) => {
     async function clickHandler(e){
 
@@ -16,11 +17,16 @@ const Event = (props) => {
     }
 
     return (
-        <div>
-            <p>name: {props.name} id: {props.id}</p>
-            <button name="edit" onClick={clickHandler}>Edit</button><br/>
-            <button name="delete" onClick={clickHandler}>Delete</button>
-        </div>
+        <Card style={{ width: '18rem' }}>
+            <Card.Body>
+                <Card.Title>Name: {props.name}</Card.Title>
+                <Card.Subtitle>ID: {props.id}</Card.Subtitle>
+                <Card.Link href="#" name="edit" onClick={clickHandler}>Edit</Card.Link>
+                <Card.Link href="#" name="delete" onClick={clickHandler}>Delete</Card.Link>
+            </Card.Body>
+            {/* <button name="edit" onClick={clickHandler}>Edit</button><br/>
+            <button name="delete" onClick={clickHandler}>Delete</button> */}
+        </Card>
     )
 }
 
