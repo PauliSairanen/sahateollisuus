@@ -1,4 +1,4 @@
-import { SET_EVENTS_METADATA, FETCH_SPEAKERS, IS_LOADING_TRUE, IS_LOADING_FALSE, FETCH_ALL_DATA } from '../actions/eventData'
+import { SET_EVENTS_METADATA, FETCH_SPEAKERS, IS_LOADING_TRUE, IS_LOADING_FALSE, FETCH_ALL_DATA, SAVE_LOCATION_DATA } from '../actions/eventData'
 
 // Set the data as initial state
 const initialState = {
@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   currentEventId: "",
   eventsMetaData: [],
+  currentLocation: {},
   //___ Evet Data ___
   programmeData: [],
   speakersData: [],
@@ -33,6 +34,11 @@ const eventDataReducer = (state = initialState, action) => {
         venueData : action.responseData.venue,
         aboutData :  action.responseData.about,
       }
+      case SAVE_LOCATION_DATA:
+        console.log('Saving location data to redux')
+        return {
+          currentLocation : action.locationData
+        }
     default:
       return state
   }

@@ -5,6 +5,7 @@ export const FETCH_SPEAKERS = 'FETCH_SPEAKERS'
 export const FETCH_ALL_DATA = 'FETCH_ALL_DATA'
 export const AUTHENTICATE = 'AUTHENTICATE'
 export const PRELOAD_IMAGES = 'PRELOAD_IMAGES'
+export const SAVE_LOCATION_DATA = 'SAVE_LOCATION_DATA'
 
 import serverURL from '../../constants/Networking'
 console.log('The server URL is = ' + serverURL)
@@ -85,5 +86,11 @@ export const authenticate = () => {
     } else {
       console.log('Something is fucked up :)')
     }
+  }
+}
+
+export const saveCurrentPosition = (currentPositionData) => {
+  return async dispatch => {
+    dispatch({type: SAVE_LOCATION_DATA, locationData: currentPositionData})
   }
 }
