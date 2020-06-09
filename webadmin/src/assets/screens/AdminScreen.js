@@ -113,6 +113,7 @@ const AdminScreen = (props) => {
         })
     }
 
+    //Siirretään update formiin kun sellainen tehdään
     const updateEvent = function(form) {
         let adminToken = localStorage.getItem("Session")
         axios.post(baseURL+"/updateEvent",{

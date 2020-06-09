@@ -21,16 +21,27 @@ const storage = multer.diskStorage({
       if(req.headers.category == "venue"){
         cb(null, path.join(__dirname, '../images/venueImages'));
       }
-      if(req.headers.category == "speakers"){
-        cb(null, path.join(__dirname + '../images/speakerImages'));
+      else if(req.headers.category == "speakers"){
+        cb(null, path.join(__dirname, '../images/speakerImages'));
       }
-      if(req.headers.category == "sponsors"){
-        cb(null, path.join(__dirname + '../images/sponsorImages'));
+      else if(req.headers.category == "sponsors"){
+        cb(null, path.join(__dirname, '../images/sponsorImages'));
       }
-      if(req.headers.category == "test"){
-        cb(null, path.join(__dirname + '../images'));
+      else if(req.headers.category == "programme"){
+        cb(null, path.join(__dirname, '../images/programmeImages'));
+      }
+      else if(req.headers.category == "test"){
+        cb(null, path.join(__dirname, '../images'));
+      }
+      else if(req.body.id){
+        console.log(path.join(__dirname, '../public/' + req.body.id))
+        fs.mkdir(path.join(__dirname, '../public/' + req.body.id), { recursive: false }, (err) => {
+          console.log(err);
+        });
+        cb(null, path.join(__dirname, '../public/' + req.body.id));
       }
       else{
+        console.log("Category not defined!")
       }
     },
     filename: function (req, file, cb) {
@@ -57,6 +68,7 @@ router.post('/add', jsonParser, (req, res) => {
 
 // Autentikaatio routet
 router.get('/findEventPass', cors(), jsonParser, events.findEventPass);
+router.get('/findEventPlaintextPass', cors(), jsonParser, events.findEventPlaintextPass);
 router.post('/mobileLogin', cors(), jsonParser, events.mobileLogin);
 router.post('/adminLogin', cors(), jsonParser, events.adminLogin);
 
@@ -65,7 +77,7 @@ router.post('/createEventFromJSON', cors(), jsonParser, events.createEventFromJS
 router.post('/createEvent', cors(), jsonParser, events.createEvent);
 router.post('/updateEvent', cors(), jsonParser, events.updateEvent);
 router.post('/deleteEvent', cors(), jsonParser, events.deleteEvent);
-router.post('/saveImage', cors(), upload.array('myFiles'), events.saveImage); //upload.array('array[]', 1000),
+router.post('/saveFile', cors(), upload.array('myFiles'), events.saveFile); //upload.array('array[]', 1000),
 
 // Relevantit event data get routet
 

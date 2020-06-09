@@ -52,7 +52,7 @@ const corsOptions = {
   }
 
 //Express static kuville
-app.use(express.static('public'));
+//app.use(express.static('public'));
 app.use('/images', express.static(__dirname + '/images'));
 app.use('/jsonFiles', express.static(__dirname + '/jsonFiles'));
 

@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
+const fs = require('fs');
+const rimraf = require('rimraf');
+const path = require('path');
 const Event = require('../models/events');
 const Auth = require('../models/auth');
 const EventAuth = require('../models/eventAuth');
+const EventAuthAdmin = require('../models/eventAuthAdmin');
 const {v1: uuidv1} = require('uuid');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -10,7 +14,7 @@ const APP_KEY = "secretkeyforapp";
 
 class Events {
 
-    //Loginasd
+    //Login
 
     mobileLogin(req, res, next){
         EventAuth.find({eventName: req.body.eventName})
@@ -185,8 +189,18 @@ class Events {
                     });
                     eventAuth.save().then(function(err){
                         console.log("EventAuth was saved");
-                        res.send("Event was created");
-                        res.end();
+                        var eventAuthAdmin = new EventAuthAdmin({
+                            eventName: req.body.metadata.eventName,
+                            eventPass: req.body.eventPass
+                        })
+                        eventAuthAdmin.save().then(function(err){
+                            console.log("EventAuthAdmin was saved");
+                            var a = Event.find({"metadata.eventName": req.body.metadata.eventName}, {_id: 1}).then(function(a){
+                                res.send(a[0]);
+                                res.end();
+                            })
+                        });
+                            
                     });
                 })
             });
@@ -204,22 +218,37 @@ class Events {
         // EventAuth.collection.drop();
     }
 
+    findEventPlaintextPass(req, res){
+        var b = EventAuthAdmin.find({}).then(function(b){
+            res.send(b);
+            res.end();
+        });
+        // EventAuth.collection.drop();
+    }
 
     //Eventin delete funktiot
 
     //Poistaa eventin id mukaan
     deleteEvent(req, res){
+        if(req.body.id){
+            rimraf(path.join(__dirname, '../public/' + req.body.id), function () {
+                console.log("Files removed");
+            });
+        }
         if((req.body.id).length == 24)
         var a = Event.find({_id: req.body.id}).then(function(a){
             if(a[0]){
                 var e = a[0].metadata.eventName;
-                
                 Event.findByIdAndDelete({_id: req.body.id}, function(err, doc){
                     console.log(err);
                 });
                 EventAuth.deleteOne({eventName: e}, function(err, doc){
                     console.log(err);
                 });
+                EventAuthAdmin.deleteOne({eventName: e}, function(err, doc){
+                    console.log(err);
+                });
+                //tähän rmdir takasin
                 res.status(200).json({
                     message: 'Event was deleted'
                 })
@@ -242,11 +271,28 @@ class Events {
             Event.findOne({_id: req.body.id}, function(err, event){
                 if(event){
                     EventAuth.findOne({eventName: event.metadata.eventName}, function(err, auth){
+                        console.log(auth);
                         if(auth){
+                            console.log(req.body.eventPass);
+                            bcrypt.hash(req.body.eventPass, 10, (err, hash) => {
+                            console.log(hash);
+                            console.log(req.body.metadata.eventName);
                             auth.eventName = req.body.metadata.eventName;
+                            auth.eventPass = hash;
+
                             auth.save(function(err){
                                 console.log("Auth was updated");
                             });
+                            })
+
+                            EventAuthAdmin.findOne({eventName: event.metadata.eventName}, function(err, authPlain){
+                                authPlain.eventName = event.metadata.eventName,
+                                authPlain.eventPass = req.body.eventPass
+                                authPlain.save(function(err){
+                                    console.log("Plaintext auth was updated");
+                                });
+                            });
+
                             event.metadata = req.body.metadata;
                             event.about = req.body.about;
                             event.participants = req.body.participants;
@@ -258,11 +304,12 @@ class Events {
                             event.save(function(err){
                                 console.log("Event was updated");
                             });
+
                         }
                         else {
-                            res.status(404).json({
-                                message: 'Matching auth was not found'
-                            })
+                            // res.status(404).json({
+                            //     message: 'Matching auth was not found'
+                            // })
                         }
                     });
                     res.status(200).json({
@@ -283,7 +330,7 @@ class Events {
     }
 
     //Tallentaa kuvan tiedosksi
-    saveImage(req, res){
+    saveFile(req, res){
         //res.status(200).send(req.body);
         res.end()
     }
