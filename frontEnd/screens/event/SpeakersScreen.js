@@ -3,10 +3,10 @@ import { View, FlatList, ActivityIndicator, Image } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import Colors from '../../constants/Colors'
-import * as eventDataActions from '../../store/actions/eventData'
+
 
 // import speakersData from '../../data/jsonFiles/speakers.json'
-import SpeakersItem from '../../components/SpeakersItem'
+import SpeakersItem from '../../components/ListItems/SpeakersItem'
 
 const SpeakersScreen = props => {
   const [isLoading, setIsLoading] = useState(false)

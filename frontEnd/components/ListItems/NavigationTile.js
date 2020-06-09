@@ -3,9 +3,9 @@ import { View, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform, 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { withNavigation } from 'react-navigation'
 
-import Card from './Card'
-import ButtonText from './TextComponents/ButtonText'
-import Colors from '../constants/Colors'
+import Card from '../Universal/Card'
+import ButtonText from '../TextComponents/ButtonText'
+import Colors from '../../constants/Colors'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {

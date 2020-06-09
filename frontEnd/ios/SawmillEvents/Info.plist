@@ -34,8 +34,10 @@
 			<string></string>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The app needs your location to show you on the map</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>The app needs your location to show you on the map</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSansCondensed-Bold.ttf</string>

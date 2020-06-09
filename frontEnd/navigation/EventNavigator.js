@@ -4,9 +4,9 @@ import { Platform } from 'react-native'
 
 import Colors from '../constants/Colors'
 
-import LoginScreen from '../screens/user/LoginScreen'
-import MainNavigationScreen from '../screens/event/MainNavigationScreen'
-import SelectEventsScreen from '../screens/user/SelectEventScreen'
+import LoginScreen from '../screens/universal/LoginScreen'
+import MainNavigationScreen from '../screens/universal/MainNavigationScreen'
+import SelectEventsScreen from '../screens/universal/SelectEventScreen'
 
 import AboutScreen from '../screens/event/AboutScreen'
 import ParticipantsScreen from '../screens/event/ParticipantsScreen'
@@ -16,10 +16,7 @@ import SponsorsScreen from '../screens/event/SponsorsScreen'
 import VenueScreen from '../screens/event/VenueScreen'
 import FeedbackScreen from '../screens/event/FeedbaackScreen'
 import SpeakerDetailsScreen from '../screens/event/SpeakerDetailsScreen'
-
-
-import Example from '../screens/event/Example'
-
+import MapsScreen from '../screens/event/MapsScreen'
 
 // _____ Navigation Options _____
 const defaultNavOptions = {
@@ -92,12 +89,12 @@ const EventNavigator = createStackNavigator(
         headerBackTitle: 'Navigation'
       }
     },
-    Example: {
-      screen: Example,
-      navigationOptions: {
-        headerBackTitle: 'Navigation'
-      }
-    },
+    Maps: {
+    screen: MapsScreen,
+    navigationOptions: {
+      headerBackTitle: 'Navigation'
+    }
+  },
     SpeakerDetails: {
       screen: SpeakerDetailsScreen,
       navigationOptions: {
@@ -116,6 +113,6 @@ const MainNavigator = createSwitchNavigator(
     EventNavi: EventNavigator
   })
 
-export default createAppContainer(MainNavigator)
+export default createAppContainer(EventNavigator)
 
 

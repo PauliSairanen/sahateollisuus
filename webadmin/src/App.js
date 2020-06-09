@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import PrivateRoute from './assets/context/PrivateRoute';
 // import { AuthContext } from './assets/context/Auth';
@@ -18,8 +18,19 @@ import CreateEventForm from './assets/components/CreateEventForm'
 
 const App = () => {
   const [Content, setContent] = useState("LoginScreen");
+  const [EditID, setEditID] = useState(null)
   let container;
-
+  useEffect(() => {
+    if(EditID != null){
+      window.scrollTo(0, 0)
+      setContent("CreateScreen")
+    }
+  }, [EditID])
+  useEffect(() => {
+    if(Content === "AdminScreen" || Content === "LoginScreen"){
+      setEditID(null)
+    }
+  }, [Content])
   function setSession(input){
     if(input === ""){
       console.log("delete session");
@@ -49,15 +60,27 @@ const App = () => {
       <button className="LoginScreen" onClick={test}>Bypass</button>
     </>
   }
-  else{
-    container = <AdminScreen changeContent={setContent} readSession={getSession} changeSession={setSession}/>
+  if(Content === "CreateScreen"){
+    container =
+    <>
+      <CreateEventForm 
+        changeContent={setContent} 
+        id={EditID}
+      />
+    </>
+  }
+  else if(Content === "AdminScreen"){
+    container = 
+      <AdminScreen 
+        changeContent={setContent} 
+        readSession={getSession} 
+        changeSession={setSession}
+        changeID={setEditID}
+      />
   }
   return (
     <div className="App">
       {container}
-      <br/>
-      <p>----------------------------------------------------</p>
-      <CreateEventForm/>
     </div>
   )
 }

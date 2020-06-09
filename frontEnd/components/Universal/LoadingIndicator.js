@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, Text, StyleSheet, ActivityIndicator} from 'react-native'
 
-import Colors from '../constants/Colors'
+import Colors from '../../constants/Colors'
 
 const LoadingIndicator = props => {
   return (

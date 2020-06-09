@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeed
 import Communications from 'react-native-communications'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import Card from './Card'
-import Colors from '../constants/Colors'
+import Card from '../Universal/Card'
+import Colors from '../../constants/Colors'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {

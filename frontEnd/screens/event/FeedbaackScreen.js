@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Platform, Dimensions, TouchableOpacity, Touchab
 import Communications from 'react-native-communications'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import Card from '../../components/Card'
+import Card from '../../components//Universal/Card'
 import Colors from '../../constants/Colors'
 
 let TouchableComponent = TouchableOpacity

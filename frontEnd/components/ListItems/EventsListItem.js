@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Image, Text, ActivityIndicator } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { useSelector, useDispatch } from 'react-redux'
-import * as eventDataActions from '../store/actions/eventData'
+import * as eventDataActions from '../../store/actions/eventData'
 
-import Card from './Card'
+import Card from '../Universal/Card'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {

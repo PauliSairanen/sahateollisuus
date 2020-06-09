@@ -1,37 +1,61 @@
 import React from 'react'
-import { View, FlatList, } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
+import { View, StyleSheet, Text } from 'react-native'
+import { useSelector } from 'react-redux'
 
 // import programmeData from '../../data/jsonFiles/programme.json'
-import * as eventDataActions from '../../store/actions/eventData'
-
-import ProgrammeItem from '../../components/ProgrammeItem'
+import ProgrammeTab1 from '../../components/Programme/ProgrammeTab1'
+import ProgrammeTab2 from '../../components/Programme/ProgrammeTab2'
+import ProgrammeTab3 from '../../components/Programme/ProgrammeTab3'
 
 const ProgrammeScreen = props => {
   const programmeData = useSelector(state => state.eventData.programmeData)
-  console.log('_____ Log from Programme Screen _____')
-  console.log(programmeData)
 
-  return (
-    <View>
-      <FlatList
+  // -----> Edited for showcase usage <-----
+  // const amountOfTabs =  programmeData.length
+  const amountOfTabs =  1
+  console.log(programmeData.length)
+ 
+  switch (amountOfTabs) {
+    case 1: {
+      return (
+        <ProgrammeTab1
+          data={programmeData}
+        />
+      )
+    }
+    case 2: {
+      return (
+        <ProgrammeTab2 
+          data={programmeData}
+        />
+      )
+    }
+    case 3: {
+      return (
+        <ProgrammeTab3 
         data={programmeData}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={programmeData =>
-          <ProgrammeItem
-            time={programmeData.item.Time}
-            location={programmeData.item.Location}
-            description={programmeData.item.Description}
-            speaker={programmeData.item.NameOfSpeaker}
-            titleOfSpeaker={programmeData.item.TitleOfSpeaker}
-            specialTitleOfSpeaker={programmeData.item.SpecialTitleOfSpeaker}
-            companyOfSpeaker={programmeData.item.CompanyOfSpeaker}
-          />
-        }
       />
-    </View>
-  )
+      )
+    }
+    default: {
+      return (
+        <View style={styles.container}>
+          <Text>No Tabs enabled for this amount of content.</Text>
+          <Text>Please contact development Team</Text>
+        </View>
+      )
+    }
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  }
+})
 
 export default ProgrammeScreen
 

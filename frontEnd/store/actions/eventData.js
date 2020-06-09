@@ -5,11 +5,15 @@ export const FETCH_SPEAKERS = 'FETCH_SPEAKERS'
 export const FETCH_ALL_DATA = 'FETCH_ALL_DATA'
 export const AUTHENTICATE = 'AUTHENTICATE'
 export const PRELOAD_IMAGES = 'PRELOAD_IMAGES'
+export const SAVE_LOCATION_DATA = 'SAVE_LOCATION_DATA'
+
+import serverURL from '../../constants/Networking'
+console.log('The server URL is = ' + serverURL)
 
 // Fetching the metadata of events from server
 export const fetchEventMetaData = () => {
   return async dispatch => {
-    const response = await fetch('https://sahat.lamk.fi/findmetadata')
+    const response = await fetch(`${serverURL}/findmetadata`)
     const responseData = await response.json()
 
     const loadedEventMetadata = []
@@ -31,7 +35,7 @@ export const fetchEventMetaData = () => {
 export const fetchAllData = (id) => {
   console.log('Fetching data using id:' + id)
   return async dispatch => {
-    const response = await fetch('https://sahat.lamk.fi/findEvent', {
+    const response = await fetch(`${serverURL}/findEvent`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -51,7 +55,7 @@ export const fetchAllData = (id) => {
 
 export const fetchSpeakers = () => {
   return async dispatch => {
-    const response = await fetch('https://sahat.lamk.fi/findSpeakers')
+    const response = await fetch(`${serverURL}/findSpeakers`)
     const responseData = await response.json()
     const fetchedData = responseData.speakers
     dispatch({ type: FETCH_SPEAKERS, fetchedSpeakers: fetchedData })
@@ -63,7 +67,7 @@ export const authenticate = () => {
   const pw = 'test'
   console.log('Trying to authentiate')
   return async dispatch => {
-    const response = await fetch('https://sahat.lamk.fi/authenticate', {
+    const response = await fetch(`${serverURL}/authenticate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -82,5 +86,11 @@ export const authenticate = () => {
     } else {
       console.log('Something is fucked up :)')
     }
+  }
+}
+
+export const saveCurrentPosition = (currentPositionData) => {
+  return async dispatch => {
+    dispatch({type: SAVE_LOCATION_DATA, locationData: currentPositionData})
   }
 }
