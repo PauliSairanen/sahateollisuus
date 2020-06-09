@@ -1,11 +1,58 @@
 //Component for handling event creation
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
+import xlsx from 'xlsx'
 
 import FormTable from '../components/FormTable'
 
 import Button from 'react-bootstrap/Button'
 import Navbar from 'react-bootstrap/Navbar'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap'
+
+/**
+ * @param f - e.target
+ */
+function xlsxToJson(f){
+    return new Promise((res)=>{
+        //console.log(e.target.files[0])
+        let file = f.files[0]
+        if(file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+            let reader = new FileReader();
+            reader.onload = function(e){
+                let data = e.target.result;
+                let xlsxBin = xlsx.read(data, {type:'binary'});
+                const wsName = xlsxBin.SheetNames[0]
+                const ws = xlsxBin.Sheets[wsName];
+
+                const jsonData = xlsx.utils.sheet_to_json(ws,{header:1});
+                //console.log(jsonData)
+                let check = true
+                while(check){
+                    for(let i in jsonData){
+                        if(!jsonData[i].length > 0){
+                            jsonData.splice(i,1)
+                            check = true;
+                            break;
+                        }
+                        else{
+                            check = false;
+                        }
+                    }
+                }
+                
+                res(jsonData)
+            };
+            reader.readAsBinaryString(file)
+        }
+        else{
+            console.log("invalid file input")
+           res(null)
+        }
+    })
+    
+}
 
 const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const baseURL = 'https://sahat.lamk.fi';
@@ -72,6 +119,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         }
         else{
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [EditID])
 
     if(ActiveForm === "AboutForm"){
@@ -303,11 +351,26 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     return (
         <>
             <Navbar bg="light" variant="light" expand="lg">
-            <Navbar.Brand>{props.id ? <p>Edit Event {FormObjects.eventName}</p> : <p>Create Event</p>}</Navbar.Brand>
-                
+                <Navbar.Brand>{props.id ? <p>Edit Event {FormObjects.eventName}</p> : <p>Create Event</p>}</Navbar.Brand>
+                {ActiveForm ? <Navbar.Text>Current form: {ActiveForm}</Navbar.Text> : null}
             </Navbar>
+            <ButtonGroup>
+                <Button name="AboutForm" onClick={selectForm}>About</Button>
+                <Button name="ParticipantsForm" onClick={selectForm}>Participants</Button>
+                <Button name="ProgrammeForm" onClick={selectForm}>Programme</Button>
+                <Button name="SpeakersForm" onClick={selectForm}>Speakers</Button>
+                <Button name="SponsorsForm" onClick={selectForm}>Sponsors</Button>
+                <Button name="VenueTabForm" onClick={selectForm}>Venue</Button>
+                <Button onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</Button>
+                <Button onClick={()=>
+                {
+                    if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
+                        props.changeContent("AdminScreen")
+                    }  
+                }}>Cancel</Button>
+            </ButtonGroup>
             <div>{props.id ? <p>DebugMsg. Edit form "{props.id}"</p> : null}</div>
-            <button name="AboutForm" onClick={selectForm}>About</button>
+            {/* <button name="AboutForm" onClick={selectForm}>About</button>
             <button name="ParticipantsForm" onClick={selectForm}>Participants</button>
             <button name="ProgrammeForm" onClick={selectForm}>Programme</button>
             <button name="SpeakersForm" onClick={selectForm}>Speakers</button>
@@ -320,7 +383,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                         props.changeContent("AdminScreen")
                     }  
                 }}>Cancel
-            </button>
+            </button> */}
             {container}
             {/* <input type="file" name="test" encType="multipart/form-data" onChange={(e)=>{
                 //fileToUpload(e)
@@ -434,6 +497,9 @@ participants: [
 */
 const ParticipantsForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
+    useEffect(() => {
+        props.editForm("participants", Form)
+    }, [Form])
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
@@ -449,7 +515,29 @@ const ParticipantsForm = (props) => {
         setForm(form)
         props.editForm("participants", Form)
     }
-    
+    async function fileHandler(e){
+        //console.log(e.target.files[0])
+        let jsonData = await xlsxToJson(e.target)
+        //console.log(jsonData)
+        for(let i in jsonData){
+            console.log(jsonData[i])
+            if(i > 0){
+                let form = Form
+                form.push(
+                    {
+                        Country: jsonData[i][0],
+                        FirstName: jsonData[i][1],
+                        LastName: jsonData[i][2],
+                        Email: jsonData[i][3],
+                        Phone: jsonData[i][4],
+                        Company: jsonData[i][5]
+                    }
+                )
+                setForm(form)
+                //props.editForm("participants", Form)
+            }
+        }
+    }
     return(
         <>
         <form autoComplete="off" id="form">
@@ -461,6 +549,8 @@ const ParticipantsForm = (props) => {
             <input type="text" name="company" placeholder="Company"/>
             <button onClick={clickHandler}>Add Participant</button>
         </form>
+        <label>.xlsx file input</label>
+        <input type="file" onChange={fileHandler}/>
         {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
         
         </>
@@ -487,6 +577,7 @@ const ProgrammeForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
     useEffect(() => {
         props.editForm("programme", Form)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [Form])
     const keys = 
     [
@@ -494,16 +585,15 @@ const ProgrammeForm = (props) => {
         "Time",
         "Location",
         "Description",
-        "NameOfSpeaker",
-        "TitleOfSpeaker",
-        "SpecialTitleOfSpeaker",
-        "CompanyOfSpeaker",
+        "Name of Speaker",
+        "Title of Speaker",
+        "Special Title of Speaker",
+        "Company of Speaker",
         "Pdf"
     ]
-
     function dataToForm(data){
         let form = [];
-        //console.log(data)
+        console.log(data)
         for(let key in data){
             let i;
             let found = false;
@@ -606,6 +696,30 @@ const ProgrammeForm = (props) => {
         setForm(form)
         props.editForm("programme", Form)
     }
+
+    async function fileHandler(e){
+        let jsonData = await xlsxToJson(e.target)
+        console.log(jsonData)
+        let list = []
+        for(let i in jsonData){
+            if(i > 0){       
+                list.push(
+                    {
+                        day: "Päivä "+jsonData[i][0],
+                        Time: jsonData[i][1],
+                        Location: jsonData[i][2],
+                        Description: jsonData[i][3],
+                        NameOfSpeaker: jsonData[i][4],
+                        TitleOfSpeaker: jsonData[i][5],
+                        SpecialTitleOfSpeaker: jsonData[i][6],
+                        Company: jsonData[i][7],
+                        Pdf: jsonData[i][8],
+                    }
+                )
+            }   
+        }
+        dataToForm(list)
+    }
     return(
         <>
         <form autoComplete="off" id="form">
@@ -623,6 +737,8 @@ const ProgrammeForm = (props) => {
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Programme</button>
         </form>
+        <label>.xlsx file input</label>
+        <input type="file" onChange={fileHandler}/>
         {Form.length > 0 ? <FormTable form={Form} setForm={(data) => dataToForm(data)} keys={keys} programme={true}/> : null}
         </>
     )
@@ -652,6 +768,26 @@ const SpeakersForm = (props) => {
         setForm(form)
         props.editForm("speakers", Form)
     }
+    async function fileHandler(e){
+        let jsonData = await xlsxToJson(e.target)
+        for(let i in jsonData){
+            //console.log(jsonData[i])
+            if(i > 0){
+                let form = Form
+                form.push(
+                    {
+                        Speaker: jsonData[i][0],
+                        Title: jsonData[i][1],
+                        SpecialTitle: jsonData[i][2],
+                        Company: jsonData[i][3],
+                        ImageID: jsonData[i][4],
+                    }
+                )
+                setForm(form)
+                props.editForm("speakers", Form)
+            }
+        }
+    }
     return(
         <>
         <form autoComplete="off" id="form"> 
@@ -663,6 +799,8 @@ const SpeakersForm = (props) => {
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Speaker</button>
         </form>
+        <label>.xlsx file input</label>
+        <input type="file" onChange={fileHandler}/>
         {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
         </>
     )

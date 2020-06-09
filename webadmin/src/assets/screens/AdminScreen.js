@@ -168,16 +168,20 @@ const AdminScreen = (props) => {
                 // return <DropdownButton key={index} id="dropdown-basic-button" title={item.metadata.eventName} variant="outline-success">
                 //     <Event name={item.metadata.eventName} id={item._id} delet={deleteEvent} edit={(nid)=>{props.changeID(nid); console.log("Screen")}}/>
                 // </DropdownButton>
-                return <li key={index}>
+                return <div key={index}>
                         <Event name={item.metadata.eventName} 
                             id={item._id}
                             delet={deleteEvent}
                             edit={(nid)=>{props.changeID(nid)}}/>
-                </li> 
+                </div> 
+            }
+            else{
+                return null
             }
         })
         
         setEventObject(listObjects)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [EventList])
 
     async function test(){
@@ -189,10 +193,12 @@ const AdminScreen = (props) => {
     }
     useEffect(() => {
         pageLoad()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [Search])
     useEffect(() => {
         //console.log("Admin Screen loaded")
         pageLoad()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         <>
@@ -214,7 +220,7 @@ const AdminScreen = (props) => {
                 }}>Logout</Button>
         </Navbar>
 
-        <div id="Toolbar">
+        {/* <div id="Toolbar">
             <div id="Toolbar-tools">
                 <button className="ToolButton" id="1" onClick={clickHandler}>Reauth test</button>
                 <button className="ToolButton" id="2" onClick={clickHandler}>Test 2</button>
@@ -223,21 +229,11 @@ const AdminScreen = (props) => {
                 <button className="ToolButton" id="5" onClick={clickHandler}>Test 5</button>
                 <button className="ToolButton" id="6" onClick={clickHandler}>Test 6</button>
                 <button className="ToolButton" id="8" onClick={clickHandler}>Test 8</button>
-                
             </div>
-        </div>
-            <ul>
-                {
-                    // EventList.map((item, index)=>{
-                    //     return <li key={index}>
-                    //             <Event name={item.metadata.eventName} 
-                    //             id={item._id}
-                    //             delet={deleteEvent}/>
-                    //         </li> 
-                    // })
-                }
+        </div> */}
+            <div>
                 {EventObject}
-            </ul>
+            </div>
         <div className="AdminScreen">
                 <div id="EventList">
                     {eventList}

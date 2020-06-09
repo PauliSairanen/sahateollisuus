@@ -10,7 +10,7 @@ const FormTable = (props) => {
     if(form && form.length > 0){
         keys = Object.keys(form[0])
 
-        if(props.programme){
+        if(props.programme){ //special case conversion
             let newForm = []
             for(let i in form){
                 let day = form[i].day
@@ -25,7 +25,7 @@ const FormTable = (props) => {
                             NameOfSpeaker: content[j].NameOfSpeaker,
                             TitleOfSpeaker: content[j].TitleOfSpeaker,
                             SpecialTitleOfSpeaker: content[j].SpecialTitleOfSpeaker,
-                            CompanyOfSpeaker: content[j].CompanyOfSpeaker,
+                            CompanyOfSpeaker: content[j].Company,
                             Pdf: content[j].Pdf
                         }
                     )
@@ -84,7 +84,7 @@ const FormTable = (props) => {
                                     id={index} 
                                     onClick={clickHandler}
                                     >Remove
-                                    </Button>
+                                </Button>
                             </td>
                         )
                         
