@@ -20,17 +20,20 @@ const App = () => {
   const [Content, setContent] = useState("LoginScreen");
   const [EditID, setEditID] = useState(null)
   let container;
+  //when EditID is set, move screen to top and render CreateScreen
   useEffect(() => {
     if(EditID != null){
       window.scrollTo(0, 0)
       setContent("CreateScreen")
     }
   }, [EditID])
+  //If screen is changed to other than CreateScreen, set EditID to null
   useEffect(() => {
     if(Content === "AdminScreen" || Content === "LoginScreen"){
       setEditID(null)
     }
   }, [Content])
+  //redundant
   function setSession(input){
     if(input === ""){
       console.log("delete session");
@@ -40,6 +43,7 @@ const App = () => {
       localStorage.setItem("Session", input);
     }
   }
+  //redundant
   function getSession(){
     return localStorage.getItem("Session");
   }
@@ -50,6 +54,7 @@ const App = () => {
     //props.changeSession("");
   }
   //console.log("Session: " +getSession());
+  //change screen based on Content
   if(Content === "LoginScreen"){
     container = 
     <>

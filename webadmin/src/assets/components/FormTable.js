@@ -2,7 +2,12 @@ import React, {useState, useEffect} from 'react'
 
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
-
+/**
+ * 
+ * @param form - form to render
+ * @param setForm - form to change
+ * @param programme - OPTIONAL if form in question is a programme which requires additional parsing.
+ */
 const FormTable = (props) => {
     const [Refresh, setRefresh] = useState(false) // does nothing except makes react refresh the component. Feels hacky but hey if it works it works. Who am i to judge the fate that has been decended upon me. For my actions are righteous and pure. Not even warnings plague thy code. It is raining on Mount Fuji, Mogami River. 
     let form = props.form
