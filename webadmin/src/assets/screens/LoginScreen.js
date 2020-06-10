@@ -69,8 +69,6 @@ const LoginScreen = (props) => {
                 setDetails("Please input username and password");
             }
         }
-        
-        
     }
     // function test()
     // {

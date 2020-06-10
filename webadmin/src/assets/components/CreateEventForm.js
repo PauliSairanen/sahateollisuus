@@ -53,13 +53,17 @@ function xlsxToJson(f){
     })
     
 }
-
+/**
+ * @param changeContent - change screen
+ * @param id - Event to edit based on ID
+ */
+//Screen: Creates events based on FormObjects. 
 const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const baseURL = 'https://sahat.lamk.fi';
 
     //Visible forms controller
     const [ActiveForm, setActiveForm] = useState()
-    const [EditID, setEditID] = useState(props.id)
+    const [EditID] = useState(props.id)
     const [Files, setFiles] = useState([])
     let container;
     //Form variables
@@ -87,6 +91,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         disclaimer: [],
         venue: []
     })
+    //Input event id, get data to set formobjects
     async function parseEventData(id){
         let data = await getEventData(id);
         setFormObjects({
@@ -112,6 +117,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             venue: data.venue
         })
     }
+    //When EditID is set and if it excists, run parseEventData
     useEffect(() => {
         
         if(EditID){
@@ -122,9 +128,13 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [EditID])
 
+    //Change forms in the screen
+    function selectForm(e){
+        setActiveForm(e.target.name)
+    }
     if(ActiveForm === "AboutForm"){
         container = <AboutForm 
-            editForm={changeHandler} 
+            editForm={changeHandler}
             appendForm={appendForm} 
             bodyTexts={FormObjects.bodyText} 
             disclaimers={FormObjects.disclaimer} 
@@ -138,7 +148,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         subForm={FormObjects.participants}/>
     }
     else if(ActiveForm === "ProgrammeForm"){
-        container = <ProgrammeForm editForm={appendForm} 
+        container = <ProgrammeForm 
+        editForm={appendForm} 
         fileToUpload={fileToUpload}
         subForm={FormObjects.programme}/>
     }
@@ -164,6 +175,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     else{
         container = null
     }
+    //changes formobjects, also gets rid of path from file inputs
     function changeHandler(e){ //tuntuu redundantilta, vois poistaa myöhemmin emt.
         if(e.target.type === "file"){
             setFormObjects({
@@ -178,6 +190,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             })
         }
     }
+    //same as changeHandler, but target and value is more specified
     function appendForm(target,value){
         setFormObjects({
             ...FormObjects,
@@ -189,7 +202,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         eventPass: `${FormObjects.eventPass}`,
         metadata: {
             eventName: `${FormObjects.eventName}`,
-            eventImage: `${FormObjects.eventImage}`
+            eventImage: `${FormObjects.eventImage}`,
+            status: "Not implemented"
         },
         about: {
             eventWebUrl: `${FormObjects.eventWebUrl}`,
@@ -200,19 +214,19 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 email: `${FormObjects.placeEmail}`
             },
             title: `${FormObjects.eventTitle}`,
-            bodyText: FormObjects.bodyText, //Not implemented
+            bodyText: FormObjects.bodyText, //implemented in mobile?
             moreInformation: {
                 eventWebsite: `${FormObjects.MiWebsite}`,
                 organizer: `${FormObjects.MiOrg}`,
                 email: `${FormObjects.MiEmail}`
             },
-            disclaimer: FormObjects.disclaimer
+            disclaimer: FormObjects.disclaimer //implemented in mobile?
         },
         participants: FormObjects.participants,
-        programme: FormObjects.programme, //pdf not implemented
+        programme: FormObjects.programme,
         speakers: FormObjects.speakers,
         sponsors: FormObjects.sponsors,
-        venue: FormObjects.venue //implemented?
+        venue: FormObjects.venue
     }
     //func to create event
     function createEventPost(form){
@@ -248,7 +262,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             console.log(error);
         })
     }
-
+    //input event id, get eventdata
     function getEventData(id){
         const req = axios.post(baseURL+"/findEvent",{
             id: id
@@ -266,7 +280,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             console.log(error);
         })
     }
-    //Todo function that uploads files.
+    //function that uploads files.
     function uploadFile(file, cat, id){
         let fd = new FormData();
         //console.log(file)
@@ -291,7 +305,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             return false
         })
     }
-    //FILE UPLOAD TEST METHODS
+
     /*
     {
         category: kategoria,
@@ -303,14 +317,15 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         let i;
         //console.log("ID on " +id)
         for(i = 0; i < files.length; i++){
-            await uploadFile(files[i].file, "myFiles", id)
+            await uploadFile(files[i].file, "myFiles", id) //todo testaa et await toimii
         }
         props.changeContent("AdminScreen")
     }
+    //adds file to list of files to upload
     function fileToUpload(e){
         let files = Files;
         let file = e.target.files[0]
-        let category = e.target.id;
+        let category = e.target.name;
         //Check if file already exists or (incase of eventImage) is already bound to input
         let found = false;
         let i;
@@ -343,11 +358,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         setFiles(files)
         //console.log(Files)
     }
-    //TESTS END HERE
-    function selectForm(e){
-        setActiveForm(e.target.name)
-    }
-    //<AboutForm editForm={changeHandler}/>
+
     return (
         <>
             <Navbar bg="light" variant="light" expand="lg">
@@ -394,13 +405,21 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         </>
     )
 }
-
+/**
+ * @param editForm - evoke changehandler
+ * @param appendForm - evoke appendForm
+ * @param bodytexts - bodytexts from formobjects
+ * @param disclaimers - disclaimers from formobjects
+ * @param FO - formobjects
+ * @param fileToUpload - evoke fileToUpload
+ */
 const AboutForm = (props) => {
     const [Form, setForm] = useState(props.bodyTexts)
     const [Form2, setForm2] = useState(props.disclaimers)
     const [Fields, setFields] = useState(createFields)
     const [Fields2, setFields2] = useState(createFields2)
 
+    //renders bodytexts
     function createFields(){
         if(Form){
             let list = Form.map((items,index)=>{
@@ -429,6 +448,7 @@ const AboutForm = (props) => {
         setFields(createFields)
     }
     //Redundant code below, 
+    //changes disclaimers
     function createFields2(){
         if(Form2){
             let list = Form2.map((items,index)=>{
@@ -471,7 +491,7 @@ const AboutForm = (props) => {
             <input type="text" name="MiOrg" placeholder="More info Organizer" defaultValue={props.FO.MiOrg}/>
             <input type="text" name="MiEmail" placeholder="More info Email" defaultValue={props.FO.MiEmail}/>
             <label>Event Image</label>
-            <input type="file" id="test" name="eventImage" onChange={(e)=>{
+            <input type="file" id="test" name="test" onChange={(e)=>{
                 //props.appendForm("eventImage", `https://sahat.lamk.fi/images/metadataImages/${e.target.files[0].name}`)
                 props.fileToUpload(e)
             }}/>
@@ -495,11 +515,13 @@ participants: [
     }
 ],
 */
+/**
+ * @param editForm - evoke appendForm
+ * @param subForm - get formObject data to Form
+ */
 const ParticipantsForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
-    useEffect(() => {
-        props.editForm("participants", Form)
-    }, [Form])
+    
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
@@ -534,7 +556,7 @@ const ParticipantsForm = (props) => {
                     }
                 )
                 setForm(form)
-                //props.editForm("participants", Form)
+                props.editForm("participants", Form)
             }
         }
     }
@@ -573,6 +595,11 @@ const ParticipantsForm = (props) => {
     ]
 }
 */
+/**
+ * @param editForm - evoke appendForm
+ * @param subForm - get formObject data to Form
+ * @param fileToUpload - put file to list of files to upload
+ */
 const ProgrammeForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
     useEffect(() => {
@@ -588,7 +615,7 @@ const ProgrammeForm = (props) => {
         "Name of Speaker",
         "Title of Speaker",
         "Special Title of Speaker",
-        "Company of Speaker",
+        "Company",
         "Pdf"
     ]
     function dataToForm(data){
@@ -720,6 +747,7 @@ const ProgrammeForm = (props) => {
         }
         dataToForm(list)
     }
+
     return(
         <>
         <form autoComplete="off" id="form">
@@ -733,13 +761,21 @@ const ProgrammeForm = (props) => {
             <input type="text" name="speakerTitle" placeholder="Speaker Title"/>
             <input type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
             <input type="text" name="speakerCompany" placeholder="Speaker Company"/>
-            <input type="file" name="programmePdf" id="test" 
+            <input type="file" name="test" id="test" 
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Programme</button>
         </form>
         <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/>
-        {Form.length > 0 ? <FormTable form={Form} setForm={(data) => dataToForm(data)} keys={keys} programme={true}/> : null}
+        {Form.length > 0 ? 
+            <FormTable 
+                form={Form} 
+                setForm={(data) => dataToForm(data)} 
+                keys={keys} 
+                programme={true}
+                fileToUpload={(e)=>{props.fileToUpload(e)}}
+            /> : 
+        null}
         </>
     )
 }
@@ -752,6 +788,11 @@ const ProgrammeForm = (props) => {
     "ImageID": "not implemented" //https://sahat.lamk.fi/images/speakerImages/${imageID}
 }
 */
+/**
+ * @param editForm - evoke appendForm
+ * @param subForm - get formObject data to Form
+ * @param fileToUpload - put file to list of files to upload
+ */
 const SpeakersForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
     function clickHandler(e){
@@ -801,7 +842,7 @@ const SpeakersForm = (props) => {
         </form>
         <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/>
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )
 }
@@ -812,6 +853,11 @@ const SpeakersForm = (props) => {
     "ImageID": "Test"
 }
 */
+/**
+ * @param editForm - evoke appendForm
+ * @param subForm - get formObject data to Form
+ * @param fileToUpload - put file to list of files to upload
+ */
 const SponsorsForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
     function clickHandler(e){
@@ -835,10 +881,15 @@ const SponsorsForm = (props) => {
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Sponsor</button>
         </form>
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )
 }
+/**
+ * @param editForm - evoke appendForm
+ * @param subForm - get formObject data to Form
+ * @param fileToUpload - put file to list of files to upload
+ */
 const VenueTabForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
     function clickHandler(e){
@@ -860,7 +911,7 @@ const VenueTabForm = (props) => {
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Venue</button>
         </form>
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )
 }

@@ -1,0 +1,8 @@
+{
+  "apps" : [{
+    "name"        : "API",
+    "script"      : "startnode.js",
+    "watch"       : true,
+    "ignore_watch": ["public/*"]
+  }]
+}

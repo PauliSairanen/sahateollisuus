@@ -122,6 +122,7 @@ const AdminScreen = (props) => {
         })
     }
 
+    //Siirretään update formiin kun sellainen tehdään
     const updateEvent = function(form) {
         let adminToken = localStorage.getItem("Session")
         axios.post(baseURL+"/updateEvent",{
@@ -198,6 +199,7 @@ const AdminScreen = (props) => {
     useEffect(() => {
         //console.log("Admin Screen loaded")
         pageLoad()
+        window.scrollTo(0, 0)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (

@@ -1,6 +1,12 @@
 import React from 'react'
 
 import Card from 'react-bootstrap/Card'
+/**
+ * 
+ * @param id - eventin ID
+ * @param name - eventin nimi
+ * @param delet - evokes deleteEvent
+ */
 const Event = (props) => {
     async function clickHandler(e){
 
@@ -19,7 +25,7 @@ const Event = (props) => {
     return (
         <Card style={{ width: '18rem' }}>
             <Card.Body>
-                <Card.Title>Name: {props.name}</Card.Title>
+                <Card.Title>{props.name}</Card.Title>
                 <Card.Subtitle>ID: {props.id}</Card.Subtitle>
                 <Card.Link href="#" name="edit" onClick={clickHandler}>Edit</Card.Link>
                 <Card.Link href="#" name="delete" onClick={clickHandler}>Delete</Card.Link>
