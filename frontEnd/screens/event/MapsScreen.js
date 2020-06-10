@@ -18,6 +18,7 @@ const coordinateArray = [
   { name: 'Hesburger', latitude: 60.163390, longitude: 24.948150 },
 ]
 
+
 const showAlert = () => {
   Alert.alert(
     'You are about to be navigated to proper navigation',
@@ -35,6 +36,7 @@ const showAlert = () => {
 const MapsScreen = props => {
   const [coordinates, setCoordinates] = useState(coordinateArray)
   const [userCurrentLocation, setUserCurrentLocation] = useState()
+  const [venueLocation, setVenueLocation] = useState()
 
   requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -73,10 +75,14 @@ const MapsScreen = props => {
 
   }, [])
 
+
+
+
+
   return (
     <MapView
       provider={PROVIDER_GOOGLE}
-      ref={ref => (this.mapView = ref)}
+      ref={ref => (this.MapView = ref)}
       style={styles.map}
       initialRegion={userCurrentLocation}
       showsUserLocation={true}
@@ -89,36 +95,86 @@ const MapsScreen = props => {
     // }}
     >
 
-      {coordinates.map(marker => (
-        <Marker
-          key={marker.name}
-          coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
-          title={marker.name}
-        >
-          <Callout>
-            <View style={styles.container}>
-              <View>
-                <Text>{marker.name}</Text>
-              </View>
-              <View style={styles.button}>
-                <TouchableComponent
-                  onPress={showAlert}
-                  style={styles.container}
-                >
-                  <Ionicons
-                    name={Platform.OS === 'android' ? 'md-car' : 'ios-car'}
-                    size={Dimensions.get('window').width / 100 * 10}
-                    color={Colors.primary}
-                  />
-                </TouchableComponent>
-              </View>
-              <Text>Navigate</Text>
+      <View style={styles.topContainer}>
+        <View style={styles.flexContainer}>
+          <View style={styles.navigationButtonsContainer}>
+            <View style={styles.navigationButton}>
+              <TouchableComponent
+                onPress={showAlert}
+                style={styles.container}
+                onPress={() => this.MapView.animateToCoordinate({
+                  latitude: 60.169810,
+                  longitude: 24.938130,
+                }, 1000)}
+              >
+                <Ionicons
+                  name={Platform.OS === 'android' ? 'md-home' : 'ios-home'}
+                  size={Dimensions.get('window').width / 100 * 10}
+                  color={Colors.primary}
+                />
+              </TouchableComponent>
             </View>
-          </Callout>
-        </Marker>
-      ))}
 
-    </MapView>
+            <View style={styles.navigationButton}>
+              <TouchableComponent
+                onPress={showAlert}
+                style={styles.container}
+                onPress={() => this.MapView.animateToCoordinate(userCurrentLocation)}
+              >
+                <Ionicons
+                  name={Platform.OS === 'android' ? 'md-navigate' : 'ios-navigate'}
+                  size={Dimensions.get('window').width / 100 * 10}
+                  color={Colors.primary}
+                />
+              </TouchableComponent>
+              <View />
+            </View>
+          </View>
+        </View>
+      </View>
+
+
+
+
+
+
+
+
+
+
+
+      {
+        coordinates.map((marker, index) => (
+          <Marker
+            key={marker.name}
+            coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
+            title={marker.name}
+            key={index}
+          >
+            <Callout>
+              <View style={styles.container}>
+                <View>
+                  <Text>{marker.name}</Text>
+                </View>
+                <View style={styles.markerButton}>
+                  <TouchableComponent
+                    onPress={showAlert}
+                    style={styles.container}
+                  >
+                    <Ionicons
+                      name={Platform.OS === 'android' ? 'md-car' : 'ios-car'}
+                      size={Dimensions.get('window').width / 100 * 10}
+                      color={Colors.primary}
+                    />
+                  </TouchableComponent>
+                </View>
+                <Text>Navigate</Text>
+              </View>
+            </Callout>
+          </Marker>
+        ))
+      }
+    </MapView >
   )
 }
 
@@ -129,14 +185,40 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   map: {
-    height: '100%'
+    height: '100%',
+    zIndex: -1,
   },
-  button: {
+  topContainer: {
+    height: Dimensions.get('window').height / 100 * 15,
+    width: Dimensions.get('window').width,
+    // borderColor: 'black',
+    // borderWidth: 1,
+  },
+  flexContainer: {
+    flex: 1,
+    alignItems: 'flex-end'
+  },
+  navigationButtonsContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    margin: 10,
+  },
+  markerButton: {
     height: Dimensions.get('window').width / 100 * 10,
     aspectRatio: 1,
     borderColor: 'black',
     borderWidth: 1,
     margin: 5,
+  },
+  navigationButton: {
+    height: Dimensions.get('window').width / 100 * 12,
+    aspectRatio: 1,
+    borderColor: Colors.primary,
+    borderWidth: 1,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
   }
 })
 
