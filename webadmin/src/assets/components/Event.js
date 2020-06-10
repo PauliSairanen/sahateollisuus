@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card'
  * 
  * @param id - eventin ID
  * @param name - eventin nimi
+ * @param delet - evokes deleteEvent
  */
 const Event = (props) => {
     async function clickHandler(e){

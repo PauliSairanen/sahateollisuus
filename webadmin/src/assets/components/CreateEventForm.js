@@ -202,7 +202,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         eventPass: `${FormObjects.eventPass}`,
         metadata: {
             eventName: `${FormObjects.eventName}`,
-            eventImage: `${FormObjects.eventImage}`
+            eventImage: `${FormObjects.eventImage}`,
+            status: "Not implemented"
         },
         about: {
             eventWebUrl: `${FormObjects.eventWebUrl}`,
@@ -324,7 +325,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     function fileToUpload(e){
         let files = Files;
         let file = e.target.files[0]
-        let category = e.target.id;
+        let category = e.target.name;
         //Check if file already exists or (incase of eventImage) is already bound to input
         let found = false;
         let i;
@@ -357,8 +358,6 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         setFiles(files)
         //console.log(Files)
     }
-
-    
 
     return (
         <>
@@ -492,7 +491,7 @@ const AboutForm = (props) => {
             <input type="text" name="MiOrg" placeholder="More info Organizer" defaultValue={props.FO.MiOrg}/>
             <input type="text" name="MiEmail" placeholder="More info Email" defaultValue={props.FO.MiEmail}/>
             <label>Event Image</label>
-            <input type="file" id="test" name="eventImage" onChange={(e)=>{
+            <input type="file" id="test" name="test" onChange={(e)=>{
                 //props.appendForm("eventImage", `https://sahat.lamk.fi/images/metadataImages/${e.target.files[0].name}`)
                 props.fileToUpload(e)
             }}/>
@@ -616,7 +615,7 @@ const ProgrammeForm = (props) => {
         "Name of Speaker",
         "Title of Speaker",
         "Special Title of Speaker",
-        "Company of Speaker",
+        "Company",
         "Pdf"
     ]
     function dataToForm(data){
@@ -748,6 +747,7 @@ const ProgrammeForm = (props) => {
         }
         dataToForm(list)
     }
+
     return(
         <>
         <form autoComplete="off" id="form">
@@ -761,13 +761,21 @@ const ProgrammeForm = (props) => {
             <input type="text" name="speakerTitle" placeholder="Speaker Title"/>
             <input type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
             <input type="text" name="speakerCompany" placeholder="Speaker Company"/>
-            <input type="file" name="programmePdf" id="test" 
+            <input type="file" name="test" id="test" 
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Programme</button>
         </form>
         <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/>
-        {Form.length > 0 ? <FormTable form={Form} setForm={(data) => dataToForm(data)} keys={keys} programme={true}/> : null}
+        {Form.length > 0 ? 
+            <FormTable 
+                form={Form} 
+                setForm={(data) => dataToForm(data)} 
+                keys={keys} 
+                programme={true}
+                fileToUpload={(e)=>{props.fileToUpload(e)}}
+            /> : 
+        null}
         </>
     )
 }
@@ -834,7 +842,7 @@ const SpeakersForm = (props) => {
         </form>
         <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/>
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )
 }
@@ -873,7 +881,7 @@ const SponsorsForm = (props) => {
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Sponsor</button>
         </form>
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )
 }
@@ -903,7 +911,7 @@ const VenueTabForm = (props) => {
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Venue</button>
         </form>
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )
 }

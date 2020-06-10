@@ -199,6 +199,7 @@ const AdminScreen = (props) => {
     useEffect(() => {
         //console.log("Admin Screen loaded")
         pageLoad()
+        window.scrollTo(0, 0)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
