@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Geolocation from '@react-native-community/geolocation'
 import { request, PERMISSIONS } from 'react-native-permissions'
 
+import MapsNavigationButton from '../../components/MapButtons/MapNavigationButton'
 import Colors from '../../constants/Colors'
 
 let TouchableComponent = TouchableOpacity
@@ -83,43 +84,28 @@ const MapsScreen = props => {
 
   return (
     <View>
-      <View style={styles.topContainer}>
-        <View style={styles.flexContainer}>
-          <View style={styles.navigationButtonsContainer}>
-            <View style={styles.navigationButton}>
-              <TouchableComponent
-                onPress={showAlert}
-                style={styles.container}
-                onPress={() => this.MapView.animateToCoordinate({
-                  latitude: 60.169810,
-                  longitude: 24.938130,
-                }, 1000)}
-              >
-                <Ionicons
-                  name={Platform.OS === 'android' ? 'md-home' : 'ios-home'}
-                  size={Dimensions.get('window').width / 100 * 10}
-                  color={Colors.primary}
-                />
-              </TouchableComponent>
-            </View>
-
-            <View style={styles.navigationButton}>
-              <TouchableComponent
-                onPress={showAlert}
-                style={styles.container}
-                onPress={() => this.MapView.animateToCoordinate(userCurrentLocation)}
-              >
-                <Ionicons
-                  name={Platform.OS === 'android' ? 'md-navigate' : 'ios-navigate'}
-                  size={Dimensions.get('window').width / 100 * 10}
-                  color={Colors.primary}
-                />
-              </TouchableComponent>
-              <View />
+      <View>
+        <View style={styles.absoluteTopContainer}>
+          <View style={styles.flexContainer}>
+            <View style={styles.navigationButtonsContainer}>
+              <MapsNavigationButton
+                latitude={60.169810}
+                longitude={24.938130}
+                animationTime={1000}
+                iconName={'home'}
+              />
+              <MapsNavigationButton
+                latitude={userCurrentLocation.latitude}
+                longitude={userCurrentLocation.longitude}
+                animationTime={1000}
+                iconName={'navigate'}
+              />
             </View>
           </View>
         </View>
       </View>
+
+
 
       <MapView
         provider={PROVIDER_GOOGLE}
@@ -182,8 +168,8 @@ const styles = StyleSheet.create({
     height: '100%',
     zIndex: -1,
   },
-  topContainer: {
-    height: Dimensions.get('window').height / 100 * 15,
+  absoluteTopContainer: {
+    height: Dimensions.get('window').width / 100 * 30,
     width: Dimensions.get('window').width,
     position: 'absolute',
     top: 0,
@@ -200,7 +186,7 @@ const styles = StyleSheet.create({
   navigationButtonsContainer: {
     flex: 1,
     flexDirection: 'column',
-    margin: 10,
+    margin: 13,
   },
   markerButton: {
     height: Dimensions.get('window').width / 100 * 10,
@@ -217,7 +203,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginBottom: 7,
+  },
+  categoryButtonsContainer: {
+
   }
 })
 
