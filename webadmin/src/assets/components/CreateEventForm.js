@@ -87,11 +87,16 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         programme: [],
         speakers: [],
         sponsors: [],
-        mapmarkers: [],
+        mapmarkers: {
+            restaurant: [],
+            hotel: [],
+            other: []
+        },
+        venue: [],
         //more about from stuff
         bodyText: [],
         disclaimer: [],
-        venue: [],
+        
     })
     //Input event id, get data to set formobjects
     async function parseEventData(id){
@@ -976,35 +981,104 @@ const VenueTabForm = (props) => {
 const MapMarkerForm = (props) =>{
     const [Form, setForm] = useState(props.subForm)
     const [ActiveForm, setActiveForm] = useState()
+    const keys = [
+        "Marker Category",
+        "Latitude",
+        "Longitude",
+        "Name",
+        "Address",
+        "Description",
+        "WebURL",
+        "(Restaurant) category",
+        "(Hotel) rating",
+        "(Other) type",
+        "Image"
+    ]
+
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
-        let form = Form;
+        let i;
+        let marker = {}
+        for(i = 0; i < e.target.form.length - 1; i++){
+            marker[e.target.form[i].name] = e.target.form[i].value
+        }
+        Form[ActiveForm].push(marker)
+        // console.log(Form[ActiveForm])
         
-        //Todo, Form data to json
+        // let form = Form;
+        
+        // //Todo, Form data to json
 
         document.getElementById("form").reset();
-        setForm(form)
+        setForm(Form)
+        props.editForm("mapmarkers", Form)
+    }
+    function dataToForm(data){
+        let newForm = {
+            restaurant: [],
+            hotel: [],
+            other: []
+        }
+        for(let item in data){
+            let newObj = {}
+            let destination;
+            for(let key in data[item]){
+                if(key === "markcat"){
+                    destination = data[item][key]
+                }
+                else{
+                    console.log(data[item][key], key)
+                }
+                newObj[key] = data[item][key]
+            }
+            newForm[destination].push(newObj)
+        }
+        setForm(newForm)
         props.editForm("mapmarkers", Form)
     }
     let container;
     if(ActiveForm === "restaurant"){
         container = 
         <>
-
+            <input type="text" name="lat" placeholder="Latitude"/>
+            <input type="text" name="lng" placeholder="Longitude"/>
+            <input type="text" name="name" placeholder="Name"/>
+            <input type="text" name="address" placeholder="Address"/>
+            <input type="text" name="description" placeholder="Description"/>
+            <input type="text" name="category" placeholder="Category"/>
+            <input type="text" name="webURL" placeholder="Website URL"/>
+            {/*Todo image input*/}
+            <button onClick={clickHandler}>Add Restaurant Map Marker</button>
         </>
 
     }
     else if(ActiveForm === "hotel"){
         container =
         <>
-
+            <input type="text" name="lat" placeholder="Latitude"/>
+            <input type="text" name="lng" placeholder="Longitude"/>
+            <input type="text" name="name" placeholder="Name"/>
+            <input type="text" name="address" placeholder="Address"/>
+            <input type="text" name="description" placeholder="Description"/>
+            <input type="text" name="rating" placeholder="Rating"/>
+            <input type="text" name="webURL" placeholder="Website URL"/>
+            <button onClick={clickHandler}>Add Hotel Map Marker</button>
+        
         </>
 
     }
     else if(ActiveForm === "other"){
         container = 
         <>
-
+            <input type="text" name="lat" placeholder="Latitude"/>
+            <input type="text" name="lng" placeholder="Longitude"/>
+            <input type="text" name="name" placeholder="Name"/>
+            <input type="text" name="address" placeholder="Address"/>
+            <input type="text" name="description" placeholder="Description"/>
+            <input type="text" name="type" placeholder="Type"/>
+            <input type="text" name="webURL" placeholder="Website URL"/>
+            <button onClick={clickHandler}>Add Other Map Marker</button>
+        
         </>
 
     }
@@ -1023,7 +1097,18 @@ const MapMarkerForm = (props) =>{
             <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name)}} name="other">Other</Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>
-        {container}
+        <form id="form" autoComplete="off">
+            {container}
+        </form>
+        {Form.restaurant.length > 0 || Form.hotel.length > 0 || Form.other.length > 0 ? 
+            <FormTable 
+                form={Form} 
+                setForm={(data)=>{dataToForm(data)}} 
+                keys={keys}
+                mapMarkers={true}
+                fileToUpload={(e)=>{props.fileToUpload(e)}}
+            /> : 
+        null}
         </>
     )
 }

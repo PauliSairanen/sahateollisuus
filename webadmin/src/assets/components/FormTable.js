@@ -16,7 +16,6 @@ const FormTable = (props) => {
     let keys;
     if(form && form.length > 0){
         keys = Object.keys(form[0])
-
         if(props.programme){ //special case conversion
             let newForm = []
             for(let i in form){
@@ -40,6 +39,33 @@ const FormTable = (props) => {
             }
             form = newForm;
         }
+    }
+    else if(props.mapMarkers){
+        let newForm = []
+        for(let key in form){
+            if(form[key].length > 0){
+                for(let i in form[key]){
+                    let newObj = {
+                        markcat: key,
+                        lat: "",
+                        lng: "",
+                        name: "",
+                        address: "",
+                        description: "",
+                        webURL: "",
+                        category: "",
+                        rating: "",
+                        type: "",
+                        image: ""
+                    }
+                    for(let subkey in form[key][i]){
+                        newObj[subkey] = form[key][i][subkey]
+                    }
+                    newForm.push(newObj)
+                }
+            }
+        }
+        form = newForm
     }
     else{
         form = []
