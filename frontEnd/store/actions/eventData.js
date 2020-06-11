@@ -16,6 +16,9 @@ export const fetchEventMetaData = () => {
     const response = await fetch(`${serverURL}/findmetadata`)
     const responseData = await response.json()
 
+    const response2 = await fetch('https://google.com')
+    console.log(response2)
+
     const loadedEventMetadata = []
     // Looking through the JSON data, and organizing it again for display
     for (const index in responseData) {
@@ -91,6 +94,6 @@ export const authenticate = () => {
 
 export const saveCurrentPosition = (currentPositionData) => {
   return async dispatch => {
-    dispatch({type: SAVE_LOCATION_DATA, locationData: currentPositionData})
+    dispatch({ type: SAVE_LOCATION_DATA, locationData: currentPositionData })
   }
 }

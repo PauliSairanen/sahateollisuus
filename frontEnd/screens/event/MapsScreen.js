@@ -37,6 +37,7 @@ const MapsScreen = props => {
   const [coordinates, setCoordinates] = useState(coordinateArray)
   const [userCurrentLocation, setUserCurrentLocation] = useState()
   const [venueLocation, setVenueLocation] = useState()
+  const [refreshScreen, setRefreshScreen] = useState(false)
 
   requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -71,30 +72,17 @@ const MapsScreen = props => {
   }
 
   useEffect(() => {
-    requestLocationPermission()
+    props.navigation.addListener('didFocus', () => {
+      setRefreshScreen(true)
+      setRefreshScreen(false)
+      console.log('Navigated to Maps screen. Doing a quick refresh')
+      requestLocationPermission()
+    })
 
   }, [])
 
-
-
-
-
   return (
-    <MapView
-      provider={PROVIDER_GOOGLE}
-      ref={ref => (this.MapView = ref)}
-      style={styles.map}
-      initialRegion={userCurrentLocation}
-      showsUserLocation={true}
-    // region={{
-    //   latitude: 60.170880,
-    //   longitude: 24.941540,
-    //   latitudeDelta: 0.016,
-    //   longitudeDelta: 0.06,
-
-    // }}
-    >
-
+    <View>
       <View style={styles.topContainer}>
         <View style={styles.flexContainer}>
           <View style={styles.navigationButtonsContainer}>
@@ -133,48 +121,54 @@ const MapsScreen = props => {
         </View>
       </View>
 
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        ref={ref => (this.MapView = ref)}
+        style={styles.map}
+        initialRegion={userCurrentLocation}
+        showsUserLocation={true}
+      // region={{
+      //   latitude: 60.170880,
+      //   longitude: 24.941540,
+      //   latitudeDelta: 0.016,
+      //   longitudeDelta: 0.06,
 
+      // }}
+      >
 
-
-
-
-
-
-
-
-
-      {
-        coordinates.map((marker, index) => (
-          <Marker
-            key={marker.name}
-            coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
-            title={marker.name}
-            key={index}
-          >
-            <Callout>
-              <View style={styles.container}>
-                <View>
-                  <Text>{marker.name}</Text>
+        {
+          coordinates.map((marker, index) => (
+            <Marker
+              key={marker.name}
+              coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
+              title={marker.name}
+              key={index}
+            >
+              <Callout>
+                <View style={styles.container}>
+                  <View>
+                    <Text>{marker.name}</Text>
+                  </View>
+                  <View style={styles.markerButton}>
+                    <TouchableComponent
+                      onPress={showAlert}
+                      style={styles.container}
+                    >
+                      <Ionicons
+                        name={Platform.OS === 'android' ? 'md-car' : 'ios-car'}
+                        size={Dimensions.get('window').width / 100 * 10}
+                        color={Colors.primary}
+                      />
+                    </TouchableComponent>
+                  </View>
+                  <Text>Navigate</Text>
                 </View>
-                <View style={styles.markerButton}>
-                  <TouchableComponent
-                    onPress={showAlert}
-                    style={styles.container}
-                  >
-                    <Ionicons
-                      name={Platform.OS === 'android' ? 'md-car' : 'ios-car'}
-                      size={Dimensions.get('window').width / 100 * 10}
-                      color={Colors.primary}
-                    />
-                  </TouchableComponent>
-                </View>
-                <Text>Navigate</Text>
-              </View>
-            </Callout>
-          </Marker>
-        ))
-      }
-    </MapView >
+              </Callout>
+            </Marker>
+          ))
+        }
+      </MapView >
+    </View>
   )
 }
 
@@ -191,12 +185,17 @@ const styles = StyleSheet.create({
   topContainer: {
     height: Dimensions.get('window').height / 100 * 15,
     width: Dimensions.get('window').width,
-    // borderColor: 'black',
-    // borderWidth: 1,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderColor: 'black',
+    borderWidth: 1,
   },
   flexContainer: {
     flex: 1,
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
   navigationButtonsContainer: {
     flex: 1,
