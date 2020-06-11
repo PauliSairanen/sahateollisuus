@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback , Platform} from 'react-native'
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Colors from '../../constants/Colors'
 
@@ -8,11 +8,9 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
 }
 
-const MapNavigationButton = props => {
-  const iconName = props.iconName
-  const lat = props.latitude
-  const long = props.longitude
-  const animationTime = props.animationTime
+const MapMarkerCategoryButton = props => {
+  const buttonName = props.name
+
 
   return (
     <View style={styles.navigationButton}>
@@ -23,11 +21,9 @@ const MapNavigationButton = props => {
           longitude: long,
         }, animationTime)}
       >
-        <Ionicons
-          name={Platform.OS === 'android' ? `md-${iconName}` : `ios-${iconName}`}
-          size={Dimensions.get('window').width / 100 * 10}
-          color={Colors.primary}
-        />
+        <Text style={{fontSize: 10}}>
+          {buttonName}
+        </Text>
       </TouchableComponent>
     </View>
 
@@ -37,15 +33,15 @@ const MapNavigationButton = props => {
 const styles = StyleSheet.create({
   navigationButton: {
     height: Dimensions.get('window').width / 100 * 12,
-    aspectRatio: 1,
+    width: Dimensions.get('window').width / 100 * 20,
     borderColor: Colors.primary,
     borderWidth: 1,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 7,
+    marginHorizontal: 2,
   },
 })
 
-export default MapNavigationButton
+export default MapMarkerCategoryButton
 

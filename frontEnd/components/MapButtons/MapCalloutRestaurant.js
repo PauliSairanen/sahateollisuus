@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback , Platform} from 'react-native'
+import { View, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Colors from '../../constants/Colors'
 
@@ -8,11 +8,10 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
 }
 
-const MapNavigationButton = props => {
-  const iconName = props.iconName
-  const lat = props.latitude
-  const long = props.longitude
-  const animationTime = props.animationTime
+const MapCalloutRestaurant = props => {
+  const name = props.name
+  const category = props.category
+  const address = props.address
 
   return (
     <View style={styles.navigationButton}>
@@ -35,17 +34,9 @@ const MapNavigationButton = props => {
 }
 
 const styles = StyleSheet.create({
-  navigationButton: {
-    height: Dimensions.get('window').width / 100 * 12,
-    aspectRatio: 1,
-    borderColor: Colors.primary,
-    borderWidth: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 7,
-  },
+ 
+
 })
 
-export default MapNavigationButton
+export default MapCalloutRestaurant
 
