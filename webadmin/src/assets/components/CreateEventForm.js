@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button'
 import Navbar from 'react-bootstrap/Navbar'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 /**
  * @param f - e.target
@@ -71,6 +71,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         //About Form
         eventPass: "",
         eventName: "",
+        eventStatus: "",
         eventImage: "", //https://sahat.lamk.fi/saveFile
         eventWebUrl: "",
         placeName: "",
@@ -86,10 +87,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         programme: [],
         speakers: [],
         sponsors: [],
+        mapmarkers: [],
         //more about from stuff
         bodyText: [],
         disclaimer: [],
-        venue: []
+        venue: [],
     })
     //Input event id, get data to set formobjects
     async function parseEventData(id){
@@ -114,7 +116,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             sponsors: data.sponsors,
             bodyText: data.about.bodyText,
             disclaimer: data.about.disclaimer,
-            venue: data.venue
+            venue: data.venue,
+            mapmarkers: data.mapmarkers
         })
     }
     //When EditID is set and if it excists, run parseEventData
@@ -172,6 +175,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         fileToUpload={fileToUpload}
         subForm={FormObjects.venue}/>
     }
+    else if(ActiveForm === "MapMarkerForm"){
+        container = <MapMarkerForm
+        editForm={appendForm}
+        fileToUpload={fileToUpload}
+        subForm={FormObjects.mapmarkers}/>
+    }
     else{
         container = null
     }
@@ -203,7 +212,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         metadata: {
             eventName: `${FormObjects.eventName}`,
             eventImage: `${FormObjects.eventImage}`,
-            status: "Not implemented"
+            eventStatus: `${FormObjects.eventStatus}`
         },
         about: {
             eventWebUrl: `${FormObjects.eventWebUrl}`,
@@ -226,7 +235,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         programme: FormObjects.programme,
         speakers: FormObjects.speakers,
         sponsors: FormObjects.sponsors,
-        venue: FormObjects.venue
+        venue: FormObjects.venue,
+        mapMarkers: FormObjects.mapmarkers
     }
     //func to create event
     function createEventPost(form){
@@ -372,6 +382,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 <Button name="SpeakersForm" onClick={selectForm}>Speakers</Button>
                 <Button name="SponsorsForm" onClick={selectForm}>Sponsors</Button>
                 <Button name="VenueTabForm" onClick={selectForm}>Venue</Button>
+                <Button name="MapMarkerForm" onClick={selectForm}>Map Marker</Button>
                 <Button onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</Button>
                 <Button onClick={()=>
                 {
@@ -481,6 +492,7 @@ const AboutForm = (props) => {
         <form onChange={props.editForm} autoComplete="off" id="abtform">
             <input type="text" name="eventPass" placeholder="Event Password" defaultValue={props.FO.eventPass}/>
             <input type="text" name="eventName" placeholder="Event Name" defaultValue={props.FO.eventName}/>
+            <input type="text" name="eventStatus" placeholder="Event Status" defaultValue={props.FO.eventStatus}/>
             <input type="text" name="eventWebUrl" placeholder="Event URL" defaultValue={props.FO.eventWebUrl}/>
             <input type="text" name="placeName" placeholder="Place Name" defaultValue={props.FO.placeName}/>
             <input type="text" name="placeAddress" placeholder="Place Address" defaultValue={props.FO.placeAddress}/>
@@ -912,6 +924,106 @@ const VenueTabForm = (props) => {
             <button onClick={clickHandler}>Add Venue</button>
         </form>
         {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
+        </>
+    )
+}
+
+
+/*
+"mapMarkers":
+{
+    "restaurant":
+    [
+        {
+            "lat": "",
+            "lng": "",
+            "name": "",
+            "address": "",
+            "description": "",
+            "category": "",
+            "webURL": "",
+            "image": ""
+        }
+    ],
+    "hotel":
+    [
+        {
+            "lat": "",
+            "lng": "",
+            "name": "",
+            "address": "",
+            "description": "",
+            "webURL": "",
+            "image": "",
+            "rating": ""
+        }
+    ],
+    "other":
+    [
+        {
+            "lat": "",
+            "lng": "",
+            "name": "",
+            "address": "",
+            "description": "",
+            "webURL": "",
+            "image": "",
+            "type": ""
+        }
+    ]
+}
+*/
+const MapMarkerForm = (props) =>{
+    const [Form, setForm] = useState(props.subForm)
+    const [ActiveForm, setActiveForm] = useState()
+    function clickHandler(e){
+        e.preventDefault(); //prevents page refresh
+        let form = Form;
+        
+        //Todo, Form data to json
+
+        document.getElementById("form").reset();
+        setForm(form)
+        props.editForm("mapmarkers", Form)
+    }
+    let container;
+    if(ActiveForm === "restaurant"){
+        container = 
+        <>
+
+        </>
+
+    }
+    else if(ActiveForm === "hotel"){
+        container =
+        <>
+
+        </>
+
+    }
+    else if(ActiveForm === "other"){
+        container = 
+        <>
+
+        </>
+
+    }
+    else{
+        container = null;
+    }
+    return(
+        <>
+        <Dropdown>
+        <Dropdown.Toggle>
+            Marker Categories
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name)}} name="restaurant">Restaurant</Dropdown.Item>
+            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name)}} name="hotel">Hotel</Dropdown.Item>
+            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name)}} name="other">Other</Dropdown.Item>
+        </Dropdown.Menu>
+        </Dropdown>
+        {container}
         </>
     )
 }
