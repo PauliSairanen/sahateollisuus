@@ -36,14 +36,15 @@ const MapNavigationButton = props => {
 
 const styles = StyleSheet.create({
   navigationButton: {
-    height: Dimensions.get('window').width / 100 * 12,
+    height: Dimensions.get('window').width / 100 * 13,
     aspectRatio: 1,
     borderColor: Colors.primary,
     borderWidth: 1,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 7,
+    marginBottom: 12,
+
   },
 })
 

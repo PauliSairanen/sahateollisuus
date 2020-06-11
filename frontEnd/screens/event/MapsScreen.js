@@ -247,58 +247,43 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   absoluteTopContainer: {
-    height: Dimensions.get('window').width / 100 * 30,
+    height: Dimensions.get('window').width / 100 * 15,
     width: Dimensions.get('window').width,
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    // borderColor: 'black',
-    // borderWidth: 1,
+    borderColor: 'black',
+    borderWidth: 1,
   },
   flexContainer: {
     flex: 1,
     alignItems: 'flex-end',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'flex-start'
   },
   emptyContainer: {
     flex: 1,
-    // borderColor: 'black',
-    // borderWidth: 1,
+    borderColor: 'black',
+    borderWidth: 1,
   },
   markerButtonContainer: {
-    flex: 5,
+    flex: 4,
+    marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    // borderColor: 'black',
-    // borderWidth: 1,
+    borderColor: 'black',
+    borderWidth: 1,
   },
   navigationButtonsContainer: {
     flex: 1,
+    marginTop: 70,
     flexDirection: 'column',
-    // borderColor: 'black',
-    // borderWidth: 1,
-  },
-  markerButton: {
-    height: Dimensions.get('window').width / 100 * 10,
-    aspectRatio: 1,
-    // borderColor: 'black',
-    // borderWidth: 1,
-  },
-  navigationButton: {
-    height: Dimensions.get('window').width / 100 * 12,
-    aspectRatio: 1,
-    borderColor: Colors.primary,
+    borderColor: 'black',
     borderWidth: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 7,
   },
-
 })
 
 export default MapsScreen

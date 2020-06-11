@@ -11,7 +11,6 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 const MapMarkerCategoryButton = props => {
   const buttonName = props.name
 
-
   return (
     <View style={styles.navigationButton}>
       <TouchableComponent
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 2,
+    marginHorizontal: 5,
   },
 })
 
