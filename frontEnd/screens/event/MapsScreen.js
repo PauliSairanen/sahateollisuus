@@ -20,7 +20,7 @@ const coordinateArray = [
   { name: 'Hesburger', latitude: 60.163390, longitude: 24.948150 },
 ]
 
-const mapData = { 
+const mapData = {
   restaurants: [
     {
       'lat': 60.167900,
@@ -107,8 +107,9 @@ const MapsScreen = props => {
 
   const [coordinates, setCoordinates] = useState(coordinateArray)
   const [userCurrentLocation, setUserCurrentLocation] = useState(false)
-  const [markerCategory, setMarkerCategory] = useState()
-  const [venueLocation, setVenueLocation] = useState()
+  const [markerCategory, setMarkerCategory] = useState('No category')
+  const [markerData, setMarkerData] = useState(mapData.restaurants)
+  const [pinColor, setPinColor] = useState('red')
 
   requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -146,6 +147,12 @@ const MapsScreen = props => {
     requestLocationPermission()
   }, [])
 
+  // changeMarker = (category) => {
+  //   setMarkerCategory(category)
+  // }
+
+  console.log(markerCategory)
+
   if (userCurrentLocation == false) {
     return (
       <View>
@@ -165,12 +172,24 @@ const MapsScreen = props => {
               <View style={styles.markerButtonContainer}>
                 <MapMarkerCategoryButton
                   name={'Restaurants'}
+                  onPress={() => {
+                    setMarkerData(mapData.restaurants)
+                    setPinColor('red')
+                  }}
                 />
                 <MapMarkerCategoryButton
                   name={'Hotels'}
+                  onPress={() => {
+                    setMarkerData(mapData.hotels)
+                    setPinColor('green')
+                  }}
                 />
                 <MapMarkerCategoryButton
                   name={'Other'}
+                  onPress={() => {
+                    setMarkerData(mapData.other)
+                    setPinColor('blue')
+                  }}
                 />
               </View>
 
@@ -200,12 +219,13 @@ const MapsScreen = props => {
           showsUserLocation={true}
         >
           {
-            coordinates.map((marker, index) => (
+            markerData.map((marker, index) => (
               <Marker
                 key={marker.name}
-                coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
+                coordinate={{ latitude: marker.lat, longitude: marker.long }}
                 title={marker.name}
                 key={index}
+                pinColor={pinColor}
               >
                 <Callout>
                   <View style={styles.container}>

@@ -12,15 +12,12 @@ const MapMarkerCategoryButton = props => {
   const buttonName = props.name
 
   return (
-    <View style={styles.navigationButton}>
+    <View style={styles.buttonContainer}>
       <TouchableComponent
-        style={styles.container}
-        onPress={() => this.MapView.animateToCoordinate({
-          latitude: lat,
-          longitude: long,
-        }, animationTime)}
+        style={styles.navigationButton}
+        onPress={props.onPress}
       >
-        <Text style={{fontSize: 10}}>
+        <Text style={{ fontSize: 10 }}>
           {buttonName}
         </Text>
       </TouchableComponent>
@@ -30,6 +27,11 @@ const MapMarkerCategoryButton = props => {
 }
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    marginHorizontal: 5,
+  },
   navigationButton: {
     height: Dimensions.get('window').width / 100 * 12,
     width: Dimensions.get('window').width / 100 * 20,
@@ -37,8 +39,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 5,
+    justifyContent: 'center', 
   },
 })
 
