@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Alert, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions, ActivityIndicator } from 'react-native'
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+
 import Geolocation from '@react-native-community/geolocation'
 import { request, PERMISSIONS } from 'react-native-permissions'
 
 import Colors from '../../constants/Colors'
 import MapsNavigationButton from '../../components/MapButtons/MapNavigationButton'
 import MapMarkerCategoryButton from '../../components/MapButtons/MapMarkerCategoryButton'
+import MarkerCalloutHotel from '../../components/MapButtons/MarkerCalloutHotel'
+
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -147,12 +150,6 @@ const MapsScreen = props => {
     requestLocationPermission()
   }, [])
 
-  // changeMarker = (category) => {
-  //   setMarkerCategory(category)
-  // }
-
-  console.log(markerCategory)
-
   if (userCurrentLocation == false) {
     return (
       <View>
@@ -228,24 +225,10 @@ const MapsScreen = props => {
                 pinColor={pinColor}
               >
                 <Callout>
-                  <View style={styles.container}>
-                    <View>
-                      <Text>{marker.name}</Text>
-                    </View>
-                    <View style={styles.markerButton}>
-                      <TouchableComponent
-                        onPress={showAlert}
-                        style={styles.container}
-                      >
-                        <Ionicons
-                          name={Platform.OS === 'android' ? 'md-car' : 'ios-car'}
-                          size={Dimensions.get('window').width / 100 * 10}
-                          color={Colors.primary}
-                        />
-                      </TouchableComponent>
-                    </View>
-                    <Text>Navigate</Text>
-                  </View>
+                 <MarkerCalloutHotel 
+                  name={marker.name}
+                  rating={marker.rating}
+                 />
                 </Callout>
               </Marker>
             ))
@@ -304,6 +287,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
   },
+  
 })
 
 export default MapsScreen
