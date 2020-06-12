@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Alert, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, Alert, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions, ActivityIndicator, Modal } from 'react-native'
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -10,6 +10,12 @@ import Colors from '../../constants/Colors'
 import MapsNavigationButton from '../../components/MapButtons/MapNavigationButton'
 import MapMarkerCategoryButton from '../../components/MapButtons/MapMarkerCategoryButton'
 import MarkerCalloutHotel from '../../components/MapButtons/MarkerCalloutHotel'
+
+
+let TouchableComponent = TouchableOpacity
+if (Platform.OS === 'android' && Platform.Version >= 21) {
+  TouchableComponent = TouchableNativeFeedback
+}
 
 const coordinateArray = [
   { name: 'Burger King', latitude: 60.167900, longitude: 60.167900 },
@@ -104,6 +110,7 @@ const MapsScreen = props => {
   const [userCurrentLocation, setUserCurrentLocation] = useState(false)
   const [markerData, setMarkerData] = useState(mapData.restaurants)
   const [pinColor, setPinColor] = useState('red')
+  const [modalVisible, setModalVisible] = useState(false);
 
   requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -155,6 +162,29 @@ const MapsScreen = props => {
   } else {
     return (
       <View>
+
+        <Modal
+          animationType="slide"
+          visible={modalVisible}
+        >
+          <View style={styles.modalContainer}>
+          <Text>This is a modal</Text>
+          <TouchableComponent
+            title={'Close modal'}
+            onPress={() => {
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <Ionicons
+              name={Platform.OS === 'android' ? 'md-close' : 'ios-close'}
+              size={Dimensions.get('window').width / 100 * 15}
+              color={Colors.pdf}
+            />
+          </TouchableComponent>
+          </View>
+        </Modal>
+
+
         <View style={styles.absoluteTopContainer}>
           <View style={styles.flexContainer}>
             <View style={styles.markerButtonContainer}>
@@ -212,7 +242,12 @@ const MapsScreen = props => {
                 key={index}
                 pinColor={pinColor}
               >
-                <Callout>
+                <Callout
+                  onPress={() => {
+                    setModalVisible(true)
+                  }}
+                  style={styles.calloutFlex}
+                >
                   <MarkerCalloutHotel
                     name={marker.name}
                     rating={marker.rating}
@@ -232,6 +267,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  modalContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
   },
   map: {
     height: '100%',
@@ -253,7 +293,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start'
   },
-  emptyContainer: {
+  calloutFlex: {
     flex: 1,
     // borderColor: 'black',
     // borderWidth: 1,
