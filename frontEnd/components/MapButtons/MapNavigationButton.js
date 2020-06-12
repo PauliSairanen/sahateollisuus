@@ -1,12 +1,14 @@
 import React from 'react'
 import { View, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback , Platform} from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+
+import Card from '../../components/Universal/Card'
 import Colors from '../../constants/Colors'
 
 let TouchableComponent = TouchableOpacity
-if (Platform.OS === 'android' && Platform.Version >= 21) {
-  TouchableComponent = TouchableNativeFeedback
-}
+// if (Platform.OS === 'android' && Platform.Version >= 21) {
+//   TouchableComponent = TouchableNativeFeedback
+// }
 
 const MapNavigationButton = props => {
   const iconName = props.iconName
@@ -15,7 +17,7 @@ const MapNavigationButton = props => {
   const animationTime = props.animationTime
 
   return (
-    <View style={styles.navigationButton}>
+    <Card style={styles.navigationButton}>
       <TouchableComponent
         style={styles.container}
         onPress={() => this.MapView.animateToCoordinate({
@@ -29,7 +31,7 @@ const MapNavigationButton = props => {
           color={Colors.primary}
         />
       </TouchableComponent>
-    </View>
+    </Card>
 
   )
 }

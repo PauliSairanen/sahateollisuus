@@ -107,10 +107,7 @@ const showAlert = () => {
 }
 
 const MapsScreen = props => {
-
-  const [coordinates, setCoordinates] = useState(coordinateArray)
   const [userCurrentLocation, setUserCurrentLocation] = useState(false)
-  const [markerCategory, setMarkerCategory] = useState('No category')
   const [markerData, setMarkerData] = useState(mapData.restaurants)
   const [pinColor, setPinColor] = useState('red')
 
@@ -133,16 +130,17 @@ const MapsScreen = props => {
   locateCurrentLocation = () => {
     Geolocation.getCurrentPosition(
       position => {
-        currentPosition = {
+        const currentPosition = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           latitudeDelta: 0.016,
           longitudeDelta: 0.06
         }
+        console.log(currentPosition)
         setUserCurrentLocation(currentPosition)
       },
       error => Alert.alert(error.message),
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 10000 }
+      { enableHighAccuracy: true, timeout: 20000 }
     )
   }
 
@@ -152,62 +150,60 @@ const MapsScreen = props => {
 
   if (userCurrentLocation == false) {
     return (
-      <View>
+      <View style={styles.container}>
         <ActivityIndicator
           size='large'
           color={Colors.primary}
         />
+        <Text>Getting Gps location..</Text>
       </View>
     )
   } else {
     return (
       <View>
-        <View>
-          <View style={styles.absoluteTopContainer}>
-            <View style={styles.flexContainer}>
-              <View style={styles.emptyContainer}></View>
-              <View style={styles.markerButtonContainer}>
-                <MapMarkerCategoryButton
-                  name={'Restaurants'}
-                  onPress={() => {
-                    setMarkerData(mapData.restaurants)
-                    setPinColor('red')
-                  }}
-                />
-                <MapMarkerCategoryButton
-                  name={'Hotels'}
-                  onPress={() => {
-                    setMarkerData(mapData.hotels)
-                    setPinColor('green')
-                  }}
-                />
-                <MapMarkerCategoryButton
-                  name={'Other'}
-                  onPress={() => {
-                    setMarkerData(mapData.other)
-                    setPinColor('blue')
-                  }}
-                />
-              </View>
+        <View style={styles.absoluteTopContainer}>
+          <View style={styles.flexContainer}>
+           
+            <View style={styles.markerButtonContainer}>
+              <MapMarkerCategoryButton
+                name={'Restaurants'}
+                onPress={() => {
+                  setMarkerData(mapData.restaurants)
+                  setPinColor('red')
+                }}
+              />
+              <MapMarkerCategoryButton
+                name={'Hotels'}
+                onPress={() => {
+                  setMarkerData(mapData.hotels)
+                  setPinColor('green')
+                }}
+              />
+              <MapMarkerCategoryButton
+                name={'Other'}
+                onPress={() => {
+                  setMarkerData(mapData.other)
+                  setPinColor('blue')
+                }}
+              />
+            </View>
 
-              <View style={styles.navigationButtonsContainer}>
-                <MapsNavigationButton
-                  latitude={60.169810}
-                  longitude={24.938130}
-                  animationTime={1000}
-                  iconName={'home'}
-                />
-                <MapsNavigationButton
-                  latitude={userCurrentLocation.latitude}
-                  longitude={userCurrentLocation.longitude}
-                  animationTime={1000}
-                  iconName={'navigate'}
-                />
-              </View>
+            <View style={styles.navigationButtonsContainer}>
+              <MapsNavigationButton
+                latitude={60.169810}
+                longitude={24.938130}
+                animationTime={1000}
+                iconName={'home'}
+              />
+              <MapsNavigationButton
+                latitude={userCurrentLocation.latitude}
+                longitude={userCurrentLocation.longitude}
+                animationTime={1000}
+                iconName={'navigate'}
+              />
             </View>
           </View>
         </View>
-
         <MapView
           provider={PROVIDER_GOOGLE}
           ref={ref => (this.MapView = ref)}
@@ -225,10 +221,10 @@ const MapsScreen = props => {
                 pinColor={pinColor}
               >
                 <Callout>
-                 <MarkerCalloutHotel 
-                  name={marker.name}
-                  rating={marker.rating}
-                 />
+                  <MarkerCalloutHotel
+                    name={marker.name}
+                    rating={marker.rating}
+                  />
                 </Callout>
               </Marker>
             ))
@@ -250,44 +246,45 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   absoluteTopContainer: {
-    height: Dimensions.get('window').width / 100 * 15,
+    height: Dimensions.get('window').width / 100 * 32,
     width: Dimensions.get('window').width,
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    borderColor: 'black',
-    borderWidth: 1,
+    // borderColor: 'black',
+    // borderWidth: 1,
   },
   flexContainer: {
     flex: 1,
-    alignItems: 'flex-end',
     flexDirection: 'row',
     alignItems: 'flex-start'
   },
   emptyContainer: {
     flex: 1,
-    borderColor: 'black',
-    borderWidth: 1,
+    // borderColor: 'black',
+    // borderWidth: 1,
   },
   markerButtonContainer: {
     flex: 4,
     marginTop: 10,
+    padding: 3,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: 1,
+    paddingHorizontal: 30,
+    // borderColor: 'black',
+    // borderWidth: 1,
   },
   navigationButtonsContainer: {
     flex: 1,
-    marginTop: 70,
+    marginTop: 10,
     flexDirection: 'column',
-    borderColor: 'black',
-    borderWidth: 1,
+    // borderColor: 'black',
+    // borderWidth: 1,
   },
-  
+
 })
 
 export default MapsScreen

@@ -17,10 +17,12 @@ const MarkerCalloutHotel = props => {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.header}>
         <Text>{name}</Text>
+      </View>
+      <View style={styles.header}>
         <Rating
-          imageSize={15}
+          imageSize={16}
           fractions={1}
           startingValue={rating}
         />
@@ -62,6 +64,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  header: {
+    margin : 4,
   },
   calloutButtonRow: {
     flex: 1,
