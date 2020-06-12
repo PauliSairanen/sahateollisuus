@@ -89,6 +89,7 @@ const FormTable = (props) => {
         let newForm = form;
         props.fileToUpload(e)
         newForm[id][key] = fileName
+        console.log(newForm, newForm[id][key])
         form = newForm;
         props.setForm(form)
         setRefresh(true)
