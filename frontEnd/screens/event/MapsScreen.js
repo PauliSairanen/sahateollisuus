@@ -20,7 +20,7 @@ const coordinateArray = [
   { name: 'Hesburger', latitude: 60.163390, longitude: 24.948150 },
 ]
 
-const mapData = {
+const mapData = { 
   restaurants: [
     {
       'lat': 60.167900,
