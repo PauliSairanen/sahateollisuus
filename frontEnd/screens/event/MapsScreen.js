@@ -11,12 +11,6 @@ import MapsNavigationButton from '../../components/MapButtons/MapNavigationButto
 import MapMarkerCategoryButton from '../../components/MapButtons/MapMarkerCategoryButton'
 import MarkerCalloutHotel from '../../components/MapButtons/MarkerCalloutHotel'
 
-
-let TouchableComponent = TouchableOpacity
-if (Platform.OS === 'android' && Platform.Version >= 21) {
-  TouchableComponent = TouchableNativeFeedback
-}
-
 const coordinateArray = [
   { name: 'Burger King', latitude: 60.167900, longitude: 60.167900 },
   { name: 'Naughty Burger', latitude: 60.165840, longitude: 24.936250 },
@@ -163,7 +157,6 @@ const MapsScreen = props => {
       <View>
         <View style={styles.absoluteTopContainer}>
           <View style={styles.flexContainer}>
-           
             <View style={styles.markerButtonContainer}>
               <MapMarkerCategoryButton
                 name={'Restaurants'}
@@ -187,7 +180,6 @@ const MapsScreen = props => {
                 }}
               />
             </View>
-
             <View style={styles.navigationButtonsContainer}>
               <MapsNavigationButton
                 latitude={60.169810}

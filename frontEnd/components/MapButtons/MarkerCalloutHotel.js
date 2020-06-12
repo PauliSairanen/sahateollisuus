@@ -52,7 +52,6 @@ const MarkerCalloutHotel = props => {
             />
           </TouchableComponent>
         </Card>
-
       </View>
     </View>
 
@@ -63,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   header: {
     margin : 4,
@@ -77,6 +76,9 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').width / 100 * 12,
     aspectRatio: 1,
     margin: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white'
   }
 })
 
