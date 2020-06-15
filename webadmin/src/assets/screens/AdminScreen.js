@@ -18,10 +18,9 @@ const AdminScreen = (props) => {
     const [LoginVisibility, setLoginVisibility] = useState(false);
     const baseURL = 'https://sahat.lamk.fi';
     const [EventList, setEventList] = useState([]);
-    const [EventObject, setEventObject] = useState()
+    const [EventObject, setEventObject] = useState([])
     const [Search, setSearch] = useState("")
     let eventList;
-
     if(props.readSession() === null){
         console.log("Never should have come here.");
         props.changeContent("LoginScreen");
@@ -101,6 +100,7 @@ const AdminScreen = (props) => {
             })
             .catch(function (error) {
             console.log(error);
+            return []
             })
     }
     
@@ -180,7 +180,6 @@ const AdminScreen = (props) => {
                 return null
             }
         })
-        
         setEventObject(listObjects)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [EventList])
@@ -199,6 +198,7 @@ const AdminScreen = (props) => {
     useEffect(() => {
         //console.log("Admin Screen loaded")
         pageLoad()
+        window.scrollTo(0, 0)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
@@ -233,7 +233,7 @@ const AdminScreen = (props) => {
             </div>
         </div> */}
             <div>
-                {EventObject}
+                {EventObject.length > 0 ? EventObject : <p>Can't reach back-end</p>}
             </div>
         <div className="AdminScreen">
                 <div id="EventList">

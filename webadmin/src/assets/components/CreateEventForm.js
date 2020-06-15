@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button'
 import Navbar from 'react-bootstrap/Navbar'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 /**
  * @param f - e.target
@@ -53,13 +53,17 @@ function xlsxToJson(f){
     })
     
 }
-
+/**
+ * @param changeContent - change screen
+ * @param id - Event to edit based on ID
+ */
+//Screen: Creates events based on FormObjects. 
 const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const baseURL = 'https://sahat.lamk.fi';
 
     //Visible forms controller
     const [ActiveForm, setActiveForm] = useState()
-    const [EditID, setEditID] = useState(props.id)
+    const [EditID] = useState(props.id)
     const [Files, setFiles] = useState([])
     let container;
     //Form variables
@@ -67,6 +71,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         //About Form
         eventPass: "",
         eventName: "",
+        eventStatus: "",
         eventImage: "", //https://sahat.lamk.fi/saveFile
         eventWebUrl: "",
         placeName: "",
@@ -82,11 +87,18 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         programme: [],
         speakers: [],
         sponsors: [],
+        mapmarkers: {
+            restaurant: [],
+            hotel: [],
+            other: []
+        },
+        venue: [],
         //more about from stuff
         bodyText: [],
         disclaimer: [],
-        venue: []
+        
     })
+    //Input event id, get data to set formobjects
     async function parseEventData(id){
         let data = await getEventData(id);
         setFormObjects({
@@ -109,9 +121,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             sponsors: data.sponsors,
             bodyText: data.about.bodyText,
             disclaimer: data.about.disclaimer,
-            venue: data.venue
+            venue: data.venue,
+            mapmarkers: data.mapmarkers
         })
     }
+    //When EditID is set and if it excists, run parseEventData
     useEffect(() => {
         
         if(EditID){
@@ -122,9 +136,13 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [EditID])
 
+    //Change forms in the screen
+    function selectForm(e){
+        setActiveForm(e.target.name)
+    }
     if(ActiveForm === "AboutForm"){
         container = <AboutForm 
-            editForm={changeHandler} 
+            editForm={changeHandler}
             appendForm={appendForm} 
             bodyTexts={FormObjects.bodyText} 
             disclaimers={FormObjects.disclaimer} 
@@ -138,7 +156,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         subForm={FormObjects.participants}/>
     }
     else if(ActiveForm === "ProgrammeForm"){
-        container = <ProgrammeForm editForm={appendForm} 
+        container = <ProgrammeForm 
+        editForm={appendForm} 
         fileToUpload={fileToUpload}
         subForm={FormObjects.programme}/>
     }
@@ -161,9 +180,16 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         fileToUpload={fileToUpload}
         subForm={FormObjects.venue}/>
     }
+    else if(ActiveForm === "MapMarkerForm"){
+        container = <MapMarkerForm
+        editForm={appendForm}
+        fileToUpload={fileToUpload}
+        subForm={FormObjects.mapmarkers}/>
+    }
     else{
         container = null
     }
+    //changes formobjects, also gets rid of path from file inputs
     function changeHandler(e){ //tuntuu redundantilta, vois poistaa myöhemmin emt.
         if(e.target.type === "file"){
             setFormObjects({
@@ -178,6 +204,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             })
         }
     }
+    //same as changeHandler, but target and value is more specified
     function appendForm(target,value){
         setFormObjects({
             ...FormObjects,
@@ -189,7 +216,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         eventPass: `${FormObjects.eventPass}`,
         metadata: {
             eventName: `${FormObjects.eventName}`,
-            eventImage: `${FormObjects.eventImage}`
+            eventImage: `${FormObjects.eventImage}`,
+            eventStatus: `${FormObjects.eventStatus}`
         },
         about: {
             eventWebUrl: `${FormObjects.eventWebUrl}`,
@@ -200,19 +228,20 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 email: `${FormObjects.placeEmail}`
             },
             title: `${FormObjects.eventTitle}`,
-            bodyText: FormObjects.bodyText, //Not implemented
+            bodyText: FormObjects.bodyText, //implemented in mobile?
             moreInformation: {
                 eventWebsite: `${FormObjects.MiWebsite}`,
                 organizer: `${FormObjects.MiOrg}`,
                 email: `${FormObjects.MiEmail}`
             },
-            disclaimer: FormObjects.disclaimer
+            disclaimer: FormObjects.disclaimer //implemented in mobile?
         },
         participants: FormObjects.participants,
-        programme: FormObjects.programme, //pdf not implemented
+        programme: FormObjects.programme,
         speakers: FormObjects.speakers,
         sponsors: FormObjects.sponsors,
-        venue: FormObjects.venue //implemented?
+        venue: FormObjects.venue,
+        mapMarkers: FormObjects.mapmarkers
     }
     //func to create event
     function createEventPost(form){
@@ -248,7 +277,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             console.log(error);
         })
     }
-
+    //input event id, get eventdata
     function getEventData(id){
         const req = axios.post(baseURL+"/findEvent",{
             id: id
@@ -266,7 +295,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             console.log(error);
         })
     }
-    //Todo function that uploads files.
+    //function that uploads files.
     function uploadFile(file, cat, id){
         let fd = new FormData();
         //console.log(file)
@@ -291,7 +320,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             return false
         })
     }
-    //FILE UPLOAD TEST METHODS
+
     /*
     {
         category: kategoria,
@@ -303,14 +332,15 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         let i;
         //console.log("ID on " +id)
         for(i = 0; i < files.length; i++){
-            await uploadFile(files[i].file, "myFiles", id)
+            await uploadFile(files[i].file, "myFiles", id) //todo testaa et await toimii
         }
         props.changeContent("AdminScreen")
     }
+    //adds file to list of files to upload
     function fileToUpload(e){
         let files = Files;
         let file = e.target.files[0]
-        let category = e.target.id;
+        let category = e.target.name;
         //Check if file already exists or (incase of eventImage) is already bound to input
         let found = false;
         let i;
@@ -343,11 +373,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         setFiles(files)
         //console.log(Files)
     }
-    //TESTS END HERE
-    function selectForm(e){
-        setActiveForm(e.target.name)
-    }
-    //<AboutForm editForm={changeHandler}/>
+
     return (
         <>
             <Navbar bg="light" variant="light" expand="lg">
@@ -361,6 +387,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 <Button name="SpeakersForm" onClick={selectForm}>Speakers</Button>
                 <Button name="SponsorsForm" onClick={selectForm}>Sponsors</Button>
                 <Button name="VenueTabForm" onClick={selectForm}>Venue</Button>
+                <Button name="MapMarkerForm" onClick={selectForm}>Map Marker</Button>
                 <Button onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</Button>
                 <Button onClick={()=>
                 {
@@ -394,13 +421,21 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         </>
     )
 }
-
+/**
+ * @param editForm - evoke changehandler
+ * @param appendForm - evoke appendForm
+ * @param bodytexts - bodytexts from formobjects
+ * @param disclaimers - disclaimers from formobjects
+ * @param FO - formobjects
+ * @param fileToUpload - evoke fileToUpload
+ */
 const AboutForm = (props) => {
     const [Form, setForm] = useState(props.bodyTexts)
     const [Form2, setForm2] = useState(props.disclaimers)
     const [Fields, setFields] = useState(createFields)
     const [Fields2, setFields2] = useState(createFields2)
 
+    //renders bodytexts
     function createFields(){
         if(Form){
             let list = Form.map((items,index)=>{
@@ -429,6 +464,7 @@ const AboutForm = (props) => {
         setFields(createFields)
     }
     //Redundant code below, 
+    //changes disclaimers
     function createFields2(){
         if(Form2){
             let list = Form2.map((items,index)=>{
@@ -461,6 +497,7 @@ const AboutForm = (props) => {
         <form onChange={props.editForm} autoComplete="off" id="abtform">
             <input type="text" name="eventPass" placeholder="Event Password" defaultValue={props.FO.eventPass}/>
             <input type="text" name="eventName" placeholder="Event Name" defaultValue={props.FO.eventName}/>
+            <input type="text" name="eventStatus" placeholder="Event Status" defaultValue={props.FO.eventStatus}/>
             <input type="text" name="eventWebUrl" placeholder="Event URL" defaultValue={props.FO.eventWebUrl}/>
             <input type="text" name="placeName" placeholder="Place Name" defaultValue={props.FO.placeName}/>
             <input type="text" name="placeAddress" placeholder="Place Address" defaultValue={props.FO.placeAddress}/>
@@ -471,7 +508,7 @@ const AboutForm = (props) => {
             <input type="text" name="MiOrg" placeholder="More info Organizer" defaultValue={props.FO.MiOrg}/>
             <input type="text" name="MiEmail" placeholder="More info Email" defaultValue={props.FO.MiEmail}/>
             <label>Event Image</label>
-            <input type="file" id="test" name="eventImage" onChange={(e)=>{
+            <input type="file" id="test" name="test" onChange={(e)=>{
                 //props.appendForm("eventImage", `https://sahat.lamk.fi/images/metadataImages/${e.target.files[0].name}`)
                 props.fileToUpload(e)
             }}/>
@@ -495,11 +532,13 @@ participants: [
     }
 ],
 */
+/**
+ * @param editForm - evoke appendForm
+ * @param subForm - get formObject data to Form
+ */
 const ParticipantsForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
-    useEffect(() => {
-        props.editForm("participants", Form)
-    }, [Form])
+    
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
@@ -534,7 +573,7 @@ const ParticipantsForm = (props) => {
                     }
                 )
                 setForm(form)
-                //props.editForm("participants", Form)
+                props.editForm("participants", Form)
             }
         }
     }
@@ -573,6 +612,11 @@ const ParticipantsForm = (props) => {
     ]
 }
 */
+/**
+ * @param editForm - evoke appendForm
+ * @param subForm - get formObject data to Form
+ * @param fileToUpload - put file to list of files to upload
+ */
 const ProgrammeForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
     useEffect(() => {
@@ -588,7 +632,7 @@ const ProgrammeForm = (props) => {
         "Name of Speaker",
         "Title of Speaker",
         "Special Title of Speaker",
-        "Company of Speaker",
+        "Company",
         "Pdf"
     ]
     function dataToForm(data){
@@ -720,6 +764,7 @@ const ProgrammeForm = (props) => {
         }
         dataToForm(list)
     }
+
     return(
         <>
         <form autoComplete="off" id="form">
@@ -733,13 +778,21 @@ const ProgrammeForm = (props) => {
             <input type="text" name="speakerTitle" placeholder="Speaker Title"/>
             <input type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
             <input type="text" name="speakerCompany" placeholder="Speaker Company"/>
-            <input type="file" name="programmePdf" id="test" 
+            <input type="file" name="test" id="test" 
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Programme</button>
         </form>
         <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/>
-        {Form.length > 0 ? <FormTable form={Form} setForm={(data) => dataToForm(data)} keys={keys} programme={true}/> : null}
+        {Form.length > 0 ? 
+            <FormTable 
+                form={Form} 
+                setForm={(data) => dataToForm(data)} 
+                keys={keys} 
+                programme={true}
+                fileToUpload={(e)=>{props.fileToUpload(e)}}
+            /> : 
+        null}
         </>
     )
 }
@@ -752,6 +805,11 @@ const ProgrammeForm = (props) => {
     "ImageID": "not implemented" //https://sahat.lamk.fi/images/speakerImages/${imageID}
 }
 */
+/**
+ * @param editForm - evoke appendForm
+ * @param subForm - get formObject data to Form
+ * @param fileToUpload - put file to list of files to upload
+ */
 const SpeakersForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
     function clickHandler(e){
@@ -801,7 +859,7 @@ const SpeakersForm = (props) => {
         </form>
         <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/>
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )
 }
@@ -812,6 +870,11 @@ const SpeakersForm = (props) => {
     "ImageID": "Test"
 }
 */
+/**
+ * @param editForm - evoke appendForm
+ * @param subForm - get formObject data to Form
+ * @param fileToUpload - put file to list of files to upload
+ */
 const SponsorsForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
     function clickHandler(e){
@@ -835,10 +898,15 @@ const SponsorsForm = (props) => {
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Sponsor</button>
         </form>
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )
 }
+/**
+ * @param editForm - evoke appendForm
+ * @param subForm - get formObject data to Form
+ * @param fileToUpload - put file to list of files to upload
+ */
 const VenueTabForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
     function clickHandler(e){
@@ -860,11 +928,241 @@ const VenueTabForm = (props) => {
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button onClick={clickHandler}>Add Venue</button>
         </form>
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )
 }
 
+
+/*
+"mapMarkers":
+{
+    "restaurant":
+    [
+        {
+            "lat": "",
+            "lng": "",
+            "name": "",
+            "address": "",
+            "description": "",
+            "category": "",
+            "webURL": "",
+            "image": ""
+        }
+    ],
+    "hotel":
+    [
+        {
+            "lat": "",
+            "lng": "",
+            "name": "",
+            "address": "",
+            "description": "",
+            "webURL": "",
+            "image": "",
+            "rating": ""
+        }
+    ],
+    "other":
+    [
+        {
+            "lat": "",
+            "lng": "",
+            "name": "",
+            "address": "",
+            "description": "",
+            "webURL": "",
+            "image": "",
+            "type": ""
+        }
+    ]
+}
+*/
+const MapMarkerForm = (props) =>{
+    const [Form, setForm] = useState(props.subForm)
+    const [ActiveForm, setActiveForm] = useState()
+    const keys = [
+        "Marker Category",
+        "Latitude",
+        "Longitude",
+        "Name",
+        "Address",
+        "Description",
+        "WebURL",
+        "(Restaurant) category",
+        "(Hotel) rating",
+        "(Other) type",
+        "Image"
+    ]
+
+    function clickHandler(e){
+        e.preventDefault(); //prevents page refresh
+        let i;
+        let marker = {}
+        for(i = 0; i < e.target.form.length - 1; i++){
+            marker[e.target.form[i].name] = e.target.form[i].value.match(/[^\\/]*$/)[0]
+        }
+        Form[ActiveForm].push(marker)
+        // console.log(Form[ActiveForm])
+        
+        // let form = Form;
+        
+        // //Todo, Form data to json
+
+        document.getElementById("form").reset();
+        setForm(Form)
+        props.editForm("mapmarkers", Form)
+    }
+    function dataToForm(data){
+        let newForm = {
+            restaurant: [],
+            hotel: [],
+            other: []
+        }
+        for(let item in data){
+            let newObj = {}
+            let destination;
+            for(let key in data[item]){
+                if(key === "markcat"){
+                    destination = data[item][key]
+                }
+                else{
+                    console.log(data[item][key], key)
+                    newObj[key] = data[item][key]
+                }
+                
+            }
+            console.log(newObj)
+            newForm[destination].push(newObj)
+        }
+        console.log(newForm)
+        setForm(newForm)
+        props.editForm("mapmarkers", newForm)
+    }
+    let container;
+    if(ActiveForm === "restaurant"){
+        container = 
+        <>
+            <input type="text" name="lat" id="lat" placeholder="Latitude"/>
+            <input type="text" name="lng" id="lng" placeholder="Longitude"/>
+            <input type="text" name="name" placeholder="Name"/>
+            <input type="text" name="address" id="address" placeholder="Address"/>
+            <input type="text" name="description" placeholder="Description"/>
+            <input type="text" name="category" placeholder="Category"/>
+            <input type="text" name="webURL" placeholder="Website URL"/>
+            <input type="file" name="image" onChange={(e)=>{props.fileToUpload(e)}}/>
+            <button onClick={clickHandler}>Add Restaurant Map Marker</button>
+        </>
+
+    }
+    else if(ActiveForm === "hotel"){
+        container =
+        <>
+            <input type="text" name="lat" id="lat" placeholder="Latitude"/>
+            <input type="text" name="lng" id="lng" placeholder="Longitude"/>
+            <input type="text" name="name" placeholder="Name"/>
+            <input type="text" name="address" id="address" placeholder="Address"/>
+            <input type="text" name="description" placeholder="Description"/>
+            <input type="text" name="rating" placeholder="Rating"/>
+            <input type="text" name="webURL" placeholder="Website URL"/>
+            <input type="file" name="image" onChange={(e)=>{props.fileToUpload(e)}}/>
+            <button onClick={clickHandler}>Add Hotel Map Marker</button>
+        
+        </>
+
+    }
+    else if(ActiveForm === "other"){
+        container = 
+        <>
+            <input type="text" name="lat" id="lat" placeholder="Latitude"/>
+            <input type="text" name="lng" id="lng" placeholder="Longitude"/>
+            <input type="text" name="name" placeholder="Name"/>
+            <input type="text" name="address" id="address" placeholder="Address"/>
+            <input type="text" name="description" placeholder="Description"/>
+            <input type="text" name="type" placeholder="Type"/>
+            <input type="text" name="webURL" placeholder="Website URL"/>
+            <input type="file" name="image" onChange={(e)=>{props.fileToUpload(e)}}/>
+            <button onClick={clickHandler}>Add Other Map Marker</button>
+        
+        </>
+
+    }
+    else{
+        container = null;
+    }
+    return(
+        <>
+        <Dropdown>
+        <Dropdown.Toggle>
+            Marker Categories
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="restaurant">Restaurant</Dropdown.Item>
+            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="hotel">Hotel</Dropdown.Item>
+            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="other">Other</Dropdown.Item>
+        </Dropdown.Menu>
+        </Dropdown>
+        {container ? <Nominatim/> : null}
+        <form id="form" autoComplete="off">
+            {container}
+        </form>
+        {Form.restaurant.length > 0 || Form.hotel.length > 0 || Form.other.length > 0 ? 
+            <FormTable 
+                form={Form} 
+                setForm={(data)=>{dataToForm(data)}} 
+                keys={keys}
+                mapMarkers={true}
+                fileToUpload={(e)=>{props.fileToUpload(e)}}
+            /> : 
+        null}
+        </>
+    )
+}
+//OpenStreetMap Geocoding
+const Nominatim = (props) => {
+    const [Msg, setMsg] = useState()
+    let query = "";
+    let apiurl = `https://nominatim.openstreetmap.org/search/${query}?format=json&limit=1`
+    async function clickHandler(e){
+        e.preventDefault(); //prevents page refresh
+        //document.getElementById("lat").value = ""
+        //console.log(e.target.form[0].value)
+        query = e.target.form[0].value
+        if(query){
+            console.log("query is set")
+            //console.log(query)
+            let modquery = query.replace(" ","%20")
+            //console.log("query modified")
+            //console.log(query)
+            apiurl = `https://nominatim.openstreetmap.org/search/${modquery}?format=json&limit=1`
+            //console.log(apiurl)
+            axios.get(apiurl)
+            .then(function (res) {
+                //console.log(res.data);
+                document.getElementById("lat").value = res.data[0].lat;
+                document.getElementById("lng").value = res.data[0].lon;
+                document.getElementById("address").value = query
+            })
+            .catch(function (error) {
+                //console.log(error);
+                setMsg(error)
+            })
+        }
+        else{
+            console.log("query is not set")
+        }
+    }
+    return(
+        <>
+        <form>
+            <input type="text" placeholder="Address"/>
+            <button onClick={clickHandler}>Get lat and lng</button>
+            <label>Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright</label>
+            {Msg}
+        </form>
+        </>
+    )
+}
 export default CreateEventForm
 
 /*

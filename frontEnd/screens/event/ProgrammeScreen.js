@@ -11,9 +11,9 @@ const ProgrammeScreen = props => {
   const programmeData = useSelector(state => state.eventData.programmeData)
 
   // -----> Edited for showcase usage <-----
-  // const amountOfTabs =  programmeData.length
-  const amountOfTabs =  1
-  console.log(programmeData.length)
+  const amountOfTabs = programmeData.length
+
+  console.log(amountOfTabs)
  
   switch (amountOfTabs) {
     case 1: {
