@@ -169,6 +169,7 @@ class Events {
             var speakerJSON = req.body.speakers;
             var sponsorsJSON = req.body.sponsors;
             var venueJSON = req.body.venue;
+            var mapDataJSON = req.body.mapData;
 
             var event = new Event({
                 metadata: metadataJSON,
@@ -177,7 +178,8 @@ class Events {
                 programme : programmeJSON,
                 speakers : speakerJSON,
                 sponsors : sponsorsJSON,
-                venue : venueJSON
+                venue : venueJSON,
+                mapData : mapDataJSON
             });
 
             event.save().then(function(err){
@@ -199,8 +201,7 @@ class Events {
                                 res.send(a[0]);
                                 res.end();
                             })
-                        });
-                            
+                        });       
                     });
                 })
             });
@@ -300,6 +301,7 @@ class Events {
                             event.speakers = req.body.speakers;
                             event.sponsors = req.body.sponsors;
                             event.venue = req.body.venue;
+                            event.mapData = req.body.mapData;
 
                             event.save(function(err){
                                 console.log("Event was updated");
@@ -373,18 +375,22 @@ class Events {
 
     //Hakee aivan kaiken
     findAll(req, res){
-        var a = Event.find({}).then(function(a){
-            console.log(a);
-            res.send(a[0]);
-            res.end();
+        var a = Event.find({"_id": "5edf66f05da09e3ae09d6ded"},{mapData: 1}).then(function(a){
+            if(a[0]){
+                res.status(200).json(a[0].mapData.hotels[0].name);
+            }
+            else {
+                res.status(404).json({
+                    message: 'No events found'
+                })
+            }
         });
-    }
-
-    
+    };
 
     //Etsii kaikkien eventtien metadata kentät
     findMetadata(req, res){
         var a = Event.find({}, {"metadata": 1}).then(function(a){
+            
             res.send(a);
 
             res.end();
