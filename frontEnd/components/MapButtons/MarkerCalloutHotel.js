@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { Rating } from 'react-native-elements'
+import StarRating from 'react-native-star-rating'
 
 import Card from '../../components/Universal/Card'
+import ButtonText from '../../components/TextComponents/ButtonText'
 import Colors from '../../constants/Colors'
 
 let TouchableComponent = TouchableOpacity
@@ -21,37 +22,16 @@ const MarkerCalloutHotel = props => {
         <Text>{name}</Text>
       </View>
       <View style={styles.header}>
-        <Rating
-          imageSize={16}
-          fractions={1}
-          startingValue={rating}
+        <StarRating
+          disabled={true}
+          maxStars={5}
+          rating={rating}
+          fullStarColor={'gold'}
+          starSize={20}
         />
       </View>
-      <View style={styles.calloutButtonRow}>
-        <Card style={styles.buttonInCallout}>
-          <TouchableComponent
-            // onPress={showAlert}
-            style={styles.container}
-          >
-            <Ionicons
-              name={Platform.OS === 'android' ? 'md-information' : 'ios-information'}
-              size={Dimensions.get('window').width / 100 * 10}
-              color={Colors.primary}
-            />
-          </TouchableComponent>
-        </Card>
-        <Card style={styles.buttonInCallout}>
-          <TouchableComponent
-            // onPress={showAlert}
-            style={styles.container}
-          >
-            <Ionicons
-              name={Platform.OS === 'android' ? 'md-car' : 'ios-car'}
-              size={Dimensions.get('window').width / 100 * 10}
-              color={Colors.primary}
-            />
-          </TouchableComponent>
-        </Card>
+      <View style={styles.header}>
+        <Text>Tap for more info</Text>
       </View>
     </View>
 
@@ -64,21 +44,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  header: {
-    margin : 4,
-  },
-  calloutButtonRow: {
+  infoButtonContainer: {
     flex: 1,
-    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  header: {
+    margin: 6,
   },
   buttonInCallout: {
     flex: 1,
-    height: Dimensions.get('window').width / 100 * 12,
+    height: Dimensions.get('window').width / 100 * 20,
     aspectRatio: 1,
-    margin: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white'
+    margin: 10,
+    paddingVertical: 10,
   }
 })
 

@@ -7,6 +7,7 @@ import Geolocation from '@react-native-community/geolocation'
 import { request, PERMISSIONS } from 'react-native-permissions'
 
 import Colors from '../../constants/Colors'
+import Card from '../../components/Universal/Card'
 import MapsNavigationButton from '../../components/MapButtons/MapNavigationButton'
 import MapMarkerCategoryButton from '../../components/MapButtons/MapMarkerCategoryButton'
 import MarkerCalloutHotel from '../../components/MapButtons/MarkerCalloutHotel'
@@ -111,6 +112,7 @@ const MapsScreen = props => {
   const [markerData, setMarkerData] = useState(mapData.restaurants)
   const [pinColor, setPinColor] = useState('red')
   const [modalVisible, setModalVisible] = useState(false);
+  const [markerCategory, setMarkerCategory] = useState('restaurants')
 
   requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -149,6 +151,7 @@ const MapsScreen = props => {
     requestLocationPermission()
   }, [])
 
+  
   if (userCurrentLocation == false) {
     return (
       <View style={styles.container}>
@@ -162,28 +165,29 @@ const MapsScreen = props => {
   } else {
     return (
       <View>
-
         <Modal
+          transparent={true}
           animationType="slide"
           visible={modalVisible}
         >
-          <View style={styles.modalContainer}>
-          <Text>This is a modal</Text>
-          <TouchableComponent
-            title={'Close modal'}
-            onPress={() => {
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <Ionicons
-              name={Platform.OS === 'android' ? 'md-close' : 'ios-close'}
-              size={Dimensions.get('window').width / 100 * 15}
-              color={Colors.pdf}
-            />
-          </TouchableComponent>
+          <View style={styles.modalCenteringContainer}>
+            <Card style={styles.modalContainer}>
+              <Text>This is a modal</Text>
+              <TouchableComponent
+                title={'Close modal'}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Ionicons
+                  name={Platform.OS === 'android' ? 'md-close' : 'ios-close'}
+                  size={Dimensions.get('window').width / 100 * 15}
+                  color={Colors.pdf}
+                />
+              </TouchableComponent>
+            </Card>
           </View>
         </Modal>
-
 
         <View style={styles.absoluteTopContainer}>
           <View style={styles.flexContainer}>
@@ -193,6 +197,7 @@ const MapsScreen = props => {
                 onPress={() => {
                   setMarkerData(mapData.restaurants)
                   setPinColor('red')
+                  setMarkerCategory('restaurants')
                 }}
               />
               <MapMarkerCategoryButton
@@ -200,6 +205,7 @@ const MapsScreen = props => {
                 onPress={() => {
                   setMarkerData(mapData.hotels)
                   setPinColor('green')
+                  setMarkerCategory('hotels')
                 }}
               />
               <MapMarkerCategoryButton
@@ -207,6 +213,7 @@ const MapsScreen = props => {
                 onPress={() => {
                   setMarkerData(mapData.other)
                   setPinColor('blue')
+                  setMarkerCategory('other')
                 }}
               />
             </View>
@@ -233,7 +240,7 @@ const MapsScreen = props => {
           initialRegion={userCurrentLocation}
           showsUserLocation={true}
         >
-          {
+          { 
             markerData.map((marker, index) => (
               <Marker
                 key={marker.name}
@@ -268,10 +275,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  modalCenteringContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   modalContainer: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+    flex: 0,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: Dimensions.get('window').width / 100 * 90,
+    height: Dimensions.get('window').height / 100 * 75,
   },
   map: {
     height: '100%',
@@ -295,6 +310,7 @@ const styles = StyleSheet.create({
   },
   calloutFlex: {
     flex: 1,
+    width: Dimensions.get('window').width / 100 * 40
     // borderColor: 'black',
     // borderWidth: 1,
   },
