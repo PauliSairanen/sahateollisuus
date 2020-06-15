@@ -383,17 +383,6 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         </>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
 export default CreateEventForm
 
 /*
