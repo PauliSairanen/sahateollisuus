@@ -6,7 +6,7 @@ const Auth = require('../models/auth')
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const path = require('path');
-
+const asd = "qwe";
 // Middlewares
 const checkAdminAuth = require('../middleware/checkAdminToken');
 const checkAppAuth = require('../middleware/checkAppToken');
@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
       }
       else if(req.body.id){
         console.log(path.join(__dirname, '../public/' + req.body.id))
-        fs.mkdir(path.join(__dirname, '../public/' + req.body.id), { recursive: false }, (err) => {
+        fs.mkdir(path.join(__dirname, '../public/' + req.body.id), { recursive: true }, (err) => {
           console.log(err);
         });
         cb(null, path.join(__dirname, '../public/' + req.body.id));
