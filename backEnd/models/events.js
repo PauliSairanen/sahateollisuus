@@ -30,7 +30,7 @@ const EventSchema = new Schema(
       },
       disclaimer1: String,
       disclaimer2: String
-  },
+    },
     participants : [
       {
         Country: String,
@@ -79,10 +79,54 @@ const EventSchema = new Schema(
         title: String,
         image: String
       }
-    ]
+    ],
+    mapData: {
+      restaurants: [
+        {
+          lat: String,
+          long: String,
+          name: String,
+          address: String,
+          description: String,
+          category: String,
+          rating: String,
+          webURL: String,
+          image: String
+        }
+      ],
+      hotels: [
+        {
+          lat: String,
+          long: String,
+          name: String,
+          address: String,
+          description: String,
+          rating: String,
+          webURL: String,
+          image: String
+        }
+      ],
+      others: [
+        {
+          lat: String,
+          long: String,
+          name: String,
+          address: String,
+          description: String,
+          category: String,
+          webURL: String,
+          image: String
+        }
+      ]
+    }
   }
 );
 
 const Event = mongoose.model('events',EventSchema);
 
 module.exports = Event;
+
+
+
+                
+
