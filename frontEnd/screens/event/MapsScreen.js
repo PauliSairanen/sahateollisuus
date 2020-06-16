@@ -50,6 +50,7 @@ const MapsScreen = props => {
   const [isRestaurants, setIsRestaurants] = useState(true)
   const [isHotels, setIsHotels] = useState(false)
   const [isOthers, setIsOthers] = useState(false)
+  const [currentMarkerData, setCurrentMarkerData] = useState('')
 
   requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -106,6 +107,11 @@ const MapsScreen = props => {
           <RestaurantModal
             visibility={modalVisible}
             setModalVisible={setModalVisible}
+            name={currentMarkerData.name}
+            description={currentMarkerData.description}
+            address={currentMarkerData.address}
+            webURL={currentMarkerData.webURL}
+            imageURL={currentMarkerData.imageURL}
           />) : <View></View>
         }
         {isHotels ? (
@@ -114,7 +120,7 @@ const MapsScreen = props => {
             setModalVisible={setModalVisible}
           />) : <View></View>
         }
-        {isHotels ? (
+        {isOthers ? (
           <OtherModal
             visibility={modalVisible}
             setModalVisible={setModalVisible}
@@ -182,7 +188,7 @@ const MapsScreen = props => {
             markerData.map((marker, index) => (
               <Marker
                 key={marker.name}
-                coordinate={{ latitude: marker.lat, longitude: marker.long }}
+                coordinate={{ latitude: parseFloat(marker.lat), longitude: parseFloat(marker.long) }}
                 title={marker.name}
                 key={index}
                 pinColor={pinColor}
@@ -190,6 +196,7 @@ const MapsScreen = props => {
                 <Callout
                   onPress={() => {
                     setModalVisible(true)
+                    setCurrentMarkerData(markerData[index])
                   }}
                   style={styles.calloutFlex}
                 >
@@ -211,7 +218,6 @@ const MapsScreen = props => {
                       type={marker.type}
                     />) : <View></View>
                   }
-
                 </Callout>
               </Marker>
             ))

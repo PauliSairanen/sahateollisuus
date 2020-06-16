@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Modal, TouchableOpacity, TouchableNativeFeedback, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Modal, TouchableOpacity, TouchableNativeFeedback, Dimensions, Platform } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import Card from '../Universal/Card'
@@ -12,11 +12,12 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 
 const RestaurantModal = props => {
   const modalVisible = props.visibility
+  const setModalVisible = props.setModalVisible
   const name = props.name
   const description = props.description
   const address = props.address
   const webURL = props.webURL
-  const setModalVisible = props.setModalVisible
+  const imageUrl = props.imageURL
 
   return (
     <Modal
@@ -26,7 +27,14 @@ const RestaurantModal = props => {
     >
       <View style={styles.modalCenteringContainer}>
         <Card style={styles.modalContainer}>
-          <Text>This is a RESTAURANT modal :D</Text>
+          <Text>asdasdasdasdas restaurant</Text>
+          <Text style={styles.title}>{name}</Text>
+          <View style={styles.contentContainer}>
+            <Text>{description}</Text>
+          </View>
+          <Text>{address}</Text>
+          <Text>{webURL}</Text>
+          <Text>{imageUrl}</Text>
           <TouchableComponent
             title={'Close modal'}
             onPress={() => {
@@ -58,6 +66,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: Dimensions.get('window').width / 100 * 90,
     height: Dimensions.get('window').height / 100 * 75,
+  },
+  title: {
+    marginTop: 10,
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  contentContainer: {
+    margin: 15,
   },
 })
 

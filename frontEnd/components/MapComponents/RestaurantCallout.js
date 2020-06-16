@@ -12,9 +12,12 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
 }
 
+
 const RestaurantCallout = props => {
   const name = props.name
   const category = props.category
+  const setcurrentMarkerData = props.setcurrentMarkerData
+  const currentMarkerData = props.currentMarkerData
 
   return (
     <View style={styles.container}>
