@@ -361,7 +361,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     }  
                 }}>Cancel</Button>
             </ButtonGroup>
-            <div>{props.id ? <p>DebugMsg. Edit form "{props.id}"</p> : null}</div>
+            {/* <div>{props.id ? <p>DebugMsg. Edit form "{props.id}"</p> : null}</div> */}
             {/* <button name="AboutForm" onClick={selectForm}>About</button>
             <button name="ParticipantsForm" onClick={selectForm}>Participants</button>
             <button name="ProgrammeForm" onClick={selectForm}>Programme</button>

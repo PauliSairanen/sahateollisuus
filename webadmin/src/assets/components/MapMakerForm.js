@@ -175,7 +175,7 @@ const MapMarkerForm = (props) =>{
         <form id="form" autoComplete="off">
             {container}
         </form>
-        {Form.restaurant.length > 0 || Form.hotel.length > 0 || Form.other.length > 0 ? 
+        {Form && (Form.restaurant.length > 0 || Form.hotel.length > 0 || Form.other.length > 0) ? 
             <FormTable 
                 form={Form} 
                 setForm={(data)=>{dataToForm(data)}} 
