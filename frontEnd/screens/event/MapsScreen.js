@@ -111,7 +111,7 @@ const MapsScreen = props => {
             description={currentMarkerData.description}
             address={currentMarkerData.address}
             webURL={currentMarkerData.webURL}
-            imageURL={currentMarkerData.imageURL}
+            imageURL={currentMarkerData.image}
           />) : <View></View>
         }
         {isHotels ? (
