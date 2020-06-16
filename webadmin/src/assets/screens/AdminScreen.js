@@ -123,23 +123,23 @@ const AdminScreen = (props) => {
     }
 
     //Siirretään update formiin kun sellainen tehdään
-    const updateEvent = function(form) {
-        let adminToken = localStorage.getItem("Session")
-        axios.post(baseURL+"/updateEvent",{
-            form
-          },
-          {
-            headers:{
-              Authorization: "Bearer "+props.readSession()
-            }
-          })
-        .then(function (res) {
-            return res.data;
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-    }
+    // const updateEvent = function(form) {
+
+    //     axios.post(baseURL+"/updateEvent",{
+    //         form
+    //       },
+    //       {
+    //         headers:{
+    //           Authorization: "Bearer "+props.readSession()
+    //         }
+    //       })
+    //     .then(function (res) {
+    //         return res.data;
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //     })
+    // }
 
     const deleteEvent = function(eventId) {
         const req = axios.post(baseURL+"/deleteEvent",{
@@ -184,9 +184,9 @@ const AdminScreen = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [EventList])
 
-    async function test(){
-        setEventList(await findMetadata())
-    }
+    // async function test(){
+    //     setEventList(await findMetadata())
+    // }
     async function pageLoad(){
         //console.log("Page load")
         setEventList(await findMetadata())

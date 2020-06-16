@@ -33,7 +33,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         //About Form
         eventPass: "",
         eventName: "",
-        eventStatus: "",
+        visibility: "hidden",
         eventImage: "", //https://sahat.lamk.fi/saveFile
         eventWebUrl: "",
         placeName: "",
@@ -69,6 +69,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             eventName: `${data.metadata.eventName}`,
             eventImage: `${data.metadata.eventImage}`, //https://sahat.lamk.fi/saveFile
             eventWebUrl: `${data.about.eventWebUrl}`,
+            visibility: `${data.metadata.visibility}`,
             placeName: `${data.about.eventPlace.name}`,
             placeAddress: `${data.about.eventPlace.address}`,
             placePhone: `${data.about.eventPlace.phone}`,
@@ -153,6 +154,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     }
     //changes formobjects, also gets rid of path from file inputs
     function changeHandler(e){ //tuntuu redundantilta, vois poistaa myöhemmin emt.
+        //console.log(e.target)
+        //e.preventDefault();
         if(e.target.type === "file"){
             setFormObjects({
                 ...FormObjects,
@@ -179,7 +182,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         metadata: {
             eventName: `${FormObjects.eventName}`,
             eventImage: `${FormObjects.eventImage}`,
-            eventStatus: `${FormObjects.eventStatus}`
+            visibility: `${FormObjects.visibility}`
         },
         about: {
             eventWebUrl: `${FormObjects.eventWebUrl}`,

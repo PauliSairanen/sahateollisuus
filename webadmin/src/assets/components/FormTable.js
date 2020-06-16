@@ -120,7 +120,7 @@ const FormTable = (props) => {
                             if(i === Object.keys(item).length && props.fileToUpload && (item[key] === null || item[key] === undefined || item[key] === "")){
                                 console.log(key)
                                 let cell = <td key={key} id={"file-"+index}>
-                                    <input type="file" id={"input-"+index} name="test" onChange={(e) => {fileHandler(e,key)}}/>
+                                    <input type="file" id={"input-"+index} name="formTableFile" onChange={(e) => {fileHandler(e,key)}}/>
                                 </td>
                                 values.push(cell)
                             }
