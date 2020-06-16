@@ -1,40 +1,25 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import StarRating from 'react-native-star-rating'
-
-import Card from '../../components/Universal/Card'
-import ButtonText from '../../components/TextComponents/ButtonText'
-import Colors from '../../constants/Colors'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
 }
 
-const MarkerCalloutHotel = props => {
+const OtherCallout = props => {
   const name = props.name
-  const rating = props.rating
+  const type = props.type
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text>{name}</Text>
-      </View>
-      <View style={styles.header}>
-        <StarRating
-          disabled={true}
-          maxStars={5}
-          rating={rating}
-          fullStarColor={'gold'}
-          starSize={20}
-        />
+        <Text>{type}</Text>
       </View>
       <View style={styles.header}>
         <Text>Tap for more info</Text>
       </View>
     </View>
-
   )
 }
 
@@ -61,5 +46,5 @@ const styles = StyleSheet.create({
   }
 })
 
-export default MarkerCalloutHotel
+export default OtherCallout
 

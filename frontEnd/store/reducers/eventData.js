@@ -14,7 +14,7 @@ const initialState = {
   participantsData: [],
   venueData: [],
   aboutData: [],
-  
+  mapData: []
 }
 
 const eventDataReducer = (state = initialState, action) => {
@@ -34,6 +34,7 @@ const eventDataReducer = (state = initialState, action) => {
         participantsData :  action.responseData.participants,
         venueData : action.responseData.venue,
         aboutData :  action.responseData.about,
+        mapData : action.responseData.mapData
    
       }
       case SAVE_LOCATION_DATA:

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Alert, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions, ActivityIndicator, Modal } from 'react-native'
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'
+import { useSelector } from 'react-redux'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import Geolocation from '@react-native-community/geolocation'
@@ -8,89 +9,21 @@ import { request, PERMISSIONS } from 'react-native-permissions'
 
 import Colors from '../../constants/Colors'
 import Card from '../../components/Universal/Card'
-import MapsNavigationButton from '../../components/MapButtons/MapNavigationButton'
-import MapMarkerCategoryButton from '../../components/MapButtons/MapMarkerCategoryButton'
-import MarkerCalloutHotel from '../../components/MapButtons/MarkerCalloutHotel'
+import MapsNavigationButton from '../../components/MapComponents/MapNavigationButton'
+import MapMarkerCategoryButton from '../../components/MapComponents/MapMarkerCategoryButton'
+
+import RestaurantCallout from '../../components/MapComponents/RestaurantCallout'
+import HotelCallout from '../../components/MapComponents/HotelCallout'
+import OtherCallout from '../../components/MapComponents/OtherCallout'
+
+import RestaurantModal from '../../components/MapComponents/RestaurantModal'
+import HotelModal from '../../components/MapComponents/HotelModal'
+import OtherModal from '../../components/MapComponents/OtherModal'
 
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
-}
-
-const coordinateArray = [
-  { name: 'Burger King', latitude: 60.167900, longitude: 60.167900 },
-  { name: 'Naughty Burger', latitude: 60.165840, longitude: 24.936250 },
-  { name: 'Hesburger', latitude: 60.163390, longitude: 24.948150 },
-]
-
-const mapData = {
-  restaurants: [
-    {
-      'lat': 60.167900,
-      'long': 60.167900,
-      'name': 'Burger King',
-      'address': 'Kuningaskatu 6',
-      'description': 'Paras hampurilaisravintola!',
-      'category': 'Hamburgers',
-      'webURL': 'www.burgerking.com',
-      'image': 'https://bk-emea-prd.s3.amazonaws.com/sites/burgerking.fi/files/carousel/BK_Mix_and_Match_768x805_lokakuu.jpg',
-    },
-    {
-      'lat': 60.165840,
-      'long': 24.936250,
-      'name': 'naughty Burger',
-      'address': 'Tuhmakatu  69',
-      'description': 'PVähän tuhmempi hampurilaisravintola!',
-      'category': 'Hamburgers',
-      'webURL': 'https://naughtybrgr.com/menu/?lang=en',
-      'image': 'https://naughtybrgr.com/wp-content/uploads/2018/05/akseli-img.jpg',
-    }
-  ],
-  hotels: [
-    {
-      'lat': 60.167641,
-      'long': 24.942430,
-      'name': 'Hotel Kämp',
-      'address': 'Pohjoisesplanadi 29, 00100 Helsinki',
-      'description': 'Arvokas ja hieno hotelli ;-)',
-      'rating': '5.0',
-      'webURL': 'https://www.hotelkamp.com/en/',
-      'image': 'https://r-cf.bstatic.com/images/hotel/max1024x768/207/207779415.jpg'
-    },
-    {
-      'lat': 60.165840,
-      'long': 24.936251,
-      'name': 'Omena Hotel',
-      'address': 'Lönnrotinkatu 13, 00120 Helsinki',
-      'description': 'Vähän edullitempi majoitusvaihtoehto',
-      'rating': '3.0',
-      'webURL': 'https://www.omenahotels.com/fi/',
-      'image': 'https://s3-eu-west-1.amazonaws.com/omenahotels-wordpress/app/uploads/2014/12/OMK9767-640x480.jpg'
-    },
-  ],
-  other: [
-    {
-      'lat': 60.166630,
-      'long': 24.947310,
-      'name': 'Savoy Teatteri',
-      'address': 'Kasarmikatu 46, 00130 Helsinki',
-      'description': 'Vähän Teatteriviihdettä',
-      'type': 'Teatteri',
-      'webURL': 'http://www.savoyteatteri.fi/',
-      'image': 'https://www.sttinfo.fi/data/images/00073/b4366216-aae3-495a-b281-62e5aaff3bc3-w_960.jpg'
-    },
-    {
-      'lat': 60.181570,
-      'long': 24.955300,
-      'name': 'Vape Room Helsinki',
-      'address': 'Hämeentie 7 C, 00530 Helsinki',
-      'description': 'Vähän Teatteriviihdettä',
-      'type': 'Vapes and e-liquids',
-      'webURL': 'http://www.savoyteatteri.fi/',
-      'image': 'https://www.sttinfo.fi/data/images/00073/b4366216-aae3-495a-b281-62e5aaff3bc3-w_960.jpg'
-    }
-  ]
 }
 
 const showAlert = () => {
@@ -108,11 +41,15 @@ const showAlert = () => {
 }
 
 const MapsScreen = props => {
+  const mapData = useSelector(state => state.eventData.mapData)
+
   const [userCurrentLocation, setUserCurrentLocation] = useState(false)
   const [markerData, setMarkerData] = useState(mapData.restaurants)
   const [pinColor, setPinColor] = useState('red')
   const [modalVisible, setModalVisible] = useState(false);
-  const [markerCategory, setMarkerCategory] = useState('restaurants')
+  const [isRestaurants, setIsRestaurants] = useState(true)
+  const [isHotels, setIsHotels] = useState(false)
+  const [isOthers, setIsOthers] = useState(false)
 
   requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -151,7 +88,7 @@ const MapsScreen = props => {
     requestLocationPermission()
   }, [])
 
-  
+
   if (userCurrentLocation == false) {
     return (
       <View style={styles.container}>
@@ -165,29 +102,24 @@ const MapsScreen = props => {
   } else {
     return (
       <View>
-        <Modal
-          transparent={true}
-          animationType="slide"
-          visible={modalVisible}
-        >
-          <View style={styles.modalCenteringContainer}>
-            <Card style={styles.modalContainer}>
-              <Text>This is a modal</Text>
-              <TouchableComponent
-                title={'Close modal'}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <Ionicons
-                  name={Platform.OS === 'android' ? 'md-close' : 'ios-close'}
-                  size={Dimensions.get('window').width / 100 * 15}
-                  color={Colors.pdf}
-                />
-              </TouchableComponent>
-            </Card>
-          </View>
-        </Modal>
+        {isRestaurants ? (
+          <RestaurantModal
+            visibility={modalVisible}
+            setModalVisible={setModalVisible}
+          />) : <View></View>
+        }
+        {isHotels ? (
+          <HotelModal
+            visibility={modalVisible}
+            setModalVisible={setModalVisible}
+          />) : <View></View>
+        }
+        {isHotels ? (
+          <OtherModal
+            visibility={modalVisible}
+            setModalVisible={setModalVisible}
+          />) : <View></View>
+        }
 
         <View style={styles.absoluteTopContainer}>
           <View style={styles.flexContainer}>
@@ -197,7 +129,9 @@ const MapsScreen = props => {
                 onPress={() => {
                   setMarkerData(mapData.restaurants)
                   setPinColor('red')
-                  setMarkerCategory('restaurants')
+                  setIsRestaurants(true)
+                  setIsHotels(false)
+                  setIsOthers(false)
                 }}
               />
               <MapMarkerCategoryButton
@@ -205,15 +139,19 @@ const MapsScreen = props => {
                 onPress={() => {
                   setMarkerData(mapData.hotels)
                   setPinColor('green')
-                  setMarkerCategory('hotels')
+                  setIsRestaurants(false)
+                  setIsHotels(true)
+                  setIsOthers(false)
                 }}
               />
               <MapMarkerCategoryButton
                 name={'Other'}
                 onPress={() => {
-                  setMarkerData(mapData.other)
+                  setMarkerData(mapData.others)
                   setPinColor('blue')
-                  setMarkerCategory('other')
+                  setIsRestaurants(false)
+                  setIsHotels(false)
+                  setIsOthers(true)
                 }}
               />
             </View>
@@ -240,7 +178,7 @@ const MapsScreen = props => {
           initialRegion={userCurrentLocation}
           showsUserLocation={true}
         >
-          { 
+          {
             markerData.map((marker, index) => (
               <Marker
                 key={marker.name}
@@ -255,10 +193,25 @@ const MapsScreen = props => {
                   }}
                   style={styles.calloutFlex}
                 >
-                  <MarkerCalloutHotel
-                    name={marker.name}
-                    rating={marker.rating}
-                  />
+                  {isRestaurants ? (
+                    <RestaurantCallout
+                      name={marker.name}
+                      category={marker.category}
+                    />) : <View></View>
+                  }
+                  {isHotels ? (
+                    <HotelCallout
+                      name={marker.name}
+                      rating={marker.rating}
+                    />) : <View></View>
+                  }
+                  {isOthers ? (
+                    <OtherCallout
+                      name={marker.name}
+                      type={marker.type}
+                    />) : <View></View>
+                  }
+
                 </Callout>
               </Marker>
             ))
