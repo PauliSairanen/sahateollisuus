@@ -3,6 +3,7 @@ import { View, Text,  StyleSheet, FlatList, Dimensions, Platform } from 'react-n
 
 import NavigationTile from '../../components/ListItems/NavigationTile'
 import Colors from '../../constants/Colors'
+import AdjustingText from '../../components/Universal/AdjustingText'
 
 const numberOfColumns = 2
 const naviScreenData = [
@@ -40,7 +41,7 @@ MainNavigationScreen.navigationOptions = navData => {
     // This should be dynamic
     headerTitle: () => (
       <View style={styles.headerContainer}>
-        <Text style={styles.headerTitleStyle}>Wood from Finland 2020</Text>
+        <AdjustingText style={styles.headerTitleStyle}>Wood from Finland 2020</AdjustingText>
       </View>),
   }
 }

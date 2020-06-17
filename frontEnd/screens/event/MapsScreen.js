@@ -23,8 +23,6 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
 }
 
-
-
 const MapsScreen = props => {
   const mapData = useSelector(state => state.eventData.mapData)
 
@@ -73,7 +71,6 @@ const MapsScreen = props => {
   useEffect(() => {
     requestLocationPermission()
   }, [])
-
 
   if (userCurrentLocation == false) {
     return (
@@ -175,7 +172,7 @@ const MapsScreen = props => {
                 latitude={60.169810}
                 longitude={24.938130}
                 animationTime={1000}
-                iconName={'home'}
+                iconName={'star'}
               />
               <MapsNavigationButton
                 latitude={userCurrentLocation.latitude}

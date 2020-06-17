@@ -27,7 +27,7 @@ const MapNavigationButton = props => {
       >
         <Ionicons
           name={Platform.OS === 'android' ? `md-${iconName}` : `ios-${iconName}`}
-          size={Dimensions.get('window').width / 100 * 10}
+          size={Dimensions.get('window').width / 100 * 9}
           color={Colors.primary}
         />
       </TouchableComponent>
