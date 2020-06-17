@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import ProgrammeCard from '../components/ProgrammeCard'
 /**
  * 
  * @param form - form to render
@@ -143,7 +144,9 @@ const FormTable = (props) => {
                         return(
                             <tr key={index}>
                                 {values}
+                                
                             </tr>
+                            
                         )
                     })
                 }

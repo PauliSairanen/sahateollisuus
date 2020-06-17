@@ -1,22 +1,50 @@
 import React, {useState, useEffect} from 'react'
 import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
-/*
-{
-    "day": "Päivä 1",
-    "content": [
-        {
-            Time: "",
-            Location: "",
-            Description: "",
-            NameOfSpeaker: "",
-            TitleOfSpeaker: "",
-            SpecialTitleOfSpeaker: "",
-            CompanyOfSpeaker: "",
-            Pdf: "Testi.pdf"
-        }
-    ]
-}
+
+import ProgrammeCard from '../components/ProgrammeCard'
+/*Esim
+[
+    {
+        "day": "Päivä 0",
+        "content": [
+            {
+                Time: "",
+                Location: "",
+                Description: "",
+                NameOfSpeaker: "",
+                TitleOfSpeaker: "",
+                SpecialTitleOfSpeaker: "",
+                CompanyOfSpeaker: "",
+                Pdf: "Testi.pdf"
+            }
+        ]
+    },
+    {
+        "day": "Päivä 1",
+        "content": [
+            {
+                Time: "",
+                Location: "",
+                Description: "",
+                NameOfSpeaker: "",
+                TitleOfSpeaker: "",
+                SpecialTitleOfSpeaker: "",
+                CompanyOfSpeaker: "",
+                Pdf: "Testi.pdf"
+            }
+        ]
+    }
+]
+Todo make function to convert ^^^ to vvv
+[
+    {day: "Päivä 0", jne},
+    {day: "Päivä 0", jne},
+    {day: "Päivä 0", jne},
+    {day: "Päivä 1", jne},
+    {day: "Päivä 1, jne},
+    {day: "Päivä 2", jne},
+]
 */
 /**
  * @param editForm - evoke appendForm
@@ -190,6 +218,15 @@ const ProgrammeForm = (props) => {
         </form>
         <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/>
+        {/* <ProgrammeCard/> */}
+        {
+            Form.length > 0 ? 
+            Form.map((item, index)=>{
+                console.log(item, index)
+                return(<ProgrammeCard/>)
+            })
+            : null
+        }
         {Form.length > 0 ? 
             <FormTable 
                 form={Form} 
@@ -199,6 +236,7 @@ const ProgrammeForm = (props) => {
                 fileToUpload={(e)=>{props.fileToUpload(e)}}
             /> : 
         null}
+            
         </>
     )
 }

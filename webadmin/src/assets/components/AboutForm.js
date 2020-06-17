@@ -103,7 +103,7 @@ const AboutForm = (props) => {
         // <button onClick={clickHandler2}>Add Disclaimer</button>
         // </div>
         <Card>
-            <BsForm onChange={props.editForm}>
+            <BsForm onChange={props.editForm} style={{padding: '30px'}}>
                 <BsForm.Row>
                     <BsForm.Group as={Col}>
                         <BsForm.Label>Event Password</BsForm.Label>
