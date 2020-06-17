@@ -7,6 +7,7 @@ import { showLocation } from 'react-native-map-link'
 
 import Card from '../Universal/Card'
 import Colors from '../../constants/Colors'
+import AdjustingText from '../Universal/AdjustingText'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -72,7 +73,7 @@ const RestaurantModal = props => {
                 <Text style={styles.title}>{name}</Text>
               </View>
               <View style={styles.descriptionContainer}>
-                <Text style={styles.descriptionText}>{description}</Text>
+                <AdjustingText style={styles.descriptionText}>{description}</AdjustingText>
               </View>
               <Text style={styles.title}>Contact information</Text>
               <View style={styles.contactInfoContainer}>
@@ -169,6 +170,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
+    paddingHorizontal: 40,
     // borderColor: 'black',
     // borderWidth: 1,
   },

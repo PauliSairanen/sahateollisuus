@@ -8,6 +8,7 @@ import StarRating from 'react-native-star-rating'
 
 import Card from '../Universal/Card'
 import Colors from '../../constants/Colors'
+import AdjustingText from '../Universal/AdjustingText'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -81,7 +82,7 @@ const HotelModal = props => {
                 />
               </View>
               <View style={styles.descriptionContainer}>
-                <Text style={styles.descriptionText}>{description}</Text>
+                <AdjustingText style={styles.descriptionText}>{description}</AdjustingText>
               </View>
               <Text style={styles.title}>Contact information</Text>
               <View style={styles.contactInfoContainer}>
@@ -157,30 +158,23 @@ const styles = StyleSheet.create({
   image: {
     width: Dimensions.get('screen').width / 100 * 85,
     height: Dimensions.get('screen').width / 100 * 47,
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   imageContainer: {
     flex: 6,
     marginTop: 12,
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   titleContainer: {
     flex: 2,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   descriptionContainer: {
     flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
-    // borderColor: 'black',
-    // borderWidth: 1,
+    paddingHorizontal: 40,
   },
   descriptionText: {
     textAlign: 'center'
@@ -189,8 +183,6 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   buttonContainer: {
     marginBottom: 5,

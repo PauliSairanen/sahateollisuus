@@ -9,7 +9,7 @@ const AdjustingText = props => {
     fontSize = 10
   }
   if (screenWidth <= 350) {
-    fontSize = 12
+    fontSize =12
   }
   if (screenWidth >= 400) {
     fontSize = 14

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Alert, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions, ActivityIndicator, Modal } from 'react-native'
+import { View, Text, StyleSheet, Alert, Platform, Dimensions, ActivityIndicator } from 'react-native'
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'
 import { useSelector } from 'react-redux'
 import Geolocation from '@react-native-community/geolocation'
@@ -18,22 +18,17 @@ import HotelModal from '../../components/MapComponents/HotelModal'
 import OtherModal from '../../components/MapComponents/OtherModal'
 
 
-let TouchableComponent = TouchableOpacity
-if (Platform.OS === 'android' && Platform.Version >= 21) {
-  TouchableComponent = TouchableNativeFeedback
-}
-
 const MapsScreen = props => {
   const mapData = useSelector(state => state.eventData.mapData)
 
   const [userCurrentLocation, setUserCurrentLocation] = useState(false)
   const [markerData, setMarkerData] = useState(mapData.restaurants)
+  const [currentMarkerData, setCurrentMarkerData] = useState('')
   const [pinColor, setPinColor] = useState('red')
   const [modalVisible, setModalVisible] = useState(false);
   const [isRestaurants, setIsRestaurants] = useState(true)
   const [isHotels, setIsHotels] = useState(false)
   const [isOthers, setIsOthers] = useState(false)
-  const [currentMarkerData, setCurrentMarkerData] = useState('')
 
   requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -84,6 +79,7 @@ const MapsScreen = props => {
     )
   } else {
     return (
+      //__________ Modals conditionally rendered __________
       <View>
         {isRestaurants ? (
           <RestaurantModal
@@ -132,7 +128,7 @@ const MapsScreen = props => {
             sourceLongitude={userCurrentLocation.longitude}
           />) : <View></View>
         }
-
+        {/* __________ UI Buttos __________ */}
         <View style={styles.absoluteTopContainer}>
           <View style={styles.flexContainer}>
             <View style={styles.markerButtonContainer}>
@@ -144,6 +140,7 @@ const MapsScreen = props => {
                   setIsRestaurants(true)
                   setIsHotels(false)
                   setIsOthers(false)
+                  this.Marker.hideCallout()
                 }}
               />
               <MapMarkerCategoryButton
@@ -154,6 +151,7 @@ const MapsScreen = props => {
                   setIsRestaurants(false)
                   setIsHotels(true)
                   setIsOthers(false)
+                  this.Marker.hideCallout()
                 }}
               />
               <MapMarkerCategoryButton
@@ -164,6 +162,7 @@ const MapsScreen = props => {
                   setIsRestaurants(false)
                   setIsHotels(false)
                   setIsOthers(true)
+                  this.Marker.hideCallout()
                 }}
               />
             </View>
@@ -183,6 +182,8 @@ const MapsScreen = props => {
             </View>
           </View>
         </View>
+
+        {/* __________ MapView, Markers and Callouts __________ */}
         <MapView
           provider={PROVIDER_GOOGLE}
           ref={ref => (this.MapView = ref)}
@@ -198,6 +199,7 @@ const MapsScreen = props => {
                 title={marker.name}
                 key={index}
                 pinColor={pinColor}
+                ref={ref => this.Marker = ref}
               >
                 <Callout
                   onPress={() => {
@@ -240,23 +242,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  modalCenteringContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContainer: {
-    flex: 0,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: Dimensions.get('window').width / 100 * 90,
-    height: Dimensions.get('window').height / 100 * 75,
-  },
-  map: {
-    height: '100%',
-    zIndex: -1,
-  },
   absoluteTopContainer: {
     height: Dimensions.get('window').width / 100 * 32,
     width: Dimensions.get('window').width,
@@ -265,8 +250,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   flexContainer: {
     flex: 1,
@@ -276,8 +259,6 @@ const styles = StyleSheet.create({
   calloutFlex: {
     flex: 1,
     width: Dimensions.get('window').width / 100 * 40
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   markerButtonContainer: {
     flex: 4,
@@ -287,17 +268,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 30,
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   navigationButtonsContainer: {
     flex: 1,
     marginTop: 10,
     flexDirection: 'column',
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
-
+  map: {
+    height: '100%',
+    zIndex: -1,
+  },
 })
 
 export default MapsScreen

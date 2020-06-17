@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback , Platform} from 'react-native'
+import { View, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import Card from '../../components/Universal/Card'
@@ -20,10 +20,15 @@ const MapNavigationButton = props => {
     <Card style={styles.navigationButton}>
       <TouchableComponent
         style={styles.container}
-        onPress={() => this.MapView.animateToCoordinate({
-          latitude: lat,
-          longitude: long,
-        }, animationTime)}
+        onPress={() => this.MapView.animateCamera(
+          {
+            center: {
+              latitude: lat, longitude: long
+            }
+          },
+          {
+            duration: 2000
+          })}
       >
         <Ionicons
           name={Platform.OS === 'android' ? `md-${iconName}` : `ios-${iconName}`}
@@ -32,7 +37,6 @@ const MapNavigationButton = props => {
         />
       </TouchableComponent>
     </Card>
-
   )
 }
 
@@ -46,7 +50,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 12,
-
   },
 })
 
