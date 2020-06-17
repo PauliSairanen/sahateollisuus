@@ -6,7 +6,7 @@ import Geolocation from '@react-native-community/geolocation'
 import { request, PERMISSIONS } from 'react-native-permissions'
 
 import Colors from '../../constants/Colors'
-import MapsNavigationButton from '../../components/MapComponents/MapNavigationButton'
+import MapNavigationButton from '../../components/MapComponents/MapNavigationButton'
 import MapMarkerCategoryButton from '../../components/MapComponents/MapMarkerCategoryButton'
 
 import RestaurantCallout from '../../components/MapComponents/RestaurantCallout'
@@ -167,16 +167,16 @@ const MapsScreen = props => {
               />
             </View>
             <View style={styles.navigationButtonsContainer}>
-              <MapsNavigationButton
+              <MapNavigationButton
                 latitude={60.169810}
                 longitude={24.938130}
-                animationTime={1000}
+                animationTime={2000}
                 iconName={'star'}
               />
-              <MapsNavigationButton
+              <MapNavigationButton
                 latitude={userCurrentLocation.latitude}
                 longitude={userCurrentLocation.longitude}
-                animationTime={1000}
+                animationTime={2000}
                 iconName={'navigate'}
               />
             </View>

@@ -120,7 +120,6 @@ const HotelModal = props => {
                   color={Colors.pdf}
                 />
               </TouchableComponent>
-
             </View>
           </Card>
         </View>

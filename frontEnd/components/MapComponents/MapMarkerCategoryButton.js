@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
 import Card from '../../components/Universal/Card'
 

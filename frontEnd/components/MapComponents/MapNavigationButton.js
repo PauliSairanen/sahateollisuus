@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native'
+import { StyleSheet, Dimensions, TouchableOpacity, Platform } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import Card from '../../components/Universal/Card'
@@ -27,7 +27,7 @@ const MapNavigationButton = props => {
             }
           },
           {
-            duration: 2000
+            duration: animationTime
           })}
       >
         <Ionicons
