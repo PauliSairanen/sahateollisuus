@@ -38,6 +38,10 @@
 	<string>The app needs your location to show you on the map</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The app needs your location to show you on the map</string>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>comgooglemaps</string>
+    </array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSansCondensed-Bold.ttf</string>

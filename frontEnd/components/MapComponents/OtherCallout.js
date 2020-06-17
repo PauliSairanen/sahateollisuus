@@ -8,15 +8,15 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 
 const OtherCallout = props => {
   const name = props.name
-  const type = props.type
+  const category = props.category
 
  
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text>{name}</Text>
-        <Text>{type}</Text>
+        <Text style={styles.title}>{name}</Text>
+        <Text>{category}</Text>
       </View>
       <View style={styles.header}>
         <Text>Tap for more info</Text>
@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
   },
   header: {
     margin: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonInCallout: {
     flex: 1,
@@ -45,7 +47,12 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     margin: 10,
     paddingVertical: 10,
-  }
+  },
+  title: {
+    marginTop: 10,
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
 })
 
 export default OtherCallout

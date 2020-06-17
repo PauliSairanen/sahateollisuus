@@ -22,7 +22,7 @@ const RestaurantCallout = props => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text>{name}</Text>
+        <Text style={styles.title}>{name}</Text>
         <Text>{category}</Text>
       </View>
       <View style={styles.header}>
@@ -45,6 +45,8 @@ const styles = StyleSheet.create({
   },
   header: {
     margin: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonInCallout: {
     flex: 1,
@@ -52,7 +54,12 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     margin: 10,
     paddingVertical: 10,
-  }
+  },
+  title: {
+    marginTop: 10,
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
 })
 
 export default RestaurantCallout

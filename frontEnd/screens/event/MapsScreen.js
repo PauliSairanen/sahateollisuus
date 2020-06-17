@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Alert, TouchableOpacity, TouchableNativeFeedback, Platform, Dimensions, ActivityIndicator, Modal } from 'react-native'
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps'
 import { useSelector } from 'react-redux'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-
 import Geolocation from '@react-native-community/geolocation'
 import { request, PERMISSIONS } from 'react-native-permissions'
 
 import Colors from '../../constants/Colors'
-import Card from '../../components/Universal/Card'
 import MapsNavigationButton from '../../components/MapComponents/MapNavigationButton'
 import MapMarkerCategoryButton from '../../components/MapComponents/MapMarkerCategoryButton'
 
@@ -26,19 +23,7 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
 }
 
-const showAlert = () => {
-  Alert.alert(
-    'You are about to be navigated to proper navigation',
-    'another text in here',
-    [
-      {
-        text: 'cancel',
-        style: 'cancel'
-      },
-      { text: 'Ok' }
-    ]
-  )
-}
+
 
 const MapsScreen = props => {
   const mapData = useSelector(state => state.eventData.mapData)
@@ -112,18 +97,42 @@ const MapsScreen = props => {
             address={currentMarkerData.address}
             webURL={currentMarkerData.webURL}
             imageURL={currentMarkerData.image}
+            latitude={currentMarkerData.lat}
+            longitude={currentMarkerData.long}
+            sourceLatitude={userCurrentLocation.latitude}
+            sourceLongitude={userCurrentLocation.longitude}
           />) : <View></View>
         }
         {isHotels ? (
           <HotelModal
             visibility={modalVisible}
             setModalVisible={setModalVisible}
+            name={currentMarkerData.name}
+            description={currentMarkerData.description}
+            address={currentMarkerData.address}
+            rating={currentMarkerData.rating}
+            webURL={currentMarkerData.webURL}
+            imageURL={currentMarkerData.image}
+            latitude={currentMarkerData.lat}
+            longitude={currentMarkerData.long}
+            sourceLatitude={userCurrentLocation.latitude}
+            sourceLongitude={userCurrentLocation.longitude}
           />) : <View></View>
         }
         {isOthers ? (
           <OtherModal
             visibility={modalVisible}
             setModalVisible={setModalVisible}
+            name={currentMarkerData.name}
+            description={currentMarkerData.description}
+            address={currentMarkerData.address}
+            category={currentMarkerData.category}
+            webURL={currentMarkerData.webURL}
+            imageURL={currentMarkerData.image}
+            latitude={currentMarkerData.lat}
+            longitude={currentMarkerData.long}
+            sourceLatitude={userCurrentLocation.latitude}
+            sourceLongitude={userCurrentLocation.longitude}
           />) : <View></View>
         }
 
@@ -215,7 +224,7 @@ const MapsScreen = props => {
                   {isOthers ? (
                     <OtherCallout
                       name={marker.name}
-                      type={marker.type}
+                      category={marker.category}
                     />) : <View></View>
                   }
                 </Callout>
