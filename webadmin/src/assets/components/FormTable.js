@@ -17,28 +17,14 @@ const FormTable = (props) => {
     let keys;
     if(form && form.length > 0){
         keys = Object.keys(form[0])
-        if(props.programme){ //special case conversion
-            let newForm = []
-            for(let i in form){
-                let day = form[i].day
-                let content = form[i].content
-                for(let j in content){
-                    newForm.push(
-                        {
-                            day: day,
-                            Time: content[j].Time,
-                            Location: content[j].Location,
-                            Description: content[j].Description,
-                            NameOfSpeaker: content[j].NameOfSpeaker,
-                            TitleOfSpeaker: content[j].TitleOfSpeaker,
-                            SpecialTitleOfSpeaker: content[j].SpecialTitleOfSpeaker,
-                            Company: content[j].Company,
-                            Pdf: content[j].Pdf
-                        }
-                    )
-                }
+        //console.log(form, keys)
+        if(keys.includes("_id")){
+            keys = keys.filter(e => e !== '_id') //one-line string remove from array
+            let i;
+            for(i = 0; i < form.length; i++){
+                delete form[i]["_id"]
             }
-            form = newForm;
+            //console.log(keys, form)
         }
     }
     else if(props.mapMarkers){
@@ -119,7 +105,7 @@ const FormTable = (props) => {
                         let i = 1;
                         for(let key in item){
                             if(i === Object.keys(item).length && props.fileToUpload && (item[key] === null || item[key] === undefined || item[key] === "")){
-                                console.log(key)
+                                //console.log(key)
                                 let cell = <td key={key} id={"file-"+index}>
                                     <input type="file" id={"input-"+index} name="formTableFile" onChange={(e) => {fileHandler(e,key)}}/>
                                 </td>

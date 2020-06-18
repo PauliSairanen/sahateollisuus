@@ -53,10 +53,13 @@ Todo make function to convert ^^^ to vvv
  */
 const ProgrammeForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
+    const [Data, setData] = useState(FormToData(Form))
+
     useEffect(() => {
         props.editForm("programme", Form)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [Form])
+
     const keys = 
     [
         "Day",
@@ -71,7 +74,6 @@ const ProgrammeForm = (props) => {
     ]
     function dataToForm(data){
         let form = [];
-        console.log(data)
         for(let key in data){
             let i;
             let found = false;
@@ -121,7 +123,34 @@ const ProgrammeForm = (props) => {
             
         }
         setForm(form)
+        setData(FormToData(form))
+
         //props.editForm("programme", Form)
+    }
+    function FormToData(form){
+        let newForm = []
+        for(let i in form){
+            let day = form[i].day
+            day = day.replace("Päivä ", "")
+            let content = form[i].content
+
+            for(let j in content){
+                newForm.push(
+                {
+                    day: day,
+                    Time: content[j].Time,
+                    Location: content[j].Location,
+                    Description: content[j].Description,
+                    NameOfSpeaker: content[j].NameOfSpeaker,
+                    TitleOfSpeaker: content[j].TitleOfSpeaker,
+                    SpecialTitleOfSpeaker: content[j].SpecialTitleOfSpeaker,
+                    Company: content[j].Company,
+                    Pdf: content[j].Pdf
+                })
+            }
+        }
+        //console.log(newForm)
+        return newForm
     }
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
@@ -173,6 +202,7 @@ const ProgrammeForm = (props) => {
         document.getElementById("form").reset();
         setForm(form)
         props.editForm("programme", Form)
+        setData(FormToData(form))
     }
 
     async function fileHandler(e){
@@ -199,6 +229,20 @@ const ProgrammeForm = (props) => {
         dataToForm(list)
     }
 
+    function removeAtIndex(index){
+        console.log(index)
+        let data = Data;
+        data = data.slice(0).reverse()
+        data.splice(index, 1)
+        dataToForm(data)
+    }
+
+    let dataContainer;
+    dataContainer = Data.slice(0).reverse().map((item, index)=>{
+        return(<ProgrammeCard key={index} index={index} form={item} data={Data} editForm={(data) => dataToForm(data)} />)
+    })
+    
+    
     return(
         <>
         <form autoComplete="off" id="form">
@@ -219,20 +263,11 @@ const ProgrammeForm = (props) => {
         <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/>
         {/* <ProgrammeCard/> */}
-        {
-            Form.length > 0 ? 
-            Form.map((item, index)=>{
-                console.log(item, index)
-                return(<ProgrammeCard/>)
-            })
-            : null
-        }
+        {Data.length > 0 ? dataContainer : null}
         {Form.length > 0 ? 
             <FormTable 
-                form={Form} 
+                form={FormToData(Form)} 
                 setForm={(data) => dataToForm(data)} 
-                keys={keys} 
-                programme
                 fileToUpload={(e)=>{props.fileToUpload(e)}}
             /> : 
         null}
