@@ -1,6 +1,9 @@
 //Component for handling event creation
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 import AboutForm from '../components/AboutForm'
 import ParticipantsForm from '../components/ParticipantsForm'
@@ -345,22 +348,34 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 <Navbar.Brand>{props.id ? <p>Edit Event {FormObjects.eventName}</p> : <p>Create Event</p>}</Navbar.Brand>
                 {ActiveForm ? <Navbar.Text>Current form: {ActiveForm}</Navbar.Text> : null}
             </Navbar>
-            <ButtonGroup>
-                <Button name="AboutForm" onClick={selectForm}>About</Button>
-                <Button name="ParticipantsForm" onClick={selectForm}>Participants</Button>
-                <Button name="ProgrammeForm" onClick={selectForm}>Programme</Button>
-                <Button name="SpeakersForm" onClick={selectForm}>Speakers</Button>
-                <Button name="SponsorsForm" onClick={selectForm}>Sponsors</Button>
-                <Button name="VenueTabForm" onClick={selectForm}>Venue</Button>
-                <Button name="MapMarkerForm" onClick={selectForm}>Map Marker</Button>
-                <Button onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</Button>
-                <Button onClick={()=>
-                {
-                    if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
-                        props.changeContent("AdminScreen")
-                    }  
-                }}>Cancel</Button>
-            </ButtonGroup>
+            <Container className="containers">
+                <Row className="rows" >
+                    <Col className="cols" style={{display: 'flex', justifyContent: 'center'}} >
+                        <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
+                            <Button name="AboutForm" onClick={selectForm}>About</Button>
+                            <Button name="ParticipantsForm" onClick={selectForm}>Participants</Button>
+                            <Button name="ProgrammeForm" onClick={selectForm}>Programme</Button>
+                            <Button name="SpeakersForm" onClick={selectForm}>Speakers</Button>
+                            <Button name="SponsorsForm" onClick={selectForm}>Sponsors</Button>
+                            <Button name="VenueTabForm" onClick={selectForm}>Venue</Button>
+                            <Button name="MapMarkerForm" onClick={selectForm}>Map Marker</Button>
+                            <Button onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</Button>
+                            <Button onClick={()=>
+                            {
+                                if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
+                                    props.changeContent("AdminScreen")
+                                }  
+                            }}>Cancel</Button>
+                        </ButtonGroup>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        {container}
+                    </Col>
+                </Row>
+            </Container>
+            
             {/* <div>{props.id ? <p>DebugMsg. Edit form "{props.id}"</p> : null}</div> */}
             {/* <button name="AboutForm" onClick={selectForm}>About</button>
             <button name="ParticipantsForm" onClick={selectForm}>Participants</button>
@@ -376,7 +391,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     }  
                 }}>Cancel
             </button> */}
-            {container}
+            
             {/* <input type="file" name="test" encType="multipart/form-data" onChange={(e)=>{
                 //fileToUpload(e)
                 uploadFile(e.target.files[0],"test")
