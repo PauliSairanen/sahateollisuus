@@ -7,7 +7,7 @@ import Colors from '../../constants/Colors'
 import participantData from '../../data/jsonFiles/participants.json'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
-const LoginScreen = props => {
+const EmailScreen = props => {
   const [inputEmail, setInputEmail] = useState('')
   const [inputPassword, setInputPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -22,37 +22,43 @@ const LoginScreen = props => {
 
   const loginFunction = () => {
     // Admin login
-    if (inputEmail === adminEmail && inputPassword === adminPassword) {
+    if (inputEmail === adminEmail ) {
       console.log('Admin login!')
       loginFailed = false
-      props.navigation.navigate('EventNavi')
+      props.navigation.navigate('SelectEvent')
     }
-    // Login as guest
-    else if (inputEmail === guestEmail && inputPassword === eventPassword) {
-      console.log('Guest login!')
-      loginFailed = false
-      props.navigation.navigate('EventNavi')
-    }
-    else {
-      // Check if user exits
-      setIsLoading(true)
-      for (const object of participantData) {
-        if (object.Email === inputEmail && eventPassword === inputPassword) {
-          setIsLoading(false)
-          loginFailed = false
-          console.log('Authenticatication success!')
-          props.navigation.navigate('EventNavi')
-          return
-        } else {
-          setIsLoading(false)
-          loginFailed = true
-        }
-      }
-      if (loginFailed == true) {
-        Alert.alert('Login failed', 'Incorrect login credentials', [{ text: 'Okay' }])
-      }
-    }
+    // if (inputEmail === adminEmail && inputPassword === adminPassword) {
+    //   console.log('Admin login!')
+    //   loginFailed = false
+    //   props.navigation.navigate('SelectEvent')
+    // }
   }
+  //   // Login as guest
+  //   else if (inputEmail === guestEmail && inputPassword === eventPassword) {
+  //     console.log('Guest login!')
+  //     loginFailed = false
+  //     props.navigation.navigate('EventNavi')
+  //   }
+  //   else {
+  //     // Check if user exits
+  //     setIsLoading(true)
+  //     for (const object of participantData) {
+  //       if (object.Email === inputEmail && eventPassword === inputPassword) {
+  //         setIsLoading(false)
+  //         loginFailed = false
+  //         console.log('Authenticatication success!')
+  //         props.navigation.navigate('EventNavi')
+  //         return
+  //       } else {
+  //         setIsLoading(false)
+  //         loginFailed = true
+  //       }
+  //     }
+  //     if (loginFailed == true) {
+  //       Alert.alert('Login failed', 'Incorrect login credentials', [{ text: 'Okay' }])
+  //     }
+  //   }
+  // }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false} >
@@ -69,15 +75,6 @@ const LoginScreen = props => {
                 keyboardType='email-address'
                 onChangeText={(text) => {
                   setInputEmail(text)
-                }}
-              />
-              <Text style={styles.label}>Password</Text>
-              <TextInput
-                style={styles.input}
-                autoCapitalize='none'
-                secureTextEntry
-                onChangeText={(text) => {
-                  setInputPassword(text)
                 }}
               />
               <View style={styles.buttonContainer}>
@@ -130,4 +127,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default LoginScreen
+export default EmailScreen

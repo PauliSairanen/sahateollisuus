@@ -1,12 +1,16 @@
+import React from 'react'
+import { Button, View } from 'react-native'
+
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { Platform } from 'react-native'
 
 import Colors from '../constants/Colors'
 
-import LoginScreen from '../screens/universal/LoginScreen'
+import EmailScreen from '../screens/universal/EmailScreen'
 import MainNavigationScreen from '../screens/universal/MainNavigationScreen'
 import SelectEventsScreen from '../screens/universal/SelectEventScreen'
+import PasswordScreen from '../screens/universal/PasswordScreen'
 
 import AboutScreen from '../screens/event/AboutScreen'
 import ParticipantsScreen from '../screens/event/ParticipantsScreen'
@@ -35,16 +39,32 @@ const defaultNavOptions = {
 // _____ Navigators _____
 const EventNavigator = createStackNavigator(
   {
+    // SelectEvent: {
+    //   screen: SelectEventsScreen,
+    //   navigationOptions: {
+    //     headerTitle: 'Select Event'
+    //   }
+    // },
+    EmailScreen: {
+      screen: EmailScreen,
+    },
     SelectEvent: {
       screen: SelectEventsScreen,
       navigationOptions: {
-        headerTitle: 'Select Event'
+        headerBackTitle: 'Email input',
+      }
+    },
+    PasswordScreen: {
+      screen: PasswordScreen,
+      navigationOptions: {
+        headerBackTitle: 'Events',
       }
     },
     MainScreen: {
       screen: MainNavigationScreen,
       navigationOptions: {
-        headerBackTitle: 'Events'
+        headerBackTitle: 'Events',
+        
       }
     },
     About: {
@@ -90,11 +110,11 @@ const EventNavigator = createStackNavigator(
       }
     },
     Maps: {
-    screen: MapsScreen,
-    navigationOptions: {
-      headerBackTitle: 'Navigation'
-    }
-  },
+      screen: MapsScreen,
+      navigationOptions: {
+        headerBackTitle: 'Navigation'
+      }
+    },
     SpeakerDetails: {
       screen: SpeakerDetailsScreen,
       navigationOptions: {
@@ -107,11 +127,21 @@ const EventNavigator = createStackNavigator(
 }
 )
 
-const MainNavigator = createSwitchNavigator(
-  {
-    Login: LoginScreen,
-    EventNavi: EventNavigator
-  })
+// const LoginNavigator = createStackNavigator({
+//   EmailScreen: EmailScreen,
+//   SelectEvent: SelectEventsScreen,
+//   PasswordScreen: PasswordScreen,
+
+// })
+
+
+// const MainNavigator = createSwitchNavigator(
+//   {
+//     Login: LoginNavigator,
+//     EventNavi: EventNavigator
+//   })
+
+
 
 export default createAppContainer(EventNavigator)
 
