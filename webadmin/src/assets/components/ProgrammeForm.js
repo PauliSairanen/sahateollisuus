@@ -3,6 +3,7 @@ import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
 
 import ProgrammeCard from '../components/ProgrammeCard'
+import { ButtonGroup, Button, Col } from 'react-bootstrap'
 /*Esim
 [
     {
@@ -54,33 +55,32 @@ Todo make function to convert ^^^ to vvv
 const ProgrammeForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
     const [Data, setData] = useState(FormToData(Form))
-
+    const [ActiveDay, setActiveDay] = useState(null)
     useEffect(() => {
         props.editForm("programme", Form)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [Form])
 
-    const keys = 
-    [
-        "Day",
-        "Time",
-        "Location",
-        "Description",
-        "Name of Speaker",
-        "Title of Speaker",
-        "Special Title of Speaker",
-        "Company",
-        "Pdf"
-    ]
+    // const keys = 
+    // [
+    //     "Day",
+    //     "Time",
+    //     "Location",
+    //     "Description",
+    //     "Name of Speaker",
+    //     "Title of Speaker",
+    //     "Special Title of Speaker",
+    //     "Company",
+    //     "Pdf"
+    // ]
     function dataToForm(data){
         let form = [];
         for(let key in data){
             let i;
             let found = false;
-            //console.log(data[key])
             for(i = 0; i < form.length; i++){
                 if('day' in form[i]){
-                    if(form[i].day === data[key].day){
+                    if(form[i].day === 'Päivä '+data[key].day){
                         found = true;
                         break;
                     }
@@ -103,7 +103,7 @@ const ProgrammeForm = (props) => {
             else{
                 form.push(
                     {
-                        day: data[key].day,
+                        day: 'Päivä '+data[key].day,
                         content: [
                             {
                                 Time: data[key].Time,
@@ -213,7 +213,7 @@ const ProgrammeForm = (props) => {
             if(i > 0){       
                 list.push(
                     {
-                        day: "Päivä "+jsonData[i][0],
+                        day: jsonData[i][0],
                         Time: jsonData[i][1],
                         Location: jsonData[i][2],
                         Description: jsonData[i][3],
@@ -229,19 +229,42 @@ const ProgrammeForm = (props) => {
         dataToForm(list)
     }
 
-    function removeAtIndex(index){
-        console.log(index)
-        let data = Data;
-        data = data.slice(0).reverse()
-        data.splice(index, 1)
-        dataToForm(data)
+    let dayButtons;
+
+    function dayHandler(e){
+        setActiveDay(e.target.name)
+    }
+    if(Form.length > 1){
+        let i;
+        let buttons = []
+        for(i = 0; i < Form.length; i++){
+            buttons.push(<Button key={i} name={Form[i].day.replace("Päivä ", "")} onClick={dayHandler}>{Form[i].day}</Button>)
+        }
+        dayButtons = 
+        <Col className="cols" style={{display: 'flex', justifyContent: 'center'}}>
+            <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
+                {buttons}
+            </ButtonGroup>
+        </Col>
+    }
+    else{
+
     }
 
     let dataContainer;
     dataContainer = Data.slice(0).reverse().map((item, index)=>{
-        return(<ProgrammeCard key={index} index={index} form={item} data={Data} editForm={(data) => dataToForm(data)} />)
+        if(Form.length > 1){
+            if(item.day === ActiveDay){
+                return(<ProgrammeCard key={index} index={index} form={item} data={Data} editForm={(data) => dataToForm(data)} fileToUpload={(e)=>props.fileToUpload(e)}/>)
+            }
+            else{
+                return(null)
+            }
+        }
+        else{
+            return(<ProgrammeCard key={index} index={index} form={item} data={Data} editForm={(data) => dataToForm(data)} fileToUpload={(e)=>props.fileToUpload(e)}/>)
+        }
     })
-    
     
     return(
         <>
@@ -263,6 +286,7 @@ const ProgrammeForm = (props) => {
         <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/>
         {/* <ProgrammeCard/> */}
+        {dayButtons}
         {Data.length > 0 ? dataContainer : null}
         {Form.length > 0 ? 
             <FormTable 

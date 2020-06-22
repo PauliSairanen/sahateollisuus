@@ -82,15 +82,13 @@ $theme-colors: (
 }
 
 .deleteButtonText {
+    display: flex;
+    flex-direction: column;
     align-content: center;
-    margin-left: -100%;
-    margin-right: -100%;
-    margin-top: -100%;
-    margin-bottom: -100%;
     text-align: center;
     font-size: 40px;
     position: relative;
-    top: -11px;
+    top: -15px;
 }
 
 #hidden {

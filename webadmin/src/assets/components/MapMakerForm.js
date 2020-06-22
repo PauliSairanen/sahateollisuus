@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import FormTable from '../components/FormTable'
 import axios from 'axios';
-
+import Col from 'react-bootstrap/Col'
 /*
 "mapMarkers":
 {
@@ -161,16 +161,18 @@ const MapMarkerForm = (props) =>{
     }
     return(
         <>
-        <Dropdown>
-        <Dropdown.Toggle>
-            Marker Categories
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="restaurant">Restaurant</Dropdown.Item>
-            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="hotel">Hotel</Dropdown.Item>
-            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="other">Other</Dropdown.Item>
-        </Dropdown.Menu>
-        </Dropdown>
+        <Col className="cols" style={{display: 'flex', justifyContent: 'center'}}>
+            <Dropdown style={{display: 'flex', flexWrap: 'wrap'}}>
+                <Dropdown.Toggle>
+                    Marker Categories
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="restaurant">Restaurant</Dropdown.Item>
+                    <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="hotel">Hotel</Dropdown.Item>
+                    <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="other">Other</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+        </Col>
         {container ? <Nominatim/> : null}
         <form id="form" autoComplete="off">
             {container}
