@@ -47,6 +47,9 @@ const SelectEventScreen = props => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={eventsData =>
             <EventListItem
+
+            // Pass on event ID!
+            
               eventId={eventsData.item.id}
               eventName={eventsData.item.name}
               eventImage={eventsData.item.eventImage}

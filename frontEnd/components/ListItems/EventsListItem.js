@@ -14,8 +14,10 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 const EventsListItem = props => {
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
-  // Fetch data about all events and list it
 
+  const eventId = props.eventId
+
+  // Fetch data about all events and list it
   const fetchAllEventData = () => {
     console.log('Action dispatched for fetching ALL data!')
     dispatch(eventDataActions.fetchAllData(props.eventId))
@@ -26,9 +28,13 @@ const EventsListItem = props => {
       <TouchableComponent
         style={styles.touchable}
         onPress={() => {
-          fetchAllEventData()
+          // fetchAllEventData()    FETCHING DATA IS HERE!!!!
           // ToDo: While loading, display activity indicator
-          props.navigation.navigate('MainScreen')
+
+          // Passing event ID as parameter to next screen
+          props.navigation.navigate('PasswordScreen', {
+            eventId : eventId
+          })
         }}
       >
         <View style={styles.imageContainer}>

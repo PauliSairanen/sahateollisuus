@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text,  StyleSheet, FlatList, Dimensions, Platform } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Dimensions, Platform, Button } from 'react-native'
+import { NavigationActions, StackActions } from 'react-navigation'
 
 import NavigationTile from '../../components/ListItems/NavigationTile'
 import Colors from '../../constants/Colors'
@@ -17,6 +18,24 @@ const naviScreenData = [
   { id: 7, title: 'Feedback', link: 'Feedback', icon: Platform.OS === 'android' ? 'md-thumbs-up' : 'ios-thumbs-up' },
   // { id: 8, title: 'invisible', link: '', icon: Platform.OS === 'android' ? '' : '' },
 ]
+
+// import the following
+
+// at some point in your code
+resetStack = () => {
+ this.props
+   .navigation
+   .dispatch(StackActions.reset({
+     index: 0,
+     actions: [
+       NavigationActions.navigate({
+         routeName: 'SelectEvent'
+        
+       }),
+     ],
+   }))
+}
+
 
 const MainNavigationScreen = props => {
   return (
@@ -42,7 +61,9 @@ MainNavigationScreen.navigationOptions = navData => {
     headerTitle: () => (
       <View style={styles.headerContainer}>
         <AdjustingText style={styles.headerTitleStyle}>Wood from Finland 2020</AdjustingText>
-      </View>),
+      </View>
+    ),
+    
   }
 }
 
@@ -61,6 +82,9 @@ const styles = StyleSheet.create({
     margin: 1,
     height: Dimensions.get('window').width / numberOfColumns
   },
+   buttonContainer: {
+     flex: 1
+   }
 })
 
 export default MainNavigationScreen
