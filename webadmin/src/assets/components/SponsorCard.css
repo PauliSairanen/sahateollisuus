@@ -1,37 +1,10 @@
-/* The following block can be included in a custom.scss */
-
-/* make the customizations */
-$theme-colors: (
-    "primary": #ffb400,
-    "secondary": #2e8546,
-    "body": #4c4c4c,
-    "dark": #231f20,
-    "info": tomato,
-);
-.containers{
-    border: 2px solid indigo;
-    max-width: 100% !important;
-    padding: 0px !important;
-    margin: 0px !important;
-}
-.rows {
-    //border: 2px solid red
-}
-.cols {
-    //border: 2px solid blue
-}
-
-#AboutForm{
-    //background-color: limegreen;
-}
-//*ProgrammeCard****************************************************''
 
 .card {
-    width: auto;
+    width: 80%;
     margin: 20px auto 20px auto;
     padding: 10px 10px 10px 10px;
-    border: 2px solid rgba(0, 0, 0, 0.125);
-    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.125);
+    border: 2px solid rgb(0, 0, 0, 0.125);
+    box-shadow: 0 0 10px 5px rgb(0, 0, 0, 0.125);
 }
 
 .form-group {
@@ -49,13 +22,13 @@ $theme-colors: (
     display: block;
 }
 
-.imgPrev {
+.filePrev {
     width: 120px;
     height: 120px;
-    border: 2px solid rgba(0, 0, 0, 0.125);
+    border: 2px solid rgb(0, 0, 0, 0.125);
 }
 
-.pdf {
+.file {
     display: block;
     float: right;
     width: 120px;
@@ -70,8 +43,8 @@ $theme-colors: (
     height: 50px;
     width: 50px;
     padding: 0px;
-    background-color: red !important;
-    border-color:  red !important;
+    background-color: rgb(231, 0, 0) !important;
+    border-color:  rgb(231, 0, 0) !important;
     box-shadow: none !important;
     position: absolute;
     top: 50%;
@@ -80,16 +53,17 @@ $theme-colors: (
 }
 
 .deleteButton:hover {
-    background-color: red !important;
-    border-color: red !important;
+    background-color: rgb(153, 0, 0) !important;
+    border-color: rgb(153, 0, 0) !important;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .deleteButtonText {
-    color: white;
-    display: flex;
-    flex-direction: column;
     align-content: center;
+    margin-left: -100%;
+    margin-right: -100%;
+    margin-top: -100%;
+    margin-bottom: -100%;
     text-align: center;
     font-size: 40px;
     position: relative;
@@ -153,6 +127,7 @@ $theme-colors: (
     display: inline-block;
     text-decoration: none;
     text-align: center;
+    white-space: nowrap;
     text-rendering: auto;
     align-items: flex-start;
     vertical-align: middle;
@@ -165,9 +140,3 @@ $theme-colors: (
     border-color: #007bff;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-
-//***************************************************************************
-
-
-/* import bootstrap to set changes */
-@import "~bootstrap/scss/bootstrap";

@@ -1,0 +1,65 @@
+.deleteButton {
+    height: 50px;
+    width: 50px;
+    background-color: rgb(231, 0, 0) !important;
+    border-color:  rgb(231, 0, 0) !important;
+    box-shadow: none !important;
+    position: absolute;
+    top: 50%;
+    right: -70px;
+    transform: translate(0, -50%);
+}
+
+.textContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+}
+
+.deleteButtonTextContainer p {
+    position: relative;
+    font: 30pt Arial, sans-serif;
+    text-align: center;
+    top: -7px;
+}
+
+.deleteButton:hover {
+    background-color: rgb(153, 0, 0) !important;
+    border-color: rgb(153, 0, 0) !important;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.buttonContainer {
+    height: 50px;
+    width: 50px;
+    padding: 0px;
+    position: absolute;
+    top: 50%;
+    right: -70px;
+    transform: translate(0, -50%);
+    text-align: center;
+    text-align: center;
+    border: 3px solid green;
+
+}
+
+.deleteButtonText {
+    height: 5px;
+    width: 5px;
+    padding: 0px;
+
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    transform: translate(0, -50%);
+    
+    border: 3px solid green;
+    text-align: center;
+    color: blue;
+
+}

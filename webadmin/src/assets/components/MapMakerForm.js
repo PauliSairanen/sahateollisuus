@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import FormTable from '../components/FormTable'
 import axios from 'axios';
-
+import Col from 'react-bootstrap/Col'
 /*
 "mapMarkers":
 {
@@ -96,7 +96,7 @@ const MapMarkerForm = (props) =>{
                     destination = data[item][key]
                 }
                 else{
-                    console.log(data[item][key], key)
+                    //console.log(data[item][key], key)
                     newObj[key] = data[item][key]
                 }
                 
@@ -161,16 +161,18 @@ const MapMarkerForm = (props) =>{
     }
     return(
         <>
-        <Dropdown>
-        <Dropdown.Toggle>
-            Marker Categories
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="restaurant">Restaurant</Dropdown.Item>
-            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="hotel">Hotel</Dropdown.Item>
-            <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="other">Other</Dropdown.Item>
-        </Dropdown.Menu>
-        </Dropdown>
+        <Col className="cols" style={{display: 'flex', justifyContent: 'center'}}>
+            <Dropdown style={{display: 'flex', flexWrap: 'wrap'}}>
+                <Dropdown.Toggle>
+                    Marker Categories
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="restaurant">Restaurant</Dropdown.Item>
+                    <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="hotel">Hotel</Dropdown.Item>
+                    <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="other">Other</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+        </Col>
         {container ? <Nominatim/> : null}
         <form id="form" autoComplete="off">
             {container}
@@ -194,6 +196,7 @@ const Nominatim = (props) => {
     let query = "";
     let apiurl = `https://nominatim.openstreetmap.org/search/${query}?format=json&limit=1`
     async function clickHandler(e){
+        setMsg(null)
         e.preventDefault(); //prevents page refresh
         //document.getElementById("lat").value = ""
         //console.log(e.target.form[0].value)
@@ -214,8 +217,8 @@ const Nominatim = (props) => {
                 document.getElementById("address").value = query
             })
             .catch(function (error) {
-                //console.log(error);
-                setMsg(error)
+                console.log(error);
+                setMsg(<p>Cannot find lat and lng of address</p>)
             })
         }
         else{

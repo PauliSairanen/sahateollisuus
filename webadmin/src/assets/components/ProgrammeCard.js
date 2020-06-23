@@ -1,15 +1,17 @@
 import React from 'react';
 import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
-import {Button} from 'react-bootstrap'
+//import {Button} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
-import {Image} from 'react-bootstrap'
+//import {Image} from 'react-bootstrap'
+import DeleteButton from '../components/DeleteButton'
 import { useEffect } from 'react';
-
+import './ProgrammeCard.css'
 
 const ProgrammeCard = props => {
     let formObject = props.form
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         formObject = props.form
     })
     function changeHandler(e){
@@ -26,14 +28,18 @@ const ProgrammeCard = props => {
         data = data.slice(0).reverse()
         props.editForm(data)
     }
+    function fileHandler(e){
+        props.fileToUpload(e)
+    }
     return (
         <Card>
-            <p>{props.index}</p>
+            {/* <p>{props.index}</p> */}
             <Form>
                 <FormGroup className="pdf">
-                    <FormLabel><Image className="imgPrev"></Image></FormLabel>
+                    {/* <FormLabel><Image className="imgPrev" src={???}></Image></FormLabel> */}
+                    <FormLabel>{props.form.Pdf ? "PDF: " + props.form.Pdf : "No PDF"}</FormLabel>
                     <label htmlFor="hidden" id="lableForHidden">Choose PDF</label>
-                    <FormControl size="sm" onChange={changeHandler} name="Pdf" type='file' id="hidden"></FormControl>
+                    <FormControl size="sm" onChange={(e)=>{changeHandler(e); fileHandler(e)}} name="Pdf" type='file' id="hidden"></FormControl>
                 </FormGroup>
                 <Row>
                     <Col>
@@ -88,9 +94,10 @@ const ProgrammeCard = props => {
                     </Col>
                 </Row>
             </Form>
-            <Button className="deleteButton" onClick={deleteHandler}>
+            {/* <Button className="deleteButton" onClick={deleteHandler}>
                 <span className="deleteButtonText">-</span>
-            </Button>
+            </Button> */}
+            <DeleteButton onClick={deleteHandler}/>
         </Card>
     )
 }

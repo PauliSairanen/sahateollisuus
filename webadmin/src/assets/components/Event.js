@@ -27,8 +27,8 @@ const Event = (props) => {
             <Card.Body>
                 <Card.Title>{props.name}</Card.Title>
                 <Card.Subtitle>ID: {props.id}</Card.Subtitle>
-                <Card.Link href="#" name="edit" onClick={clickHandler}>Edit</Card.Link>
-                <Card.Link href="#" name="delete" onClick={clickHandler}>Delete</Card.Link>
+                <Card.Link href="#" name="edit" className="text-secondary" onClick={clickHandler}>Edit</Card.Link>
+                <Card.Link href="#" name="delete" className="text-danger" onClick={clickHandler}>Delete</Card.Link>
             </Card.Body>
             {/* <button name="edit" onClick={clickHandler}>Edit</button><br/>
             <button name="delete" onClick={clickHandler}>Delete</button> */}
