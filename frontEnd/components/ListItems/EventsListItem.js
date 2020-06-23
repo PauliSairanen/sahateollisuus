@@ -16,6 +16,7 @@ const EventsListItem = props => {
   const dispatch = useDispatch()
 
   const eventId = props.eventId
+  const eventName = props.eventName
 
   // Fetch data about all events and list it
   const fetchAllEventData = () => {
@@ -33,7 +34,8 @@ const EventsListItem = props => {
 
           // Passing event ID as parameter to next screen
           props.navigation.navigate('PasswordScreen', {
-            eventId : eventId
+            eventId : eventId,
+            eventName : eventName
           })
         }}
       >
