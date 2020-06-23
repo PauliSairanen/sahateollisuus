@@ -96,7 +96,7 @@ const MapMarkerForm = (props) =>{
                     destination = data[item][key]
                 }
                 else{
-                    console.log(data[item][key], key)
+                    //console.log(data[item][key], key)
                     newObj[key] = data[item][key]
                 }
                 
@@ -196,6 +196,7 @@ const Nominatim = (props) => {
     let query = "";
     let apiurl = `https://nominatim.openstreetmap.org/search/${query}?format=json&limit=1`
     async function clickHandler(e){
+        setMsg(null)
         e.preventDefault(); //prevents page refresh
         //document.getElementById("lat").value = ""
         //console.log(e.target.form[0].value)
@@ -216,8 +217,8 @@ const Nominatim = (props) => {
                 document.getElementById("address").value = query
             })
             .catch(function (error) {
-                //console.log(error);
-                setMsg(error)
+                console.log(error);
+                setMsg(<p>Cannot find lat and lng of address</p>)
             })
         }
         else{

@@ -1,4 +1,10 @@
 import React, {useState} from 'react';
+import Card from 'react-bootstrap/Card'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 import axios from 'axios';
 /**
  * @param changeContent - changes screen
@@ -77,20 +83,26 @@ const LoginScreen = (props) => {
     //     //props.changeSession("");
     // }
     return(
-        <div className="LoginScreen">
-            <h1 className="LoginScreen">Login</h1>
-            <form className="LoginScreen" autoComplete="off">
-                <input className="LoginScreen" 
-                type="text" name="un" onChange={updateField} placeholder="username"/>
-                <input className="LoginScreen" 
-                type="password" name="pw" onChange={updateField} placeholder="password"/>
-                <br/>
-                <button className="LoginScreen" 
-                type="submit" onClick={clickHandler}>Login</button>
-            </form>
-            <p className="LoginScreen">{Details}</p>
-            
-        </div>
+        <Container>
+            <Row>
+                <Col style={{display: 'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center'}}>
+                    <Card>
+                        <Form className="LoginScreen" autoComplete="off">
+                            <Form.Group>
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control type="text" name="un" onChange={updateField}/>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" name="pw" onChange={updateField}/>
+                                <Form.Text className="text-danger">{Details}</Form.Text>
+                            </Form.Group>
+                            <Button onClick={clickHandler}>Login</Button>              
+                        </Form>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

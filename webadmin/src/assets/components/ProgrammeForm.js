@@ -3,7 +3,7 @@ import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
 
 import ProgrammeCard from '../components/ProgrammeCard'
-import { ButtonGroup, Button, Col } from 'react-bootstrap'
+import { ButtonGroup, Button, Col, Card } from 'react-bootstrap'
 /*Esim
 [
     {
@@ -152,6 +152,57 @@ const ProgrammeForm = (props) => {
         //console.log(newForm)
         return newForm
     }
+    function clickEmpty(e){
+        e.preventDefault();
+        let form = Form
+        let i;
+        let found = false;
+        for(i = 0; i < form.length; i++){
+            if('day' in form[i]){
+                if(form[i].day === "Päivä 0"){
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if(found){
+            form[i].content.push(
+                {
+                    Time: "",
+                    Location: "",
+                    Description: "",
+                    NameOfSpeaker: "",
+                    TitleOfSpeaker: "",
+                    SpecialTitleOfSpeaker: "",
+                    Company: "",
+                    Pdf: ""
+                }
+            )
+        }
+        else{
+            form.push(
+                {
+                    day: "Päivä 0",
+                    content: [
+                        {
+                            Time: "",
+                            Location: "",
+                            Description: "",
+                            NameOfSpeaker: "",
+                            TitleOfSpeaker: "",
+                            SpecialTitleOfSpeaker: "",
+                            Company: "",
+                            Pdf: ""
+                        }
+                    ]
+                }
+            )
+        }
+        document.getElementById("form").reset();
+        setForm(form)
+        props.editForm("programme", Form)
+        setData(FormToData(form))
+    }
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
@@ -207,7 +258,7 @@ const ProgrammeForm = (props) => {
 
     async function fileHandler(e){
         let jsonData = await xlsxToJson(e.target)
-        console.log(jsonData)
+        //console.log(jsonData)
         let list = []
         for(let i in jsonData){
             if(i > 0){       
@@ -268,23 +319,33 @@ const ProgrammeForm = (props) => {
     
     return(
         <>
-        <form autoComplete="off" id="form">
-            <label>Day:</label>
-            <input type="number" name="Date" min="0" defaultValue="0"/>
-            <input type="text" name="time" placeholder="Time"/>
-            <input type="text" name="location" placeholder="Event Location"/>
+        <Card>
+            <label>.xlsx file input</label>
+            <input type="file" onChange={fileHandler}/>
+        </Card>
+        <form autoComplete="off" id="form" style={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>
+            <label style={{display: 'none'}}>Day:</label>
+            <input style={{display: 'none'}} type="number" name="Date" min="0" defaultValue="0"/>
+            <input style={{display: 'none'}} type="text" name="time" placeholder="Time"/>
+            <input style={{display: 'none'}} type="text" name="location" placeholder="Event Location"/>
             {/* <input type="text" name="description" placeholder="Event Description"/> */}
-            <textarea name="description" placeholder="Event Description"/>
-            <input type="text" name="speakerName" placeholder="Speaker Name"/>
-            <input type="text" name="speakerTitle" placeholder="Speaker Title"/>
-            <input type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
-            <input type="text" name="speakerCompany" placeholder="Speaker Company"/>
-            <input type="file" name="test" id="test" 
+            <textarea style={{display: 'none'}} name="description" placeholder="Event Description"/>
+            <input style={{display: 'none'}} type="text" name="speakerName" placeholder="Speaker Name"/>
+            <input style={{display: 'none'}} type="text" name="speakerTitle" placeholder="Speaker Title"/>
+            <input style={{display: 'none'}} type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
+            <input style={{display: 'none'}} type="text" name="speakerCompany" placeholder="Speaker Company"/>
+            <input style={{display: 'none'}} type="file" name="test" id="test" 
             onChange={(e)=>{props.fileToUpload(e)}}/>
-            <button onClick={clickHandler}>Add Programme</button>
+            <button style={{display: 'none'}} onClick={clickHandler}>Add Programme</button>
+            <Button onClick={clickEmpty} style={
+                {
+                    height: '50px',
+                    width: '50px',
+                    backgroundColor: "#32CD32"
+                }}><span className="deleteButtonText">+</span></Button>
         </form>
-        <label>.xlsx file input</label>
-        <input type="file" onChange={fileHandler}/>
+        
+        
         {/* <ProgrammeCard/> */}
         {dayButtons}
         {Data.length > 0 ? dataContainer : null}

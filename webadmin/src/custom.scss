@@ -2,8 +2,11 @@
 
 /* make the customizations */
 $theme-colors: (
+    "primary": #ffb400,
+    "secondary": #2e8546,
+    "body": #4c4c4c,
+    "dark": #231f20,
     "info": tomato,
-    "danger": teal
 );
 
 .containers{
@@ -19,7 +22,9 @@ $theme-colors: (
 #AboutForm{
     //background-color: limegreen;
 }
-
+.Button{
+    border: 100px solid black;
+}
 //*****************************************************''
 
 .card {
@@ -82,6 +87,7 @@ $theme-colors: (
 }
 
 .deleteButtonText {
+    color: white;
     display: flex;
     flex-direction: column;
     align-content: center;

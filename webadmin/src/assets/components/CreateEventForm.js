@@ -352,13 +352,13 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 <Row className="rows" >
                     <Col className="cols" style={{display: 'flex', justifyContent: 'center'}} >
                         <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
-                            <Button name="AboutForm" onClick={selectForm}>About</Button>
-                            <Button name="ParticipantsForm" onClick={selectForm}>Participants</Button>
-                            <Button name="ProgrammeForm" onClick={selectForm}>Programme</Button>
-                            <Button name="SpeakersForm" onClick={selectForm}>Speakers</Button>
-                            <Button name="SponsorsForm" onClick={selectForm}>Sponsors</Button>
-                            <Button name="VenueTabForm" onClick={selectForm}>Venue</Button>
-                            <Button name="MapMarkerForm" onClick={selectForm}>Map Marker</Button>
+                            <Button name="AboutForm" onClick={selectForm} className="Button">About</Button>
+                            <Button name="ParticipantsForm" onClick={selectForm} className="Button">Participants</Button>
+                            <Button name="ProgrammeForm" onClick={selectForm} className="Button">Programme</Button>
+                            <Button name="SpeakersForm" onClick={selectForm} className="Button">Speakers</Button>
+                            <Button name="SponsorsForm" onClick={selectForm} className="Button">Sponsors</Button>
+                            <Button name="VenueTabForm" onClick={selectForm} className="Button">Venue</Button>
+                            <Button name="MapMarkerForm" onClick={selectForm} className="Button">Map Marker</Button>
                             <Button onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</Button>
                             <Button onClick={()=>
                             {
@@ -369,7 +369,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                         </ButtonGroup>
                     </Col>
                 </Row>
-                <Row>
+                <Row style={{marginTop:'20px'}}>
                     <Col>
                         {container}
                     </Col>
