@@ -273,7 +273,6 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         fd, 
         {
             headers: {
-                'category': "test",
                 'Content-Type': false,
                 'processdata': false,
             }

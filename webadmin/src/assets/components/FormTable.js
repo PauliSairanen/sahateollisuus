@@ -74,7 +74,7 @@ const FormTable = (props) => {
         let id = (e.target.id).replace('input-','')
         let fileName = e.target.files[0].name
         let newForm = form;
-        props.fileToUpload(e)
+        props.fileToUpload(e.target.files[0])
         newForm[id][key] = fileName
         console.log(newForm, newForm[id][key])
         form = newForm;

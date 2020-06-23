@@ -67,6 +67,7 @@ $theme-colors: (
 }
 
 .deleteButton {
+    color: white !important;
     height: 50px;
     width: 50px;
     padding: 0px;
@@ -86,7 +87,7 @@ $theme-colors: (
 }
 
 .deleteButtonText {
-    color: white;
+    color: white !important;
     display: flex;
     flex-direction: column;
     align-content: center;

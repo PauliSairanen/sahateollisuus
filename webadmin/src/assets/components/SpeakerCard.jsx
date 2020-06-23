@@ -37,7 +37,7 @@ const SpeakerCard = props => {
       formObject["imgsrc"] = URL.createObjectURL(e.target.files[0])
     }
   }
-
+  //Kuvat https://sahat.lamk.fi/public/{EventID}/{FileName}
   return (
     
     <Card>
