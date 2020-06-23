@@ -1,11 +1,12 @@
 import React from 'react';
 import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
-import {Button} from 'react-bootstrap'
+//import {Button} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 //import {Image} from 'react-bootstrap'
+import DeleteButton from '../components/DeleteButton'
 import { useEffect } from 'react';
-
+import './ProgrammeCard.css'
 
 const ProgrammeCard = props => {
     let formObject = props.form
@@ -93,9 +94,10 @@ const ProgrammeCard = props => {
                     </Col>
                 </Row>
             </Form>
-            <Button className="deleteButton" onClick={deleteHandler}>
+            {/* <Button className="deleteButton" onClick={deleteHandler}>
                 <span className="deleteButtonText">-</span>
-            </Button>
+            </Button> */}
+            <DeleteButton onClick={deleteHandler}/>
         </Card>
     )
 }

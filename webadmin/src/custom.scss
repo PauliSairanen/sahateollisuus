@@ -8,9 +8,11 @@ $theme-colors: (
     "dark": #231f20,
     "info": tomato,
 );
-
 .containers{
-    //border: 2px solid indigo
+    border: 2px solid indigo;
+    max-width: 100% !important;
+    padding: 0px !important;
+    margin: 0px !important;
 }
 .rows {
     //border: 2px solid red
@@ -22,10 +24,7 @@ $theme-colors: (
 #AboutForm{
     //background-color: limegreen;
 }
-.Button{
-    border: 100px solid black;
-}
-//*****************************************************''
+//*ProgrammeCard****************************************************''
 
 .card {
     width: auto;
@@ -168,5 +167,7 @@ $theme-colors: (
 }
 
 //***************************************************************************
+
+
 /* import bootstrap to set changes */
 @import "~bootstrap/scss/bootstrap";

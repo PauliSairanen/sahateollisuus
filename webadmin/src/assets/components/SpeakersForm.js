@@ -1,6 +1,9 @@
 import React, {useState} from 'react'
 import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
+import SpeakerCard from '../components/SpeakerCard'
+import Card from 'react-bootstrap/Card'
+import AddButton from '../components/AddButton'
 /*
 {
     "Speaker": "Test",
@@ -31,6 +34,19 @@ const SpeakersForm = (props) => {
         setForm(form)
         props.editForm("speakers", Form)
     }
+    function clickEmpty(e){
+        e.preventDefault(); //prevents page refresh
+        let form = Form;
+        form.push({
+            Speaker: "",
+            Title: "",
+            SpecialTitle: "",
+            Company: "",
+            ImageID: ""
+        })
+        setForm(form)
+        props.editForm("speakers", Form)
+    }
     async function fileHandler(e){
         let jsonData = await xlsxToJson(e.target)
         for(let i in jsonData){
@@ -51,19 +67,35 @@ const SpeakersForm = (props) => {
             }
         }
     }
+    let dataContainer;
+    dataContainer = Form.slice(0).reverse().map((item, index)=>{
+        return(
+        <SpeakerCard 
+            key={index} 
+            index={index} 
+            form={item} 
+            data={Form} 
+            editForm={setForm} 
+            fileToUpload={(e)=>props.fileToUpload(e)}
+        />)
+    })
     return(
         <>
+        <Card>
+            <label>.xlsx file input</label>
+            <input type="file" onChange={fileHandler}/>
+        </Card>
         <form autoComplete="off" id="form"> 
-            <input type="text" name="speaker" placeholder="Speaker"/>
-            <input type="text" name="speakerTitle" placeholder="Speaker Title"/>
-            <input type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
-            <input type="text" name="speakersCompany" placeholder="Speakers Company"/>
-            <input type="file" name="speakerImage" id="test" 
+            <input style={{display: 'none'}} type="text" name="speaker" placeholder="Speaker"/>
+            <input style={{display: 'none'}} type="text" name="speakerTitle" placeholder="Speaker Title"/>
+            <input style={{display: 'none'}} type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
+            <input style={{display: 'none'}} type="text" name="speakersCompany" placeholder="Speakers Company"/>
+            <input style={{display: 'none'}} type="file" name="speakerImage" id="test" 
             onChange={(e)=>{props.fileToUpload(e)}}/>
-            <button onClick={clickHandler}>Add Speaker</button>
+            <button style={{display: 'none'}} onClick={clickHandler}>Add Speaker</button>
+            <AddButton onClick={clickEmpty}/>
         </form>
-        <label>.xlsx file input</label>
-        <input type="file" onChange={fileHandler}/>
+        {dataContainer}
         {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )

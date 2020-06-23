@@ -3,11 +3,8 @@ import {Button} from 'react-bootstrap';
 import './DeleteButton.css';
 
 const DeleteButton = props => {
-
-  const deleteFunction = props.deleteFunction;
-
   return (
-      <Button className="deleteButton" onClick={deleteFunction}>
+      <Button className="deleteButton" onClick={props.onClick}>
         <div className="deleteButtonTextContainer">
           <p>-</p>
         </div>
