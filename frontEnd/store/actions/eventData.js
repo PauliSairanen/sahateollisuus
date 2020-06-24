@@ -8,6 +8,8 @@ export const PRELOAD_IMAGES = 'PRELOAD_IMAGES'
 export const SAVE_LOCATION_DATA = 'SAVE_LOCATION_DATA'
 export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const SAVE_RESPONSE_STATUS = 'SAVE_RESPONSE_STATUS'
+export const SAVE_EMAIL = 'SAVE_EMAIL'
+export const SAVE_METADATA_BY_EMAIL = 'SAVE_METADATA_BY_EMAIL'
 
 import serverURL from '../../constants/Networking'
 console.log('The server URL is = ' + serverURL)
@@ -17,10 +19,6 @@ export const fetchEventMetaData = () => {
   return async dispatch => {
     const response = await fetch(`${serverURL}/findmetadata`)
     const responseData = await response.json()
-
-    const response2 = await fetch('https://google.com')
-    console.log(response2)
-
     const loadedEventMetadata = []
     // Looking through the JSON data, and organizing it again for display
     for (const index in responseData) {
@@ -64,6 +62,67 @@ export const fetchSpeakers = () => {
     const responseData = await response.json()
     const fetchedData = responseData.speakers
     dispatch({ type: FETCH_SPEAKERS, fetchedSpeakers: fetchedData })
+  }
+}
+
+export const checkEmail = (email) => {
+  console.log('The current email that is being checked is: ' + email)
+  console.log('Checking if email exists')
+  return async dispatch => {
+    const response = await fetch(`${serverURL}/findEventsByEmail`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'email': `${email}`,
+      })
+    })
+    console.log(response.status)
+    if (!response.ok) {
+      console.log('Request was not ok')
+      let message = 'Email not registered to any event'
+      throw new Error(message)
+    }
+    console.log('request was ok, 200!')
+    dispatch({ type: SAVE_EMAIL, emailToSave: email })
+  }
+}
+
+export const fetchMetadataByEmail = (email) => {
+  console.log('Checking if email exists')
+  return async dispatch => {
+    const response = await fetch(`${serverURL}/findEventsByEmail`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'email': `${email}`,
+      })
+    })
+    console.log(response.status)
+    if (!response.ok) {
+      console.log('Request was not ok')
+      let message = 'Email not registered to any event'
+      throw new Error(message)
+    }
+    console.log('request was ok, 200!')
+    const responseData = await response.json()
+  
+    const loadedEventMetadata = []
+    // Looking through the JSON data, and organizing it again for display
+    for (const index in responseData) {
+      loadedEventMetadata.push(
+        new EventMetadata(
+          responseData[index]._id,
+          responseData[index].metadata.eventName,
+          responseData[index].metadata.eventImage
+        )
+      )
+    }
+    dispatch({ type: SAVE_EMAIL, emailToSave: email })
+    dispatch({type: SAVE_METADATA_BY_EMAIL, metaDataByEmail: loadedEventMetadata})
   }
 }
 

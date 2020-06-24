@@ -1,64 +1,56 @@
-import React, { useState } from 'react'
-import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert, Platform } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Platform, Alert } from 'react-native'
+import { useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import Card from '../../components/Universal/Card'
 import Colors from '../../constants/Colors'
-import participantData from '../../data/jsonFiles/participants.json'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import * as eventDataActions from '../../store/actions/eventData'
 
 const EmailScreen = props => {
+  const dispatch = useDispatch()
   const [inputEmail, setInputEmail] = useState('')
-  const [inputPassword, setInputPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const eventPassword = 'WFFC2020'
+  const [error, setError] = useState(null)
 
-  const adminEmail = 'test'
-  const adminPassword = 'test'
-
-  const guestEmail = 'guest@wffc'
-
-  let loginFailed = false
-
-  const loginFunction = () => {
-    // Admin login
-    if (inputEmail === adminEmail ) {
-      console.log('Admin login!')
-      loginFailed = false
-      props.navigation.navigate('SelectEvent')
+  useEffect(() => {
+    props.navigation.addListener('didFocus', () => {
+      setInputEmail('')
+      setIsLoading(false)
+      setError(null)
+      this.textInput.clear()
+    })
+  }, [])
+  
+  const authHandler = async () => {
+    if (inputEmail === 'test') {
+      console.log('Test login')
+      await dispatch(eventDataActions.fetchEventMetaData())
+      props.navigation.navigate('SelectEvent', {
+        'lastScreen' : 'emailScreen'
+      })
+    } else {
+      console.log('Firing real authentication route')
+      setError(null)
+      setIsLoading(true)
+      try {
+        // Dispatch action to check if email exists and load events based on email
+        await dispatch(eventDataActions.checkEmail(inputEmail))
+        await dispatch(eventDataActions.fetchMetadataByEmail(inputEmail))
+        props.navigation.navigate('SelectEvent')
+      } catch (err) {
+        setError(err.message)
+        setIsLoading(false)
+      }
     }
-    // if (inputEmail === adminEmail && inputPassword === adminPassword) {
-    //   console.log('Admin login!')
-    //   loginFailed = false
-    //   props.navigation.navigate('SelectEvent')
-    // }
   }
-  //   // Login as guest
-  //   else if (inputEmail === guestEmail && inputPassword === eventPassword) {
-  //     console.log('Guest login!')
-  //     loginFailed = false
-  //     props.navigation.navigate('EventNavi')
-  //   }
-  //   else {
-  //     // Check if user exits
-  //     setIsLoading(true)
-  //     for (const object of participantData) {
-  //       if (object.Email === inputEmail && eventPassword === inputPassword) {
-  //         setIsLoading(false)
-  //         loginFailed = false
-  //         console.log('Authenticatication success!')
-  //         props.navigation.navigate('EventNavi')
-  //         return
-  //       } else {
-  //         setIsLoading(false)
-  //         loginFailed = true
-  //       }
-  //     }
-  //     if (loginFailed == true) {
-  //       Alert.alert('Login failed', 'Incorrect login credentials', [{ text: 'Okay' }])
-  //     }
-  //   }
-  // }
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert('Login failed', error, [{ text: 'Okay' }])
+    }
+  }, [error])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false} >
@@ -70,8 +62,10 @@ const EmailScreen = props => {
             >
               <Text style={styles.label}>Email</Text>
               <TextInput
+                ref={input => {this.textInput = input}}
                 style={styles.input}
-                autoCapitalize='none'
+                autoCapitalize={'none'}
+                autoCorrect={false}
                 keyboardType='email-address'
                 onChangeText={(text) => {
                   setInputEmail(text)
@@ -82,7 +76,7 @@ const EmailScreen = props => {
                 ) : (<Button //Switch text in title depending on state
                   title={'Login'}
                   color={Colors.primary}
-                  onPress={loginFunction}
+                  onPress={authHandler}
                 />)}
               </View>
             </ScrollView>

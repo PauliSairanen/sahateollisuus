@@ -50,7 +50,9 @@ MainNavigationScreen.navigationOptions = (props) => {
     headerLeft: () => (
       <HeaderBackButton
         tintColor={Platform.OS === 'android' ? 'white' : Colors.primary}
-        onPress={() => props.navigation.navigate('SelectEvent')}
+        onPress={() => props.navigation.navigate('SelectEvent', {
+          lastScreen: 'MainNavigationScreen'
+        })}
       />
     )
   }

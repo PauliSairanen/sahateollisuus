@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { View, FlatList, StyleSheet } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, FlatList, StyleSheet, Alert } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 import LinearGradient from 'react-native-linear-gradient'
@@ -11,27 +11,43 @@ import * as eventDataActions from '../../store/actions/eventData'
 import EventListItem from '../../components/ListItems/EventsListItem'
 
 const SelectEventScreen = props => {
-  const [isLoading, setIsLoading] = useState(false)
-  const dispatch = useDispatch()
+  const userEmail= useSelector(state => state.eventData.email)
+  const loadedMetadata = useSelector(state => state.eventData.eventsMetaData)
 
-  //_____ Initially load data from server to Redux
-  const loadMetadata = async () => {
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const dispatch = useDispatch()
+  let lastScreen = props.navigation.getParam('lastScreen')
+
+  const reloadData = async () => {
+    console.log('Reloading metadata')
+    setError(null)
     setIsLoading(true)
-    await dispatch(eventDataActions.fetchEventMetaData())
-    setIsLoading(false)
-    console.log('Fetching metadata')
+    try {
+      // Dispatch action to check if email exists and load events based on email
+      await dispatch(eventDataActions.fetchMetadataByEmail(userEmail))
+      setIsLoading(false)
+    } catch (err) {
+      setError(err.message)
+      setIsLoading(false)
+    }
   }
 
-  //_____ Fetch data from Redux _____
-  const eventsMetaData = useSelector(state => state.eventData.eventsMetaData)
-  console.log(eventsMetaData)
-
-  // _____ Whenever screen is entered, data is loaded again
+  // If screen is accessed from Main Nav Screen, Data is loaded again
   useEffect(() => {
-    props.navigation.addListener('didFocus', () => {
-      loadMetadata()
-    })
-  }, [])
+    console.log('The last screen is ' + lastScreen)
+    if (lastScreen === 'MainNavigationScreen') {
+      reloadData()
+    }
+  }, [lastScreen])
+ 
+  // _____ Function for fetching metadata
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert('Login failed', error, [{ text: 'Okay' }])
+    }
+  }, [error])
 
   if (isLoading) {
     return (
@@ -42,14 +58,14 @@ const SelectEventScreen = props => {
       <View>
         <LinearGradient colors={['orange', 'yellow']} style={styles.gradient}>
           <FlatList
-            data={eventsMetaData}
-            extraData={eventsMetaData}
+            data={loadedMetadata}
+            extraData={loadedMetadata}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={eventsData =>
+            renderItem={array =>
               <EventListItem
-                eventId={eventsData.item.id}
-                eventName={eventsData.item.name}
-                eventImage={eventsData.item.eventImage}
+                eventId={array.item.id}
+                eventName={array.item.name}
+                eventImage={array.item.eventImage}
               />
             }
           />
