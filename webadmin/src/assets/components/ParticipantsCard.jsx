@@ -2,8 +2,7 @@ import React from 'react';
 import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
-import {Image} from 'react-bootstrap'
-import { useState } from 'react';
+import { useEffect } from 'react';
 import DeleteButton from './DeleteButton';
 import './ParticipantsCard.css';
 
@@ -34,29 +33,19 @@ const SponsorCard = props => {
     data = data.slice(0).reverse()
     props.editForm(data)
   }
-  function fileHandler(e){
-    props.fileToUpload(e)
-  }
-  function changeImage(e) {
-    if (e.target.files && e.target.files[0]) {
-      //setImgSrc(URL.createObjectURL(e.target.files[0]))
-      formObject["imgsrc"] = URL.createObjectURL(e.target.files[0])
-    }
-  }
-
   return (
     
     <Card>
       <Form>
         <Row>
           <Col>
-            <FormGroup controlId="formBasicFname">
+            <FormGroup>
               <FormLabel>First name</FormLabel>
               <FormControl size="sm" value={formObject.FirstName} onChange={(e) => {changeHandler(e)}} name="FirstName" placeholder="First name"></FormControl>
             </FormGroup>
           </Col>
           <Col>
-            <FormGroup controlId="formBasicLname">
+            <FormGroup>
               <FormLabel>Last name</FormLabel>
               <FormControl size="sm" value={formObject.LastName} onChange={(e) => {changeHandler(e)}} name="LastName" placeholder="Last name"></FormControl>
             </FormGroup>
@@ -64,13 +53,13 @@ const SponsorCard = props => {
         </Row>
         <Row>
           <Col>
-            <FormGroup controlId="formBasicEmail">
+            <FormGroup>
               <FormLabel>Email</FormLabel>
               <FormControl size="sm" value={formObject.Email} onChange={(e) => {changeHandler(e)}} name="Email" placeholder="Email"></FormControl>
             </FormGroup>
           </Col>
           <Col>
-            <FormGroup controlId="formBasicPhone">
+            <FormGroup>
               <FormLabel>Phone</FormLabel>
               <FormControl size="sm" value={formObject.Phone} onChange={(e) => {changeHandler(e)}} name="Phone" placeholder="Phone"></FormControl>
             </FormGroup>
@@ -78,20 +67,20 @@ const SponsorCard = props => {
         </Row>
         <Row>
           <Col>
-            <FormGroup controlId="formBasicCompany">
+            <FormGroup>
               <FormLabel>Company</FormLabel>
               <FormControl size="sm" value={formObject.Company} onChange={(e) => {changeHandler(e)}} name="Company" placeholder="Company"></FormControl>
             </FormGroup>
           </Col>
           <Col>
-            <FormGroup controlId="formBasicCountry">
+            <FormGroup>
               <FormLabel>Country</FormLabel>
               <FormControl size="sm" value={formObject.Country} onChange={(e) => {changeHandler(e)}} name="Country" placeholder="Country"></FormControl>
             </FormGroup>
           </Col>
         </Row>
       </Form>
-      <DeleteButton></DeleteButton>
+      <DeleteButton onClick={deleteHandler}/>
     </Card>
   )
 }
