@@ -6,6 +6,8 @@ export const FETCH_ALL_DATA = 'FETCH_ALL_DATA'
 export const AUTHENTICATE = 'AUTHENTICATE'
 export const PRELOAD_IMAGES = 'PRELOAD_IMAGES'
 export const SAVE_LOCATION_DATA = 'SAVE_LOCATION_DATA'
+export const SAVE_TOKEN = 'SAVE_TOKEN'
+export const SAVE_RESPONSE_STATUS = 'SAVE_RESPONSE_STATUS'
 
 import serverURL from '../../constants/Networking'
 console.log('The server URL is = ' + serverURL)
@@ -65,30 +67,29 @@ export const fetchSpeakers = () => {
   }
 }
 
-export const authenticate = () => {
-  const un = 'test'
-  const pw = 'test'
+export const authenticate = (eventName, password) => {
   console.log('Trying to authentiate')
   return async dispatch => {
-    const response = await fetch(`${serverURL}/authenticate`, {
+    const response = await fetch(`${serverURL}/mobileLogin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'un': `${un}`,
-        'pw': `${pw}`
+        'eventName': `${eventName}`,
+        'password': `${password}`
       })
     })
     console.log(response.status)
-    if (response.ok) {
-      console.log('request was ok, 200!')
-      // const responseData = await response.json()
-      // const fetchedData = responseData
-      // console.log(fetchedData)
-    } else {
-      console.log('Something is fucked up :)')
+    if (!response.ok) {
+      console.log('Request was not ok')
+      let message = 'Incorrect event password'
+      throw new Error(message)
     }
+    console.log('request was ok, 200!')
+    const body = await response.json()
+    console.log(body)
+    dispatch({ type: SAVE_TOKEN, token: body.token })
   }
 }
 

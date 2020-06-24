@@ -273,7 +273,6 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         fd, 
         {
             headers: {
-                'category': "test",
                 'Content-Type': false,
                 'processdata': false,
             }
@@ -343,7 +342,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     }
 
     return (
-        <>
+        <div id="CreateEventForm">
             <Navbar bg="light" variant="light" expand="lg">
                 <Navbar.Brand>{props.id ? <p>Edit Event {FormObjects.eventName}</p> : <p>Create Event</p>}</Navbar.Brand>
                 {ActiveForm ? <Navbar.Text>Current form: {ActiveForm}</Navbar.Text> : null}
@@ -398,7 +397,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             }}/> */}
             <p>{JSON.stringify(finalForm, null, 2)}</p>
             <p>{JSON.stringify(Files,null,2)}</p>
-        </>
+        </div>
     )
 }
 export default CreateEventForm

@@ -3,6 +3,7 @@ import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
 
 import ProgrammeCard from '../components/ProgrammeCard'
+import AddButton from '../components/AddButton'
 import { ButtonGroup, Button, Col, Card } from 'react-bootstrap'
 /*Esim
 [
@@ -323,7 +324,7 @@ const ProgrammeForm = (props) => {
             <label>.xlsx file input</label>
             <input type="file" onChange={fileHandler}/>
         </Card>
-        <form autoComplete="off" id="form" style={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>
+        <form autoComplete="off" id="form" >
             <label style={{display: 'none'}}>Day:</label>
             <input style={{display: 'none'}} type="number" name="Date" min="0" defaultValue="0"/>
             <input style={{display: 'none'}} type="text" name="time" placeholder="Time"/>
@@ -337,12 +338,13 @@ const ProgrammeForm = (props) => {
             <input style={{display: 'none'}} type="file" name="test" id="test" 
             onChange={(e)=>{props.fileToUpload(e)}}/>
             <button style={{display: 'none'}} onClick={clickHandler}>Add Programme</button>
-            <Button onClick={clickEmpty} style={
+            {/* <Button onClick={clickEmpty} style={
                 {
                     height: '50px',
                     width: '50px',
                     backgroundColor: "#32CD32"
-                }}><span className="deleteButtonText">+</span></Button>
+                }}><span className="deleteButtonText">+</span></Button> */}
+            <AddButton onClick={clickEmpty} style={{display: 'flex', justifyContent: 'center', alignItems:'center'}}/>
         </form>
         
         

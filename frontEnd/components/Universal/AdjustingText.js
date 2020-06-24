@@ -15,8 +15,8 @@ const AdjustingText = props => {
     fontSize = 14
   }
 
-  console.log('current screen width: ' + screenWidth)
-  console.log(fontSize)
+  // console.log('current screen width: ' + screenWidth)
+  // console.log(fontSize)
 
   return (
     <View>

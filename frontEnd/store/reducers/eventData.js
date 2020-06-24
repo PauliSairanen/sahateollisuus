@@ -1,4 +1,4 @@
-import { SET_EVENTS_METADATA, FETCH_SPEAKERS, IS_LOADING_TRUE, IS_LOADING_FALSE, FETCH_ALL_DATA, SAVE_LOCATION_DATA } from '../actions/eventData'
+import { SET_EVENTS_METADATA, FETCH_SPEAKERS, IS_LOADING_TRUE, IS_LOADING_FALSE, FETCH_ALL_DATA, SAVE_LOCATION_DATA, SAVE_TOKEN, SAVE_RESPONSE_STATUS } from '../actions/eventData'
 
 // Set the data as initial state
 const initialState = {
@@ -7,6 +7,8 @@ const initialState = {
   currentEventId: "",
   eventsMetaData: [],
   currentLocation: {},
+  authenticationToken: null,
+  authResponseStatus: '',
   //___ Evet Data ___
   programmeData: [],
   speakersData: [],
@@ -25,6 +27,16 @@ const eventDataReducer = (state = initialState, action) => {
         currentEventId: action.eventsMetaData.id,
         eventsMetaData: action.eventsMetaData
       }
+    case SAVE_RESPONSE_STATUS:
+      console.log('Setting Auth response status')
+      return {
+        authResponseStatus: action.responseStatus
+      }
+    case SAVE_TOKEN:
+      console.log('JVT Token received. Saving the token')
+      return {
+        authenticationToken: action.token,
+      }
     case FETCH_ALL_DATA:
       console.log('entering Fetch all data')
       return {
@@ -35,7 +47,6 @@ const eventDataReducer = (state = initialState, action) => {
         venueData : action.responseData.venue,
         aboutData :  action.responseData.about,
         mapData : action.responseData.mapData
-   
       }
       case SAVE_LOCATION_DATA:
         console.log('Saving location data to redux')

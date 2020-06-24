@@ -3,11 +3,8 @@ import {Button} from 'react-bootstrap';
 import './AddButton.css';
 
 const DeleteButton = props => {
-
-  const addFunction = props.addFunction;
-
   return (
-      <Button className="addButton" onClick={addFunction}>
+      <Button className="addButton" onClick={props.onClick}>
         <div className="addButtonTextContainer">
           <p>+</p>
         </div>

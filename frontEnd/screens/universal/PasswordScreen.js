@@ -1,64 +1,46 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert, Platform } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+import { useSelector, useDispatch } from 'react-redux'
+import * as eventDataActions from '../../store/actions/eventData'
 
+import LoadingIndicator from '../../components/Universal/LoadingIndicator'
 import Card from '../../components/Universal/Card'
 import Colors from '../../constants/Colors'
-import participantData from '../../data/jsonFiles/participants.json'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 const PasswordScreen = props => {
-  const [inputEmail, setInputEmail] = useState('')
+  const dispatch = useDispatch()
   const [inputPassword, setInputPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const eventPassword = 'WFFC2020'
+  const [error, setError] = useState(null)
 
-  const adminEmail = 'test'
-  const adminPassword = 'test'
+  const eventId = props.navigation.getParam('eventId')
+  const eventName = props.navigation.getParam('eventName')
 
-  const guestEmail = 'guest@wffc'
-
-  let loginFailed = false
-
-  const loginFunction = () => {
-    // Admin login
-    if ( inputPassword === adminPassword) {
-      console.log('Admin login!')
-      loginFailed = false
+  const authHandler = async () => {
+    if(inputPassword === 'test') {
+      await dispatch(eventDataActions.fetchAllData(eventId))
       props.navigation.navigate('MainScreen')
     }
+    console.log('Firing real authentication route')
+    setError(null)
+    setIsLoading(true)
+    try {
+      await dispatch(eventDataActions.authenticate(eventName, inputPassword))
+      await dispatch(eventDataActions.fetchAllData(eventId))
+      props.navigation.navigate('MainScreen')
+    } catch (err) {
+      setError(err.message)
+      setIsLoading(false)
+    }
   }
-    // if (inputEmail === adminEmail && inputPassword === adminPassword) {
-    //   console.log('Admin login!')
-    //   loginFailed = false
-    //   props.navigation.navigate('EventNavi')
-    // }
-  //   // Login as guest
-  //   else if (inputEmail === guestEmail && inputPassword === eventPassword) {
-  //     console.log('Guest login!')
-  //     loginFailed = false
-  //     props.navigation.navigate('EventNavi')
-  //   }
-  //   else {
-  //     // Check if user exits
-  //     setIsLoading(true)
-  //     for (const object of participantData) {
-  //       if (object.Email === inputEmail && eventPassword === inputPassword) {
-  //         setIsLoading(false)
-  //         loginFailed = false
-  //         console.log('Authenticatication success!')
-  //         props.navigation.navigate('EventNavi')
-  //         return
-  //       } else {
-  //         setIsLoading(false)
-  //         loginFailed = true
-  //       }
-  //     }
-  //     if (loginFailed == true) {
-  //       Alert.alert('Login failed', 'Incorrect login credentials', [{ text: 'Okay' }])
-  //     }
-  //   }
-  // }
+
+  useEffect(() => {
+    if(error) {
+      Alert.alert('Login failed', error, [{ text: 'Okay' }])
+    }
+  },[error])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false} >
@@ -82,7 +64,7 @@ const PasswordScreen = props => {
                 ) : (<Button //Switch text in title depending on state
                   title={'Login'}
                   color={Colors.primary}
-                  onPress={loginFunction}
+                  onPress={authHandler}
                 />)}
               </View>
             </ScrollView>

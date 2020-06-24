@@ -1,11 +1,12 @@
 import React from 'react';
 import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
-import {Button} from 'react-bootstrap'
+//import {Button} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 //import {Image} from 'react-bootstrap'
+import DeleteButton from '../components/DeleteButton'
 import { useEffect } from 'react';
-
+import './ProgrammeCard.css'
 
 const ProgrammeCard = props => {
     let formObject = props.form
@@ -37,8 +38,9 @@ const ProgrammeCard = props => {
                 <FormGroup className="pdf">
                     {/* <FormLabel><Image className="imgPrev" src={???}></Image></FormLabel> */}
                     <FormLabel>{props.form.Pdf ? "PDF: " + props.form.Pdf : "No PDF"}</FormLabel>
-                    <label htmlFor="hidden" id="lableForHidden">Choose PDF</label>
-                    <FormControl size="sm" onChange={(e)=>{changeHandler(e); fileHandler(e)}} name="Pdf" type='file' id="hidden"></FormControl>
+                    {/* <label htmlFor="hidden" id="lableForHidden">Choose PDF</label>
+                    <FormControl size="sm" onChange={(e)=>{changeHandler(e); fileHandler(e)}} name="Pdf" type='file' id="hidden"></FormControl> */}
+                    <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e)}} name="Pdf"/>
                 </FormGroup>
                 <Row>
                     <Col>
@@ -93,9 +95,10 @@ const ProgrammeCard = props => {
                     </Col>
                 </Row>
             </Form>
-            <Button className="deleteButton" onClick={deleteHandler}>
+            {/* <Button className="deleteButton" onClick={deleteHandler}>
                 <span className="deleteButtonText">-</span>
-            </Button>
+            </Button> */}
+            <DeleteButton onClick={deleteHandler}/>
         </Card>
     )
 }
