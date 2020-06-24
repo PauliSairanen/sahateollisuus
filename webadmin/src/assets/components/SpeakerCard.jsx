@@ -8,13 +8,16 @@ import './SpeakerCard.css';
 
 const SpeakerCard = props => {
   let formObject = props.form
+
+  if(formObject.ImageID && props.ID){
+    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
+  }
   useEffect(() => {
     //console.log(ImgSrc)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     formObject = props.form
   })
   function changeHandler(e){
-    console.log(e.target)
     let data = props.data;
     data = data.slice(0).reverse()
     data[props.index][e.target.name] = e.target.value.match(/[^\\/]*$/)[0]
@@ -44,9 +47,9 @@ const SpeakerCard = props => {
       <Form>
         <FormGroup className="file">
           <FormLabel><Image className="filePrev" src={formObject.imgsrc}/></FormLabel>
-          {/* <label htmlFor="hidden" id="lableForHidden">Choose file</label>
-          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id="hidden" type='file' name="ImageID"></FormControl> */}
-          <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/>
+          <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
+          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="ImageID"></FormControl>
+          {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </FormGroup>
         <Row>
           <Col>
