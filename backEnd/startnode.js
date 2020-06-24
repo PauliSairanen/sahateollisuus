@@ -54,7 +54,7 @@ const corsOptions = {
 //Express static kuville
 //app.use(express.static('public'));
 app.use('/images', express.static(__dirname + '/images'));
-app.use('/jsonFiles', express.static(__dirname + '/jsonFiles'));
+app.use('/public', express.static(__dirname + '/public'));
 
 //Express serverin luonti
 const httpsServer = https.createServer(credentials, app);
