@@ -1,7 +1,4 @@
-import React from 'react'
-import { Button, View } from 'react-native'
-
-import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { Platform } from 'react-native'
 
@@ -39,33 +36,31 @@ const defaultNavOptions = {
 // _____ Navigators _____
 const EventNavigator = createStackNavigator(
   {
-    // SelectEvent: {
-    //   screen: SelectEventsScreen,
-    //   navigationOptions: {
-    //     headerTitle: 'Select Event'
-    //   }
-    // },
     EmailScreen: {
       screen: EmailScreen,
+      navigationOptions: {
+        headerTitle: 'Login'
+      }
     },
     SelectEvent: {
       screen: SelectEventsScreen,
       navigationOptions: {
         headerBackTitle: 'Email input',
+        headerTitle: 'Select Event'
       }
     },
     PasswordScreen: {
       screen: PasswordScreen,
       navigationOptions: {
         headerBackTitle: 'Events',
+        headerTitle: 'Authenticate'
       }
     },
     MainScreen: {
       screen: MainNavigationScreen,
       navigationOptions: {
         headerBackTitle: 'Events',
-        
-      }
+        }
     },
     About: {
       screen: AboutScreen,
@@ -126,22 +121,6 @@ const EventNavigator = createStackNavigator(
   defaultNavigationOptions: defaultNavOptions
 }
 )
-
-// const LoginNavigator = createStackNavigator({
-//   EmailScreen: EmailScreen,
-//   SelectEvent: SelectEventsScreen,
-//   PasswordScreen: PasswordScreen,
-
-// })
-
-
-// const MainNavigator = createSwitchNavigator(
-//   {
-//     Login: LoginNavigator,
-//     EventNavi: EventNavigator
-//   })
-
-
 
 export default createAppContainer(EventNavigator)
 

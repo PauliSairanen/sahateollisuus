@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Image, Text, ActivityIndicator } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import * as eventDataActions from '../../store/actions/eventData'
 
 import Card from '../Universal/Card'
@@ -34,8 +34,8 @@ const EventsListItem = props => {
 
           // Passing event ID as parameter to next screen
           props.navigation.navigate('PasswordScreen', {
-            eventId : eventId,
-            eventName : eventName
+            eventId: eventId,
+            eventName: eventName
           })
         }}
       >
