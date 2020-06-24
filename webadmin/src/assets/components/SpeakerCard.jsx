@@ -7,7 +7,6 @@ import DeleteButton from './DeleteButton';
 import './SpeakerCard.css';
 
 const SpeakerCard = props => {
-
   let formObject = props.form
   useEffect(() => {
     //console.log(ImgSrc)
@@ -15,6 +14,7 @@ const SpeakerCard = props => {
     formObject = props.form
   })
   function changeHandler(e){
+    console.log(e.target)
     let data = props.data;
     data = data.slice(0).reverse()
     data[props.index][e.target.name] = e.target.value.match(/[^\\/]*$/)[0]
@@ -44,8 +44,9 @@ const SpeakerCard = props => {
       <Form>
         <FormGroup className="file">
           <FormLabel><Image className="filePrev" src={formObject.imgsrc}/></FormLabel>
-          <label htmlFor="hidden" id="lableForHidden">Choose file</label>
-          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} type='file' id="hidden" name="ImageID"></FormControl>
+          {/* <label htmlFor="hidden" id="lableForHidden">Choose file</label>
+          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id="hidden" type='file' name="ImageID"></FormControl> */}
+          <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/>
         </FormGroup>
         <Row>
           <Col>
