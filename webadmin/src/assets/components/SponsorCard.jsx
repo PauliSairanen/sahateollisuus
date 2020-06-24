@@ -3,48 +3,71 @@ import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
-import { useState } from 'react';
+import { useEffect } from 'react';
 import DeleteButton from './DeleteButton';
 import './SponsorCard.css';
 
 
 const SponsorCard = props => {
+  let formObject = props.form
 
-  const company = props.company;
-  const companyUrl = props.companyUrl;
-  const file = props.file;
-
-  const [companyState, setCompany] = useState(company);
-  const [companyUrlState, setCompanyUrl] = useState(companyUrl);
-  const [fileState, setFile] = useState(file);
-
+  if(formObject.ImageID && props.ID){
+    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
+  }
+  useEffect(() => {
+    //console.log(ImgSrc)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    formObject = props.form
+  })
+  function changeHandler(e){
+    let data = props.data;
+    data = data.slice(0).reverse()
+    data[props.index][e.target.name] = e.target.value.match(/[^\\/]*$/)[0]
+    data = data.slice(0).reverse()
+    props.editForm(data)
+  }
+  function deleteHandler(){
+    let data = props.data;
+    data = data.slice(0).reverse()
+    data.splice(props.index, 1)
+    data = data.slice(0).reverse()
+    props.editForm(data)
+  }
+  function fileHandler(e){
+    props.fileToUpload(e)
+  }
+  function changeImage(e) {
+    if (e.target.files && e.target.files[0]) {
+      //setImgSrc(URL.createObjectURL(e.target.files[0]))
+      formObject["imgsrc"] = URL.createObjectURL(e.target.files[0])
+    }
+  }
   return (
-    
     <Card>
       <Form>
-        <FormGroup className="file" controlId="formBasicFile">
-          <FormLabel><Image className="filePrev" src={fileState}/></FormLabel>
-          <label htmlFor="hidden" id="lableForHidden">Choose file</label>
-          <FormControl onChange={(e) => setFile(e.target.value)} type='file' id="hidden"></FormControl>
+        <FormGroup className="file">
+          <FormLabel><Image className="filePrev" src={formObject.imgsrc}/></FormLabel>
+          <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
+          <FormControl className="hidden" name="ImageID" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} type='file' id={'hidden-'+props.index}/>
         </FormGroup>
         <Row>
           <Col>
-            <FormGroup controlId="formBasicCompany">
+            <FormGroup>
               <FormLabel>Name of company</FormLabel>
-              <FormControl value={companyState} onChange={(e) => setCompany(e.target.value)} placeholder="Name of company"></FormControl>
+              <FormControl value={formObject.CompanyName} name="CompanyName" onChange={(e) => changeHandler(e)} placeholder="Name of company"></FormControl>
             </FormGroup>
           </Col>
         </Row>
         <Row>
           <Col>
-            <FormGroup controlId="formBasicCompanyUrl">
+            <FormGroup>
               <FormLabel>Url of company</FormLabel>
-              <FormControl value={companyUrlState} onChange={(e) => setCompanyUrl(e.target.value)} placeholder="Url of company"></FormControl>
+              <FormControl value={formObject.CompanyUrl} name="CompanyUrl" onChange={(e) => changeHandler(e)} placeholder="Url of company"></FormControl>
             </FormGroup>
           </Col>
         </Row>
       </Form>
-      <DeleteButton></DeleteButton>
+      <DeleteButton onClick={deleteHandler}/>
     </Card>
   )
 }

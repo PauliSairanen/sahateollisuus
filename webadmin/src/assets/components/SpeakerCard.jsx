@@ -8,13 +8,16 @@ import './SpeakerCard.css';
 
 const SpeakerCard = props => {
   let formObject = props.form
+
+  if(formObject.ImageID && props.ID){
+    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
+  }
   useEffect(() => {
     //console.log(ImgSrc)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     formObject = props.form
   })
   function changeHandler(e){
-    console.log(e.target)
     let data = props.data;
     data = data.slice(0).reverse()
     data[props.index][e.target.name] = e.target.value.match(/[^\\/]*$/)[0]

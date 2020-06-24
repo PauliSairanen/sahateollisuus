@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import FormTable from '../components/FormTable'
-
+import SponsorCard from '../components/SponsorCard'
+import AddButton from '../components/AddButton'
 /*
 {
     "CompanyName": "Test",
@@ -27,15 +28,42 @@ const SponsorsForm = (props) => {
         setForm(form)
         props.editForm("sponsors", Form)
     }
+    function clickEmpty(e){
+        e.preventDefault();
+        let form = Form;
+        form.push({
+            CompanyName: "",
+            CompanyUrl: "",
+            ImageID: ""
+        })
+        document.getElementById("form").reset();
+        setForm(form)
+        props.editForm("sponsors", Form)
+    }
+    let dataContainer;
+    dataContainer = Form.slice(0).reverse().map((item, index)=>{
+        return(
+        <SponsorCard 
+            key={index} 
+            index={index} 
+            form={item} 
+            data={Form} 
+            editForm={setForm}
+            ID={props.EditID} 
+            fileToUpload={(e)=>props.fileToUpload(e)}
+        />)
+    })
     return(
         <>
         <form autoComplete="off" id="form">
-            <input type="text" name="sponsorCompany" placeholder="Company Name"/>
-            <input type="text" name="sponsorURL" placeholder="Company URL"/>
-            <input type="file" name="sponsorImg" id="test" 
+            <input style={{display: 'none'}} type="text" name="sponsorCompany" placeholder="Company Name"/>
+            <input style={{display: 'none'}} type="text" name="sponsorURL" placeholder="Company URL"/>
+            <input style={{display: 'none'}} type="file" name="sponsorImg" id="test" 
             onChange={(e)=>{props.fileToUpload(e)}}/>
-            <button onClick={clickHandler}>Add Sponsor</button>
+            <button style={{display: 'none'}} onClick={clickHandler}>Add Sponsor</button>
+            <AddButton onClick={clickEmpty}/>
         </form>
+        {dataContainer}
         {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )

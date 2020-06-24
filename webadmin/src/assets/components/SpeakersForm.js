@@ -75,7 +75,8 @@ const SpeakersForm = (props) => {
             index={index} 
             form={item} 
             data={Form} 
-            editForm={setForm} 
+            editForm={setForm}
+            ID={props.EditID}  
             fileToUpload={(e)=>props.fileToUpload(e)}
         />)
     })

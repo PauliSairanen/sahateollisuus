@@ -132,13 +132,15 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         editForm={appendForm} 
         fileToUpload={fileToUpload}
         subForm={FormObjects.speakers}
+        EditID={EditID}
         />
     }
     else if(ActiveForm === "SponsorsForm"){
         container = <SponsorsForm 
         editForm={appendForm} 
         fileToUpload={fileToUpload}
-        subForm={FormObjects.sponsors}/>
+        subForm={FormObjects.sponsors}
+        EditID={EditID}/>
     }
     else if(ActiveForm === "VenueTabForm"){
         container = <VenueTabForm 
