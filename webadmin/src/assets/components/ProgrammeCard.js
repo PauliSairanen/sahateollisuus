@@ -46,25 +46,25 @@ const ProgrammeCard = props => {
                     <Col>
                         <FormGroup>
                             <FormLabel>Name of speaker</FormLabel>
-                            <FormControl size="sm" onChange={changeHandler} name="NameOfSpeaker" value={formObject.NameOfSpeaker} placeholder="Name of speaker"></FormControl>
+                            <FormControl size="sm" onChange={changeHandler} name="NameOfSpeaker" value={formObject.NameOfSpeaker}></FormControl>
                         </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
                             <FormLabel>Title of speaker</FormLabel>
-                            <FormControl size="sm" onChange={changeHandler} name="TitleOfSpeaker" value={formObject.TitleOfSpeaker} placeholder="Title of speaker"></FormControl>
+                            <FormControl size="sm" onChange={changeHandler} name="TitleOfSpeaker" value={formObject.TitleOfSpeaker}></FormControl>
                         </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
                             <FormLabel>Special title of speaker</FormLabel>
-                            <FormControl size="sm" onChange={changeHandler} name="SpecialTitleOfSpeaker" value={formObject.SpecialTitleOfSpeaker} placeholder="Special title of speaker"></FormControl>
+                            <FormControl size="sm" onChange={changeHandler} name="SpecialTitleOfSpeaker" value={formObject.SpecialTitleOfSpeaker}></FormControl>
                         </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
                             <FormLabel>Company of speaker</FormLabel>
-                            <FormControl size="sm" onChange={changeHandler} name="Company" value={formObject.Company} placeholder="Company of speaker"></FormControl>
+                            <FormControl size="sm" onChange={changeHandler} name="Company" value={formObject.Company}></FormControl>
                         </FormGroup>
                     </Col>
                 </Row>
@@ -78,19 +78,19 @@ const ProgrammeCard = props => {
                     <Col>
                         <FormGroup>
                             <FormLabel>Time</FormLabel>
-                            <FormControl size="sm" name="Time" onChange={changeHandler} value={formObject.Time} placeholder="Time"></FormControl>
+                            <FormControl size="sm" name="Time" onChange={changeHandler} value={formObject.Time}></FormControl>
                         </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
                             <FormLabel>Location</FormLabel>
-                            <FormControl size="sm" name="Location" onChange={changeHandler} value={formObject.Location} placeholder="Location"></FormControl>
+                            <FormControl size="sm" name="Location" onChange={changeHandler} value={formObject.Location}></FormControl>
                         </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
                             <FormLabel>Description</FormLabel>
-                            <FormControl size="sm" name="Description" as="textarea" rows="1" value={formObject.Description} onChange={changeHandler} placeholder="Description"></FormControl>
+                            <FormControl size="sm" name="Description" as="textarea" rows="1" value={formObject.Description} onChange={changeHandler}></FormControl>
                         </FormGroup>
                     </Col>
                 </Row>

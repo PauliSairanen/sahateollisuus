@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import FormTable from '../components/FormTable'
+import VenueCard from '../components/VenueCard'
+import AddButton from '../components/AddButton'
 /**
  * @param editForm - evoke appendForm
  * @param subForm - get formObject data to Form
@@ -18,14 +20,40 @@ const VenueTabForm = (props) => {
         setForm(form)
         props.editForm("venue", Form)
     }
+    function clickEmpty(e){
+        e.preventDefault(); //prevents page refresh
+        let form = Form;
+        form.push({
+            title: "",
+            image: ""
+        })
+        document.getElementById("form").reset();
+        setForm(form)
+        props.editForm("venue", Form)
+    }
+    let dataContainer;
+    dataContainer = Form.slice(0).reverse().map((item, index)=>{
+        return(
+        <VenueCard 
+            key={index} 
+            index={index} 
+            form={item} 
+            data={Form} 
+            editForm={setForm}
+            ID={props.EditID} 
+            fileToUpload={(e)=>props.fileToUpload(e)}
+        />)
+    })
     return(
         <>
         <form autoComplete="off" id="form">
-            <input type="text" name="title" placeholder="Venue Title"/>
-            <input type="file" name="venueImg" id="test" 
+            <input style={{display: 'none'}} type="text" name="title" placeholder="Venue Title"/>
+            <input style={{display: 'none'}} type="file" name="venueImg" id="test" 
             onChange={(e)=>{props.fileToUpload(e)}}/>
-            <button onClick={clickHandler}>Add Venue</button>
+            <button style={{display: 'none'}} onClick={clickHandler}>Add Venue</button>
+            <AddButton onClick={clickEmpty}/>
         </form>
+        {dataContainer}
         {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
         </>
     )

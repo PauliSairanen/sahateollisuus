@@ -146,7 +146,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         container = <VenueTabForm 
         editForm={appendForm} 
         fileToUpload={fileToUpload}
-        subForm={FormObjects.venue}/>
+        subForm={FormObjects.venue}
+        EditID={EditID}/>
     }
     else if(ActiveForm === "MapMarkerForm"){
         container = <MapMarkerForm

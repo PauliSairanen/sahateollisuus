@@ -9,8 +9,8 @@ import './VenueCard.css';
 const VenueCard = props => {
   let formObject = props.form
 
-  if(formObject.ImageID && props.ID){
-    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
+  if(formObject.image && props.ID){
+    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.image}`
   }
   useEffect(() => {
     //console.log(ImgSrc)
@@ -48,7 +48,7 @@ const VenueCard = props => {
         <FormGroup className="file">
           <FormLabel><Image className="filePrev" src={formObject.imgsrc}/></FormLabel>
           <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
-          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="ImageID"></FormControl>
+          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </FormGroup>
         <Row>
