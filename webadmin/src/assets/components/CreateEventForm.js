@@ -132,19 +132,22 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         editForm={appendForm} 
         fileToUpload={fileToUpload}
         subForm={FormObjects.speakers}
+        EditID={EditID}
         />
     }
     else if(ActiveForm === "SponsorsForm"){
         container = <SponsorsForm 
         editForm={appendForm} 
         fileToUpload={fileToUpload}
-        subForm={FormObjects.sponsors}/>
+        subForm={FormObjects.sponsors}
+        EditID={EditID}/>
     }
     else if(ActiveForm === "VenueTabForm"){
         container = <VenueTabForm 
         editForm={appendForm} 
         fileToUpload={fileToUpload}
-        subForm={FormObjects.venue}/>
+        subForm={FormObjects.venue}
+        EditID={EditID}/>
     }
     else if(ActiveForm === "MapMarkerForm"){
         container = <MapMarkerForm
@@ -273,7 +276,6 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         fd, 
         {
             headers: {
-                'category': "test",
                 'Content-Type': false,
                 'processdata': false,
             }

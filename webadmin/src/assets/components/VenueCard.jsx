@@ -1,18 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react'
 import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
-import { useEffect } from 'react';
 import DeleteButton from './DeleteButton';
-import './SponsorCard.css';
+import './VenueCard.css';
 
-
-const SponsorCard = props => {
+const VenueCard = props => {
   let formObject = props.form
 
-  if(formObject.ImageID && props.ID){
-    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
+  if(formObject.image && props.ID){
+    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.image}`
   }
   useEffect(() => {
     //console.log(ImgSrc)
@@ -42,34 +40,32 @@ const SponsorCard = props => {
       formObject["imgsrc"] = URL.createObjectURL(e.target.files[0])
     }
   }
+  //Kuvat https://sahat.lamk.fi/public/{EventID}/{FileName}
   return (
+    
     <Card>
       <Form>
         <FormGroup className="file">
           <FormLabel><Image className="filePrev" src={formObject.imgsrc}/></FormLabel>
           <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
-          <FormControl className="hidden" name="ImageID" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} type='file' id={'hidden-'+props.index}/>
+          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
+          {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </FormGroup>
         <Row>
           <Col>
             <FormGroup>
-              <FormLabel>Name of company</FormLabel>
-              <FormControl value={formObject.CompanyName} name="CompanyName" onChange={(e) => changeHandler(e)} placeholder="Name of company"></FormControl>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <FormGroup>
-              <FormLabel>Url of company</FormLabel>
-              <FormControl value={formObject.CompanyUrl} name="CompanyUrl" onChange={(e) => changeHandler(e)} placeholder="Url of company"></FormControl>
+              <FormLabel>Title</FormLabel>
+              <FormControl size="sm" value={formObject.title} onChange={(e) => {changeHandler(e)}} name="title"></FormControl>
             </FormGroup>
           </Col>
         </Row>
       </Form>
-      <DeleteButton onClick={deleteHandler}/>
+      {/* <Button className="deleteButton" onClick={deleteFunction}>
+        <span className="deleteButtonText">-</span>
+      </Button> */}
+      <DeleteButton onClick={deleteHandler}></DeleteButton>
     </Card>
   )
 }
 
-export default SponsorCard;
+export default VenueCard;

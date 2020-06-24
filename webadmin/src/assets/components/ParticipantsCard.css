@@ -1,9 +1,10 @@
+
 .card {
-    width: auto;
+    width: 80%;
     margin: 20px auto 20px auto;
     padding: 10px 10px 10px 10px;
-    border: 2px solid rgba(0, 0, 0, 0.125);
-    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.125);
+    border: 2px solid rgb(0, 0, 0, 0.125);
+    box-shadow: 0 0 10px 5px rgb(0, 0, 0, 0.125);
 }
 
 .form-group {
@@ -21,13 +22,13 @@
     display: block;
 }
 
-.imgPrev {
+.filePrev {
     width: 120px;
     height: 120px;
-    border: 2px solid rgba(0, 0, 0, 0.125);
+    border: 2px solid rgb(0, 0, 0, 0.125);
 }
 
-.pdf {
+.file {
     display: block;
     float: right;
     width: 120px;
@@ -38,7 +39,7 @@
     width: 120px;
 }
 
-.hidden {
+#hidden {
     visibility: hidden;
     width: 0px;
     height: 0px;
@@ -95,6 +96,7 @@
     display: inline-block;
     text-decoration: none;
     text-align: center;
+    white-space: nowrap;
     text-rendering: auto;
     align-items: flex-start;
     vertical-align: middle;

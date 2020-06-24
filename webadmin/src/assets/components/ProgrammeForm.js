@@ -5,6 +5,7 @@ import xlsxToJson from '../components/XlsxConverter'
 import ProgrammeCard from '../components/ProgrammeCard'
 import AddButton from '../components/AddButton'
 import { ButtonGroup, Button, Col, Card } from 'react-bootstrap'
+import BsForm from 'react-bootstrap/Form'
 /*Esim
 [
     {
@@ -160,7 +161,7 @@ const ProgrammeForm = (props) => {
         let found = false;
         for(i = 0; i < form.length; i++){
             if('day' in form[i]){
-                if(form[i].day === "Päivä 0"){
+                if(form[i].day === "Päivä "+document.getElementById("Date").value){
                     found = true;
                     break;
                 }
@@ -183,7 +184,7 @@ const ProgrammeForm = (props) => {
         else{
             form.push(
                 {
-                    day: "Päivä 0",
+                    day: "Päivä "+document.getElementById("Date").value,
                     content: [
                         {
                             Time: "",
@@ -199,7 +200,7 @@ const ProgrammeForm = (props) => {
                 }
             )
         }
-        document.getElementById("form").reset();
+        //document.getElementById("form").reset();
         setForm(form)
         props.editForm("programme", Form)
         setData(FormToData(form))
@@ -344,12 +345,21 @@ const ProgrammeForm = (props) => {
                     width: '50px',
                     backgroundColor: "#32CD32"
                 }}><span className="deleteButtonText">+</span></Button> */}
-            <AddButton onClick={clickEmpty} style={{display: 'flex', justifyContent: 'center', alignItems:'center'}}/>
         </form>
-        
+        <Card style={{width:"300px", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center'}}>
+            <BsForm style={{width:'50%'}}>
+                <BsForm.Group>
+                    <BsForm.Label>Day</BsForm.Label>
+                    <BsForm.Control type="number" name="Date" min="0" defaultValue="0" id="Date"/>
+                    <AddButton onClick={clickEmpty} style={{display: 'flex', justifyContent: 'center', alignItems:'center'}}/>
+                </BsForm.Group>
+            </BsForm>
+        </Card>
         
         {/* <ProgrammeCard/> */}
-        {dayButtons}
+        <div style={{marginTop: '20px', display: 'flex', justifyContent:'center', alignItems:'center'}}>
+            {dayButtons}
+        </div>
         {Data.length > 0 ? dataContainer : null}
         {Form.length > 0 ? 
             <FormTable 

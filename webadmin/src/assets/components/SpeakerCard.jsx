@@ -7,8 +7,11 @@ import DeleteButton from './DeleteButton';
 import './SpeakerCard.css';
 
 const SpeakerCard = props => {
-
   let formObject = props.form
+  let ID = props.ID
+  if(formObject.ImageID && ID){
+    formObject.imgsrc = `https://sahat.lamk.fi/public/${ID}/${formObject.ImageID}`
+  }
   useEffect(() => {
     //console.log(ImgSrc)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,15 +40,16 @@ const SpeakerCard = props => {
       formObject["imgsrc"] = URL.createObjectURL(e.target.files[0])
     }
   }
-
+  //Kuvat https://sahat.lamk.fi/public/{EventID}/{FileName}
   return (
     
     <Card>
       <Form>
         <FormGroup className="file">
           <FormLabel><Image className="filePrev" src={formObject.imgsrc}/></FormLabel>
-          <label htmlFor="hidden" id="lableForHidden">Choose file</label>
-          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} type='file' id="hidden" name="ImageID"></FormControl>
+          <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
+          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="ImageID"></FormControl>
+          {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </FormGroup>
         <Row>
           <Col>

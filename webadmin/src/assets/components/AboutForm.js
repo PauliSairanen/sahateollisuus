@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card'
 import BsForm from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import AboutCard from '../components/AboutCard'
 /**
  * @param editForm - evoke changehandler
  * @param appendForm - evoke appendForm
@@ -102,6 +103,7 @@ const AboutForm = (props) => {
         // {Fields2}
         // <button onClick={clickHandler2}>Add Disclaimer</button>
         // </div>
+
         <Card>
             <BsForm onChange={props.editForm} style={{padding: '30px'}}>
                 <BsForm.Row>
