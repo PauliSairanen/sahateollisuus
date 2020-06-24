@@ -10,19 +10,39 @@ import './ParticipantsCard.css';
 
 const SponsorCard = props => {
 
-  const fname = props.fname;
-  const lname = props.lname;
-  const email = props.email;
-  const phone = props.phone;
-  const company = props.company;
-  const country = props.country;
+  let formObject = props.form
 
-  const [fnameState, setFname] = useState(fname);
-  const [lnameUrlState, setLname] = useState(lname);
-  const [emailState, setEmail] = useState(email);
-  const [phoneState, setPhone] = useState(phone);
-  const [companyState, setCompany] = useState(company);
-  const [countryState, setCountry] = useState(country);
+  if(formObject.ImageID && props.ID){
+    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
+  }
+  useEffect(() => {
+    //console.log(ImgSrc)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    formObject = props.form
+  })
+  function changeHandler(e){
+    let data = props.data;
+    data = data.slice(0).reverse()
+    data[props.index][e.target.name] = e.target.value.match(/[^\\/]*$/)[0]
+    data = data.slice(0).reverse()
+    props.editForm(data)
+  }
+  function deleteHandler(){
+    let data = props.data;
+    data = data.slice(0).reverse()
+    data.splice(props.index, 1)
+    data = data.slice(0).reverse()
+    props.editForm(data)
+  }
+  function fileHandler(e){
+    props.fileToUpload(e)
+  }
+  function changeImage(e) {
+    if (e.target.files && e.target.files[0]) {
+      //setImgSrc(URL.createObjectURL(e.target.files[0]))
+      formObject["imgsrc"] = URL.createObjectURL(e.target.files[0])
+    }
+  }
 
   return (
     
@@ -32,13 +52,13 @@ const SponsorCard = props => {
           <Col>
             <FormGroup controlId="formBasicFname">
               <FormLabel>First name</FormLabel>
-              <FormControl value={fnameState} onChange={(e) => setFname(e.target.value)} placeholder="First name"></FormControl>
+              <FormControl size="sm" value={formObject.FirstName} onChange={(e) => {changeHandler(e)}} name="FirstName" placeholder="First name"></FormControl>
             </FormGroup>
           </Col>
           <Col>
             <FormGroup controlId="formBasicLname">
               <FormLabel>Last name</FormLabel>
-              <FormControl value={lnameUrlState} onChange={(e) => setLname(e.target.value)} placeholder="Last name"></FormControl>
+              <FormControl size="sm" value={formObject.LastName} onChange={(e) => {changeHandler(e)}} name="LastName" placeholder="Last name"></FormControl>
             </FormGroup>
           </Col>
         </Row>
@@ -46,13 +66,13 @@ const SponsorCard = props => {
           <Col>
             <FormGroup controlId="formBasicEmail">
               <FormLabel>Email</FormLabel>
-              <FormControl value={emailState} onChange={(e) => setEmail(e.target.value)} placeholder="Email"></FormControl>
+              <FormControl size="sm" value={formObject.Email} onChange={(e) => {changeHandler(e)}} name="Email" placeholder="Email"></FormControl>
             </FormGroup>
           </Col>
           <Col>
             <FormGroup controlId="formBasicPhone">
               <FormLabel>Phone</FormLabel>
-              <FormControl value={phoneState} onChange={(e) => setPhone(e.target.value)} placeholder="Phone"></FormControl>
+              <FormControl size="sm" value={formObject.Phone} onChange={(e) => {changeHandler(e)}} name="Phone" placeholder="Phone"></FormControl>
             </FormGroup>
           </Col>
         </Row>
@@ -60,13 +80,13 @@ const SponsorCard = props => {
           <Col>
             <FormGroup controlId="formBasicCompany">
               <FormLabel>Company</FormLabel>
-              <FormControl value={companyState} onChange={(e) => setCompany(e.target.value)} placeholder="Company"></FormControl>
+              <FormControl size="sm" value={formObject.Company} onChange={(e) => {changeHandler(e)}} name="Company" placeholder="Company"></FormControl>
             </FormGroup>
           </Col>
           <Col>
             <FormGroup controlId="formBasicCountry">
               <FormLabel>Country</FormLabel>
-              <FormControl value={countryState} onChange={(e) => setCountry(e.target.value)} placeholder="Country"></FormControl>
+              <FormControl size="sm" value={formObject.Country} onChange={(e) => {changeHandler(e)}} name="Country" placeholder="Country"></FormControl>
             </FormGroup>
           </Col>
         </Row>

@@ -39,37 +39,6 @@
     width: 120px;
 }
 
-.deleteButton {
-    height: 50px;
-    width: 50px;
-    padding: 0px;
-    background-color: rgb(231, 0, 0) !important;
-    border-color:  rgb(231, 0, 0) !important;
-    box-shadow: none !important;
-    position: absolute;
-    top: 50%;
-    right: -70px;
-    transform: translate(0, -50%);
-}
-
-.deleteButton:hover {
-    background-color: rgb(153, 0, 0) !important;
-    border-color: rgb(153, 0, 0) !important;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.deleteButtonText {
-    align-content: center;
-    margin-left: -100%;
-    margin-right: -100%;
-    margin-top: -100%;
-    margin-bottom: -100%;
-    text-align: center;
-    font-size: 40px;
-    position: relative;
-    top: -15px;
-}
-
 #hidden {
     visibility: hidden;
     width: 0px;
