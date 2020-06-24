@@ -15,52 +15,51 @@ const SelectEventScreen = props => {
   const dispatch = useDispatch()
 
   //_____ Initially load data from server to Redux
-  useEffect(() => {
-    dispatch(eventDataActions.fetchEventMetaData())
-    console.log('Dispatching action to fetch metadata!')
-  }, [])
+  const loadMetadata = async () => {
+    setIsLoading(true)
+    await dispatch(eventDataActions.fetchEventMetaData())
+    setIsLoading(false)
+    console.log('Fetching metadata')
+  }
 
   //_____ Fetch data from Redux _____
   const eventsMetaData = useSelector(state => state.eventData.eventsMetaData)
   console.log(eventsMetaData)
 
-  // _____ On back navigation, reload data and refresh page
-  useEffect( () => {
+  // _____ Whenever screen is entered, data is loaded again
+  useEffect(() => {
     props.navigation.addListener('didFocus', () => {
-      setIsLoading(true)
-      dispatch(eventDataActions.fetchEventMetaData())
-      setIsLoading(false)
-      console.log('Go back pressed, reloading data again!')
+      loadMetadata()
     })
-  },[])
+  }, [])
 
-  if (isLoading === true) {
+  if (isLoading) {
     return (
       <LoadingIndicator />
     )
   } else {
     return (
       <View>
-         <LinearGradient colors={['orange', 'yellow']} style={styles.gradient}>
-        <FlatList
-          data={eventsMetaData}
-          extraData={eventsMetaData}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={eventsData =>
-            <EventListItem
-              eventId={eventsData.item.id}
-              eventName={eventsData.item.name}
-              eventImage={eventsData.item.eventImage}
-            />
-          }
-        />
+        <LinearGradient colors={['orange', 'yellow']} style={styles.gradient}>
+          <FlatList
+            data={eventsMetaData}
+            extraData={eventsMetaData}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={eventsData =>
+              <EventListItem
+                eventId={eventsData.item.id}
+                eventName={eventsData.item.name}
+                eventImage={eventsData.item.eventImage}
+              />
+            }
+          />
         </LinearGradient>
       </View>
     )
   }
 }
 
-const styles= StyleSheet.create({
+const styles = StyleSheet.create({
   gradient: {
     width: '100%',
     height: '100%',
