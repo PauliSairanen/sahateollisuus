@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
+import Card from 'react-bootstrap/Card'
 /*
 participants: [
     {
@@ -60,6 +61,10 @@ const ParticipantsForm = (props) => {
     }
     return(
         <>
+        <Card>
+            <label>.xlsx file input</label>
+            <input type="file" onChange={fileHandler}/>
+        </Card>
         <form autoComplete="off" id="form">
             <input type="text" name="country" placeholder="Country"/>
             <input type="text" name="firstName" placeholder="First Name"/>
@@ -69,8 +74,8 @@ const ParticipantsForm = (props) => {
             <input type="text" name="company" placeholder="Company"/>
             <button onClick={clickHandler}>Add Participant</button>
         </form>
-        <label>.xlsx file input</label>
-        <input type="file" onChange={fileHandler}/>
+        {/* <label>.xlsx file input</label>
+        <input type="file" onChange={fileHandler}/> */}
         {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
         
         </>

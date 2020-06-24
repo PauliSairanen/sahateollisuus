@@ -349,7 +349,9 @@ const ProgrammeForm = (props) => {
         
         
         {/* <ProgrammeCard/> */}
-        {dayButtons}
+        <div style={{marginTop: '20px', display: 'flex', justifyContent:'center', alignItems:'center', border: '1px solid black'}}>
+            {dayButtons}
+        </div>
         {Data.length > 0 ? dataContainer : null}
         {Form.length > 0 ? 
             <FormTable 
