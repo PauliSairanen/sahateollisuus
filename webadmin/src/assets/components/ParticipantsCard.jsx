@@ -41,13 +41,13 @@ const SponsorCard = props => {
           <Col>
             <FormGroup>
               <FormLabel>First name</FormLabel>
-              <FormControl size="sm" value={formObject.FirstName} onChange={(e) => {changeHandler(e)}} name="FirstName" placeholder="First name"></FormControl>
+              <FormControl size="sm" value={formObject.FirstName} onChange={(e) => {changeHandler(e)}} name="FirstName"></FormControl>
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
               <FormLabel>Last name</FormLabel>
-              <FormControl size="sm" value={formObject.LastName} onChange={(e) => {changeHandler(e)}} name="LastName" placeholder="Last name"></FormControl>
+              <FormControl size="sm" value={formObject.LastName} onChange={(e) => {changeHandler(e)}} name="LastName"></FormControl>
             </FormGroup>
           </Col>
         </Row>
@@ -55,13 +55,13 @@ const SponsorCard = props => {
           <Col>
             <FormGroup>
               <FormLabel>Email</FormLabel>
-              <FormControl size="sm" value={formObject.Email} onChange={(e) => {changeHandler(e)}} name="Email" placeholder="Email"></FormControl>
+              <FormControl size="sm" value={formObject.Email} onChange={(e) => {changeHandler(e)}} name="Email"></FormControl>
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
               <FormLabel>Phone</FormLabel>
-              <FormControl size="sm" value={formObject.Phone} onChange={(e) => {changeHandler(e)}} name="Phone" placeholder="Phone"></FormControl>
+              <FormControl size="sm" value={formObject.Phone} onChange={(e) => {changeHandler(e)}} name="Phone"></FormControl>
             </FormGroup>
           </Col>
         </Row>
@@ -69,13 +69,13 @@ const SponsorCard = props => {
           <Col>
             <FormGroup>
               <FormLabel>Company</FormLabel>
-              <FormControl size="sm" value={formObject.Company} onChange={(e) => {changeHandler(e)}} name="Company" placeholder="Company"></FormControl>
+              <FormControl size="sm" value={formObject.Company} onChange={(e) => {changeHandler(e)}} name="Company"></FormControl>
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
               <FormLabel>Country</FormLabel>
-              <FormControl size="sm" value={formObject.Country} onChange={(e) => {changeHandler(e)}} name="Country" placeholder="Country"></FormControl>
+              <FormControl size="sm" value={formObject.Country} onChange={(e) => {changeHandler(e)}} name="Country"></FormControl>
             </FormGroup>
           </Col>
         </Row>

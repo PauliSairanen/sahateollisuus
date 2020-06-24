@@ -357,7 +357,7 @@ const ProgrammeForm = (props) => {
         </Card>
         
         {/* <ProgrammeCard/> */}
-        <div style={{marginTop: '20px', display: 'flex', justifyContent:'center', alignItems:'center', border: '1px solid black'}}>
+        <div style={{marginTop: '20px', display: 'flex', justifyContent:'center', alignItems:'center'}}>
             {dayButtons}
         </div>
         {Data.length > 0 ? dataContainer : null}

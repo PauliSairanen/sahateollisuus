@@ -37,6 +37,7 @@ const SpeakerCard = props => {
   function changeImage(e) {
     if (e.target.files && e.target.files[0]) {
       //setImgSrc(URL.createObjectURL(e.target.files[0]))
+      formObject.ImageID = null;
       formObject["imgsrc"] = URL.createObjectURL(e.target.files[0])
     }
   }

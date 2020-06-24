@@ -2,16 +2,11 @@ import React, {useEffect} from 'react'
 import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
-import {Image} from 'react-bootstrap'
-import DeleteButton from './DeleteButton';
 import './AboutCard.css';
 
 const AboutCard = props => {
   let formObject = props.form
-
-  if(formObject.ImageID && props.ID){
-    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
-  }
+  
   useEffect(() => {
     //console.log(ImgSrc)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -24,22 +19,7 @@ const AboutCard = props => {
     data = data.slice(0).reverse()
     props.editForm(data)
   }
-  function deleteHandler(){
-    let data = props.data;
-    data = data.slice(0).reverse()
-    data.splice(props.index, 1)
-    data = data.slice(0).reverse()
-    props.editForm(data)
-  }
-  function fileHandler(e){
-    props.fileToUpload(e)
-  }
-  function changeImage(e) {
-    if (e.target.files && e.target.files[0]) {
-      //setImgSrc(URL.createObjectURL(e.target.files[0]))
-      formObject["imgsrc"] = URL.createObjectURL(e.target.files[0])
-    }
-  }
+
   //Kuvat https://sahat.lamk.fi/public/{EventID}/{FileName}
   return (
     <div>
