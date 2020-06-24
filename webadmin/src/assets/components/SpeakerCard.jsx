@@ -8,9 +8,9 @@ import './SpeakerCard.css';
 
 const SpeakerCard = props => {
   let formObject = props.form
-
-  if(formObject.ImageID && props.ID){
-    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
+  let ID = props.ID
+  if(formObject.ImageID && ID){
+    formObject.imgsrc = `https://sahat.lamk.fi/public/${ID}/${formObject.ImageID}`
   }
   useEffect(() => {
     //console.log(ImgSrc)
