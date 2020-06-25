@@ -12,13 +12,13 @@ const AboutCard = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     form = props.form
   })
-  function changeHandler(e){
-    let data = props.data;
-    data = data.slice(0).reverse()
-    data[props.index][e.target.name] = e.target.value.match(/[^\\/]*$/)[0]
-    data = data.slice(0).reverse()
-    props.editForm(data)
-  }
+  // function changeHandler(e){
+  //   let data = props.data;
+  //   data = data.slice(0).reverse()
+  //   data[props.index][e.target.name] = e.target.value.match(/[^\\/]*$/)[0]
+  //   data = data.slice(0).reverse()
+  //   props.editForm(data)
+  // }
 
   //Kuvat https://sahat.lamk.fi/public/{EventID}/{FileName}
   return (
