@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import AdjustingText from '../Universal/AdjustingText'
 
 const ProgrammeItem = props => {
   const time = props.time
@@ -15,12 +16,12 @@ const ProgrammeItem = props => {
     return (
       <View style={styles.card}>
         <View style={styles.timeContainer}>
-          <Text>{props.time} </Text>
+          <AdjustingText>{props.time} </AdjustingText>
         </View>
         <View style={styles.columnContentContainer}>
           <View style={styles.rowContentContainer}>
             <Text style={styles.description}>{props.description}</Text>
-            <Text style={styles.location}>{props.location}</Text>
+            <AdjustingText style={styles.location}>{props.location}</AdjustingText>
           </View>
         </View>
       </View>
@@ -31,12 +32,12 @@ const ProgrammeItem = props => {
     return (
       <View style={styles.card}>
         <View style={styles.timeContainer}>
-          <Text>{props.time} </Text>
+          <AdjustingText>{props.time} </AdjustingText>
         </View>
         <View style={styles.columnContentContainer}>
           <View style={styles.rowContentContainer}>
             <Text style={styles.description}>{props.description}</Text>
-            <Text style={styles.location}>{props.location}</Text>
+            <AdjustingText style={styles.location}>{props.location}</AdjustingText>
           </View>
           <View style={styles.columnContentContainer}>
             <Text style={styles.speakerName}>{props.speaker}</Text>
@@ -51,15 +52,13 @@ const ProgrammeItem = props => {
   else if (time && location && description && speaker && titleOfSpeaker && specialTitleOfSpeaker && companyOfSpeaker) {
     return (
       <View style={styles.card}>
-
         <View style={styles.timeContainer}>
-          <Text>{props.time} </Text>
+          <AdjustingText>{props.time} </AdjustingText>
         </View>
-
         <View style={styles.columnContentContainer}>
           <View style={styles.rowContentContainer}>
             <Text style={styles.description}>{props.description}</Text>
-            <Text style={styles.location}>{props.location}</Text>
+            <AdjustingText style={styles.location}>{props.location}</AdjustingText>
           </View>
           <View style={styles.columnContentContainer}>
             <Text style={styles.speakerName}>{props.speaker}</Text>
