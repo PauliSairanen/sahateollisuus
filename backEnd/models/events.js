@@ -8,7 +8,8 @@ const EventSchema = new Schema(
     metadata : {
       eventName: String,
       eventImage: String,
-      visibility: String
+      visibility: String,
+      colorScheme: String
     },
     about : {
       eventWebUrl: String,

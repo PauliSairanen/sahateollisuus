@@ -361,16 +361,23 @@ class Events {
     }
     //asdasd
     findEventsByEmail(req, res){
-        var a = Event.find({"participants.Email": req.body.email},{metadata: 1}).then(function(a){
-            if(a[0]){
-                res.status(200).json(a);
-            }
-            else {
-                res.status(404).json({
-                    message: 'No events found'
-                })
-            }
-        });
+        if(req.body.email != ""){
+            var a = Event.find({"participants.Email": req.body.email},{metadata: 1}).then(function(a){
+                if(a[0]){
+                    res.status(200).json(a);
+                }
+                else {
+                    res.status(404).json({
+                        message: 'No events found'
+                    })
+                }
+            });
+        }
+        else {
+            res.status(404).json({
+                message: 'No events found'
+            })
+        }
     }
 
     //Hakee aivan kaiken
