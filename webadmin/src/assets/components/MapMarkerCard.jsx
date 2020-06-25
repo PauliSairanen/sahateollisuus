@@ -49,13 +49,13 @@ const MapMarkerCard = props => {
       <Col>
         <FormGroup>
           <FormLabel>Description</FormLabel>
-          <FormControl size="sm" value={formObject.Description} onChange={(e) => {changeHandler(e)}} name="Description"></FormControl>
+          <FormControl as="textarea" size="sm" value={formObject.Description} onChange={(e) => {changeHandler(e)}} name="Description"></FormControl>
         </FormGroup>
       </Col>
       <Col>
         <FormGroup>
           <FormLabel>Category</FormLabel>
-          <FormControl as="textarea" size="sm" value={formObject.Category} onChange={(e) => {changeHandler(e)}} name="Category"></FormControl>
+          <FormControl size="sm" value={formObject.Category} onChange={(e) => {changeHandler(e)}} name="Category"></FormControl>
         </FormGroup>
       </Col>
       <Col>
@@ -78,7 +78,7 @@ const MapMarkerCard = props => {
       <Col>
         <FormGroup>
           <FormLabel>Description</FormLabel>
-          <FormControl size="sm" value={formObject.Description} onChange={(e) => {changeHandler(e)}} name="Description"></FormControl>
+          <FormControl as="textarea" size="sm" value={formObject.Description} onChange={(e) => {changeHandler(e)}} name="Description"></FormControl>
         </FormGroup>
       </Col>
       <Col>
@@ -101,13 +101,13 @@ const MapMarkerCard = props => {
       <Col>
         <FormGroup>
           <FormLabel>Description</FormLabel>
-          <FormControl size="sm" value={formObject.Description} onChange={(e) => {changeHandler(e)}} name="Description"></FormControl>
+          <FormControl as="textarea" size="sm" value={formObject.Description} onChange={(e) => {changeHandler(e)}} name="Description"></FormControl>
         </FormGroup>
       </Col>
       <Col>
         <FormGroup>
           <FormLabel>Category</FormLabel>
-          <FormControl as="textarea" size="sm" value={formObject.Category} onChange={(e) => {changeHandler(e)}} name="Category"></FormControl>
+          <FormControl size="sm" value={formObject.Category} onChange={(e) => {changeHandler(e)}} name="Category"></FormControl>
         </FormGroup>
       </Col>
       <Col>
