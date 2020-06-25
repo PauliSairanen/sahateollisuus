@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, Dimensions, Platform, Button } from 'react-native'
-import { NavigationActions, StackActions } from 'react-navigation'
+import { View, StyleSheet, FlatList, Dimensions, Platform,} from 'react-native'
+import { HeaderBackButton } from 'react-navigation-stack'
 
 import NavigationTile from '../../components/ListItems/NavigationTile'
 import Colors from '../../constants/Colors'
@@ -21,22 +21,6 @@ const naviScreenData = [
 
 // import the following
 
-// at some point in your code
-resetStack = () => {
- this.props
-   .navigation
-   .dispatch(StackActions.reset({
-     index: 0,
-     actions: [
-       NavigationActions.navigate({
-         routeName: 'SelectEvent'
-        
-       }),
-     ],
-   }))
-}
-
-
 const MainNavigationScreen = props => {
   return (
     <View style={styles.listContainer}>
@@ -55,7 +39,7 @@ const MainNavigationScreen = props => {
   )
 }
 
-MainNavigationScreen.navigationOptions = navData => {
+MainNavigationScreen.navigationOptions = (props) => {
   return {
     // This should be dynamic
     headerTitle: () => (
@@ -63,7 +47,14 @@ MainNavigationScreen.navigationOptions = navData => {
         <AdjustingText style={styles.headerTitleStyle}>Wood from Finland 2020</AdjustingText>
       </View>
     ),
-    
+    headerLeft: () => (
+      <HeaderBackButton
+        tintColor={Platform.OS === 'android' ? 'white' : Colors.primary}
+        onPress={() => props.navigation.navigate('SelectEvent', {
+          lastScreen: 'MainNavigationScreen'
+        })}
+      />
+    )
   }
 }
 
@@ -82,9 +73,9 @@ const styles = StyleSheet.create({
     margin: 1,
     height: Dimensions.get('window').width / numberOfColumns
   },
-   buttonContainer: {
-     flex: 1
-   }
+  buttonContainer: {
+    flex: 1
+  }
 })
 
 export default MainNavigationScreen

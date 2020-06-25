@@ -8,9 +8,9 @@ import './SpeakerCard.css';
 
 const SpeakerCard = props => {
   let formObject = props.form
-
-  if(formObject.ImageID && props.ID){
-    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
+  let ID = props.ID
+  if(formObject.ImageID && ID && !formObject.speakerImgsrc){
+    formObject.speakerImgsrc = `https://sahat.lamk.fi/public/${ID}/${formObject.ImageID}`
   }
   useEffect(() => {
     //console.log(ImgSrc)
@@ -37,7 +37,7 @@ const SpeakerCard = props => {
   function changeImage(e) {
     if (e.target.files && e.target.files[0]) {
       //setImgSrc(URL.createObjectURL(e.target.files[0]))
-      formObject["imgsrc"] = URL.createObjectURL(e.target.files[0])
+      formObject["speakerImgsrc"] = URL.createObjectURL(e.target.files[0])
     }
   }
   //Kuvat https://sahat.lamk.fi/public/{EventID}/{FileName}
@@ -46,7 +46,7 @@ const SpeakerCard = props => {
     <Card>
       <Form>
         <FormGroup className="file">
-          <FormLabel><Image className="filePrev" src={formObject.imgsrc}/></FormLabel>
+          <FormLabel><Image className="filePrev" src={formObject.speakerImgsrc}/></FormLabel>
           <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
           <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="ImageID"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}

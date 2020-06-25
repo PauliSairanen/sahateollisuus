@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert, Platform } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import * as eventDataActions from '../../store/actions/eventData'
 
-import LoadingIndicator from '../../components/Universal/LoadingIndicator'
 import Card from '../../components/Universal/Card'
 import Colors from '../../constants/Colors'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -19,7 +18,7 @@ const PasswordScreen = props => {
   const eventName = props.navigation.getParam('eventName')
 
   const authHandler = async () => {
-    if(inputPassword === 'test') {
+    if (inputPassword === 'test') {
       await dispatch(eventDataActions.fetchAllData(eventId))
       props.navigation.navigate('MainScreen')
     }
@@ -37,10 +36,10 @@ const PasswordScreen = props => {
   }
 
   useEffect(() => {
-    if(error) {
+    if (error) {
       Alert.alert('Login failed', error, [{ text: 'Okay' }])
     }
-  },[error])
+  }, [error])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false} >

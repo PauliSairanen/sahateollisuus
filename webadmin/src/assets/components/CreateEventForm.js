@@ -15,6 +15,7 @@ import MapMarkerForm from '../components/MapMakerForm'
 import Button from 'react-bootstrap/Button'
 import Navbar from 'react-bootstrap/Navbar'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import GeneralCard from './GeneralCard';
 
 
 
@@ -37,8 +38,15 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         eventPass: "",
         eventName: "",
         visibility: "hidden",
+        eventColor: "",
         eventImage: "", //https://sahat.lamk.fi/saveFile
         eventWebUrl: "",
+        bodyText1: "",
+        bodyText2: "",
+        bodyText3: "",
+        bodyText4: "",
+        disclaimer1: "",
+        disclaimer2: "",
         placeName: "",
         placeAddress: "",
         placePhone: "",
@@ -71,8 +79,15 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             eventPass: "",
             eventName: `${data.metadata.eventName}`,
             eventImage: `${data.metadata.eventImage}`, //https://sahat.lamk.fi/saveFile
-            eventWebUrl: `${data.about.eventWebUrl}`,
+            eventColor: `${data.metadata.eventColor}`,
             visibility: `${data.metadata.visibility}`,
+            eventWebUrl: `${data.about.eventWebUrl}`,
+            bodyText1: `${data.about.bodyText1}`,
+            bodyText2: `${data.about.bodyText2}`,
+            bodyText3: `${data.about.bodyText3}`,
+            bodyText4: `${data.about.bodyText4}`,
+            disclaimer1: `${data.about.disclaimer1}`,
+            disclaimer2: `${data.about.disclaimer2}`,
             placeName: `${data.about.eventPlace.name}`,
             placeAddress: `${data.about.eventPlace.address}`,
             placePhone: `${data.about.eventPlace.phone}`,
@@ -114,6 +129,14 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             disclaimers={FormObjects.disclaimer} 
             FO={FormObjects}
             fileToUpload={fileToUpload}
+        />
+    }
+    else if(ActiveForm === "GeneralForm"){
+        container = <GeneralCard
+            editForm={changeHandler}
+            FO={FormObjects}
+            fileToUpload={fileToUpload}
+            ID={EditID}
         />
     }
     else if(ActiveForm === "ParticipantsForm"){
@@ -188,7 +211,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         metadata: {
             eventName: `${FormObjects.eventName}`,
             eventImage: `${FormObjects.eventImage}`,
-            visibility: `${FormObjects.visibility}`
+            visibility: `${FormObjects.visibility}`,
+            eventColor: `${FormObjects.eventColor}`,
         },
         about: {
             eventWebUrl: `${FormObjects.eventWebUrl}`,
@@ -199,13 +223,19 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 email: `${FormObjects.placeEmail}`
             },
             title: `${FormObjects.eventTitle}`,
-            bodyText: FormObjects.bodyText, //implemented in mobile?
+            // bodyText: FormObjects.bodyText, //implemented in mobile?
+            bodyText1: `${FormObjects.bodyText1}`,
+            bodyText2: `${FormObjects.bodyText2}`,
+            bodyText3: `${FormObjects.bodyText3}`,
+            bodyText4: `${FormObjects.bodyText4}`,
             moreInformation: {
                 eventWebsite: `${FormObjects.MiWebsite}`,
                 organizer: `${FormObjects.MiOrg}`,
                 email: `${FormObjects.MiEmail}`
             },
-            disclaimer: FormObjects.disclaimer //implemented in mobile?
+            // disclaimer: FormObjects.disclaimer //implemented in mobile?
+            disclaimer1: `${FormObjects.disclaimer1}`,
+            disclaimer2: `${FormObjects.disclaimer2}`,
         },
         participants: FormObjects.participants,
         programme: FormObjects.programme,
@@ -235,8 +265,15 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             // handle success
             console.log("event create success");
             console.log(response);
+            let id;
+            if(EditID){
+                id = EditID;
+            }
+            else{
+                id = response.data._id
+            }
             if(Files.length > 0){
-                uploadFiles(Files, response.data._id)
+                uploadFiles(Files, id)
             }
             else{
                 props.changeContent("AdminScreen")
@@ -354,6 +391,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 <Row className="rows" >
                     <Col className="cols" style={{display: 'flex', justifyContent: 'center'}} >
                         <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
+                            <Button name="GeneralForm" onClick={selectForm} className="Button">General</Button>
                             <Button name="AboutForm" onClick={selectForm} className="Button">About</Button>
                             <Button name="ParticipantsForm" onClick={selectForm} className="Button">Participants</Button>
                             <Button name="ProgrammeForm" onClick={selectForm} className="Button">Programme</Button>
