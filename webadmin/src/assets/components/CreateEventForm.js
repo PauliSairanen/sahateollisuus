@@ -38,6 +38,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         eventPass: "",
         eventName: "",
         visibility: "hidden",
+        eventColor: "",
         eventImage: "", //https://sahat.lamk.fi/saveFile
         eventWebUrl: "",
         bodyText1: "",
@@ -78,6 +79,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             eventPass: "",
             eventName: `${data.metadata.eventName}`,
             eventImage: `${data.metadata.eventImage}`, //https://sahat.lamk.fi/saveFile
+            eventColor: `${data.metadata.eventColor}`,
+            visibility: `${data.metadata.visibility}`,
             eventWebUrl: `${data.about.eventWebUrl}`,
             bodyText1: `${data.about.bodyText1}`,
             bodyText2: `${data.about.bodyText2}`,
@@ -85,7 +88,6 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             bodyText4: `${data.about.bodyText4}`,
             disclaimer1: `${data.about.disclaimer1}`,
             disclaimer2: `${data.about.disclaimer2}`,
-            visibility: `${data.metadata.visibility}`,
             placeName: `${data.about.eventPlace.name}`,
             placeAddress: `${data.about.eventPlace.address}`,
             placePhone: `${data.about.eventPlace.phone}`,
@@ -130,7 +132,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         />
     }
     else if(ActiveForm === "GeneralForm"){
-        container = <GeneralCard/>
+        container = <GeneralCard
+            editForm={changeHandler}
+            FO={FormObjects}
+            fileToUpload={fileToUpload}
+            ID={EditID}
+        />
     }
     else if(ActiveForm === "ParticipantsForm"){
         container = <ParticipantsForm 
@@ -204,7 +211,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         metadata: {
             eventName: `${FormObjects.eventName}`,
             eventImage: `${FormObjects.eventImage}`,
-            visibility: `${FormObjects.visibility}`
+            visibility: `${FormObjects.visibility}`,
+            eventColor: `${FormObjects.eventColor}`,
         },
         about: {
             eventWebUrl: `${FormObjects.eventWebUrl}`,
@@ -257,8 +265,15 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             // handle success
             console.log("event create success");
             console.log(response);
+            let id;
+            if(EditID){
+                id = EditID;
+            }
+            else{
+                id = response.data._id
+            }
             if(Files.length > 0){
-                uploadFiles(Files, response.data._id)
+                uploadFiles(Files, id)
             }
             else{
                 props.changeContent("AdminScreen")

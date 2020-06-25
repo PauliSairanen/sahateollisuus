@@ -11,8 +11,8 @@ import './SponsorCard.css';
 const SponsorCard = props => {
   let formObject = props.form
 
-  if(formObject.ImageID && props.ID){
-    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
+  if(formObject.ImageID && props.ID && !formObject.sponsorImgsrc){
+    formObject.sponsorImgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
   }
   useEffect(() => {
     //console.log(ImgSrc)
@@ -39,14 +39,14 @@ const SponsorCard = props => {
   function changeImage(e) {
     if (e.target.files && e.target.files[0]) {
       //setImgSrc(URL.createObjectURL(e.target.files[0]))
-      formObject["imgsrc"] = URL.createObjectURL(e.target.files[0])
+      formObject["sponsorImgsrc"] = URL.createObjectURL(e.target.files[0])
     }
   }
   return (
     <Card>
       <Form>
         <FormGroup className="file">
-          <FormLabel><Image className="filePrev" src={formObject.imgsrc}/></FormLabel>
+          <FormLabel><Image className="filePrev" src={formObject.sponsorImgsrc}/></FormLabel>
           <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
           <FormControl className="hidden" name="ImageID" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} type='file' id={'hidden-'+props.index}/>
         </FormGroup>
