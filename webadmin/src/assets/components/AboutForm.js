@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
-import Card from 'react-bootstrap/Card'
-import BsForm from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
+import React from 'react'
+// import Card from 'react-bootstrap/Card'
+//import BsForm from 'react-bootstrap/Form'
+// import Col from 'react-bootstrap/Col'
+// import Button from 'react-bootstrap/Button'
 import AboutCard from '../components/AboutCard'
 /**
  * @param editForm - evoke changehandler
@@ -13,70 +13,70 @@ import AboutCard from '../components/AboutCard'
  * @param fileToUpload - evoke fileToUpload
  */
 const AboutForm = (props) => {
-    const [Form, setForm] = useState(props.bodyTexts ? props.bodyTexts : [])
-    const [Form2, setForm2] = useState(props.disclaimers ? props.disclaimers : [])
-    const [Fields, setFields] = useState(createFields)
-    const [Fields2, setFields2] = useState(createFields2)
+    // const [Form, setForm] = useState(props.bodyTexts ? props.bodyTexts : [])
+    // const [Form2, setForm2] = useState(props.disclaimers ? props.disclaimers : [])
+    // const [Fields, setFields] = useState(createFields)
+    // const [Fields2, setFields2] = useState(createFields2)
 
     //renders bodytexts
-    function createFields(){
-        if(Form){
-            let list = Form.map((items,index)=>{
-                return (
-                <div key={index} id={'ta'+index}>
-                    <BsForm.Control as="textarea" rows="3" defaultValue={items} name={index} onChange={changeHandler}/>
-                    {/* <textarea defaultValue={items} name={index} onChange={changeHandler}/> */}
-                    {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
-                </div>
-                )
-            })
-            return list;
-        }
-    }
-    function changeHandler(e){
-        //console.log(Form)
-        let temp = Form;
-        temp[e.target.name] = e.target.value;
-        setForm(temp)
-    }
+    // function createFields(){
+    //     if(Form){
+    //         let list = Form.map((items,index)=>{
+    //             return (
+    //             <div key={index} id={'ta'+index}>
+    //                 <BsForm.Control as="textarea" rows="3" defaultValue={items} name={index} onChange={changeHandler}/>
+    //                 {/* <textarea defaultValue={items} name={index} onChange={changeHandler}/> */}
+    //                 {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
+    //             </div>
+    //             )
+    //         })
+    //         return list;
+    //     }
+    // }
+    // function changeHandler(e){
+    //     //console.log(Form)
+    //     let temp = Form;
+    //     temp[e.target.name] = e.target.value;
+    //     setForm(temp)
+    // }
     // function remHandler(e){
         
     // }
-    function clickHandler(e){
-        let temp = Form;
-        temp.push("")
-        setFields(createFields)
-    }
+    // function clickHandler(e){
+    //     let temp = Form;
+    //     temp.push("")
+    //     setFields(createFields)
+    // }
     //Redundant code below, 
     //changes disclaimers
-    function createFields2(){
-        if(Form2){
-            let list = Form2.map((items,index)=>{
-                return (
-                <div key={index} id={'dis'+index}>
-                    <BsForm.Control as="textarea" rows="3" defaultValue={items} name={index} onChange={changeHandler2}/>
-                    {/* <textarea defaultValue={items} name={index} onChange={changeHandler2}/> */}
-                    {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
-                </div>
-                )
-            })
-            return list;
-        }
-    }
-    function changeHandler2(e){
-        //console.log(Form2)
-        let temp = Form2;
-        temp[e.target.name] = e.target.value;
-        setForm2(temp)
-    }
+    // function createFields2(){
+    //     if(Form2){
+    //         let list = Form2.map((items,index)=>{
+    //             return (
+    //             <div key={index} id={'dis'+index}>
+    //                 <BsForm.Control as="textarea" rows="3" defaultValue={items} name={index} onChange={changeHandler2}/>
+    //                 {/* <textarea defaultValue={items} name={index} onChange={changeHandler2}/> */}
+    //                 {/* <button id={'rem'+index} name={index} onClick={remHandler}>-</button> //disabled until I can figure this out */}
+    //             </div>
+    //             )
+    //         })
+    //         return list;
+    //     }
+    // }
+    // function changeHandler2(e){
+    //     //console.log(Form2)
+    //     let temp = Form2;
+    //     temp[e.target.name] = e.target.value;
+    //     setForm2(temp)
+    // }
     // function remHandler2(e){
         
     // }
-    function clickHandler2(e){
-        let temp = Form2;
-        temp.push("")
-        setFields2(createFields2)
-    }
+    // function clickHandler2(e){
+    //     let temp = Form2;
+    //     temp.push("")
+    //     setFields2(createFields2)
+    // }
     return(
         // <div>
         // <form onChange={props.editForm} autoComplete="off" id="abtform">

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
@@ -10,6 +10,9 @@ const GeneralCard = props => {
 
   if(formObject.eventImage && props.ID && !formObject.generalImgsrc){
     formObject.generalImgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.eventImage}`
+    if((formObject.eventImage).includes("https://")){
+      formObject.generalImgsrc = formObject.eventImage
+    }
   }
   useEffect(() => {
     //console.log(ImgSrc)
