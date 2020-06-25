@@ -104,92 +104,94 @@ const AboutForm = (props) => {
         // <button onClick={clickHandler2}>Add Disclaimer</button>
         // </div>
 
-        <Card>
-            <BsForm onChange={props.editForm} style={{padding: '30px'}}>
-                <BsForm.Row>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>Event Password</BsForm.Label>
-                        <BsForm.Control type="text" name="eventPass" defaultValue={props.FO.eventPass} />
-                    </BsForm.Group>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>Event Name</BsForm.Label>
-                        <BsForm.Control type="text" name="eventName" defaultValue={props.FO.eventName} />
-                    </BsForm.Group>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>Place Title</BsForm.Label>
-                        <BsForm.Control type="text" name="eventTitle" defaultValue={props.FO.eventTitle} />
-                    </BsForm.Group>
-                    <BsForm.Group as={Col}>
-                        {/* <BsForm.Label>Event visibility(visible/hidden)</BsForm.Label>
-                        <BsForm.Control type="text" name="visibility" defaultValue={props.FO.visibility} /> */}
-                        <BsForm.Label>Event visiblity</BsForm.Label>
-                        <BsForm.Check type={'radio'} name="visibility" label={'visible'} value="visible" defaultChecked={props.FO.visibility == "visible" ? true : false}/> {/*eslint-disable-line*/}
-                        <BsForm.Check type={'radio'} name="visibility" label={'hidden'} value="hidden" defaultChecked={props.FO.visibility == "hidden" ? true : false}/> {/*eslint-disable-line*/}
-                    </BsForm.Group>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>Event WebURL</BsForm.Label>
-                        <BsForm.Control type="text" name="eventWebUrl" defaultValue={props.FO.eventWebUrl} />
-                    </BsForm.Group>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>Event Image</BsForm.Label>
-                        <BsForm.Control type="file" id="test" name="eventImage" onChange={(e)=>{
-                            //props.appendForm("eventImage", `https://sahat.lamk.fi/images/metadataImages/${e.target.files[0].name}`)
-                            props.fileToUpload(e)
-                        }} />
-                        <BsForm.Label>{props.FO.eventImage ? "Selected image: "+ props.FO.eventImage : null}</BsForm.Label>
+        // <Card>
+        //     <BsForm onChange={props.editForm} style={{padding: '30px'}}>
+        //         <BsForm.Row>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>Event Password</BsForm.Label>
+        //                 <BsForm.Control type="text" name="eventPass" defaultValue={props.FO.eventPass} />
+        //             </BsForm.Group>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>Event Name</BsForm.Label>
+        //                 <BsForm.Control type="text" name="eventName" defaultValue={props.FO.eventName} />
+        //             </BsForm.Group>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>Place Title</BsForm.Label>
+        //                 <BsForm.Control type="text" name="eventTitle" defaultValue={props.FO.eventTitle} />
+        //             </BsForm.Group>
+        //             <BsForm.Group as={Col}>
+        //                 {/* <BsForm.Label>Event visibility(visible/hidden)</BsForm.Label>
+        //                 <BsForm.Control type="text" name="visibility" defaultValue={props.FO.visibility} /> */}
+        //                 <BsForm.Label>Event visiblity</BsForm.Label>
+        //                 <BsForm.Check type={'radio'} name="visibility" label={'visible'} value="visible" defaultChecked={props.FO.visibility == "visible" ? true : false}/> {/*eslint-disable-line*/}
+        //                 <BsForm.Check type={'radio'} name="visibility" label={'hidden'} value="hidden" defaultChecked={props.FO.visibility == "hidden" ? true : false}/> {/*eslint-disable-line*/}
+        //             </BsForm.Group>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>Event WebURL</BsForm.Label>
+        //                 <BsForm.Control type="text" name="eventWebUrl" defaultValue={props.FO.eventWebUrl} />
+        //             </BsForm.Group>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>Event Image</BsForm.Label>
+        //                 <BsForm.Control type="file" id="test" name="eventImage" onChange={(e)=>{
+        //                     //props.appendForm("eventImage", `https://sahat.lamk.fi/images/metadataImages/${e.target.files[0].name}`)
+        //                     props.fileToUpload(e)
+        //                 }} />
+        //                 <BsForm.Label>{props.FO.eventImage ? "Selected image: "+ props.FO.eventImage : null}</BsForm.Label>
 
-                    </BsForm.Group>
-                </BsForm.Row>
+        //             </BsForm.Group>
+        //         </BsForm.Row>
 
 
-                <BsForm.Row>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>Place Name</BsForm.Label>
-                        <BsForm.Control type="text" name="placeName" defaultValue={props.FO.placeName} />
-                    </BsForm.Group>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>Place Address</BsForm.Label>
-                        <BsForm.Control type="text" name="placeAddress" defaultValue={props.FO.placeAddress} />
-                    </BsForm.Group>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>Place Phone</BsForm.Label>
-                        <BsForm.Control type="text" name="placePhone" defaultValue={props.FO.placePhone} />
-                    </BsForm.Group>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>Place Email</BsForm.Label>
-                        <BsForm.Control type="text" name="placeEmail" defaultValue={props.FO.placeEmail} />
-                    </BsForm.Group>
-                </BsForm.Row>
-                <BsForm.Row>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>More Info Website</BsForm.Label>
-                        <BsForm.Control type="text" name="MiWebsite" defaultValue={props.FO.MiWebsite} />
-                    </BsForm.Group>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>More Info Organizer</BsForm.Label>
-                        <BsForm.Control type="text" name="MiOrg" defaultValue={props.FO.MiOrg} />
-                    </BsForm.Group>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>More Info Email</BsForm.Label>
-                        <BsForm.Control type="text" name="MiEmail" defaultValue={props.FO.MiEmail} />
-                    </BsForm.Group>
-                </BsForm.Row>
+        //         <BsForm.Row>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>Place Name</BsForm.Label>
+        //                 <BsForm.Control type="text" name="placeName" defaultValue={props.FO.placeName} />
+        //             </BsForm.Group>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>Place Address</BsForm.Label>
+        //                 <BsForm.Control type="text" name="placeAddress" defaultValue={props.FO.placeAddress} />
+        //             </BsForm.Group>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>Place Phone</BsForm.Label>
+        //                 <BsForm.Control type="text" name="placePhone" defaultValue={props.FO.placePhone} />
+        //             </BsForm.Group>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>Place Email</BsForm.Label>
+        //                 <BsForm.Control type="text" name="placeEmail" defaultValue={props.FO.placeEmail} />
+        //             </BsForm.Group>
+        //         </BsForm.Row>
+        //         <BsForm.Row>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>More Info Website</BsForm.Label>
+        //                 <BsForm.Control type="text" name="MiWebsite" defaultValue={props.FO.MiWebsite} />
+        //             </BsForm.Group>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>More Info Organizer</BsForm.Label>
+        //                 <BsForm.Control type="text" name="MiOrg" defaultValue={props.FO.MiOrg} />
+        //             </BsForm.Group>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>More Info Email</BsForm.Label>
+        //                 <BsForm.Control type="text" name="MiEmail" defaultValue={props.FO.MiEmail} />
+        //             </BsForm.Group>
+        //         </BsForm.Row>
 
-                <BsForm.Row>
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>BodyText</BsForm.Label>
-                        {Fields}
-                        <Button onClick={clickHandler}>Add Bodytext</Button>
-                    </BsForm.Group>
+        //         <BsForm.Row>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>BodyText</BsForm.Label>
+        //                 {Fields}
+        //                 <Button onClick={clickHandler}>Add Bodytext</Button>
+        //             </BsForm.Group>
 
-                    <BsForm.Group as={Col}>
-                        <BsForm.Label>Disclaimer</BsForm.Label>
-                        {Fields2}
-                        <Button onClick={clickHandler2}>Add Disclaimer</Button>
-                    </BsForm.Group>
-                </BsForm.Row>
-            </BsForm>
-        </Card>
+        //             <BsForm.Group as={Col}>
+        //                 <BsForm.Label>Disclaimer</BsForm.Label>
+        //                 {Fields2}
+        //                 <Button onClick={clickHandler2}>Add Disclaimer</Button>
+        //             </BsForm.Group>
+        //         </BsForm.Row>
+        //     </BsForm>
+        // </Card>
+
+        <AboutCard onChange={(e)=>{props.editForm(e)}} form={props.FO}/>
     )
 }
 
