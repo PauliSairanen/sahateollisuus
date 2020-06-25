@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { View, FlatList, StyleSheet, Text, Dimensions, Button, Modal } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { useSelector } from 'react-redux'
@@ -18,10 +18,12 @@ const SpeakerDetailsScreen = props => {
   const programmeData = useSelector(state => state.eventData.programmeData)
   const arrayOfProgramme = []
 
-  // Collecting all programme entries for current speaker into an array
-  for (const index in programmeData) {
-    if (programmeData[index].NameOfSpeaker === speakerName) {
-      arrayOfProgramme.push(programmeData[index])
+  //_____ Looping through programmeData to gather presentations of current speaker
+  for (const day in programmeData) {
+    for (const index in programmeData[day].content) {
+      if (programmeData[day].content[index].NameOfSpeaker === speakerName) {
+        arrayOfProgramme.push(programmeData[day].content[index])
+      }
     }
   }
 
@@ -85,7 +87,7 @@ const SpeakerDetailsScreen = props => {
     )
   }
 
- 
+
 
   if (speakerName && title && company && specialTitle) {
     return (

@@ -17,7 +17,7 @@ const PasswordScreen = props => {
   const eventId = props.navigation.getParam('eventId')
   const eventName = props.navigation.getParam('eventName')
 
-  const authHandler = async () => {
+  const verifyPassword = async () => {
     if (inputPassword === 'test') {
       await dispatch(eventDataActions.fetchAllData(eventId))
       props.navigation.navigate('MainScreen')
@@ -63,7 +63,7 @@ const PasswordScreen = props => {
                 ) : (<Button //Switch text in title depending on state
                   title={'Login'}
                   color={Colors.primary}
-                  onPress={authHandler}
+                  onPress={verifyPassword}
                 />)}
               </View>
             </ScrollView>

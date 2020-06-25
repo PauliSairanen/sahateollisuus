@@ -45,7 +45,7 @@ const EventNavigator = createStackNavigator(
     SelectEvent: {
       screen: SelectEventsScreen,
       navigationOptions: {
-        headerBackTitle: 'Email input',
+        headerBackTitle: 'Email Input',
         headerTitle: 'Select Event'
       }
     },
