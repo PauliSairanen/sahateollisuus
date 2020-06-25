@@ -11,13 +11,15 @@ import * as eventDataActions from '../../store/actions/eventData'
 import EventListItem from '../../components/ListItems/EventsListItem'
 
 const SelectEventScreen = props => {
-  const userEmail= useSelector(state => state.eventData.email)
-  const loadedMetadata = useSelector(state => state.eventData.eventsMetaData)
-
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const dispatch = useDispatch()
+  const userEmail= useSelector(state => state.eventData.email)
+  const loadedMetadata = useSelector(state => state.eventData.eventsMetaData)
   let lastScreen = props.navigation.getParam('lastScreen')
+
+  //__________ Sorting MetaData to Display only Visible Events __________
+  let arrayOfVisibleEvents = loadedMetadata.filter(event => event.visibility === 'visible')
 
   const reloadData = async () => {
     console.log('Reloading metadata')
@@ -41,8 +43,7 @@ const SelectEventScreen = props => {
     }
   }, [lastScreen])
  
-  // _____ Function for fetching metadata
-
+  // _____ If Error detected ______
   useEffect(() => {
     if (error) {
       Alert.alert('Login failed', error, [{ text: 'Okay' }])
@@ -58,8 +59,8 @@ const SelectEventScreen = props => {
       <View>
         <LinearGradient colors={['orange', 'yellow']} style={styles.gradient}>
           <FlatList
-            data={loadedMetadata}
-            extraData={loadedMetadata}
+            data={arrayOfVisibleEvents}
+            extraData={arrayOfVisibleEvents}
             keyExtractor={(item, index) => index.toString()}
             renderItem={array =>
               <EventListItem

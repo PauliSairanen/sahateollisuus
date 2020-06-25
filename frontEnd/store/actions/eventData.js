@@ -26,7 +26,8 @@ export const fetchEventMetaData = () => {
         new EventMetadata(
           responseData[index]._id,
           responseData[index].metadata.eventName,
-          responseData[index].metadata.eventImage
+          responseData[index].metadata.eventImage,
+          responseData[index].metadata.visibility
         )
       )
     }
@@ -54,16 +55,7 @@ export const fetchAllData = (id) => {
   }
 }
 
-// _______________ OTHER ACTIONS _______________
-
-export const fetchSpeakers = () => {
-  return async dispatch => {
-    const response = await fetch(`${serverURL}/findSpeakers`)
-    const responseData = await response.json()
-    const fetchedData = responseData.speakers
-    dispatch({ type: FETCH_SPEAKERS, fetchedSpeakers: fetchedData })
-  }
-}
+// _______________ Login and Authentication _______________
 
 export const checkEmail = (email) => {
   console.log('The current email that is being checked is: ' + email)
@@ -92,6 +84,7 @@ export const checkEmail = (email) => {
 export const fetchMetadataByEmail = (email) => {
   console.log('Checking if email exists')
   return async dispatch => {
+    //_____HTTP POST request _____
     const response = await fetch(`${serverURL}/findEventsByEmail`, {
       method: 'POST',
       headers: {
@@ -101,15 +94,16 @@ export const fetchMetadataByEmail = (email) => {
         'email': `${email}`,
       })
     })
+    //_____ If errors in request _____
     console.log(response.status)
     if (!response.ok) {
       console.log('Request was not ok')
       let message = 'Email not registered to any event'
       throw new Error(message)
     }
+    //_____ If request is OK _____
     console.log('request was ok, 200!')
     const responseData = await response.json()
-  
     const loadedEventMetadata = []
     // Looking through the JSON data, and organizing it again for display
     for (const index in responseData) {
@@ -117,7 +111,8 @@ export const fetchMetadataByEmail = (email) => {
         new EventMetadata(
           responseData[index]._id,
           responseData[index].metadata.eventName,
-          responseData[index].metadata.eventImage
+          responseData[index].metadata.eventImage,
+          responseData[index].metadata.visibility
         )
       )
     }
