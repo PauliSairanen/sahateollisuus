@@ -61,9 +61,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         speakers: [],
         sponsors: [],
         mapmarkers: {
-            restaurant: [],
-            hotel: [],
-            other: []
+            restaurants: [],
+            hotels: [],
+            others: [],
         },
         venue: [],
         //more about from stuff
@@ -79,7 +79,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             eventPass: "",
             eventName: `${data.metadata.eventName}`,
             eventImage: `${data.metadata.eventImage}`, //https://sahat.lamk.fi/saveFile
-            eventColor: `${data.metadata.eventColor}`,
+            eventColor: `${data.metadata.colorScheme}`,
             visibility: `${data.metadata.visibility}`,
             eventWebUrl: `${data.about.eventWebUrl}`,
             bodyText1: `${data.about.bodyText1}`,
@@ -103,7 +103,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             bodyText: data.about.bodyText,
             disclaimer: data.about.disclaimer,
             venue: data.venue,
-            mapmarkers: data.mapmarkers
+            mapmarkers: data.mapData
         })
     }
     //When EditID is set and if it excists, run parseEventData
@@ -176,7 +176,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         container = <MapMarkerForm
         editForm={appendForm}
         fileToUpload={fileToUpload}
-        subForm={FormObjects.mapmarkers}/>
+        subForm={FormObjects.mapmarkers}
+        EditID={EditID}/>
     }
     else{
         container = null
@@ -212,7 +213,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             eventName: `${FormObjects.eventName}`,
             eventImage: `${FormObjects.eventImage}`,
             visibility: `${FormObjects.visibility}`,
-            eventColor: `${FormObjects.eventColor}`,
+            colorScheme: `${FormObjects.eventColor}`,
         },
         about: {
             eventWebUrl: `${FormObjects.eventWebUrl}`,
@@ -242,7 +243,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         speakers: FormObjects.speakers,
         sponsors: FormObjects.sponsors,
         venue: FormObjects.venue,
-        mapMarkers: FormObjects.mapmarkers
+        mapData: FormObjects.mapmarkers
     }
     //func to create event
     function createEventPost(form){
@@ -357,7 +358,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 found = true;
                 break;
             }
-            else if(files[i].file.name === file.name){
+            else if(file && files[i].file.name === file.name){
                 found = true;
                 break;
             }

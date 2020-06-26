@@ -1,8 +1,15 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
-import FormTable from '../components/FormTable'
 import axios from 'axios';
 import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import Card from 'react-bootstrap/Card'
+import MapMarkerCard from './MapMarkerCard'
+import BsForm from 'react-bootstrap/Form'
+import { Button } from 'react-bootstrap';
+
+import Overlay from 'react-bootstrap/Overlay'
+import Tooltip from 'react-bootstrap/Tooltip'
 /*
 "mapMarkers":
 {
@@ -15,6 +22,7 @@ import Col from 'react-bootstrap/Col'
             "address": "",
             "description": "",
             "category": "",
+            "rating": "",
             "webURL": "",
             "image": ""
         }
@@ -27,9 +35,9 @@ import Col from 'react-bootstrap/Col'
             "name": "",
             "address": "",
             "description": "",
+            "rating": "",
             "webURL": "",
             "image": "",
-            "rating": ""
         }
     ],
     "other":
@@ -40,63 +48,36 @@ import Col from 'react-bootstrap/Col'
             "name": "",
             "address": "",
             "description": "",
+            "category": "",
             "webURL": "",
-            "image": "",
-            "type": ""
+            "image": ""
         }
     ]
 }
 */
 const MapMarkerForm = (props) =>{
-    const [Form, setForm] = useState(props.subForm)
-    const [ActiveForm, setActiveForm] = useState()
-    const keys = [
-        "Marker Category",
-        "Latitude",
-        "Longitude",
-        "Name",
-        "Address",
-        "Description",
-        "WebURL",
-        "(Restaurant) category",
-        "(Hotel) rating",
-        "(Other) type",
-        "Image"
-    ]
+    const [Form, setForm] = useState(props.subForm ? props.subForm : 
+        {
+            restaurants: [],
+            hotels: [],
+            others: []
+        })
+    const [Data, setData] = useState(formToData(Form))
 
-    function clickHandler(e){
-        e.preventDefault(); //prevents page refresh
-        let i;
-        let marker = {}
-        for(i = 0; i < e.target.form.length - 1; i++){
-            marker[e.target.form[i].name] = e.target.form[i].value.match(/[^\\/]*$/)[0]
-        }
-        Form[ActiveForm].push(marker)
-        // console.log(Form[ActiveForm])
-        
-        // let form = Form;
-        
-        // //Todo, Form data to json
-
-        document.getElementById("form").reset();
-        setForm(Form)
-        props.editForm("mapmarkers", Form)
-    }
     function dataToForm(data){
         let newForm = {
-            restaurant: [],
-            hotel: [],
-            other: []
+            restaurants: [],
+            hotels: [],
+            others: []
         }
         for(let item in data){
             let newObj = {}
             let destination;
             for(let key in data[item]){
-                if(key === "markcat"){
+                if(key === "key"){
                     destination = data[item][key]
                 }
                 else{
-                    //console.log(data[item][key], key)
                     newObj[key] = data[item][key]
                 }
                 
@@ -106,62 +87,88 @@ const MapMarkerForm = (props) =>{
         }
         console.log(newForm)
         setForm(newForm)
+        setData(formToData(newForm))
         props.editForm("mapmarkers", newForm)
     }
-    let container;
-    if(ActiveForm === "restaurant"){
-        container = 
-        <>
-            <input type="text" name="lat" id="lat" placeholder="Latitude"/>
-            <input type="text" name="lng" id="lng" placeholder="Longitude"/>
-            <input type="text" name="name" placeholder="Name"/>
-            <input type="text" name="address" id="address" placeholder="Address"/>
-            <input type="text" name="description" placeholder="Description"/>
-            <input type="text" name="category" placeholder="Category"/>
-            <input type="text" name="webURL" placeholder="Website URL"/>
-            <input type="file" name="image" onChange={(e)=>{props.fileToUpload(e)}}/>
-            <button onClick={clickHandler}>Add Restaurant Map Marker</button>
-        </>
+    function formToData(form){
+        let data = []
+        //console.log(form)
+        for(let key in form){
+            for(let i in form[key]){
+                //console.log(key, form[key][i])
+                let item = form[key][i];
+                item["key"] = key
+                data.push(item)
+            }
+        }
 
+        return data
     }
-    else if(ActiveForm === "hotel"){
-        container =
-        <>
-            <input type="text" name="lat" id="lat" placeholder="Latitude"/>
-            <input type="text" name="lng" id="lng" placeholder="Longitude"/>
-            <input type="text" name="name" placeholder="Name"/>
-            <input type="text" name="address" id="address" placeholder="Address"/>
-            <input type="text" name="description" placeholder="Description"/>
-            <input type="text" name="rating" placeholder="Rating"/>
-            <input type="text" name="webURL" placeholder="Website URL"/>
-            <input type="file" name="image" onChange={(e)=>{props.fileToUpload(e)}}/>
-            <button onClick={clickHandler}>Add Hotel Map Marker</button>
-        
-        </>
+    function clickHandler(e){
+        let newForm = Form;
+        if(e.target.name === "restaurant"){
+            newForm.restaurants.push({
+                lat: "",
+                long: "",
+                name: "",
+                address: "",
+                description: "",
+                category: "",
+                rating: "",
+                webURL: "",
+                image: "",
+            })
+        }
+        else if(e.target.name === "hotel"){
+            newForm.hotels.push({
+                lat: "",
+                long: "",
+                name: "",
+                address: "",
+                description: "",
+                rating: "",
+                webURL: "",
+                image: "",
+            })
+        }
+        else if(e.target.name === "other"){
+            newForm.others.push({
+                lat: "",
+                long: "",
+                name: "",
+                address: "",
+                description: "",
+                category: "",
+                webURL: "",
+                image: "",
+            })
+        }
+        else{
 
+        }
+        setForm(newForm)
+        setData(formToData(newForm))
     }
-    else if(ActiveForm === "other"){
-        container = 
-        <>
-            <input type="text" name="lat" id="lat" placeholder="Latitude"/>
-            <input type="text" name="lng" id="lng" placeholder="Longitude"/>
-            <input type="text" name="name" placeholder="Name"/>
-            <input type="text" name="address" id="address" placeholder="Address"/>
-            <input type="text" name="description" placeholder="Description"/>
-            <input type="text" name="type" placeholder="Type"/>
-            <input type="text" name="webURL" placeholder="Website URL"/>
-            <input type="file" name="image" onChange={(e)=>{props.fileToUpload(e)}}/>
-            <button onClick={clickHandler}>Add Other Map Marker</button>
-        
-        </>
+    let dataContainer;
+    if(Data){
+        dataContainer = Data.slice(0).reverse().map((item, index)=>{
+            return(
+            <MapMarkerCard 
+                key={index} 
+                index={index} 
+                form={item} 
+                data={Data} 
+                editForm={(data)=>dataToForm(data)}
+                ID={props.EditID}
+                markerType={item.key}  
+                fileToUpload={(e)=>props.fileToUpload(e)}
+            />)
+        })
+    }
 
-    }
-    else{
-        container = null;
-    }
     return(
         <>
-        <Col className="cols" style={{display: 'flex', justifyContent: 'center'}}>
+        {/* <Col className="cols" style={{display: 'flex', justifyContent: 'center'}}>
             <Dropdown style={{display: 'flex', flexWrap: 'wrap'}}>
                 <Dropdown.Toggle>
                     Marker Categories
@@ -172,27 +179,43 @@ const MapMarkerForm = (props) =>{
                     <Dropdown.Item href="#" onClick={(e)=>{setActiveForm(e.target.name); document.getElementById("form").reset();}} name="other">Other</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
+        </Col> */}
+        <Card style={{width: '50rem'}}>
+            <p>Geocoder</p>
+            <Nominatim/>
+        </Card>
+        <Row>
+            <Card className="cols" style={{width: '9.3rem'}}>
+                <Dropdown style={{display: 'flex', flexWrap: 'wrap'}}>
+                    <Dropdown.Toggle>
+                        Add Marker
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item onClick={(e)=>{clickHandler(e)}} name="restaurant">Restaurant</Dropdown.Item>
+                        <Dropdown.Item onClick={(e)=>{clickHandler(e)}} name="hotel">Hotel</Dropdown.Item>
+                        <Dropdown.Item onClick={(e)=>{clickHandler(e)}} name="other">Other</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </Card>
+        </Row>
+        <Col>
+            {dataContainer}
         </Col>
-        {container ? <Nominatim/> : null}
-        <form id="form" autoComplete="off">
-            {container}
-        </form>
-        {Form && (Form.restaurant.length > 0 || Form.hotel.length > 0 || Form.other.length > 0) ? 
-            <FormTable 
-                form={Form} 
-                setForm={(data)=>{dataToForm(data)}} 
-                keys={keys}
-                mapMarkers={true}
-                fileToUpload={(e)=>{props.fileToUpload(e)}}
-            /> : 
-        null}
         </>
     )
 }
 
 //OpenStreetMap Geocoding
 const Nominatim = (props) => {
+    const [Address, setAddress] = useState()
+    const [Lat, setLat] = useState()
+    const [Lng, setLng] = useState()
     const [Msg, setMsg] = useState()
+    const latref = useRef()
+    const lngref = useRef()
+
+    const [Show, setShow] = useState(false)
+    const [Target, setTarget] = useState()
     let query = "";
     let apiurl = `https://nominatim.openstreetmap.org/search/${query}?format=json&limit=1`
     async function clickHandler(e){
@@ -200,39 +223,99 @@ const Nominatim = (props) => {
         e.preventDefault(); //prevents page refresh
         //document.getElementById("lat").value = ""
         //console.log(e.target.form[0].value)
-        query = e.target.form[0].value
+        query = Address
         if(query){
             console.log("query is set")
-            //console.log(query)
+            console.log(query)
             let modquery = query.replace(" ","%20")
-            //console.log("query modified")
-            //console.log(query)
+            console.log("query modified")
+            console.log(modquery)
             apiurl = `https://nominatim.openstreetmap.org/search/${modquery}?format=json&limit=1`
             //console.log(apiurl)
             axios.get(apiurl)
             .then(function (res) {
-                //console.log(res.data);
-                document.getElementById("lat").value = res.data[0].lat;
-                document.getElementById("lng").value = res.data[0].lon;
-                document.getElementById("address").value = query
+                //console.log(res.data[0].lat, res.data[0].lon);
+                setLat(res.data[0].lat)
+                setLng(res.data[0].lon)
+                // document.getElementById("lat").value = res.data[0].lat;
+                // document.getElementById("lng").value = res.data[0].lon;
+                // document.getElementById("address").value = query
             })
             .catch(function (error) {
                 console.log(error);
-                setMsg(<p>Cannot find lat and lng of address</p>)
+                setMsg("Cannot find lat and lng of address")
             })
         }
         else{
             console.log("query is not set")
         }
     }
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    async function clipboard(e){
+        if(e.target.name === "lat"){
+            latref.current.select();
+            setTarget(latref)
+        }
+        else if(e.target.name === "lng"){
+            lngref.current.select();
+            setTarget(lngref)
+        }
+        else{
+            return null
+        }
+        setShow(true)
+        document.execCommand('copy');
+        await sleep(5000) // tooltip flickers if inputs are rapidly pressed. Too bad!
+        setShow(false)
+    }
     return(
         <>
-        <form>
+        {/* <form>
             <input type="text" placeholder="Address"/>
             <button onClick={clickHandler}>Get lat and lng</button>
             <label>Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright</label>
             {Msg}
-        </form>
+        </form> */}
+        <Row>
+            <Col>
+                <BsForm>
+                    <BsForm.Group>
+                        <BsForm.Label>Address</BsForm.Label>
+                        <BsForm.Control type="text" onChange={e => {setAddress(e.target.value)}}/>
+                        <BsForm.Text className="text-muted">Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright</BsForm.Text>
+                    </BsForm.Group>
+                    <BsForm.Group>
+                        <Button onClick={clickHandler}>Get lat and lng</Button>
+                    </BsForm.Group>
+                </BsForm>
+            </Col>
+            <Col>
+                <Row>
+                    <Col>
+                        <BsForm.Group>
+                            <BsForm.Label>Latitude</BsForm.Label>
+                            <BsForm.Control ref={latref} type="text" name="lat" onClick={clipboard} value={Lat || ''} readOnly/>
+                            {Msg ? <BsForm.Text className="text-danger">{Msg}</BsForm.Text>:null}
+                        </BsForm.Group>
+                    </Col>
+                    <Col>
+                        <BsForm.Group>
+                            <BsForm.Label>Longitude</BsForm.Label>
+                            <BsForm.Control ref={lngref} type="text" name="lng" onClick={clipboard} value={Lng || ''} readOnly/>
+                        </BsForm.Group>
+                    </Col>
+                    <Overlay target={Target} show={Show} placement="bottom">
+                        {(props)=>(
+                            <Tooltip {...props}>
+                                Copied to clipboard!
+                            </Tooltip>
+                        )}
+                    </Overlay>
+                </Row>
+            </Col>
+        </Row>
         </>
     )
 }
