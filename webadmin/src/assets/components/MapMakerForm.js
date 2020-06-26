@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import axios from 'axios';
 import Col from 'react-bootstrap/Col'
@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row'
 import Card from 'react-bootstrap/Card'
 import MapMarkerCard from './MapMarkerCard'
 import BsForm from 'react-bootstrap/Form'
-import { Button } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 import Overlay from 'react-bootstrap/Overlay'
 import Tooltip from 'react-bootstrap/Tooltip'
@@ -82,12 +82,9 @@ const MapMarkerForm = (props) =>{
                 }
                 
             }
-            console.log(newObj)
             newForm[destination].push(newObj)
         }
-        console.log(newForm)
         setForm(newForm)
-        setData(formToData(newForm))
         props.editForm("mapmarkers", newForm)
     }
     function formToData(form){
@@ -149,20 +146,38 @@ const MapMarkerForm = (props) =>{
         setForm(newForm)
         setData(formToData(newForm))
     }
-    let dataContainer;
+    
+    const [ActiveCat, setActiveCat] = useState(null)
+    function catHandler(e){
+        e.preventDefault();
+        if(ActiveCat !== e.target.name){
+            setActiveCat(e.target.name)
+        }
+        else{
+            setActiveCat(null)
+        }
+    }
+
+    let dataContainer = null;
     if(Data){
-        dataContainer = Data.slice(0).reverse().map((item, index)=>{
-            return(
-            <MapMarkerCard 
-                key={index} 
-                index={index} 
-                form={item} 
-                data={Data} 
-                editForm={(data)=>dataToForm(data)}
-                ID={props.EditID}
-                markerType={item.key}  
-                fileToUpload={(e)=>props.fileToUpload(e)}
-            />)
+        dataContainer = Data.map((item, index)=>{
+            console.log(item.key)
+            if(item.key === ActiveCat || ActiveCat === null){
+                return(
+                <MapMarkerCard 
+                    key={index} 
+                    index={index} 
+                    form={item} 
+                    data={Data} 
+                    editForm={(data)=>dataToForm(data)}
+                    ID={props.EditID}
+                    markerType={item.key}  
+                    fileToUpload={(e)=>props.fileToUpload(e)}
+                />)
+            }
+            else{
+                return null
+            }
         })
     }
 
@@ -185,17 +200,26 @@ const MapMarkerForm = (props) =>{
             <Nominatim/>
         </Card>
         <Row>
-            <Card className="cols" style={{width: '9.3rem'}}>
-                <Dropdown style={{display: 'flex', flexWrap: 'wrap'}}>
-                    <Dropdown.Toggle>
-                        Add Marker
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item onClick={(e)=>{clickHandler(e)}} name="restaurant">Restaurant</Dropdown.Item>
-                        <Dropdown.Item onClick={(e)=>{clickHandler(e)}} name="hotel">Hotel</Dropdown.Item>
-                        <Dropdown.Item onClick={(e)=>{clickHandler(e)}} name="other">Other</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
+            <Card className="cols" style={{width: '20rem', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
+                <Row>
+                    <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
+                        <Button name="restaurants" onClick={catHandler}>Restaurants</Button>
+                        <Button name="hotels" onClick={catHandler}>Hotels</Button>
+                        <Button name="others" onClick={catHandler}>Others</Button>
+                    </ButtonGroup>
+                </Row>
+                <Row>
+                    <Dropdown style={{display: 'flex', flexWrap: 'wrap', marginTop: '10px'}}>
+                        <Dropdown.Toggle>
+                            Add Marker
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item onClick={(e)=>{clickHandler(e)}} name="restaurant">Restaurant</Dropdown.Item>
+                            <Dropdown.Item onClick={(e)=>{clickHandler(e)}} name="hotel">Hotel</Dropdown.Item>
+                            <Dropdown.Item onClick={(e)=>{clickHandler(e)}} name="other">Other</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Row>
             </Card>
         </Row>
         <Col>
