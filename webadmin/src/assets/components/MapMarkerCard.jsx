@@ -9,8 +9,12 @@ import './MapMarkerCard.css';
 const MapMarkerCard = props => {
   let formObject = props.form
   let ID = props.ID
-  if(formObject.ImageID && ID && !formObject.speakerImgsrc){
-    formObject.speakerImgsrc = `https://sahat.lamk.fi/public/${ID}/${formObject.ImageID}`
+
+  if(formObject.image && ID && !formObject.markerImgsrc){
+    formObject.markerImgsrc = `https://sahat.lamk.fi/public/${ID}/${formObject.image}`
+    if((formObject.image).includes("https://")){
+      formObject.markerImgsrc = formObject.image
+    }
   }
   useEffect(() => {
     //console.log(ImgSrc)
@@ -37,83 +41,82 @@ const MapMarkerCard = props => {
   function changeImage(e) {
     if (e.target.files && e.target.files[0]) {
       //setImgSrc(URL.createObjectURL(e.target.files[0]))
-      formObject["speakerImgsrc"] = URL.createObjectURL(e.target.files[0])
+      formObject["markerImgsrc"] = URL.createObjectURL(e.target.files[0])
     }
   }
 
-  let jotain;
-
-  if (props.markerType == "restaurant"){
+  let secondRow;
+  if (props.markerType === "restaurants"){
     secondRow =
     <Row>
       <Col>
         <FormGroup>
           <FormLabel>Description</FormLabel>
-          <FormControl as="textarea" size="sm" value={formObject.Description} onChange={(e) => {changeHandler(e)}} name="Description"></FormControl>
+          <FormControl as="textarea" size="sm" defaultValue={formObject.description} onChange={(e) => {changeHandler(e)}} name="description"></FormControl>
         </FormGroup>
       </Col>
       <Col>
         <FormGroup>
           <FormLabel>Category</FormLabel>
-          <FormControl size="sm" value={formObject.Category} onChange={(e) => {changeHandler(e)}} name="Category"></FormControl>
+          <FormControl size="sm" defaultValue={formObject.category} onChange={(e) => {changeHandler(e)}} name="category"></FormControl>
         </FormGroup>
       </Col>
       <Col>
         <FormGroup>
           <FormLabel>Rating</FormLabel>
-          <FormControl size="sm" value={formObject.Rating} onChange={(e) => {changeHandler(e)}} name="Rating"></FormControl>
+          <FormControl size="sm" defaultValue={formObject.rating} onChange={(e) => {changeHandler(e)}} name="rating"></FormControl>
         </FormGroup>
       </Col>
       <Col>
         <FormGroup>
           <FormLabel>Web url</FormLabel>
-          <FormControl size="sm" value={formObject.WebURL} onChange={(e) => {changeHandler(e)}} name="WebURL"></FormControl>
+          <FormControl size="sm" defaultValue={formObject.webURL} onChange={(e) => {changeHandler(e)}} name="webURL"></FormControl>
         </FormGroup>
       </Col>
     </Row>
   }
-  else if (props.markerType == "hotel"){
+  else if (props.markerType === "hotels"){
     secondRow =
     <Row>
       <Col>
         <FormGroup>
           <FormLabel>Description</FormLabel>
-          <FormControl as="textarea" size="sm" value={formObject.Description} onChange={(e) => {changeHandler(e)}} name="Description"></FormControl>
+          <FormControl as="textarea" size="sm" defaultValue={formObject.description} onChange={(e) => {changeHandler(e)}} name="description"></FormControl>
         </FormGroup>
       </Col>
       <Col>
         <FormGroup>
           <FormLabel>Rating</FormLabel>
-          <FormControl size="sm" value={formObject.Rating} onChange={(e) => {changeHandler(e)}} name="Rating"></FormControl>
+          <FormControl size="sm" defaultValue={formObject.rating} onChange={(e) => {changeHandler(e)}} name="rating"></FormControl>
         </FormGroup>
       </Col>
       <Col>
         <FormGroup>
           <FormLabel>Web url</FormLabel>
-          <FormControl size="sm" value={formObject.WebURL} onChange={(e) => {changeHandler(e)}} name="WebURL"></FormControl>
+          <FormControl size="sm" defaultValue={formObject.webURL} onChange={(e) => {changeHandler(e)}} name="webURL"></FormControl>
         </FormGroup>
       </Col>
     </Row>
   }
-  else if (props.markerType == "other"){
+  else if (props.markerType === "others"){
     secondRow = 
     <Row>
       <Col>
         <FormGroup>
           <FormLabel>Description</FormLabel>
-          <FormControl as="textarea" size="sm" value={formObject.Description} onChange={(e) => {changeHandler(e)}} name="Description"></FormControl>
+          <FormControl as="textarea" size="sm" defaultValue={formObject.description} onChange={(e) => {changeHandler(e)}} name="description"></FormControl>
         </FormGroup>
       </Col>
       <Col>
         <FormGroup>
           <FormLabel>Category</FormLabel>
-          <FormControl size="sm" value={formObject.Category} onChange={(e) => {changeHandler(e)}} name="Category"></FormControl>
+          <FormControl size="sm" defaultValue={formObject.category} onChange={(e) => {changeHandler(e)}} name="category"></FormControl>
         </FormGroup>
       </Col>
       <Col>
         <FormGroup>
           <FormLabel>Web URL</FormLabel>
-          <FormControl size="sm" value={formObject.WebURL} onChange={(e) => {changeHandler(e)}} name="WebURL"></FormControl>
+          <FormControl size="sm" defaultValue={formObject.webURL} onChange={(e) => {changeHandler(e)}} name="webURL"></FormControl>
         </FormGroup>
       </Col>
     </Row>
@@ -123,36 +126,39 @@ const MapMarkerCard = props => {
   return (
     
     <Card>
+      {props.markerType === "restaurants" ? <p>Restaurant</p>: null}
+      {props.markerType === "hotels" ? <p>Hotel</p> : null}
+      {props.markerType === "others" ? <p>Other</p> : null}
       <Form>
         <FormGroup className="file">
-          <FormLabel><Image className="filePrev" src={formObject.speakerImgsrc}/></FormLabel>
+          <FormLabel><Image className="filePrev" src={formObject.markerImgsrc}/></FormLabel>
           <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
-          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="ImageID"></FormControl>
+          <FormControl size="sm" onChange={(e) => {changeImage(e);changeHandler(e); fileHandler(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </FormGroup>
         <Row>
           <Col>
             <FormGroup>
               <FormLabel>Latitude</FormLabel>
-              <FormControl size="sm" value={formObject.Latitude} onChange={(e) => {changeHandler(e)}} name="Latitude"></FormControl>
+              <FormControl size="sm" defaultValue={formObject.lat} onChange={(e) => {changeHandler(e)}} name="lat"></FormControl>
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
               <FormLabel>Longitude</FormLabel>
-              <FormControl size="sm" value={formObject.Longitude} onChange={(e) => {changeHandler(e)}} name="Longitude"></FormControl>
+              <FormControl size="sm" defaultValue={formObject.long} onChange={(e) => {changeHandler(e)}} name="long"></FormControl>
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
               <FormLabel>Name</FormLabel>
-              <FormControl size="sm" value={formObject.Name} onChange={(e) => {changeHandler(e)}} name="Name"></FormControl>
+              <FormControl size="sm" defaultValue={formObject.name} onChange={(e) => {changeHandler(e)}} name="name"></FormControl>
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
               <FormLabel>Address</FormLabel>
-              <FormControl size="sm" value={formObject.Address} onChange={(e) => {changeHandler(e)}} name="Address"></FormControl>
+              <FormControl size="sm" defaultValue={formObject.address} onChange={(e) => {changeHandler(e)}} name="address"></FormControl>
             </FormGroup>
           </Col>
         </Row>
