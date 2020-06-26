@@ -38,38 +38,40 @@ const GeneralCard = props => {
     
     <Card>
       <Form onChange={(e)=> props.editForm(e)}>
+        <FormGroup className="file">
+          <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} onError={errorHandler}/></FormLabel>
+          <label htmlFor={'hidden'} id="lableForHidden">Choose file</label>
+          <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e)}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
+        </FormGroup>
         <Row>
           <Col>
             <FormGroup>
               <FormLabel>Event name</FormLabel>
               <FormControl size="sm" name="eventName" defaultValue={formObject.eventName}></FormControl>
             </FormGroup>
+          </Col>
+          <Col>
             <FormGroup>
               <FormLabel>Event password</FormLabel>
               <FormControl size="sm" name="eventPass" defaultValue={formObject.eventPass}></FormControl>
             </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
             <FormGroup>
               <FormLabel>Event color scheme</FormLabel>
               <FormControl size="sm" name="eventColor" defaultValue={formObject.eventColor}></FormControl>
             </FormGroup>
           </Col>
           <Col>
-            <Form.Group as={Col}>
+            <Form.Group>
               <Form.Label>Event visiblity</Form.Label>
               <Form.Check type={'radio'} name="visibility" label={'visible'} value="visible" defaultChecked={props.FO.visibility == "visible" ? true : false}/> {/*eslint-disable-line*/}
               <Form.Check type={'radio'} name="visibility" label={'hidden'} value="hidden" defaultChecked={props.FO.visibility == "hidden" ? true : false}/> {/*eslint-disable-line*/}
             </Form.Group>
           </Col>
         </Row>
-        <Row>
-          <Col>
-          </Col>
-        </Row>
-        <FormGroup className="file">
-          <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} onError={errorHandler}/></FormLabel>
-          <label htmlFor={'hidden'} id="lableForHidden">Choose file</label>
-          <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e)}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
-        </FormGroup>
       </Form>
     </Card>
   )
