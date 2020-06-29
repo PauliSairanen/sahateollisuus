@@ -1,7 +1,7 @@
 //Component for handling event creation
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
-import Container from 'react-bootstrap/Container'
+
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
@@ -17,8 +17,9 @@ import Navbar from 'react-bootstrap/Navbar'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import GeneralCard from './GeneralCard';
 
-
-
+import Modal from 'react-bootstrap/Modal'
+import Spinner from 'react-bootstrap/Spinner'
+import Toast from 'react-bootstrap/Toast'
 /**
  * @param changeContent - change screen
  * @param id - Event to edit based on ID
@@ -29,7 +30,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
 
     //Visible forms controller
     const [ActiveForm, setActiveForm] = useState()
-    const [EditID] = useState(props.id)
+    const [EditID, setEditID] = useState(props.id)
     const [Files, setFiles] = useState([])
     let container;
     //Form variables
@@ -252,9 +253,14 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         if(EditID){
             route = "/updateEvent" 
             form.id = EditID;
+            setModalText("Creating Event");
+
         }else{
             route = "/createEvent"
+            setModalText("Editing Event");
+
         }
+        setModalShow(true)
         axios.post(baseURL+route, 
         form,
         {
@@ -267,23 +273,47 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             console.log("event create success");
             console.log(response);
             let id;
+            
             if(EditID){
                 id = EditID;
             }
             else{
+                setEditID(response.data._id)
                 id = response.data._id
             }
+
             if(Files.length > 0){
+                setModalText("Uploading files . . .")
                 uploadFiles(Files, id)
             }
             else{
-                props.changeContent("AdminScreen")
+                //props.changeContent("AdminScreen")
+                setModalShow(false)
+                setToastHeader("Success!")
+                setToastBody("Changes were saved")
+                setToastShow(true)
             }
         })
         .catch(function (error) {
             // handle error
             console.log("event create fail");
             console.log(error);
+            if(error.response){
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+                
+                setModalShow(false)
+                setToastShow(true)
+                setToastHeader("Error")
+                setToastBody(`${error.response.data.message}`)
+            }
+            else{
+                setModalShow(false)
+                setToastShow(true)
+                setToastHeader("Error")
+                setToastBody("Cannot connect to server")
+            }
         })
     }
     //input event id, get eventdata
@@ -321,6 +351,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         return req
         .then(function (res){
             console.log(res)
+            setModalText("Processing "+file.name);
             return true
         })
         .catch(function (error){
@@ -337,12 +368,35 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     }
     */
     async function uploadFiles(files, id){
-        let i;
+        //let i;
         //console.log("ID on " +id)
-        for(i = 0; i < files.length; i++){
-            await uploadFile(files[i].file, "myFiles", id) //todo testaa et await toimii
+        // for(i = 0; i < files.length; i++){
+        //     await uploadFile(files[i].file, "myFiles", id)) 
+        // }
+        let retry = 0;
+        while(files.length > 0 && retry < 3){
+            if(await uploadFile(files[0].file, "myFiles", id)){
+                retry = 0
+                files.splice(0, 1);
+            }
+            else{
+                console.log("Retry file")
+                retry++;
+            }
         }
-        props.changeContent("AdminScreen")
+        if(retry >= 3){
+            setModalShow(false)
+            setToastHeader("Error!")
+            setToastBody("Failed to upload a file")
+            setToastShow(true)
+        }
+        else{
+            setModalShow(false)
+            setToastHeader("Success!")
+            setToastBody("Changes were saved")
+            setToastShow(true)
+        }
+        //props.changeContent("AdminScreen")
     }
     //adds file to list of files to upload
     function fileToUpload(e){
@@ -381,40 +435,55 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         setFiles(files)
         //console.log(Files)
     }
+
+    const [ToastShow, setToastShow] = useState(false)
+    const [ToastHeader, setToastHeader] = useState("")
+    const [ToastBody, setToastBody] = useState("")
+
+    const [ModalShow, setModalShow] = useState(false)
+    const [ModalText, setModalText] = useState()
     return (
         <div id="CreateEventForm">
-            <Navbar bg="light" variant="light" expand="lg">
-                <Navbar.Brand>{props.id ? <p>Edit Event {FormObjects.eventName}</p> : <p>Create Event</p>}</Navbar.Brand>
-                {ActiveForm ? <Navbar.Text>Current form: {ActiveForm}</Navbar.Text> : null}
+            <Modal show={ModalShow} backdrop="static" keyboard={false}>
+                <Modal.Header>Processing request <Spinner animation="border"/></Modal.Header>
+                <Modal.Body>{ModalText}</Modal.Body>
+            </Modal>
+            <Navbar bg="light" variant="light" expand="lg" style={{zIndex:'1'}}>
+                <Navbar.Brand>{EditID ? "Edit Event" : "Create Event"} {FormObjects.eventName ? `(${FormObjects.eventName})`:null}</Navbar.Brand>
+                {ActiveForm ? <Navbar.Text>Current form: {ActiveForm} ID: {EditID}</Navbar.Text> : null}
             </Navbar>
-            <Container className="containers">
-                <Row className="rows" >
-                    <Col className="cols" style={{display: 'flex', justifyContent: 'center'}} >
-                        <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
-                            <Button name="GeneralForm" onClick={selectForm} className="Button" disabled={ActiveForm === "GeneralForm"}>General</Button>
-                            <Button name="AboutForm" onClick={selectForm} className="Button" disabled={ActiveForm === "AboutForm"}>About</Button>
-                            <Button name="ParticipantsForm" onClick={selectForm} className="Button" disabled={ActiveForm === "ParticipantsForm"}>Participants</Button>
-                            <Button name="ProgrammeForm" onClick={selectForm} className="Button" disabled={ActiveForm === "ProgrammeForm"}>Programme</Button>
-                            <Button name="SpeakersForm" onClick={selectForm} className="Button" disabled={ActiveForm === "SpeakersForm"}>Speakers</Button>
-                            <Button name="SponsorsForm" onClick={selectForm} className="Button" disabled={ActiveForm === "SponsorsForm"}>Sponsors</Button>
-                            <Button name="VenueTabForm" onClick={selectForm} className="Button" disabled={ActiveForm === "VenueTabForm"}>Venue</Button>
-                            <Button name="MapMarkerForm" onClick={selectForm} className="Button" disabled={ActiveForm === "MapMarkerForm"}>Map Marker</Button>
-                            <Button variant="secondary" onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</Button>
-                            <Button variant="secondary" onClick={()=>
-                            {
-                                if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
-                                    props.changeContent("AdminScreen")
-                                }  
-                            }}>Cancel</Button>
-                        </ButtonGroup>
-                    </Col>
-                </Row>
+            <div>
+                <div style={{display: 'flex', justifyContent: 'center'}} >
+                    <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
+                        <Button name="GeneralForm" onClick={selectForm} className="Button" disabled={ActiveForm === "GeneralForm"}>General</Button>
+                        <Button name="AboutForm" onClick={selectForm} className="Button" disabled={ActiveForm === "AboutForm"}>About</Button>
+                        <Button name="ParticipantsForm" onClick={selectForm} className="Button" disabled={ActiveForm === "ParticipantsForm"}>Participants</Button>
+                        <Button name="ProgrammeForm" onClick={selectForm} className="Button" disabled={ActiveForm === "ProgrammeForm"}>Programme</Button>
+                        <Button name="SpeakersForm" onClick={selectForm} className="Button" disabled={ActiveForm === "SpeakersForm"}>Speakers</Button>
+                        <Button name="SponsorsForm" onClick={selectForm} className="Button" disabled={ActiveForm === "SponsorsForm"}>Sponsors</Button>
+                        <Button name="VenueTabForm" onClick={selectForm} className="Button" disabled={ActiveForm === "VenueTabForm"}>Venue</Button>
+                        <Button name="MapMarkerForm" onClick={selectForm} className="Button" disabled={ActiveForm === "MapMarkerForm"}>Map Marker</Button>
+                        <Button variant="secondary" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
+                        <Button variant="secondary" onClick={()=>
+                        {
+                            if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
+                                props.changeContent("AdminScreen")
+                            }  
+                        }}>Return to Main Menu</Button>
+                    </ButtonGroup>
+                </div>
                 <Row style={{marginTop:'20px'}}>
                     <Col>
                         {container}
                     </Col>
                 </Row>
-            </Container>
+            </div>
+            <div style={{position:"fixed", top:"100px",right:"20px"}}>
+                <Toast onClose={()=>setToastShow(false)} show={ToastShow} delay={3000} style={{zIndex:'5'}} autohide>
+                    <Toast.Header>{ToastHeader}</Toast.Header>
+                    <Toast.Body>{ToastBody}</Toast.Body>
+                </Toast>
+            </div>
             
             {/* <div>{props.id ? <p>DebugMsg. Edit form "{props.id}"</p> : null}</div> */}
             {/* <button name="AboutForm" onClick={selectForm}>About</button>
