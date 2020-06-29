@@ -33,6 +33,13 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const [EditID, setEditID] = useState(props.id)
     const [Files, setFiles] = useState([])
     let container;
+    //Modal and Toast stuff
+    const [ToastShow, setToastShow] = useState(false)
+    const [ToastHeader, setToastHeader] = useState("")
+    const [ToastBody, setToastBody] = useState("")
+
+    const [ModalShow, setModalShow] = useState(false)
+    const [ModalText, setModalText] = useState()
     //Form variables
     const [FormObjects, setFormObjects] = useState({
         //About Form
@@ -289,9 +296,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             else{
                 //props.changeContent("AdminScreen")
                 setModalShow(false)
-                setToastHeader("Success!")
-                setToastBody("Changes were saved")
-                setToastShow(true)
+                toast("Success!", "Changes were saved")
             }
         })
         .catch(function (error) {
@@ -304,15 +309,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 console.log(error.response.headers);
                 
                 setModalShow(false)
-                setToastShow(true)
-                setToastHeader("Error")
-                setToastBody(`${error.response.data.message}`)
+                toast("Error",`${error.response.data.message}`)
             }
             else{
                 setModalShow(false)
-                setToastShow(true)
-                setToastHeader("Error")
-                setToastBody("Cannot connect to server")
+                toast("Error","Cannot connect to server")
             }
         })
     }
@@ -386,15 +387,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         }
         if(retry >= 3){
             setModalShow(false)
-            setToastHeader("Error!")
-            setToastBody("Failed to upload a file")
-            setToastShow(true)
+            toast("Error!","Failed to upload a file")
         }
         else{
             setModalShow(false)
-            setToastHeader("Success!")
-            setToastBody("Changes were saved")
-            setToastShow(true)
+            toast("Success!","Changes were saved")
         }
         //props.changeContent("AdminScreen")
     }
@@ -436,12 +433,13 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         //console.log(Files)
     }
 
-    const [ToastShow, setToastShow] = useState(false)
-    const [ToastHeader, setToastHeader] = useState("")
-    const [ToastBody, setToastBody] = useState("")
+    function toast(header, body){
+        setToastHeader(header)
+        setToastBody(body)
+        setToastShow(true)
+    }
 
-    const [ModalShow, setModalShow] = useState(false)
-    const [ModalText, setModalText] = useState()
+
     return (
         <div id="CreateEventForm">
             <Modal show={ModalShow} backdrop="static" keyboard={false}>
