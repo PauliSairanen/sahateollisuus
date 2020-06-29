@@ -207,7 +207,7 @@ const AdminScreen = (props) => {
             <Navbar.Brand>Main Menu</Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link id="7" onClick={clickHandler}>Create Event</Nav.Link>
-                {/* <Nav.Link id="0" onClick={clickHandler}>Refresh Events</Nav.Link> */}
+                <Nav.Link id="0" onClick={clickHandler}>Refresh Events</Nav.Link>
                 <Form inline>
                     <FormControl type="text" name="search" onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search" className="mr-sm-2"/>
                 </Form>
