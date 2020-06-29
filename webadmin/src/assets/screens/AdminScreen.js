@@ -204,7 +204,7 @@ const AdminScreen = (props) => {
     return (
         <>
         <Navbar bg="light" variant="light" expand="lg">
-            <Navbar.Brand>Admin Panel</Navbar.Brand>
+            <Navbar.Brand>Main Menu</Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link id="7" onClick={clickHandler}>Create Event</Nav.Link>
                 <Nav.Link id="0" onClick={clickHandler}>Refresh Events</Nav.Link>
