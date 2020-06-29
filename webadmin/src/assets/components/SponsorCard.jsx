@@ -47,7 +47,7 @@ const SponsorCard = props => {
       <Form>
         <FormGroup className="file">
           <FormLabel><Image className={formObject.sponsorImgsrc ? null : "filePrev"} src={formObject.sponsorImgsrc} fluid/></FormLabel>
-          <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
+          <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose image</label>
           <FormControl className="hidden" name="ImageID" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} type='file' id={'hidden-'+props.index}/>
         </FormGroup>
         <Row>
