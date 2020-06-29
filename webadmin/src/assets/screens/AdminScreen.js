@@ -232,9 +232,9 @@ const AdminScreen = (props) => {
                 <button className="ToolButton" id="8" onClick={clickHandler}>Test 8</button>
             </div>
         </div> */}
-            <div>
-                {EventObject.length > 0 ? EventObject : <p>Can't reach back-end</p>}
-            </div>
+        <div style={{display: 'flex', flexDirection:'column', justifyContent:'center', alignContent: 'center'}}>
+            {EventObject.length > 0 ? EventObject : <p style={{alignSelf:'center', justifySelf:'center'}}>Cannot connect to the server</p>}
+        </div>
         <div className="AdminScreen">
                 <div id="EventList">
                     {eventList}

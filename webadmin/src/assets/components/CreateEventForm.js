@@ -313,7 +313,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             }
             else{
                 setModalShow(false)
-                toast("Error","Cannot connect to server")
+                toast("Error","Cannot connect to the server")
             }
         })
     }

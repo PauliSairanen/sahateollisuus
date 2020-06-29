@@ -6,6 +6,8 @@ import {Image} from 'react-bootstrap'
 import DeleteButton from './DeleteButton';
 import './MapMarkerCard.css';
 
+//import Button from 'react-bootstrap/Button';
+
 const MapMarkerCard = props => {
   let formObject = props.form
   let ID = props.ID
@@ -159,6 +161,7 @@ const MapMarkerCard = props => {
               <FormLabel>Address</FormLabel>
               <FormControl size="sm" value={formObject.address} onChange={(e) => {changeHandler(e)}} name="address"></FormControl>
             </FormGroup>
+            {/* <Button>Geocode lat and long</Button> */}
           </Col>
         </Row>
         {secondRow}
