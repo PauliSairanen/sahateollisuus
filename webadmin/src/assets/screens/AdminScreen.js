@@ -9,6 +9,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
+
 /**
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
@@ -207,7 +208,7 @@ const AdminScreen = (props) => {
             <Navbar.Brand>Main Menu</Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link id="7" onClick={clickHandler}>Create Event</Nav.Link>
-                <Nav.Link id="0" onClick={clickHandler}>Refresh Events</Nav.Link>
+                {/* <Nav.Link id="0" onClick={clickHandler}>Refresh Events</Nav.Link> */}
                 <Form inline>
                     <FormControl type="text" name="search" onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search" className="mr-sm-2"/>
                 </Form>
