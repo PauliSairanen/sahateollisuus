@@ -9,7 +9,7 @@ import BsForm from 'react-bootstrap/Form'
 /*Esim
 [
     {
-        "day": "Päivä 0",
+        "day": "Day 0",
         "content": [
             {
                 Time: "",
@@ -24,7 +24,7 @@ import BsForm from 'react-bootstrap/Form'
         ]
     },
     {
-        "day": "Päivä 1",
+        "day": "Day 1",
         "content": [
             {
                 Time: "",
@@ -41,12 +41,12 @@ import BsForm from 'react-bootstrap/Form'
 ]
 Todo make function to convert ^^^ to vvv
 [
-    {day: "Päivä 0", jne},
-    {day: "Päivä 0", jne},
-    {day: "Päivä 0", jne},
-    {day: "Päivä 1", jne},
-    {day: "Päivä 1, jne},
-    {day: "Päivä 2", jne},
+    {day: "Day 0", jne},
+    {day: "Day 0", jne},
+    {day: "Day 0", jne},
+    {day: "Day 1", jne},
+    {day: "Day 1, jne},
+    {day: "Day 2", jne},
 ]
 */
 /**
@@ -82,7 +82,7 @@ const ProgrammeForm = (props) => {
             let found = false;
             for(i = 0; i < form.length; i++){
                 if('day' in form[i]){
-                    if(form[i].day === 'Päivä '+data[key].day){
+                    if(form[i].day === 'Day '+data[key].day){
                         found = true;
                         break;
                     }
@@ -105,7 +105,7 @@ const ProgrammeForm = (props) => {
             else{
                 form.push(
                     {
-                        day: 'Päivä '+data[key].day,
+                        day: 'Day '+data[key].day,
                         content: [
                             {
                                 Time: data[key].Time,
@@ -133,7 +133,7 @@ const ProgrammeForm = (props) => {
         let newForm = []
         for(let i in form){
             let day = form[i].day
-            day = day.replace("Päivä ", "")
+            day = day.replace("Day ", "")
             let content = form[i].content
 
             for(let j in content){
@@ -161,7 +161,7 @@ const ProgrammeForm = (props) => {
         let found = false;
         for(i = 0; i < form.length; i++){
             if('day' in form[i]){
-                if(form[i].day === "Päivä "+document.getElementById("Date").value){
+                if(form[i].day === "Day "+document.getElementById("Date").value){
                     found = true;
                     break;
                 }
@@ -184,7 +184,7 @@ const ProgrammeForm = (props) => {
         else{
             form.push(
                 {
-                    day: "Päivä "+document.getElementById("Date").value,
+                    day: "Day "+document.getElementById("Date").value,
                     content: [
                         {
                             Time: "",
@@ -213,7 +213,7 @@ const ProgrammeForm = (props) => {
         let found = false;
         for(i = 0; i < form.length; i++){
             if('day' in form[i]){
-                if(form[i].day === "Päivä "+e.target.form[0].value){
+                if(form[i].day === "Day "+e.target.form[0].value){
                     found = true;
                     break;
                 }
@@ -236,7 +236,7 @@ const ProgrammeForm = (props) => {
         else{
             form.push(
                 {
-                    day: "Päivä "+e.target.form[0].value,
+                    day: "Day "+e.target.form[0].value,
                     content: [
                         {
                             Time: e.target.form[1].value,
@@ -291,7 +291,7 @@ const ProgrammeForm = (props) => {
         let i;
         let buttons = []
         for(i = 0; i < Form.length; i++){
-            buttons.push(<Button key={i} name={Form[i].day.replace("Päivä ", "")} onClick={dayHandler}>{Form[i].day}</Button>)
+            buttons.push(<Button key={i} name={Form[i].day.replace("Day ", "")} onClick={dayHandler}>{Form[i].day}</Button>)
         }
         dayButtons = 
         <Col className="cols" style={{display: 'flex', justifyContent: 'center'}}>
