@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
+import {Card, FormGroup, FormLabel, FormControl, FormText} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
@@ -48,12 +48,14 @@ const GeneralCard = props => {
             <FormGroup>
               <FormLabel>Event name</FormLabel>
               <FormControl size="sm" name="eventName" defaultValue={formObject.eventName}></FormControl>
+              <FormText>Required</FormText>
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
               <FormLabel>Event password</FormLabel>
               <FormControl size="sm" name="eventPass" defaultValue={formObject.eventPass}></FormControl>
+              <FormText>Required</FormText>
             </FormGroup>
           </Col>
         </Row>
@@ -61,7 +63,7 @@ const GeneralCard = props => {
           <Col>
             <FormGroup>
               <FormLabel>Event color scheme</FormLabel>
-              <FormControl size="sm" name="eventColor" defaultValue={formObject.eventColor}></FormControl>
+              <FormControl size="sm" maxLength="7" name="eventColor" defaultValue={formObject.eventColor}></FormControl>
             </FormGroup>
           </Col>
           <Col>

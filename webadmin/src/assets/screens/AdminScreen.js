@@ -9,6 +9,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
+
 /**
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
@@ -204,10 +205,10 @@ const AdminScreen = (props) => {
     return (
         <>
         <Navbar bg="light" variant="light" expand="lg">
-            <Navbar.Brand>Admin Panel</Navbar.Brand>
+            <Navbar.Brand>Main Menu</Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link id="7" onClick={clickHandler}>Create Event</Nav.Link>
-                <Nav.Link id="0" onClick={clickHandler}>Refresh Events</Nav.Link>
+                {/* <Nav.Link id="0" onClick={clickHandler}>Refresh Events</Nav.Link> */}
                 <Form inline>
                     <FormControl type="text" name="search" onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search" className="mr-sm-2"/>
                 </Form>
@@ -232,9 +233,9 @@ const AdminScreen = (props) => {
                 <button className="ToolButton" id="8" onClick={clickHandler}>Test 8</button>
             </div>
         </div> */}
-            <div>
-                {EventObject.length > 0 ? EventObject : <p>Can't reach back-end</p>}
-            </div>
+        <div style={{display: 'flex', flexDirection:'column', justifyContent:'center', alignContent: 'center'}}>
+            {EventObject.length > 0 ? EventObject : <p style={{alignSelf:'center', justifySelf:'center'}}>Cannot connect to the server</p>}
+        </div>
         <div className="AdminScreen">
                 <div id="EventList">
                     {eventList}
