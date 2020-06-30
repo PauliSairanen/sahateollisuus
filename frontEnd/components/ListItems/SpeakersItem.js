@@ -86,6 +86,32 @@ const SpeakersItem = props => {
         </TouchableComponent>
       </Card>
     )
+  } else {
+    return (
+      <View style={styles.errorContainer}>
+        <Text>Missing data entries. Contact administrators.</Text>
+        {speakerName
+          ? <Text></Text>
+          : <Text>Speaker Name not found</Text>
+        }
+        {title
+          ? <Text></Text>
+          : <Text>Title not found</Text>
+        }
+        {specialTitle
+          ? <Text></Text>
+          : <Text>Special Title not found</Text>
+        }
+        {company
+          ? <Text></Text>
+          : <Text>Company not found</Text>
+        }
+        {imageID
+          ? <Text></Text>
+          : <Text>imageID not found</Text>
+        }
+      </View>
+    )
   }
 }
 
@@ -127,6 +153,11 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%'
+  }, 
+  errorContainer: {
+    flex: 1, 
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 
