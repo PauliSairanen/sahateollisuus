@@ -1,0 +1,36 @@
+#navbarButtons button{
+    color: grey;
+    background-color: white;
+    border-top: solid 0px #ffb400 !important;
+    border-left: solid 0px #ffb400 !important;
+    border-right: solid 0px #ffb400 !important;
+    box-shadow: none !important;
+}
+
+#navbarButtons button:hover {
+    color: #ffb400 !important;
+    border-bottom: solid 2px #ffb400 !important;
+}
+
+.active {
+    color: #ffb400 !important;
+    border-top: solid 0px #ffb400 !important;
+    border-left: solid 0px #ffb400 !important;
+    border-right: solid 0px #ffb400 !important;
+    border-bottom: solid 2px #ffb400 !important;
+}
+
+.inactive {
+    color: grey;
+    background-color: white;
+    border-color: #ffb400;
+    border-top: solid 0px #ffb400 !important;
+    border-left: solid 0px #ffb400 !important;
+    border-right: solid 0px #ffb400 !important;
+    border-bottom: solid 1px lightgray !important;
+    box-shadow: none !important;
+}
+
+.otherButtons {
+    border-bottom: solid 1px lightgray !important;
+}

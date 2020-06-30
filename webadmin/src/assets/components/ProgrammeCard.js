@@ -37,7 +37,7 @@ const ProgrammeCard = props => {
             <Form>
                 <FormGroup className="pdf">
                     {/* <FormLabel><Image className="imgPrev" src={???}></Image></FormLabel> */}
-                    <FormLabel>{props.form.Pdf ? "PDF: " + props.form.Pdf : "No PDF"}</FormLabel>
+                    <FormLabel id="programmePdfLabel">{props.form.Pdf ? "PDF: " + props.form.Pdf : "No PDF"}</FormLabel>
                     <label htmlFor={"hidden-"+props.index} id="lableForHidden">Choose PDF</label>
                     <FormControl size="sm" onChange={(e)=>{changeHandler(e); fileHandler(e)}} className="hidden" name="Pdf" type='file' id={'hidden-'+props.index}></FormControl>
                     {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e)}} name="Pdf"/> */}

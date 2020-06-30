@@ -291,7 +291,7 @@ const ProgrammeForm = (props) => {
         let i;
         let buttons = []
         for(i = 0; i < Form.length; i++){
-            buttons.push(<Button key={i} name={Form[i].day.replace("Päivä ", "")} onClick={dayHandler}>{Form[i].day}</Button>)
+            buttons.push(<Button className="buttonsForDays" key={i} name={Form[i].day.replace("Päivä ", "")} onClick={dayHandler}>{Form[i].day}</Button>)
         }
         dayButtons = 
         <Col className="cols" style={{display: 'flex', justifyContent: 'center'}}>

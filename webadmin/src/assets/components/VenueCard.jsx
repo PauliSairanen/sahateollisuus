@@ -51,7 +51,7 @@ const VenueCard = props => {
           <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </FormGroup>
-        <Row>
+        <Row id="venueTitle">
           <Col>
             <FormGroup>
               <FormLabel>Title</FormLabel>

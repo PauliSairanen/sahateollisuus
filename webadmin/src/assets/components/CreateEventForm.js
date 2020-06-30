@@ -16,6 +16,7 @@ import Button from 'react-bootstrap/Button'
 import Navbar from 'react-bootstrap/Navbar'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import GeneralCard from './GeneralCard';
+import './CreateEventForm.css';
 
 
 
@@ -116,6 +117,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [EditID])
+
+
+    //Variables for selected navbar element highlighting
 
     //Change forms in the screen
     function selectForm(e){
@@ -391,17 +395,17 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             <Container className="containers">
                 <Row className="rows" >
                     <Col className="cols" style={{display: 'flex', justifyContent: 'center'}} >
-                        <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
-                            <Button name="GeneralForm" onClick={selectForm} className="Button">General</Button>
-                            <Button name="AboutForm" onClick={selectForm} className="Button">About</Button>
-                            <Button name="ParticipantsForm" onClick={selectForm} className="Button">Participants</Button>
-                            <Button name="ProgrammeForm" onClick={selectForm} className="Button">Programme</Button>
-                            <Button name="SpeakersForm" onClick={selectForm} className="Button">Speakers</Button>
-                            <Button name="SponsorsForm" onClick={selectForm} className="Button">Sponsors</Button>
-                            <Button name="VenueTabForm" onClick={selectForm} className="Button">Venue</Button>
-                            <Button name="MapMarkerForm" onClick={selectForm} className="Button">Map Marker</Button>
-                            <Button onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</Button>
-                            <Button onClick={()=>
+                        <ButtonGroup id="navbarButtons" style={{display: 'flex', flexWrap: 'wrap'}}>
+                            <Button name="GeneralForm" onClick={selectForm} className={ActiveForm === "GeneralForm" ? "active" : "inactive"}>General</Button>
+                            <Button name="AboutForm" onClick={selectForm} className={ActiveForm === "AboutForm" ? "active" : "inactive"}>About</Button>
+                            <Button name="ParticipantsForm" onClick={selectForm} className={ActiveForm === "ParticipantsForm" ? "active" : "inactive"}>Participants</Button>
+                            <Button name="ProgrammeForm" onClick={selectForm} className={ActiveForm === "ProgrammeForm" ? "active" : "inactive"}>Programme</Button>
+                            <Button name="SpeakersForm" onClick={selectForm} className={ActiveForm === "SpeakersForm" ? "active" : "inactive"}>Speakers</Button>
+                            <Button name="SponsorsForm" onClick={selectForm} className={ActiveForm === "SponsorsForm" ? "active" : "inactive"}>Sponsors</Button>
+                            <Button name="VenueTabForm" onClick={selectForm} className={ActiveForm === "VenueTabForm" ? "active" : "inactive"}>Venue</Button>
+                            <Button name="MapMarkerForm" onClick={selectForm} className={ActiveForm === "MapMarkerForm" ? "active" : "inactive"}>Map Marker</Button>
+                            <Button className="otherButtons" onClick={()=>createEventPost(finalForm)}>{props.id ? "Edit Event" : "Create Event"}</Button>
+                            <Button className="otherButtons" onClick={()=>
                             {
                                 if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
                                     props.changeContent("AdminScreen")

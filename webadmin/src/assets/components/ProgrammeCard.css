@@ -27,6 +27,24 @@
     border: 2px solid rgba(0, 0, 0, 0.125);
 }
 
+.buttonsForDays {
+    color: grey;
+    background-color: white !important;
+    border-color: #ffb400;
+    border-top: solid 0px #ffb400 !important;
+    border-left: solid 0px #ffb400 !important;
+    border-right: solid 0px #ffb400 !important;
+    border-bottom: solid 1px lightgray !important;
+    box-shadow: none !important;
+    margin-bottom: 10px;
+}
+
+.buttonsForDays:hover {
+    color: #ffb400 !important;
+    border-bottom: solid 2px #ffb400 !important;
+}
+
+
 .pdf {
     display: block;
     float: right;
