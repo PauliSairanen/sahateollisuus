@@ -6,8 +6,19 @@ import Card from 'react-bootstrap/Card'
  * @param id - eventin ID
  * @param name - eventin nimi
  * @param delet - evokes deleteEvent
+ * @param img - image name
  */
 const Event = (props) => {
+    let baseURL = "https://sahat.lamk.fi"
+    let imgsrc;
+
+    if(props.img.includes("https")){
+        imgsrc = props.img
+    }
+    else{
+        imgsrc = baseURL+`/public/${props.id}/${props.img}`
+    }
+    //console.log(props.name, imgsrc)
     async function clickHandler(e){
 
         if(e.target.name === "delete"){
@@ -24,6 +35,7 @@ const Event = (props) => {
 
     return (
         <Card style={{ width: '18rem' }}>
+            {props.img ? <Card.Img variant="top" src={imgsrc} /> : null}
             <Card.Body>
                 <Card.Title>{props.name}</Card.Title>
                 <Card.Subtitle>ID: {props.id}</Card.Subtitle>

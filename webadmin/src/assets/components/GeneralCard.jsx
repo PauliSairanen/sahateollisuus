@@ -40,7 +40,7 @@ const GeneralCard = props => {
       <Form onChange={(e)=> props.editForm(e)}>
         <FormGroup className="file">
           <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} fluid onError={errorHandler}/></FormLabel>
-          <label htmlFor={'hidden'} className="labelForHidden">Choose file</label>
+          <label htmlFor={'hidden'} className="labelForHidden">Choose image</label>
           <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e)}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
         </FormGroup>
         <Row>
