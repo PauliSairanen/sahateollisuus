@@ -9,9 +9,7 @@ import AddButton from '../components/AddButton'
  */
 const VenueTabForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
-    useEffect(() => {
-        console.log(Form)
-    }, [Form])
+
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
