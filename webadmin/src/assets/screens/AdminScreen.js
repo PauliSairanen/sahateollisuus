@@ -170,11 +170,13 @@ const AdminScreen = (props) => {
                 // return <DropdownButton key={index} id="dropdown-basic-button" title={item.metadata.eventName} variant="outline-success">
                 //     <Event name={item.metadata.eventName} id={item._id} delet={deleteEvent} edit={(nid)=>{props.changeID(nid); console.log("Screen")}}/>
                 // </DropdownButton>
+                //console.log(item.metadata.eventImage)
                 return <div key={index}>
                         <Event name={item.metadata.eventName} 
                             id={item._id}
                             delet={deleteEvent}
-                            edit={(nid)=>{props.changeID(nid)}}/>
+                            edit={(nid)=>{props.changeID(nid)}}
+                            img={item.metadata.eventImage}/>
                 </div> 
             }
             else{
@@ -235,11 +237,6 @@ const AdminScreen = (props) => {
         </div> */}
         <div style={{display: 'flex', flexDirection:'column', justifyContent:'center', alignContent: 'center'}}>
             {EventObject.length > 0 ? EventObject : <p style={{alignSelf:'center', justifySelf:'center'}}>Cannot connect to the server</p>}
-        </div>
-        <div className="AdminScreen">
-                <div id="EventList">
-                    {eventList}
-                </div>
         </div>
         {LoginVisibility ? 
             <div id="ReAuth">
