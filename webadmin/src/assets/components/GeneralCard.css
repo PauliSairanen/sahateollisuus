@@ -60,8 +60,8 @@
     border: 1px solid transparent;
     border-radius: 0.25rem;
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #ffb400;
+    border-color: #ffb400;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -82,8 +82,8 @@
     border: 1px solid transparent;
     border-radius: 0.25rem;
     color: #fff;
-    background-color: #005abb;
-    border-color: #007bff;
+    background-color: #c08600;
+    border-color: #c08600;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 

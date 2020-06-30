@@ -456,17 +456,17 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             </Navbar>
             <div>
                 <div style={{display: 'flex', justifyContent: 'center'}} >
-                    <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
-                        <Button name="GeneralForm" onClick={selectForm} className="Button" disabled={ActiveForm === "GeneralForm"}>General</Button>
-                        <Button name="AboutForm" onClick={selectForm} className="Button" disabled={ActiveForm === "AboutForm"}>About</Button>
-                        <Button name="ParticipantsForm" onClick={selectForm} className="Button" disabled={ActiveForm === "ParticipantsForm"}>Participants</Button>
-                        <Button name="ProgrammeForm" onClick={selectForm} className="Button" disabled={ActiveForm === "ProgrammeForm"}>Programme</Button>
-                        <Button name="SpeakersForm" onClick={selectForm} className="Button" disabled={ActiveForm === "SpeakersForm"}>Speakers</Button>
-                        <Button name="SponsorsForm" onClick={selectForm} className="Button" disabled={ActiveForm === "SponsorsForm"}>Sponsors</Button>
-                        <Button name="VenueTabForm" onClick={selectForm} className="Button" disabled={ActiveForm === "VenueTabForm"}>Venue</Button>
-                        <Button name="MapMarkerForm" onClick={selectForm} className="Button" disabled={ActiveForm === "MapMarkerForm"}>Map Marker</Button>
-                        <Button variant="secondary" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
-                        <Button variant="secondary" onClick={()=>
+                    <ButtonGroup className="navbarButtons" style={{display: 'flex', flexWrap: 'wrap'}}>
+                        <Button name="GeneralForm" onClick={selectForm} className={ActiveForm === "GeneralForm" ? "active" : "inactive"}>General</Button>
+                        <Button name="AboutForm" onClick={selectForm} className={ActiveForm === "AboutForm" ? "active" : "inactive"}>About</Button>
+                        <Button name="ParticipantsForm" onClick={selectForm} className={ActiveForm === "ParticipantsForm" ? "active" : "inactive"}>Participants</Button>
+                        <Button name="ProgrammeForm" onClick={selectForm} className={ActiveForm === "ProgrammeForm" ? "active" : "inactive"}>Programme</Button>
+                        <Button name="SpeakersForm" onClick={selectForm} className={ActiveForm === "SpeakersForm" ? "active" : "inactive"}>Speakers</Button>
+                        <Button name="SponsorsForm" onClick={selectForm} className={ActiveForm === "SponsorsForm" ? "active" : "inactive"}>Sponsors</Button>
+                        <Button name="VenueTabForm" onClick={selectForm} className={ActiveForm === "VenueTabForm" ? "active" : "inactive"}>Venue</Button>
+                        <Button name="MapMarkerForm" onClick={selectForm} className={ActiveForm === "MapMarkerForm" ? "active" : "inactive"}>Map Marker</Button>
+                        <Button className="otherButtons" variant="secondary" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
+                        <Button className="otherButtons" onClick={()=>
                         {
                             if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
                                 props.changeContent("AdminScreen")

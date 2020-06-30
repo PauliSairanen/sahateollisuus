@@ -1,13 +1,12 @@
-#navbarButtons button{
-    color: grey;
-    background-color: white;
+.navbarButtons button{
+    background-color: white !important;
     border-top: solid 0px #ffb400 !important;
     border-left: solid 0px #ffb400 !important;
     border-right: solid 0px #ffb400 !important;
     box-shadow: none !important;
 }
 
-#navbarButtons button:hover {
+.navbarButtons button:hover {
     color: #ffb400 !important;
     border-bottom: solid 2px #ffb400 !important;
 }
@@ -22,8 +21,8 @@
 
 .inactive {
     color: grey;
-    background-color: white;
-    border-color: #ffb400;
+    background-color: white !important;
+    border-color: #ffb400 !important;
     border-top: solid 0px #ffb400 !important;
     border-left: solid 0px #ffb400 !important;
     border-right: solid 0px #ffb400 !important;
@@ -32,5 +31,6 @@
 }
 
 .otherButtons {
+    color: grey;
     border-bottom: solid 1px lightgray !important;
 }
