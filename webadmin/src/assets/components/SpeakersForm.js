@@ -68,6 +68,10 @@ const SpeakersForm = (props) => {
         }
     }
     let dataContainer;
+    function cardHandler(e){
+        setForm(e)
+        props.editForm("speakers", e)
+    }
     dataContainer = Form.slice(0).reverse().map((item, index)=>{
         return(
         <SpeakerCard 
@@ -75,7 +79,7 @@ const SpeakersForm = (props) => {
             index={index} 
             form={item} 
             data={Form} 
-            editForm={setForm}
+            editForm={cardHandler}
             ID={props.EditID}  
             fileToUpload={(e)=>props.fileToUpload(e)}
         />)

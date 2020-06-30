@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
+import {Card, FormGroup, FormLabel, FormControl, FormText} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
@@ -39,8 +39,8 @@ const GeneralCard = props => {
     <Card>
       <Form onChange={(e)=> props.editForm(e)}>
         <FormGroup className="file">
-          <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} onError={errorHandler}/></FormLabel>
-          <label htmlFor={'hidden'} id="lableForHidden">Choose file</label>
+          <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} fluid onError={errorHandler}/></FormLabel>
+          <label htmlFor={'hidden'} className="labelForHidden">Choose image</label>
           <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e)}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
         </FormGroup>
         <Row>
@@ -48,12 +48,14 @@ const GeneralCard = props => {
             <FormGroup>
               <FormLabel>Event name</FormLabel>
               <FormControl size="sm" name="eventName" defaultValue={formObject.eventName}></FormControl>
+              <FormText>Required</FormText>
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
               <FormLabel>Event password</FormLabel>
               <FormControl size="sm" name="eventPass" defaultValue={formObject.eventPass}></FormControl>
+              <FormText>Required</FormText>
             </FormGroup>
           </Col>
         </Row>
@@ -61,14 +63,14 @@ const GeneralCard = props => {
           <Col>
             <FormGroup>
               <FormLabel>Event color scheme</FormLabel>
-              <FormControl size="sm" name="eventColor" defaultValue={formObject.eventColor}></FormControl>
+              <FormControl size="sm" maxLength="7" name="eventColor" defaultValue={formObject.eventColor}></FormControl>
             </FormGroup>
           </Col>
           <Col>
             <Form.Group>
               <Form.Label>Event visiblity</Form.Label>
-              <Form.Check type={'radio'} name="visibility" label={'visible'} value="visible" defaultChecked={props.FO.visibility == "visible" ? true : false}/> {/*eslint-disable-line*/}
-              <Form.Check type={'radio'} name="visibility" label={'hidden'} value="hidden" defaultChecked={props.FO.visibility == "hidden" ? true : false}/> {/*eslint-disable-line*/}
+              <Form.Check className="checkbox" type={'radio'} name="visibility" label={'visible'} value="visible" defaultChecked={props.FO.visibility == "visible" ? true : false}/> {/*eslint-disable-line*/}
+              <Form.Check className="checkbox" type={'radio'} name="visibility" label={'hidden'} value="hidden" defaultChecked={props.FO.visibility == "hidden" ? true : false}/> {/*eslint-disable-line*/}
             </Form.Group>
           </Col>
         </Row>

@@ -76,6 +76,10 @@ const ParticipantsForm = (props) => {
         }
     }
     let dataContainer;
+    function cardHandler(e){
+        setForm(e)
+        props.editForm("participants", e)
+    }
     dataContainer = Form.slice(0).reverse().map((item, index)=>{
         return(
         <ParticipantsCard 
@@ -83,7 +87,7 @@ const ParticipantsForm = (props) => {
             index={index} 
             form={item} 
             data={Form} 
-            editForm={setForm}
+            editForm={cardHandler}
             fileToUpload={(e)=>props.fileToUpload(e)}
         />)
     })

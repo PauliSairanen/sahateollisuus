@@ -1,10 +1,13 @@
-import React, {useEffect} from 'react'
-import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
+import React, {useEffect, useState} from 'react'
+import {Card, FormGroup, FormLabel, FormControl, FormText} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
 import DeleteButton from './DeleteButton';
 import './MapMarkerCard.css';
+
+import Button from 'react-bootstrap/Button';
+import axios from 'axios'
 
 const MapMarkerCard = props => {
   let formObject = props.form
@@ -44,7 +47,27 @@ const MapMarkerCard = props => {
       formObject["markerImgsrc"] = URL.createObjectURL(e.target.files[0])
     }
   }
+  const [ErrorMsg, setErrorMsg] = useState()
+  async function geocodeHandler(){
+    let data = props.data;
+    setErrorMsg("")
+    if(formObject.address){
+      let query = (formObject.address).replace(" ", "%20")
+      let apiurl = `https://nominatim.openstreetmap.org/search/${query}?format=json&limit=1`
+      await axios.get(apiurl)
+      .then(function (res) {
+        data[props.index]["lat"] = res.data[0].lat;
+        data[props.index]["long"] = res.data[0].lon;
+      })
+      .catch(function (error) {
+        console.log(error)
+        setErrorMsg("Cannot get lat and long")
+      })
+    }
+    
 
+    props.editForm(data)
+  }
   let secondRow;
   if (props.markerType === "restaurants"){
     secondRow =
@@ -130,8 +153,8 @@ const MapMarkerCard = props => {
       {props.markerType === "others" ? <p>Other</p> : null}
       <Form>
         <FormGroup className="file">
-          <FormLabel><Image className="filePrev" src={formObject.markerImgsrc}/></FormLabel>
-          <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
+          <FormLabel><Image className="filePrev" src={formObject.markerImgsrc} fluid/></FormLabel>
+          <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose file</label>
           <FormControl size="sm" onChange={(e) => {changeImage(e);changeHandler(e); fileHandler(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </FormGroup>
@@ -158,11 +181,16 @@ const MapMarkerCard = props => {
             <FormGroup>
               <FormLabel>Address</FormLabel>
               <FormControl size="sm" value={formObject.address} onChange={(e) => {changeHandler(e)}} name="address"></FormControl>
+              <FormText className="text-danger">{ErrorMsg}</FormText>
             </FormGroup>
+            <Col>
+              <Button onClick={geocodeHandler}>Geocode lat and long</Button>
+            </Col>
           </Col>
         </Row>
         {secondRow}
       </Form>
+      <label>Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright</label>
       <DeleteButton onClick={deleteHandler}></DeleteButton>
     </Card>
   )

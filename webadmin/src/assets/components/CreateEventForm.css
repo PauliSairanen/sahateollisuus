@@ -1,66 +1,46 @@
-.card {
-    width: auto;
-    margin: 20px auto 20px auto;
-    padding: 10px 10px 10px 10px;
-    border: 2px solid rgba(0, 0, 0, 0.125);
-    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.125);
+.navbarButtons button{
+    background-color: white !important;
+    border-top: solid 0px #ffb400 !important;
+    border-left: solid 0px #ffb400 !important;
+    border-right: solid 0px #ffb400 !important;
+    box-shadow: none !important;
 }
 
-.form-group {
-    display: block;
-    height: auto;
-    width: auto;
+.table button {
+    color: white !important;
 }
 
-.form-label {
-    display: block;
-    margin-bottom: 5px;
+.card button {
+    color: white !important;
 }
 
-.form-control {
-    display: block;
+.navbarButtons button:hover {
+    color: #ffb400 !important;
+    border-bottom: solid 2px #ffb400 !important;
 }
 
-.imgPrev {
-    width: 120px;
-    height: 120px;
-    border: 2px solid rgba(0, 0, 0, 0.125);
+.active {
+    color: #ffb400 !important;
+    border-top: solid 0px #ffb400 !important;
+    border-left: solid 0px #ffb400 !important;
+    border-right: solid 0px #ffb400 !important;
+    border-bottom: solid 2px #ffb400 !important;
 }
 
-.buttonsForDays {
+.inactive {
     color: grey;
     background-color: white !important;
-    border-color: #ffb400;
+    border-color: #ffb400 !important;
     border-top: solid 0px #ffb400 !important;
     border-left: solid 0px #ffb400 !important;
     border-right: solid 0px #ffb400 !important;
     border-bottom: solid 1px lightgray !important;
     box-shadow: none !important;
-    margin-bottom: 10px;
 }
 
-.buttonsForDays:hover {
-    color: #ffb400 !important;
-    border-bottom: solid 2px #ffb400 !important;
-}
-
-.pdfIcon {
-    width: 140px !important;
-    height: 140px !important;
-    font-size: large;
-}
-
-.pdf {
-    display: block;
-    float: right;
-    width: 140px !important;
-    margin: 0px 20px 20px 20px;
-}
-
-.hidden {
-    visibility: hidden;
-    width: 0px;
-    height: 0px;
+.otherButtons {
+    color: grey;
+    border-bottom: solid 1px lightgray !important;
 }
 
 .labelForHidden {
@@ -103,4 +83,18 @@
     background-color: #c08600;
     border-color: #c08600;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.filePrev {
+    width: 140px;
+    height: 140px;
+    border: 2px solid rgb(0, 0, 0, 0.125);
+    object-fit: contain;
+}
+
+.file {
+    display: block;
+    float: right;
+    width: 140px;
+    margin: 0px 20px 20px 20px;
 }

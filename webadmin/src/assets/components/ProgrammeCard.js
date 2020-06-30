@@ -7,6 +7,8 @@ import {Row, Col} from 'react-bootstrap'
 import DeleteButton from '../components/DeleteButton'
 import { useEffect } from 'react';
 import './ProgrammeCard.css'
+import PdfIcon from '@material-ui/icons/PictureAsPdfOutlined'
+import NoPdfIcon from '@material-ui/icons/NoSim'
 
 const ProgrammeCard = props => {
     let formObject = props.form
@@ -31,14 +33,23 @@ const ProgrammeCard = props => {
     function fileHandler(e){
         props.fileToUpload(e)
     }
+
+    let PdfIconElement
+    if (props.form.Pdf){
+        PdfIconElement = <PdfIcon className="pdfIcon"></PdfIcon>
+    }
+    else {
+        PdfIconElement = <NoPdfIcon className="pdfIcon"></NoPdfIcon>
+    }
+
     return (
         <Card>
             {/* <p>{props.index}</p> */}
             <Form>
                 <FormGroup className="pdf">
                     {/* <FormLabel><Image className="imgPrev" src={???}></Image></FormLabel> */}
-                    <FormLabel>{props.form.Pdf ? "PDF: " + props.form.Pdf : "No PDF"}</FormLabel>
-                    <label htmlFor={"hidden-"+props.index} id="lableForHidden">Choose PDF</label>
+    <FormLabel id="programmePdfLabel">{PdfIconElement}</FormLabel>
+                    <label htmlFor={"hidden-"+props.index} className="labelForHidden">Choose PDF</label>
                     <FormControl size="sm" onChange={(e)=>{changeHandler(e); fileHandler(e)}} className="hidden" name="Pdf" type='file' id={'hidden-'+props.index}></FormControl>
                     {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e)}} name="Pdf"/> */}
                 </FormGroup>
