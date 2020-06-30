@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import FormTable from '../components/FormTable'
 import VenueCard from '../components/VenueCard'
 import AddButton from '../components/AddButton'
@@ -9,6 +9,9 @@ import AddButton from '../components/AddButton'
  */
 const VenueTabForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
+    useEffect(() => {
+        console.log(Form)
+    }, [Form])
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
@@ -32,6 +35,10 @@ const VenueTabForm = (props) => {
         props.editForm("venue", Form)
     }
     let dataContainer;
+    function cardHandler(e){
+        setForm(e)
+        props.editForm("venue", e)
+    }
     dataContainer = Form.slice(0).reverse().map((item, index)=>{
         return(
         <VenueCard 
@@ -39,7 +46,7 @@ const VenueTabForm = (props) => {
             index={index} 
             form={item} 
             data={Form} 
-            editForm={setForm}
+            editForm={cardHandler}
             ID={props.EditID} 
             fileToUpload={(e)=>props.fileToUpload(e)}
         />)
