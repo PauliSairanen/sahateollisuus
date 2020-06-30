@@ -153,8 +153,8 @@ const MapMarkerCard = props => {
       {props.markerType === "others" ? <p>Other</p> : null}
       <Form>
         <FormGroup className="file">
-          <FormLabel><Image className="filePrev" src={formObject.markerImgsrc}/></FormLabel>
-          <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
+          <FormLabel><Image className="filePrev" src={formObject.markerImgsrc} fluid/></FormLabel>
+          <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose file</label>
           <FormControl size="sm" onChange={(e) => {changeImage(e);changeHandler(e); fileHandler(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </FormGroup>

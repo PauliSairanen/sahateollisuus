@@ -39,8 +39,8 @@ const GeneralCard = props => {
     <Card>
       <Form onChange={(e)=> props.editForm(e)}>
         <FormGroup className="file">
-          <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} onError={errorHandler}/></FormLabel>
-          <label htmlFor={'hidden'} id="lableForHidden">Choose file</label>
+          <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} fluid onError={errorHandler}/></FormLabel>
+          <label htmlFor={'hidden'} className="labelForHidden">Choose file</label>
           <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e)}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
         </FormGroup>
         <Row>
@@ -69,8 +69,8 @@ const GeneralCard = props => {
           <Col>
             <Form.Group>
               <Form.Label>Event visiblity</Form.Label>
-              <Form.Check type={'radio'} name="visibility" label={'visible'} value="visible" defaultChecked={props.FO.visibility == "visible" ? true : false}/> {/*eslint-disable-line*/}
-              <Form.Check type={'radio'} name="visibility" label={'hidden'} value="hidden" defaultChecked={props.FO.visibility == "hidden" ? true : false}/> {/*eslint-disable-line*/}
+              <Form.Check className="checkbox" type={'radio'} name="visibility" label={'visible'} value="visible" defaultChecked={props.FO.visibility == "visible" ? true : false}/> {/*eslint-disable-line*/}
+              <Form.Check className="checkbox" type={'radio'} name="visibility" label={'hidden'} value="hidden" defaultChecked={props.FO.visibility == "hidden" ? true : false}/> {/*eslint-disable-line*/}
             </Form.Group>
           </Col>
         </Row>
