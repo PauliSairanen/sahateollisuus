@@ -1,12 +1,13 @@
-import React, {useEffect} from 'react'
-import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
+import React, {useEffect, useState} from 'react'
+import {Card, FormGroup, FormLabel, FormControl, FormText} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
 import DeleteButton from './DeleteButton';
 import './MapMarkerCard.css';
 
-//import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button';
+import axios from 'axios'
 
 const MapMarkerCard = props => {
   let formObject = props.form
@@ -46,7 +47,27 @@ const MapMarkerCard = props => {
       formObject["markerImgsrc"] = URL.createObjectURL(e.target.files[0])
     }
   }
+  const [ErrorMsg, setErrorMsg] = useState()
+  async function geocodeHandler(){
+    let data = props.data;
+    setErrorMsg("")
+    if(formObject.address){
+      let query = (formObject.address).replace(" ", "%20")
+      let apiurl = `https://nominatim.openstreetmap.org/search/${query}?format=json&limit=1`
+      await axios.get(apiurl)
+      .then(function (res) {
+        data[props.index]["lat"] = res.data[0].lat;
+        data[props.index]["long"] = res.data[0].lon;
+      })
+      .catch(function (error) {
+        console.log(error)
+        setErrorMsg("Cannot get lat and long")
+      })
+    }
+    
 
+    props.editForm(data)
+  }
   let secondRow;
   if (props.markerType === "restaurants"){
     secondRow =
@@ -160,12 +181,16 @@ const MapMarkerCard = props => {
             <FormGroup>
               <FormLabel>Address</FormLabel>
               <FormControl size="sm" value={formObject.address} onChange={(e) => {changeHandler(e)}} name="address"></FormControl>
+              <FormText className="text-danger">{ErrorMsg}</FormText>
             </FormGroup>
-            {/* <Button>Geocode lat and long</Button> */}
+            <Col>
+              <Button onClick={geocodeHandler}>Geocode lat and long</Button>
+            </Col>
           </Col>
         </Row>
         {secondRow}
       </Form>
+      <label>Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright</label>
       <DeleteButton onClick={deleteHandler}></DeleteButton>
     </Card>
   )

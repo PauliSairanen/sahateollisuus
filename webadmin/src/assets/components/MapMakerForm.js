@@ -161,7 +161,7 @@ const MapMarkerForm = (props) =>{
     let dataContainer = null;
     if(Data){
         dataContainer = Data.map((item, index)=>{
-            console.log(item.key)
+            //console.log(item.key)
             if(item.key === ActiveCat || ActiveCat === null){
                 return(
                 <MapMarkerCard 
