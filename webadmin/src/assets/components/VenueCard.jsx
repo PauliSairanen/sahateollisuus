@@ -47,7 +47,7 @@ const VenueCard = props => {
       <Form>
         <FormGroup className="file">
           <FormLabel><Image className="filePrev" src={formObject.venueImgsrc}/></FormLabel>
-          <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose file</label>
+          <label htmlFor={'hidden-'+props.index} id="lableForHidden">Choose image</label>
           <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </FormGroup>
