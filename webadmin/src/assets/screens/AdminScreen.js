@@ -10,6 +10,7 @@ import Nav from 'react-bootstrap/Nav'
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form'
 
+import AddButton from '../components/AddButton'
 /**
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
@@ -207,13 +208,13 @@ const AdminScreen = (props) => {
     return (
         <>
         <Navbar bg="light" variant="light" expand="lg">
-            <Navbar.Brand>Main Menu</Navbar.Brand>
+            {/* <Navbar.Brand>Main Menu</Navbar.Brand> */}
             <Nav className="mr-auto">
-                <Nav.Link id="7" onClick={clickHandler}>Create Event</Nav.Link>
+                {/* <Nav.Link id="7" onClick={clickHandler}>Create Event</Nav.Link> */}
                 {/* <Nav.Link id="0" onClick={clickHandler}>Refresh Events</Nav.Link> */}
-                <Form inline>
+                {/* <Form inline>
                     <FormControl type="text" name="search" onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search" className="mr-sm-2"/>
-                </Form>
+                </Form> */}
                 {/* <Button variant="outline-primary" id="7" onClick={clickHandler}>Create Event</Button>
                 <Button variant="outline-primary" id="0" onClick={clickHandler}>Refresh Events</Button>
                 <input type="text" name="search" onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search Field"/> */}
@@ -236,6 +237,7 @@ const AdminScreen = (props) => {
             </div>
         </div> */}
         <div style={{display: 'flex', flexDirection:'column', justifyContent:'center', alignContent: 'center'}}>
+            <AddButton id="7" onClick={(e) => clickHandler(e)}/>
             {EventObject.length > 0 ? EventObject : <p style={{alignSelf:'center', justifySelf:'center'}}>Cannot connect to the server</p>}
         </div>
         {LoginVisibility ? 

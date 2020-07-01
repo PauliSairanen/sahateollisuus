@@ -4,9 +4,9 @@ import './AddButton.css';
 
 const DeleteButton = props => {
   return (
-      <Button className="addButton" onClick={props.onClick}>
+      <Button className="addButton" id={props.id} name={props.name} onClick={props.onClick} style={props.style}>
         <div className="addButtonTextContainer">
-          <p>+</p>
+          <p id={props.id} name={props.name}>+</p>
         </div>
       </Button>
   )
