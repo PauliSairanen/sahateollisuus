@@ -457,7 +457,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                         props.changeContent("AdminScreen")
                     }  
                 }}>Return to Main Menu</Button>
-                <Navbar.Brand>{EditID ? "" : "Create Event"} {FormObjects.eventName ? `${FormObjects.eventName}`:null}</Navbar.Brand>
+                <Navbar.Brand>{FormObjects.eventName ? `${FormObjects.eventName}`:null}</Navbar.Brand>
                 <Button className="otherButtons" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
             </Navbar>
             <div>

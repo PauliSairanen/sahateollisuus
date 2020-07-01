@@ -148,7 +148,7 @@ const MapMarkerForm = (props) =>{
         setData(formToData(newForm))
     }
     
-    const [ActiveCat, setActiveCat] = useState(null)
+    const [ActiveCat, setActiveCat] = useState("restaurants")
     function catHandler(e){
         e.preventDefault();
         if(ActiveCat !== e.target.name){
