@@ -201,16 +201,16 @@ const MapMarkerForm = (props) =>{
             <Nominatim/>
         </Card> */}
         <Row>
-            <Card className="cols" style={{width: '20rem', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
+            <Card class="cols" style={{width: '20rem', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
                 <Row>
                     <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
-                        <Button name="restaurants" onClick={catHandler}>Restaurants</Button>
-                        <Button name="hotels" onClick={catHandler}>Hotels</Button>
-                        <Button name="others" onClick={catHandler}>Others</Button>
+                        <Button className={ActiveCat === "restaurants" ? "active" : "inactive"} name="restaurants" onClick={catHandler}>Restaurants</Button>
+                        <Button className={ActiveCat === "hotels" ? "active" : "inactive"} name="hotels" onClick={catHandler}>Hotels</Button>
+                        <Button className={ActiveCat === "others" ? "active" : "inactive"} name="others" onClick={catHandler}>Others</Button>
                     </ButtonGroup>
                 </Row>
                 <Row>
-                    <Dropdown style={{display: 'flex', flexWrap: 'wrap', marginTop: '10px'}}>
+                    <Dropdown className="otherButtons" style={{display: 'flex', flexWrap: 'wrap', marginTop: '10px'}}>
                         <Dropdown.Toggle>
                             Add Marker
                         </Dropdown.Toggle>

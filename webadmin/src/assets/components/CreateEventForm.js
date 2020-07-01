@@ -465,8 +465,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                         <Button name="SponsorsForm" onClick={selectForm} className={ActiveForm === "SponsorsForm" ? "active" : "inactive"}>Sponsors</Button>
                         <Button name="VenueTabForm" onClick={selectForm} className={ActiveForm === "VenueTabForm" ? "active" : "inactive"}>Venue</Button>
                         <Button name="MapMarkerForm" onClick={selectForm} className={ActiveForm === "MapMarkerForm" ? "active" : "inactive"}>Map Marker</Button>
-                        <Button className="otherButtons" variant="secondary" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
-                        <Button className="otherButtons" onClick={()=>
+                        <Button className="inactive" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
+                        <Button className="inactive" onClick={()=>
                         {
                             if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
                                 props.changeContent("AdminScreen")

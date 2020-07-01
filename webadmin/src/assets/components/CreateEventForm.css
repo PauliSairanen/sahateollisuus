@@ -6,14 +6,6 @@
     box-shadow: none !important;
 }
 
-.table button {
-    color: white !important;
-}
-
-.card button {
-    color: white !important;
-}
-
 .navbarButtons button:hover {
     color: #ffb400 !important;
     border-bottom: solid 2px #ffb400 !important;
@@ -25,6 +17,8 @@
     border-left: solid 0px #ffb400 !important;
     border-right: solid 0px #ffb400 !important;
     border-bottom: solid 2px #ffb400 !important;
+    background-color: white !important;
+    box-shadow: none !important;
 }
 
 .inactive {
@@ -38,9 +32,16 @@
     box-shadow: none !important;
 }
 
+.inactive:active {
+    color: #ffb400;
+}
+
+.active.active {
+    color: #ffb400;
+}
+
 .otherButtons {
-    color: grey;
-    border-bottom: solid 1px lightgray !important;
+    color: white;
 }
 
 .labelForHidden {
