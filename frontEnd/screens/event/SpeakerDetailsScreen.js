@@ -90,8 +90,6 @@ const SpeakerDetailsScreen = props => {
     )
   }
 
-
-
   if (speakerName && title && company && specialTitle) {
     return (
       <View style={styles.container}>
@@ -116,7 +114,6 @@ const SpeakerDetailsScreen = props => {
         </Card>
       </View>
     )
-
   } else if (speakerName && title && company && !specialTitle)
     return (
       <View style={styles.container}>
