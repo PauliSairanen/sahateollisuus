@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import FormTable from '../components/FormTable'
+import React, {useState} from 'react'
+//import FormTable from '../components/FormTable'
 import VenueCard from '../components/VenueCard'
 import AddButton from '../components/AddButton'
 /**
@@ -59,7 +59,7 @@ const VenueTabForm = (props) => {
             <AddButton onClick={clickEmpty}/>
         </form>
         {dataContainer}
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
+        {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null} */}
         </>
     )
 }

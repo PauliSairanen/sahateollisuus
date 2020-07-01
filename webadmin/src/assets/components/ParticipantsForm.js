@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import FormTable from '../components/FormTable'
+//import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
 import Card from 'react-bootstrap/Card'
 import AddButton from '../components/AddButton'
@@ -110,7 +110,7 @@ const ParticipantsForm = (props) => {
         {dataContainer}
         {/* <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/> */}
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null}
+        {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null} */}
         
         </>
     )

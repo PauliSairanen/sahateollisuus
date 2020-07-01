@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import FormTable from '../components/FormTable'
+//import FormTable from '../components/FormTable'
 import SponsorCard from '../components/SponsorCard'
 import AddButton from '../components/AddButton'
 /*
@@ -68,7 +68,7 @@ const SponsorsForm = (props) => {
             <AddButton onClick={clickEmpty}/>
         </form>
         {dataContainer}
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
+        {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null} */}
         </>
     )
 }
