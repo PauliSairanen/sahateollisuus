@@ -9,6 +9,8 @@ import './MapMarkerCard.css';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios'
 
+import AddLocationIcon from '@material-ui/icons/AddLocation';
+
 const MapMarkerCard = props => {
   let formObject = props.form
   let ID = props.ID
@@ -154,7 +156,7 @@ const MapMarkerCard = props => {
       <Form>
         <FormGroup className="file">
           <FormLabel><Image className="filePrev" src={formObject.markerImgsrc} fluid/></FormLabel>
-          <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose file</label>
+          <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose image</label>
           <FormControl size="sm" onChange={(e) => {changeImage(e);changeHandler(e); fileHandler(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </FormGroup>
@@ -184,7 +186,7 @@ const MapMarkerCard = props => {
               <FormText className="text-danger">{ErrorMsg}</FormText>
             </FormGroup>
             <Col>
-              <Button onClick={geocodeHandler}>Geocode lat and long</Button>
+              <Button onClick={geocodeHandler}><AddLocationIcon/>Geocode lat and long </Button>
             </Col>
           </Col>
         </Row>

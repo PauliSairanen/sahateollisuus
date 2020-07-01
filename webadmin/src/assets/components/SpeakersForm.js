@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import FormTable from '../components/FormTable'
+//import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
 import SpeakerCard from '../components/SpeakerCard'
 import Card from 'react-bootstrap/Card'
@@ -101,7 +101,7 @@ const SpeakersForm = (props) => {
             <AddButton onClick={clickEmpty}/>
         </form>
         {dataContainer}
-        {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null}
+        {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null} */}
         </>
     )
 }
