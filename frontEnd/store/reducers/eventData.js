@@ -1,10 +1,10 @@
-import { SET_EVENTS_METADATA, FETCH_ALL_DATA, SAVE_LOCATION_DATA, SAVE_TOKEN, SAVE_EMAIL, SAVE_METADATA_BY_EMAIL } from '../actions/eventData'
+import { SET_EVENTS_METADATA, FETCH_ALL_DATA, SAVE_LOCATION_DATA, SAVE_TOKEN, SAVE_EMAIL, SAVE_METADATA_BY_EMAIL, SAVE_EVENT_ID } from '../actions/eventData'
 
 // Set the data as initial state
 const initialState = {
   // ___ Universal data ___
   email: null,
-  currentEventId: null,
+  eventId : null,
   eventsMetaData: [],
   currentLocation: {},
   authenticationToken: null,
@@ -24,7 +24,7 @@ const eventDataReducer = (state = initialState, action) => {
       console.log('entering Set events case')
       return {
         ...state, 
-        currentEventId: action.eventsMetaData.id,
+        eventId: action.eventsMetaData.id,
         eventsMetaData: action.eventsMetaData
       }
     case SAVE_EMAIL:
@@ -45,10 +45,17 @@ const eventDataReducer = (state = initialState, action) => {
         ...state,
         authenticationToken: action.token,
       }
+    case SAVE_EVENT_ID: 
+      console.log('Saving event ID')
+      return {
+        ...state, 
+        eventId : action.eventId
+      }
     case FETCH_ALL_DATA:
       console.log('entering Fetch all data')
       return {
         ...state,
+        
         programmeData: action.responseData.programme,
         speakersData: action.responseData.speakers,
         sponsorsData: action.responseData.sponsors,
@@ -65,7 +72,7 @@ const eventDataReducer = (state = initialState, action) => {
       }
     default:
       return {
-        ...state
+        state
       }
   }
 }

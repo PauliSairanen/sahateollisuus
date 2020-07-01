@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeed
 import Icon from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Pdf from 'react-native-pdf'
-
+import { useSelector } from 'react-redux'
 
 import Card from '../Universal/Card'
 import Colors from '../../constants/Colors'
@@ -16,6 +16,7 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const KeynoteAndProgrammeItem = props => {
+  const eventId = useSelector(state => state.eventData.eventId)
   const [modalVisible, setModalVisible] = useState(false);
 
   const time = props.time
@@ -23,7 +24,7 @@ const KeynoteAndProgrammeItem = props => {
   const description = props.description
   const pdfFileName = props.pdf
 
-  const webSource = { uri: `${serverURL}/images/programmeImages/${pdfFileName}`, cache: true };
+  const webSource = { uri: `${serverURL}/public/${eventId}/${pdfFileName}`, cache: true };
 
   return (
     <View>

@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
-import { View, FlatList, StyleSheet, Text, Dimensions, Button, Modal } from 'react-native'
+import React from 'react'
+import { View, FlatList, StyleSheet, Text, Dimensions } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { useSelector } from 'react-redux'
 
 import Colors from '../../constants/Colors'
 import Card from '../../components/Universal/Card'
 import KeynoteAndProgrammeItem from '../../components/ListItems/KeynoteAndProgrammeItem'
+import serverURL from '../../constants/Networking'
 
 const SpeakerDetailsScreen = props => {
+  const eventId = useSelector(state => state.eventData.eventId)
+
   const { navigation } = props
   const speakerName = navigation.getParam('speakerName')
   const title = navigation.getParam('title')
@@ -34,7 +37,7 @@ const SpeakerDetailsScreen = props => {
         <View style={styles.contentContainer}>
           <View style={styles.imageContainer}>
             <FastImage
-              source={{ uri: `https://sahat.lamk.fi/images/speakerImages/${imageID}` }}
+              source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
               style={styles.image}
               resizeMode={FastImage.resizeMode.cover}
             />
@@ -64,7 +67,7 @@ const SpeakerDetailsScreen = props => {
         <View style={styles.contentContainer}>
           <View style={styles.imageContainer}>
             <FastImage
-              source={{ uri: `https://sahat.lamk.fi/images/speakerImages/${imageID}` }}
+              source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
               style={styles.image}
               resizeMode={FastImage.resizeMode.cover}
             />

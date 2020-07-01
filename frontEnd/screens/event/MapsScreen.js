@@ -17,7 +17,6 @@ import RestaurantModal from '../../components/MapComponents/RestaurantModal'
 import HotelModal from '../../components/MapComponents/HotelModal'
 import OtherModal from '../../components/MapComponents/OtherModal'
 
-
 const MapsScreen = props => {
   const mapData = useSelector(state => state.eventData.mapData)
 
@@ -140,7 +139,9 @@ const MapsScreen = props => {
                   setIsRestaurants(true)
                   setIsHotels(false)
                   setIsOthers(false)
-                  this.Marker.hideCallout()
+                  if (this.Marker != null) {
+                    this.Marker.hideCallout()
+                  }
                 }}
               />
               <MapMarkerCategoryButton
@@ -151,7 +152,9 @@ const MapsScreen = props => {
                   setIsRestaurants(false)
                   setIsHotels(true)
                   setIsOthers(false)
-                  this.Marker.hideCallout()
+                  if (this.Marker != null) {
+                    this.Marker.hideCallout()
+                  }
                 }}
               />
               <MapMarkerCategoryButton
@@ -162,7 +165,9 @@ const MapsScreen = props => {
                   setIsRestaurants(false)
                   setIsHotels(false)
                   setIsOthers(true)
-                  this.Marker.hideCallout()
+                  if (this.Marker != null) {
+                    this.Marker.hideCallout()
+                  }
                 }}
               />
             </View>

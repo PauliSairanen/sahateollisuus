@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 
 import Colors from '../../constants/Colors'
 
-
 // import speakersData from '../../data/jsonFiles/speakers.json'
 import SpeakersItem from '../../components/ListItems/SpeakersItem'
 
@@ -12,6 +11,7 @@ const SpeakersScreen = props => {
   const [isLoading, setIsLoading] = useState(false)
 
   //_____ Fetch data from global state ______
+  const eventId = useSelector(state => state.eventData.eventId)
   const speakersData = useSelector(state => state.eventData.speakersData)
   console.log('_____ Log from Speakers Screen _____')
   console.log(speakersData)
@@ -36,6 +36,7 @@ const SpeakersScreen = props => {
               company={speakersData.item.Company}
               specialTitle={speakersData.item.SpecialTitle}
               image={speakersData.item.ImageID}
+              eventId={eventId}
             />
           }
         />

@@ -1,19 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { useSelector } from 'react-redux'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import ReactNativeZoomableView from '@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView'
 import FastImage from 'react-native-fast-image'
+
 import Colors from '../../constants/Colors'
 import serverURL from '../../constants/Networking'
 
 const initialLayout = { width: Dimensions.get('window').width }
 
 const Venue_4Tabs = props => {
-  const venueData = props.data
+  const eventId = useSelector(state => state.eventData.eventId)
+  const venueData = useSelector(state => state.eventData.venueData)
   const ImageID1 = venueData[0].image
   const ImageID2 = venueData[1].image
-  const ImageID3 = venueData[1].image
-  const ImageID4 = venueData[1].image
+  const ImageID3 = venueData[2].image
+  const ImageID4 = venueData[3].image
 
 
   const FirstRoute = () => (
@@ -27,7 +30,7 @@ const Venue_4Tabs = props => {
         captureEvent={true}
       >
         <FastImage
-          source={{ uri: `${serverURL}/images/venueImages/${ImageID1}` }}
+          source={{ uri: `${serverURL}/public/${eventId}/${ImageID1}` }}
           style={styles.image}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -46,7 +49,7 @@ const Venue_4Tabs = props => {
         captureEvent={true}
       >
         <FastImage
-          source={{ uri: `${serverURL}/images/venueImages/${ImageID2}` }}
+          source={{ uri: `${serverURL}/public/${eventId}/${ImageID2}` }}
           style={styles.image}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -65,7 +68,7 @@ const Venue_4Tabs = props => {
         captureEvent={true}
       >
         <FastImage
-          source={{ uri: `${serverURL}/images/venueImages/${ImageID3}` }}
+          source={{ uri: `${serverURL}/public/${eventId}/${ImageID3}` }}
           style={styles.image}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -84,7 +87,7 @@ const Venue_4Tabs = props => {
         captureEvent={true}
       >
         <FastImage
-          source={{ uri: `${serverURL}/images/venueImages/${ImageID4}` }}
+          source={{ uri: `${serverURL}/public/${eventId}/${ImageID4}` }}
           style={styles.image}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -95,9 +98,9 @@ const Venue_4Tabs = props => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'first', title: venueData[0].title },
-    { key: 'second', title: venueData[1].title  },
-    { key: 'third', title: venueData[2].title  },
-    { key: 'fourth', title: venueData[3].title  },
+    { key: 'second', title: venueData[1].title },
+    { key: 'third', title: venueData[2].title },
+    { key: 'fourth', title: venueData[3].title },
   ]);
 
   const renderScene = SceneMap({
