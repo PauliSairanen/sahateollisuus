@@ -17,11 +17,15 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -34,14 +38,28 @@
 			<string></string>
 		</dict>
 	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>The application needs to access your media library</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>The app needs to use bluetooth</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>The application needsto access your bluetooth peripherals</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>The application needs to access your calendar information</string>
+	<key>NSContactsUsageDescription</key>
+	<string>The application needs to access your contacts</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The app needs your location to show you on the map</string>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>The app needs your location to show you on the map</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The app needs your location to show you on the map</string>
-	<key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>comgooglemaps</string>
-    </array>
+	<key>NSMotionUsageDescription</key>
+	<string>The application needs to access motion sensors</string>
+	<key>NSSiriUsageDescription</key>
+	<string>The application needsto access Siri´s features</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>The application needs to use speech recognition</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSansCondensed-Bold.ttf</string>
