@@ -407,8 +407,10 @@ const ProgrammeForm = (props) => {
                 <Button>Day 3</Button> */}
             </div>
             <div style={{display:'flex', flexDirection:'column'}}>
-                <Button name="plus" onClick={dayHandler}>+</Button>
-                <Button name="minus" onClick={dayHandler}>-</Button>
+                <ButtonGroup vertical>
+                    <Button name="plus" onClick={dayHandler}>+</Button>
+                    <Button name="minus" onClick={dayHandler}>-</Button>
+                </ButtonGroup>
                 {/* <Button name="test" onClick={dayHandler}>test</Button> */}
             </div>
         </div>

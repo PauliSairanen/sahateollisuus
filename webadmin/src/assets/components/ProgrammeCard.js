@@ -42,6 +42,13 @@ const ProgrammeCard = props => {
         PdfIconElement = <NoPdfIcon className="pdfIcon"></NoPdfIcon>
     }
 
+    let counter = 0;
+    for(let i = 0; i < props.data.length; i++){
+        if(props.data[i].day === formObject.day){
+            counter++;
+        }
+    }
+
     return (
         <Card>
             {/* <p>{props.index}</p> */}
@@ -109,7 +116,8 @@ const ProgrammeCard = props => {
             {/* <Button className="deleteButton" onClick={deleteHandler}>
                 <span className="deleteButtonText">-</span>
             </Button> */}
-            <DeleteButton onClick={deleteHandler}/>
+            {counter > 1 ? <DeleteButton onClick={deleteHandler}/> : null}
+            
         </Card>
     )
 }
