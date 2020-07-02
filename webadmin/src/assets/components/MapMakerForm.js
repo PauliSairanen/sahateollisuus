@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Dropdown from 'react-bootstrap/Dropdown'
+//import Dropdown from 'react-bootstrap/Dropdown'
 //import axios from 'axios';
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
@@ -102,6 +102,7 @@ const MapMarkerForm = (props) =>{
         return data
     }
     function clickHandler(e){
+        console.log(e.target)
         let newForm = Form;
         if(e.target.name === "restaurant"){
             newForm.restaurants.push({
@@ -201,16 +202,23 @@ const MapMarkerForm = (props) =>{
             <Nominatim/>
         </Card> */}
         <Row>
-            <Card class="cols" style={{width: '20rem', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
-                <Row>
-                    <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
-                        <Button className={ActiveCat === "restaurants" ? "active" : "inactive"} name="restaurants" onClick={catHandler}>Restaurants</Button>
-                        <Button className={ActiveCat === "hotels" ? "active" : "inactive"} name="hotels" onClick={catHandler}>Hotels</Button>
-                        <Button className={ActiveCat === "others" ? "active" : "inactive"} name="others" onClick={catHandler}>Others</Button>
+            <Card className="text-center" style={{width: '40rem', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
+                <h5>Marker Filter</h5>
+                <Row style={{marginBottom: '10px'}}>
+                    <ButtonGroup>
+                        <Button className={ActiveCat === "restaurants" ? "active" : "inactive"} name="restaurants" onClick={catHandler}>{ActiveCat === "restaurants" ? "Clear Filter" : "Filter Restaurants"}</Button>
+                        <Button className={ActiveCat === "hotels" ? "active" : "inactive"} name="hotels" onClick={catHandler}>{ActiveCat === "hotels" ? "Clear Filter" : "Filter Hotels"}</Button>
+                        <Button className={ActiveCat === "others" ? "active" : "inactive"} name="others" onClick={catHandler}>{ActiveCat === "others" ? "Clear Filter" : "Filter Others"}</Button>
                     </ButtonGroup>
                 </Row>
+                <h5>Marker Creation</h5>
                 <Row>
-                    <Dropdown className="otherButtons" style={{display: 'flex', flexWrap: 'wrap', marginTop: '10px'}}>
+                    <ButtonGroup style={{display: 'block'}}>
+                        <Button className="otherButtons" name="restaurant" onClick={(e)=>{clickHandler(e)}}>Create Restaurant</Button>
+                        <Button className="otherButtons" name="hotel" onClick={(e)=>{clickHandler(e)}}>Create Hotel</Button>
+                        <Button className="otherButtons"name="other" onClick={(e)=>{clickHandler(e)}}>Create Other</Button>
+                    </ButtonGroup>
+                    {/* <Dropdown style={{display: 'flex', flexWrap: 'wrap', marginTop: '10px'}}>
                         <Dropdown.Toggle>
                             Add Marker
                         </Dropdown.Toggle>
@@ -219,7 +227,7 @@ const MapMarkerForm = (props) =>{
                             <Dropdown.Item onClick={(e)=>{clickHandler(e)}} name="hotel">Hotel</Dropdown.Item>
                             <Dropdown.Item onClick={(e)=>{clickHandler(e)}} name="other">Other</Dropdown.Item>
                         </Dropdown.Menu>
-                    </Dropdown>
+                    </Dropdown> */}
                 </Row>
             </Card>
         </Row>

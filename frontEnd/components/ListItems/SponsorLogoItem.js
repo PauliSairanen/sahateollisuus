@@ -15,6 +15,7 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 const SponsorLogoItem = props => {
   const imageID = props.imageID
   const link = props.link
+  const eventId = props.eventId
 
   return (
     <Card style={styles.card}>
@@ -26,7 +27,7 @@ const SponsorLogoItem = props => {
       >
         <View style={styles.imageContainer}>
           <FastImage
-            source={{ uri: `${serverURL}/images/sponsorImages/${imageID}` }}
+            source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
             style={styles.image}
             resizeMode={FastImage.resizeMode.contain}
           />

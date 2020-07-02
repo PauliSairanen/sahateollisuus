@@ -2,9 +2,11 @@ import React from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import Card from '../Universal/Card'
+import { useSelector } from 'react-redux'
+import { withNavigation } from 'react-navigation'
+
 import Colors from '../../constants/Colors'
 import serverURL from '../../constants/Networking'
-import { withNavigation } from 'react-navigation'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -12,11 +14,16 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const SpeakersItem = props => {
+  const eventId = useSelector(state => state.eventData.eventId)
+
   const speakerName = props.speaker
   const title = props.title
   const specialTitle = props.specialTitle
   const company = props.company
   const imageID = props.image
+
+  console.log('Current speaker´s image is : ' + imageID)
+  console.log('Current event´s eventId is : ' + eventId)
 
   if (speakerName && title && company && !specialTitle) {
     return (
@@ -42,7 +49,7 @@ const SpeakersItem = props => {
               </View>
               <View style={styles.imageContainer}>
                 <FastImage
-                  source={{ uri: `${serverURL}/images/speakerImages/${imageID}` }}
+                  source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
                   style={styles.image}
                   resizeMode={FastImage.resizeMode.cover}
                 />
@@ -76,7 +83,7 @@ const SpeakersItem = props => {
               </View>
               <View style={styles.imageContainer}>
                 <FastImage
-                  source={{ uri: `${serverURL}/images/speakerImages/${imageID}` }}
+                  source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
                   style={styles.image}
                   resizeMode={FastImage.resizeMode.cover}
                 />
@@ -85,6 +92,32 @@ const SpeakersItem = props => {
           </View>
         </TouchableComponent>
       </Card>
+    )
+  } else {
+    return (
+      <View style={styles.errorContainer}>
+        <Text>Missing data entries. Contact administrators.</Text>
+        {speakerName
+          ? <Text></Text>
+          : <Text>Speaker Name not found</Text>
+        }
+        {title
+          ? <Text></Text>
+          : <Text>Title not found</Text>
+        }
+        {specialTitle
+          ? <Text></Text>
+          : <Text>Special Title not found</Text>
+        }
+        {company
+          ? <Text></Text>
+          : <Text>Company not found</Text>
+        }
+        {imageID
+          ? <Text></Text>
+          : <Text>imageID not found</Text>
+        }
+      </View>
     )
   }
 }
@@ -127,6 +160,11 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%'
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

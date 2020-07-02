@@ -18,37 +18,27 @@ const VenueScreen = props => {
   switch (amountOfTabs) {
     case 1: {
       return (
-        <Venue_1Tab
-          data={venueData}
-        />
+        <Venue_1Tab />
       )
     }
     case 2: {
       return (
-        <Venue_2Tabs
-          data={venueData}
-        />
+        <Venue_2Tabs />
       )
     }
     case 3: {
       return (
-        <Venue_3Tabs
-          data={venueData}
-        />
+        <Venue_3Tabs />
       )
     }
     case 4: {
       return (
-        <Venue_4Tabs
-          data={venueData}
-        />
+        <Venue_4Tabs />
       )
     }
     case 5: {
       return (
-        <Venue_5Tabs
-          data={venueData}
-        />
+        <Venue_5Tabs />
       )
     }
     default: {

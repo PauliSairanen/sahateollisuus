@@ -10,6 +10,7 @@ export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const SAVE_RESPONSE_STATUS = 'SAVE_RESPONSE_STATUS'
 export const SAVE_EMAIL = 'SAVE_EMAIL'
 export const SAVE_METADATA_BY_EMAIL = 'SAVE_METADATA_BY_EMAIL'
+export const SAVE_EVENT_ID = 'SAVE_EVENT_ID'
 
 import serverURL from '../../constants/Networking'
 console.log('The server URL is = ' + serverURL)
@@ -51,6 +52,7 @@ export const fetchAllData = (id) => {
     console.log(response.status)
     const responseData = await response.json()
     console.log('Data received from server. Dispatching on!')
+    dispatch({ type: SAVE_EVENT_ID, eventId: id})
     dispatch({ type: FETCH_ALL_DATA, responseData: responseData })
   }
 }

@@ -450,9 +450,15 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 <Modal.Header>Processing request <Spinner animation="border"/></Modal.Header>
                 <Modal.Body>{ModalText}</Modal.Body>
             </Modal>
-            <Navbar bg="light" variant="light" expand="lg" style={{zIndex:'1'}}>
-                <Navbar.Brand>{EditID ? "Edit Event" : "Create Event"} {FormObjects.eventName ? `(${FormObjects.eventName})`:null}</Navbar.Brand>
-                {ActiveForm ? <Navbar.Text>Current form: {ActiveForm} ID: {EditID}</Navbar.Text> : null}
+            <Navbar bg="light" variant="light" expand="lg" style={{display:'flex', paddingLeft:'50px', paddingRight:'50px', justifyContent:'space-between', alignContent:'center'}}>
+                <Button className="otherButtons" onClick={()=>
+                {
+                    if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
+                        props.changeContent("AdminScreen")
+                    }  
+                }}>Return to Main Menu</Button>
+                <Navbar.Brand>{EditID ? "" : "Create Event"} {FormObjects.eventName ? `${FormObjects.eventName}`:null}</Navbar.Brand>
+                <Button className="otherButtons" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
             </Navbar>
             <div>
                 <div style={{display: 'flex', justifyContent: 'center'}} >
@@ -465,13 +471,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                         <Button name="SponsorsForm" onClick={selectForm} className={ActiveForm === "SponsorsForm" ? "active" : "inactive"}>Sponsors</Button>
                         <Button name="VenueTabForm" onClick={selectForm} className={ActiveForm === "VenueTabForm" ? "active" : "inactive"}>Venue</Button>
                         <Button name="MapMarkerForm" onClick={selectForm} className={ActiveForm === "MapMarkerForm" ? "active" : "inactive"}>Map Marker</Button>
-                        <Button className="inactive" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
-                        <Button className="inactive" onClick={()=>
-                        {
-                            if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
-                                props.changeContent("AdminScreen")
-                            }  
-                        }}>Return to Main Menu</Button>
+                        
+                        
                     </ButtonGroup>
                 </div>
                 <Row style={{marginTop:'20px'}}>

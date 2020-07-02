@@ -5,8 +5,10 @@ import { useSelector } from 'react-redux'
 import SponsorLogoItem from '../../components/ListItems/SponsorLogoItem'
 
 const SponsorsScreen = props => {
+  const eventId = useSelector(state => state.eventData.eventId)
   const sponsorsData = useSelector(state => state.eventData.sponsorsData)
   console.log(sponsorsData)
+  console.log(eventId)
 
   return (
     <View>
@@ -17,6 +19,7 @@ const SponsorsScreen = props => {
           <SponsorLogoItem
             link={sponsorsData.item.CompanyUrl}
             imageID={sponsorsData.item.ImageID}
+            eventId={eventId}
           />
         }
       />

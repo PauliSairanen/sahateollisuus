@@ -4,10 +4,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import FastImage from 'react-native-fast-image'
 import Communications from 'react-native-communications'
 import { showLocation } from 'react-native-map-link'
+import { useSelector } from 'react-redux'
 
 import Card from '../Universal/Card'
 import Colors from '../../constants/Colors'
 import AdjustingText from '../Universal/AdjustingText'
+import serverURL from '../../constants/Networking'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -15,6 +17,8 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const RestaurantModal = props => {
+  const eventId = useSelector(state => state.eventData.eventId)
+
   const modalVisible = props.visibility
   const setModalVisible = props.setModalVisible
   const name = props.name
@@ -64,7 +68,7 @@ const RestaurantModal = props => {
               <View style={styles.imageContainer}>
                 <FastImage
                   // source={{ uri: `${serverURL}/images/sponsorImages/${imageID}` }}
-                  source={{ uri: `${imageUrl}` }}
+                  source={{ uri: `${serverURL}/public/${eventId}/${imageUrl}` }}
                   style={styles.image}
                   resizeMode={FastImage.resizeMode.contain}
                 />
@@ -175,7 +179,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
   },
   descriptionText: {
-    textAlign : 'center'
+    textAlign: 'center'
   },
   contactInfoContainer: {
     flex: 2,
