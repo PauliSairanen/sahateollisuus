@@ -80,12 +80,12 @@ const ProgrammeCard = props => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    {/* <Col>
                         <FormGroup>
                             <FormLabel>Day</FormLabel>
                             <FormControl size="sm" type="number" min="0" name="day" value={formObject.day} onChange={changeHandler}></FormControl>
                         </FormGroup>
-                    </Col>
+                    </Col> */}
                     <Col>
                         <FormGroup>
                             <FormLabel>Time</FormLabel>
