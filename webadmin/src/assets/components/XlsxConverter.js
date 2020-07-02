@@ -6,7 +6,7 @@ export default function xlsxToJson(f){
     return new Promise((res)=>{
         //console.log(e.target.files[0])
         let file = f.files[0]
-        if(file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+        if(file && file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
             let reader = new FileReader();
             reader.onload = function(e){
                 let data = e.target.result;
