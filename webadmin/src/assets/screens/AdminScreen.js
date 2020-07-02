@@ -7,8 +7,8 @@ import Event from '../components/Event'
 import Button from 'react-bootstrap/Button'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import FormControl from 'react-bootstrap/FormControl'
-import Form from 'react-bootstrap/Form'
+//import FormControl from 'react-bootstrap/FormControl'
+//import Form from 'react-bootstrap/Form'
 
 import AddButton from '../components/AddButton'
 /**
@@ -21,7 +21,7 @@ const AdminScreen = (props) => {
     const baseURL = 'https://sahat.lamk.fi';
     const [EventList, setEventList] = useState([]);
     const [EventObject, setEventObject] = useState([])
-    const [Search, setSearch] = useState("")
+    const [Search, setSearch] = useState("") // eslint-disable-line
     let eventList;
     if(props.readSession() === null){
         console.log("Never should have come here.");

@@ -42,13 +42,20 @@ const ProgrammeCard = props => {
         PdfIconElement = <NoPdfIcon className="pdfIcon"></NoPdfIcon>
     }
 
+    let counter = 0;
+    for(let i = 0; i < props.data.length; i++){
+        if(props.data[i].day === formObject.day){
+            counter++;
+        }
+    }
+
     return (
         <Card>
             {/* <p>{props.index}</p> */}
             <Form>
                 <FormGroup className="pdf">
                     {/* <FormLabel><Image className="imgPrev" src={???}></Image></FormLabel> */}
-    <FormLabel id="programmePdfLabel">{PdfIconElement}</FormLabel>
+                    <FormLabel id="programmePdfLabel">{PdfIconElement}</FormLabel>
                     <label htmlFor={"hidden-"+props.index} className="labelForHidden">Choose PDF</label>
                     <FormControl size="sm" onChange={(e)=>{changeHandler(e); fileHandler(e)}} className="hidden" name="Pdf" type='file' id={'hidden-'+props.index}></FormControl>
                     {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e)}} name="Pdf"/> */}
@@ -80,12 +87,12 @@ const ProgrammeCard = props => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    {/* <Col>
                         <FormGroup>
                             <FormLabel>Day</FormLabel>
                             <FormControl size="sm" type="number" min="0" name="day" value={formObject.day} onChange={changeHandler}></FormControl>
                         </FormGroup>
-                    </Col>
+                    </Col> */}
                     <Col>
                         <FormGroup>
                             <FormLabel>Time</FormLabel>
@@ -109,7 +116,8 @@ const ProgrammeCard = props => {
             {/* <Button className="deleteButton" onClick={deleteHandler}>
                 <span className="deleteButtonText">-</span>
             </Button> */}
-            <DeleteButton onClick={deleteHandler}/>
+            {counter > 1 ? <DeleteButton onClick={deleteHandler}/> : null}
+            
         </Card>
     )
 }

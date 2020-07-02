@@ -4,8 +4,9 @@ import xlsxToJson from '../components/XlsxConverter'
 
 import ProgrammeCard from '../components/ProgrammeCard'
 import AddButton from '../components/AddButton'
-import { ButtonGroup, Button, Col, Card } from 'react-bootstrap'
-import BsForm from 'react-bootstrap/Form'
+//import DeleteButton from '../components/DeleteButton'
+import { ButtonGroup, Button, Col,Row, Card } from 'react-bootstrap' // eslint-disable-line
+//import BsForm from 'react-bootstrap/Form'
 /*Esim
 [
     {
@@ -57,7 +58,7 @@ Todo make function to convert ^^^ to vvv
 const ProgrammeForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
     const [Data, setData] = useState(FormToData(Form))
-    const [ActiveDay, setActiveDay] = useState(null)
+    const [ActiveDay, setActiveDay] = useState("1") // eslint-disable-line
     useEffect(() => {
         props.editForm("programme", Form)
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,8 +122,17 @@ const ProgrammeForm = (props) => {
                     }
                 )
             }
-            
-            
+        }
+        let fix = false
+        for(let i in data){
+            if(ActiveDay === data[i].day){
+                fix = false;
+                break;
+            }
+            fix = true;
+        }
+        if(fix){
+            setActiveDay("1")
         }
         setForm(form)
         setData(FormToData(form))
@@ -151,17 +161,17 @@ const ProgrammeForm = (props) => {
                 })
             }
         }
-        //console.log(newForm)
+        //console.log(form, newForm)
         return newForm
     }
-    function clickEmpty(e){
+    function clickEmpty(e, day){ // eslint-disable-line
         e.preventDefault();
         let form = Form
         let i;
         let found = false;
         for(i = 0; i < form.length; i++){
             if('day' in form[i]){
-                if(form[i].day === "Day "+document.getElementById("Date").value){
+                if(form[i].day === "Day "+day){
                     found = true;
                     break;
                 }
@@ -184,7 +194,7 @@ const ProgrammeForm = (props) => {
         else{
             form.push(
                 {
-                    day: "Day "+document.getElementById("Date").value,
+                    day: "Day "+day,
                     content: [
                         {
                             Time: "",
@@ -202,7 +212,7 @@ const ProgrammeForm = (props) => {
         }
         //document.getElementById("form").reset();
         setForm(form)
-        props.editForm("programme", Form)
+        props.editForm("programme", form)
         setData(FormToData(form))
     }
     function clickHandler(e){
@@ -254,7 +264,7 @@ const ProgrammeForm = (props) => {
         }
         document.getElementById("form").reset();
         setForm(form)
-        props.editForm("programme", Form)
+        props.editForm("programme", form)
         setData(FormToData(form))
     }
 
@@ -280,34 +290,65 @@ const ProgrammeForm = (props) => {
             }   
         }
         dataToForm(list)
+        document.getElementById("fileform").reset();
     }
-
-    let dayButtons;
-
-    function dayHandler(e){
-        setActiveDay(e.target.name)
-    }
-    if(Form.length > 1){
-        let i;
-        let buttons = []
-        for(i = 0; i < Form.length; i++){
-            buttons.push(<Button className="buttonsForDays" key={i} name={Form[i].day.replace("Day ", "")} onClick={dayHandler}>{Form[i].day}</Button>)
+    // https://imgur.com/a/XiuemMT
+    function getHighestDay(){
+        let data = Data;
+        let day = 0;
+        for(let i in data){
+            if(data[i].day > day){
+                day = parseInt(data[i].day);
+            }
         }
-        dayButtons = 
-        <Col className="cols" style={{display: 'flex', justifyContent: 'center'}}>
-            <ButtonGroup style={{display: 'flex', flexWrap: 'wrap'}}>
-                {buttons}
-            </ButtonGroup>
-        </Col>
+        return day;
     }
-    else{
-
+    function dayHandler(e){
+        if(e.target.name === "plus"){
+            clickEmpty(e, getHighestDay()+1)
+        }
+        else if(e.target.name === "minus"){
+            let data = Data;
+            let highest = getHighestDay();
+            let loop = true;
+            while(loop){
+                loop = false
+                for(let i in data){
+                    if(parseInt(data[i].day) === highest){
+                        data.splice(i,1)
+                        loop = true
+                        break;
+                    }
+                }
+            }
+            dataToForm(data)
+        }
+        else if(e.target.name === "day"){
+            setActiveDay(e.target.id)
+        }
+        else{
+            clickEmpty(e, ActiveDay)
+        }
     }
+    let dayButtons = [];
+    let takenDays = [];
+    dayButtons = Data.map((item, index)=>{
+        //console.log(index, item)
+        
+        if(!takenDays.includes(item.day)){
+            takenDays.push(item.day)
+            return(<Button key={index} name="day" id={item.day} onClick={dayHandler} disabled={ActiveDay === item.day ? true : false}>Day {item.day}</Button>)
+        }
+        else{
+            return null
+        }
+    })
 
     let dataContainer;
     dataContainer = Data.slice(0).reverse().map((item, index)=>{
-        if(Form.length > 1){
-            if(item.day === ActiveDay){
+        //console.log(item.day, ActiveDay)
+        if(Form.length > 0){
+            if(item.day === ActiveDay || ActiveDay == null){
                 return(<ProgrammeCard key={index} index={index} form={item} data={Data} editForm={(data) => dataToForm(data)} fileToUpload={(e)=>props.fileToUpload(e)}/>)
             }
             else{
@@ -315,30 +356,30 @@ const ProgrammeForm = (props) => {
             }
         }
         else{
-            return(<ProgrammeCard key={index} index={index} form={item} data={Data} editForm={(data) => dataToForm(data)} fileToUpload={(e)=>props.fileToUpload(e)}/>)
+            return null
         }
     })
     
     return(
         <>
-        <Card>
-            <label>.xlsx file input</label>
-            <input type="file" onChange={fileHandler}/>
-        </Card>
-        <form autoComplete="off" id="form" >
-            <label style={{display: 'none'}}>Day:</label>
-            <input style={{display: 'none'}} type="number" name="Date" min="0" defaultValue="0"/>
-            <input style={{display: 'none'}} type="text" name="time" placeholder="Time"/>
-            <input style={{display: 'none'}} type="text" name="location" placeholder="Event Location"/>
+        <form id="fileform" style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
+            <label htmlFor="hidden-input" className="labelForHidden">Choose Excel File</label>
+            <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
+        </form>
+        <form autoComplete="off" id="form" style={{display:'none'}}>
+            <label >Day:</label>
+            <input type="number" name="Date" min="0" defaultValue="1"/>
+            <input type="text" name="time" placeholder="Time"/>
+            <input type="text" name="location" placeholder="Event Location"/>
             {/* <input type="text" name="description" placeholder="Event Description"/> */}
-            <textarea style={{display: 'none'}} name="description" placeholder="Event Description"/>
-            <input style={{display: 'none'}} type="text" name="speakerName" placeholder="Speaker Name"/>
-            <input style={{display: 'none'}} type="text" name="speakerTitle" placeholder="Speaker Title"/>
-            <input style={{display: 'none'}} type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
-            <input style={{display: 'none'}} type="text" name="speakerCompany" placeholder="Speaker Company"/>
-            <input style={{display: 'none'}} type="file" name="test" id="test" 
+            <textarea name="description" placeholder="Event Description"/>
+            <input  type="text" name="speakerName" placeholder="Speaker Name"/>
+            <input  type="text" name="speakerTitle" placeholder="Speaker Title"/>
+            <input  type="text" name="speakerSpecialTitle" placeholder="Speaker Special Title"/>
+            <input  type="text" name="speakerCompany" placeholder="Speaker Company"/>
+            <input  type="file" name="test" id="test" 
             onChange={(e)=>{props.fileToUpload(e)}}/>
-            <button style={{display: 'none'}} onClick={clickHandler}>Add Programme</button>
+            <button onClick={clickHandler}>Add Programme</button>
             {/* <Button onClick={clickEmpty} style={
                 {
                     height: '50px',
@@ -346,19 +387,40 @@ const ProgrammeForm = (props) => {
                     backgroundColor: "#32CD32"
                 }}><span className="deleteButtonText">+</span></Button> */}
         </form>
-        <Card style={{width:"300px", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center'}}>
+        {/* <Card style={{width:"300px", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center'}}>
             <BsForm style={{width:'50%'}}>
                 <BsForm.Group>
                     <BsForm.Label>Day</BsForm.Label>
-                    <BsForm.Control type="number" name="Date" min="0" defaultValue="0" id="Date"/>
+                    <BsForm.Control type="number" name="Date" min="0" defaultValue="1" id="Date"/>
                     <AddButton onClick={clickEmpty} style={{display: 'flex', justifyContent: 'center', alignItems:'center'}}/>
                 </BsForm.Group>
             </BsForm>
-        </Card>
-        
+        </Card> */}
+        {/* style={{width:'300px', display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'flex-end'}} */}
+        <div style={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+            <div>
+                <ButtonGroup>
+                    {dayButtons}
+                </ButtonGroup>
+                {/* <Button>Day 1</Button>
+                <Button>Day 2</Button>
+                <Button>Day 3</Button> */}
+            </div>
+            <div style={{display:'flex', flexDirection:'column'}}>
+                <ButtonGroup vertical>
+                    <Button name="plus" onClick={dayHandler}>+</Button>
+                    <Button name="minus" onClick={dayHandler}>-</Button>
+                </ButtonGroup>
+                {/* <Button name="test" onClick={dayHandler}>test</Button> */}
+            </div>
+        </div>
+        <div>
+            {Form.length > 0 ? <AddButton onClick={dayHandler}/> : null}
+            
+        </div>
         {/* <ProgrammeCard/> */}
         <div style={{marginTop: '20px', display: 'flex', justifyContent:'center', alignItems:'center'}}>
-            {dayButtons}
+            
         </div>
         {Data.length > 0 ? dataContainer : null}
         {Form.length > 0 ? 

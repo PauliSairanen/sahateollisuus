@@ -203,20 +203,20 @@ const MapMarkerForm = (props) =>{
         </Card> */}
         <Row>
             <Card className="text-center" style={{width: '40rem', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
-                <h5>Marker Filter</h5>
+                <h5>Marker Category</h5>
                 <Row style={{marginBottom: '10px'}}>
                     <ButtonGroup>
-                        <Button name="restaurants" onClick={catHandler}>{ActiveCat === "restaurants" ? "Clear Filter" : "Filter Restaurants"}</Button>
-                        <Button name="hotels" onClick={catHandler}>{ActiveCat === "hotels" ? "Clear Filter" : "Filter Hotels"}</Button>
-                        <Button name="others" onClick={catHandler}>{ActiveCat === "others" ? "Clear Filter" : "Filter Others"}</Button>
+                        <Button name="restaurants" onClick={catHandler} disabled={ActiveCat === "restaurants"}>Restaurants</Button>
+                        <Button name="hotels" onClick={catHandler} disabled={ActiveCat === "hotels"}>Hotels</Button>
+                        <Button name="others" onClick={catHandler} disabled={ActiveCat === "others"}>Others</Button>
                     </ButtonGroup>
                 </Row>
-                <h5>Marker Creation</h5>
                 <Row>
                     <ButtonGroup style={{display: 'block'}}>
-                        <Button name="restaurant" onClick={(e)=>{clickHandler(e)}}>Create Restaurant</Button>
+                        {/* <Button name="restaurant" onClick={(e)=>{clickHandler(e)}}>Create Restaurant</Button>
                         <Button name="hotel" onClick={(e)=>{clickHandler(e)}}>Create Hotel</Button>
-                        <Button name="other" onClick={(e)=>{clickHandler(e)}}>Create Other</Button>
+                        <Button name="other" onClick={(e)=>{clickHandler(e)}}>Create Other</Button> */}
+                        <Button name={ActiveCat === "restaurants" ? "restaurant" : ActiveCat === "hotels" ? "hotel" : "other"} onClick={(e)=>{clickHandler(e)}}>Create {ActiveCat === "restaurants" ? "Restaurant" : ActiveCat === "hotels" ? "Hotel" : "Other"}</Button>
                     </ButtonGroup>
                     {/* <Dropdown style={{display: 'flex', flexWrap: 'wrap', marginTop: '10px'}}>
                         <Dropdown.Toggle>
