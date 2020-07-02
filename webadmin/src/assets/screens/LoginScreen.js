@@ -17,7 +17,7 @@ const LoginScreen = (props) => {
     localStorage.setItem("Form", form);
     const [Details, setDetails] = useState("")
     const baseURL = 'https://sahat.lamk.fi';
-    let session = props.readSession();
+    let session = localStorage.getItem("Session");
     let canLogin = true;
 
     if(session != null){
@@ -54,7 +54,8 @@ const LoginScreen = (props) => {
                     //console.log("admin token:");
                     //console.log(response.data);
                     props.visibility(false);
-                    props.changeSession(response.data.token);
+                    //props.changeSession(response.data.token);
+                    localStorage.setItem("Session", response.data.token);
                     props.changeContent("AdminScreen");
                 })
                 .catch(function (error) {

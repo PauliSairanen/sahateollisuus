@@ -30,7 +30,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const baseURL = 'https://sahat.lamk.fi';
 
     //Visible forms controller
-    const [ActiveForm, setActiveForm] = useState()
+    const [ActiveForm, setActiveForm] = useState("GeneralForm")
     const [EditID, setEditID] = useState(props.id)
     const [Files, setFiles] = useState([])
     let container;
