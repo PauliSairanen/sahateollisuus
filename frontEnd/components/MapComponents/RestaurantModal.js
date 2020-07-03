@@ -23,7 +23,7 @@ const RestaurantModal = props => {
   const setModalVisible = props.setModalVisible
   const name = props.name
   // const description = props.description
-  const description = '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.'
+  const description = props.description
   const address = props.address
   const webURL = props.webURL
   const imageUrl = props.imageURL

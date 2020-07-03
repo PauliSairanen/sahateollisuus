@@ -18,12 +18,11 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 
 const RestaurantModal = props => {
   const eventId = useSelector(state => state.eventData.eventId)
-
+  
   const modalVisible = props.visibility
   const setModalVisible = props.setModalVisible
   const name = props.name
-  // const description = props.description
-  const description = '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.'
+  const description = props.description
   const address = props.address
   const webURL = props.webURL
   const imageUrl = props.imageURL
