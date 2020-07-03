@@ -5,10 +5,12 @@ import LoginScreen from '../screens/LoginScreen';
 import Event from '../components/Event'
 
 import Button from 'react-bootstrap/Button'
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
-import FormControl from 'react-bootstrap/FormControl'
-import Form from 'react-bootstrap/Form'
+//import Navbar from 'react-bootstrap/Navbar'
+//import Nav from 'react-bootstrap/Nav'
+
+import Image from 'react-bootstrap/Image'
+//import FormControl from 'react-bootstrap/FormControl'
+//import Form from 'react-bootstrap/Form'
 
 import AddButton from '../components/AddButton'
 /**
@@ -21,7 +23,7 @@ const AdminScreen = (props) => {
     const baseURL = 'https://sahat.lamk.fi';
     const [EventList, setEventList] = useState([]);
     const [EventObject, setEventObject] = useState([])
-    const [Search, setSearch] = useState("")
+    const [Search, setSearch] = useState("") // eslint-disable-line
     let eventList;
     if(props.readSession() === null){
         console.log("Never should have come here.");
@@ -207,23 +209,13 @@ const AdminScreen = (props) => {
     }, [])
     return (
         <>
-        <Navbar bg="light" variant="light" expand="lg">
-            {/* <Navbar.Brand>Main Menu</Navbar.Brand> */}
-            <Nav className="mr-auto">
-                {/* <Nav.Link id="7" onClick={clickHandler}>Create Event</Nav.Link> */}
-                {/* <Nav.Link id="0" onClick={clickHandler}>Refresh Events</Nav.Link> */}
-                {/* <Form inline>
-                    <FormControl type="text" name="search" onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search" className="mr-sm-2"/>
-                </Form> */}
-                {/* <Button variant="outline-primary" id="7" onClick={clickHandler}>Create Event</Button>
-                <Button variant="outline-primary" id="0" onClick={clickHandler}>Refresh Events</Button>
-                <input type="text" name="search" onChange={(e)=>{setSearch(e.target.value)}} placeholder="Search Field"/> */}
-            </Nav>
-            <Button variant="outline-success" onClick={()=>{
-                    props.changeSession("");
-                    props.changeContent("LoginScreen");
-                }}>Logout</Button>
-        </Navbar>
+        <div style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+            <Image src="https://sahateollisuus.com/wp-content/uploads/2019/03/st_www_logoetu.jpg" width='30%'/>
+            <Button style={{position:'absolute',right:'30px'}} variant="outline-success" onClick={()=>{
+                props.changeSession("");
+                props.changeContent("LoginScreen");
+            }}>Logout</Button>
+        </div>
 
         {/* <div id="Toolbar">
             <div id="Toolbar-tools">

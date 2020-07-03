@@ -38,7 +38,7 @@ const Event = (props) => {
             {props.img ? <Card.Img variant="top" src={imgsrc} /> : null}
             <Card.Body>
                 <Card.Title>{props.name}</Card.Title>
-                <Card.Subtitle>ID: {props.id}</Card.Subtitle>
+                {/* <Card.Subtitle>ID: {props.id}</Card.Subtitle> */}
                 <Card.Link href="#" name="edit" className="text-secondary" onClick={clickHandler}>Edit</Card.Link>
                 <Card.Link href="#" name="delete" className="text-danger" onClick={clickHandler}>Delete</Card.Link>
             </Card.Body>

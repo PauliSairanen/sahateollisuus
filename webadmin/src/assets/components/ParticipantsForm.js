@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 //import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
-import Card from 'react-bootstrap/Card'
+//import Card from 'react-bootstrap/Card'
 import AddButton from '../components/AddButton'
 import ParticipantsCard from '../components/ParticipantsCard'
 /*
@@ -53,13 +53,13 @@ const ParticipantsForm = (props) => {
         props.editForm("participants", Form)
     }
     async function fileHandler(e){
-        //console.log(e.target.files[0])
+        e.preventDefault();
         let jsonData = await xlsxToJson(e.target)
-        //console.log(jsonData)
+        console.log(jsonData)
+        let form = []
         for(let i in jsonData){
             console.log(jsonData[i])
             if(i > 0){
-                let form = Form
                 form.push(
                     {
                         Country: jsonData[i][0],
@@ -70,10 +70,11 @@ const ParticipantsForm = (props) => {
                         Company: jsonData[i][5]
                     }
                 )
-                setForm(form)
-                props.editForm("participants", Form)
             }
         }
+        setForm(form)
+        props.editForm("participants", Form)
+        document.getElementById("fileform").reset();
     }
     let dataContainer;
     function cardHandler(e){
@@ -93,10 +94,10 @@ const ParticipantsForm = (props) => {
     })
     return(
         <>
-        <Card>
-            <label>.xlsx file input</label>
-            <input type="file" onChange={fileHandler}/>
-        </Card>
+        <form id="fileform" style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
+            <label htmlFor="hidden-input" className="labelForHidden">Choose Excel File</label>
+            <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
+        </form>
         <form autoComplete="off" id="form">
             {/* <input type="text" name="country" placeholder="Country"/>
             <input type="text" name="firstName" placeholder="First Name"/>

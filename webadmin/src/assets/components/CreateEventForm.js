@@ -21,6 +21,8 @@ import './CreateEventForm.css';
 import Modal from 'react-bootstrap/Modal'
 import Spinner from 'react-bootstrap/Spinner'
 import Toast from 'react-bootstrap/Toast'
+
+import Image from 'react-bootstrap/Image'
 /**
  * @param changeContent - change screen
  * @param id - Event to edit based on ID
@@ -30,7 +32,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const baseURL = 'https://sahat.lamk.fi';
 
     //Visible forms controller
-    const [ActiveForm, setActiveForm] = useState()
+    const [ActiveForm, setActiveForm] = useState("GeneralForm")
     const [EditID, setEditID] = useState(props.id)
     const [Files, setFiles] = useState([])
     let container;
@@ -457,7 +459,10 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                         props.changeContent("AdminScreen")
                     }  
                 }}>Return to Main Menu</Button>
-                <Navbar.Brand>{EditID ? "" : "Create Event"} {FormObjects.eventName ? `${FormObjects.eventName}`:null}</Navbar.Brand>
+                <div>
+                <Image src="https://pbs.twimg.com/profile_images/572706560015470592/Jszif-0y_normal.png" style={{marginRight:'10px'}}/>
+                <Navbar.Brand>{FormObjects.eventName ? `${FormObjects.eventName}`:null}</Navbar.Brand>
+                </div>
                 <Button className="otherButtons" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
             </Navbar>
             <div>

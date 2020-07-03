@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 //import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
 import SpeakerCard from '../components/SpeakerCard'
-import Card from 'react-bootstrap/Card'
+//import Card from 'react-bootstrap/Card'
 import AddButton from '../components/AddButton'
 /*
 {
@@ -49,10 +49,10 @@ const SpeakersForm = (props) => {
     }
     async function fileHandler(e){
         let jsonData = await xlsxToJson(e.target)
+        let form = []
         for(let i in jsonData){
             //console.log(jsonData[i])
             if(i > 0){
-                let form = Form
                 form.push(
                     {
                         Speaker: jsonData[i][0],
@@ -62,10 +62,11 @@ const SpeakersForm = (props) => {
                         ImageID: jsonData[i][4],
                     }
                 )
-                setForm(form)
-                props.editForm("speakers", Form)
             }
         }
+        setForm(form)
+        props.editForm("speakers", Form)
+        document.getElementById("fileform").reset();
     }
     let dataContainer;
     function cardHandler(e){
@@ -86,10 +87,10 @@ const SpeakersForm = (props) => {
     })
     return(
         <>
-        <Card>
-            <label>.xlsx file input</label>
-            <input type="file" onChange={fileHandler}/>
-        </Card>
+        <form id="fileform" style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
+            <label htmlFor="hidden-input" className="labelForHidden">Choose Excel File</label>
+            <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
+        </form>
         <form autoComplete="off" id="form"> 
             <input style={{display: 'none'}} type="text" name="speaker" placeholder="Speaker"/>
             <input style={{display: 'none'}} type="text" name="speakerTitle" placeholder="Speaker Title"/>
