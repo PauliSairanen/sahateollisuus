@@ -58,62 +58,72 @@ const ProgrammeCard = props => {
         <Card>
             {/* <p>{props.index}</p> */}
             <Form>
-                <FormGroup className="pdf">
-                    {/* <FormLabel><Image className="imgPrev" src={???}></Image></FormLabel> */}
-                    <FormLabel id="programmePdfLabel">{PdfIconElement}</FormLabel>
-                    <label htmlFor={"hidden-"+props.index} className="labelForHidden">Choose PDF</label>
-                    <FormControl size="sm" onChange={(e)=>{changeHandler(e); fileHandler(e)}} className="hidden" name="Pdf" type='file' id={'hidden-'+props.index}></FormControl>
-                    {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e)}} name="Pdf"/> */}
-                </FormGroup>
-                <Row>
-                    <Col>
-                        <FormGroup>
-                            <FormLabel>Name of speaker</FormLabel>
-                            <FormControl size="sm" onChange={changeHandler} name="NameOfSpeaker" value={formObject.NameOfSpeaker}></FormControl>
-                        </FormGroup>
+                <Row style={{display: "flex", flex: "1", justifyContent: "center", alignItems: "center"}}>
+                    <Col style={{flex: "6"}}>
+                        <Row>
+                            <Col>
+                                <FormGroup>
+                                    <FormLabel>Name of speaker</FormLabel>
+                                    <FormControl size="sm" onChange={changeHandler} name="NameOfSpeaker" value={formObject.NameOfSpeaker}></FormControl>
+                                </FormGroup>
+                            </Col>
+                            <Col>
+                                <FormGroup>
+                                    <FormLabel>Title of speaker</FormLabel>
+                                    <FormControl size="sm" onChange={changeHandler} name="TitleOfSpeaker" value={formObject.TitleOfSpeaker}></FormControl>
+                                </FormGroup>
+                            </Col>
+                            <Col>
+                                <FormGroup>
+                                    <FormLabel>Special title of speaker</FormLabel>
+                                    <FormControl size="sm" onChange={changeHandler} name="SpecialTitleOfSpeaker" value={formObject.SpecialTitleOfSpeaker}></FormControl>
+                                </FormGroup>
+                            </Col>
+                            <Col>
+                                <FormGroup>
+                                    <FormLabel>Company of speaker</FormLabel>
+                                    <FormControl size="sm" onChange={changeHandler} name="Company" value={formObject.Company}></FormControl>
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            {/* <Col>
+                                <FormGroup>
+                                    <FormLabel>Day</FormLabel>
+                                    <FormControl size="sm" type="number" min="0" name="day" value={formObject.day} onChange={changeHandler}></FormControl>
+                                </FormGroup>
+                            </Col> */}
+                            <Col>
+                                <FormGroup>
+                                    <FormLabel>Time</FormLabel>
+                                    <FormControl size="sm" name="Time" onChange={changeHandler} value={formObject.Time}></FormControl>
+                                </FormGroup>
+                            </Col>
+                            <Col>
+                                <FormGroup>
+                                    <FormLabel>Location</FormLabel>
+                                    <FormControl size="sm" name="Location" onChange={changeHandler} value={formObject.Location}></FormControl>
+                                </FormGroup>
+                            </Col>
+                            <Col>
+                                <FormGroup>
+                                    <FormLabel>Description</FormLabel>
+                                    <FormControl size="sm" name="Description" as="textarea" rows="1" value={formObject.Description} onChange={changeHandler}></FormControl>
+                                </FormGroup>
+                            </Col>
+                        </Row>
                     </Col>
-                    <Col>
-                        <FormGroup>
-                            <FormLabel>Title of speaker</FormLabel>
-                            <FormControl size="sm" onChange={changeHandler} name="TitleOfSpeaker" value={formObject.TitleOfSpeaker}></FormControl>
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup>
-                            <FormLabel>Special title of speaker</FormLabel>
-                            <FormControl size="sm" onChange={changeHandler} name="SpecialTitleOfSpeaker" value={formObject.SpecialTitleOfSpeaker}></FormControl>
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup>
-                            <FormLabel>Company of speaker</FormLabel>
-                            <FormControl size="sm" onChange={changeHandler} name="Company" value={formObject.Company}></FormControl>
-                        </FormGroup>
-                    </Col>
-                </Row>
-                <Row>
-                    {/* <Col>
-                        <FormGroup>
-                            <FormLabel>Day</FormLabel>
-                            <FormControl size="sm" type="number" min="0" name="day" value={formObject.day} onChange={changeHandler}></FormControl>
-                        </FormGroup>
-                    </Col> */}
-                    <Col>
-                        <FormGroup>
-                            <FormLabel>Time</FormLabel>
-                            <FormControl size="sm" name="Time" onChange={changeHandler} value={formObject.Time}></FormControl>
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup>
-                            <FormLabel>Location</FormLabel>
-                            <FormControl size="sm" name="Location" onChange={changeHandler} value={formObject.Location}></FormControl>
-                        </FormGroup>
-                    </Col>
-                    <Col>
-                        <FormGroup>
-                            <FormLabel>Description</FormLabel>
-                            <FormControl size="sm" name="Description" as="textarea" rows="1" value={formObject.Description} onChange={changeHandler}></FormControl>
+                    <Col style={{flex: "1"}}>
+                        <FormGroup className="file">
+                            <Col>
+                                <Row>
+                                    <FormLabel>{PdfIconElement}</FormLabel>
+                                </Row>
+                                <Row>
+                                    <label htmlFor={"hidden-"+props.index} className="labelForHidden" style={{width: "111.25px"}}>Choose PDF</label>
+                                    <FormControl size="sm" onChange={(e)=>{changeHandler(e); fileHandler(e)}} className="hidden" name="Pdf" type='file' id={'hidden-'+props.index}></FormControl>
+                                </Row>
+                            </Col>
                         </FormGroup>
                     </Col>
                 </Row>
@@ -122,7 +132,6 @@ const ProgrammeCard = props => {
                 <span className="deleteButtonText">-</span>
             </Button> */}
             {counter > 1 ? <DeleteButton onClick={deleteHandler}/> : null}
-            
         </Card>
     )
 }

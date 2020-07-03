@@ -4,7 +4,7 @@ import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
 import {OverlayTrigger, Tooltip} from 'react-bootstrap'
-import './GeneralCard.css';
+import './GeneralCard.css'
 
 const GeneralCard = props => {
   let formObject = props.FO
@@ -70,8 +70,13 @@ const GeneralCard = props => {
           <Col>
             <FormGroup>
               <FormLabel>Event color scheme</FormLabel>
-              <FormControl size="sm" maxLength="7" name="eventColor" defaultValue={formObject.eventColor}></FormControl>
-              <FormText>Hexadecimal value (#FFFFFF)</FormText>
+              <OverlayTrigger 
+              placement="bottom" 
+              delay={{show: 250, hide: 250}}
+              overlay={<Tooltip>Hexadecimal value (#FFFFFF)</Tooltip>}
+              >
+                <FormControl size="sm" maxLength="7" name="eventColor" defaultValue={formObject.eventColor}></FormControl>
+              </OverlayTrigger>
             </FormGroup>
           </Col>
           <Col>

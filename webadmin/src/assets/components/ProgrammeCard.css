@@ -50,13 +50,6 @@
     font-size: large;
 }
 
-.pdf {
-    display: block;
-    float: right;
-    width: 140px !important;
-    margin: 0px 20px 20px 20px;
-}
-
 .hidden {
     visibility: hidden;
     width: 0px;

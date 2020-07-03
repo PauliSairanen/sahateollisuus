@@ -3,6 +3,7 @@ import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import './AboutCard.css';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap'
 
 const AboutCard = props => {
   let form = props.form
@@ -64,13 +65,13 @@ const AboutCard = props => {
           <Row>
             <Col>
               <FormGroup>
-                <FormLabel>Event Place Name</FormLabel>
+                <FormLabel>Name of the Venue</FormLabel>
                 <FormControl size="sm" name="placeName" defaultValue={form.placeName}></FormControl>
               </FormGroup>
             </Col>
             <Col>
               <FormGroup>
-                <FormLabel>Event Address</FormLabel>
+                <FormLabel>Address of the Venue</FormLabel>
                 <FormControl size="sm" name="placeAddress" defaultValue={form.placeAddress}></FormControl>
               </FormGroup>
             </Col>
@@ -78,14 +79,20 @@ const AboutCard = props => {
           <Row>
             <Col>
               <FormGroup>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Email of the Venue</FormLabel>
                 <FormControl size="sm" name="placeEmail" defaultValue={form.placeEmail}></FormControl>
               </FormGroup>
             </Col>
             <Col>
               <FormGroup>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel>Phone of the Venue</FormLabel>
+                <OverlayTrigger 
+                placement="bottom" 
+                delay={{show: 250, hide: 250}}
+                overlay={<Tooltip>Include area code. Example: +358 12345678</Tooltip>}
+                >
                 <FormControl size="sm" name="placePhone" defaultValue={form.placePhone}></FormControl>
+                </OverlayTrigger>
               </FormGroup>
             </Col>
           </Row>
@@ -101,7 +108,7 @@ const AboutCard = props => {
             </Col>
             <Col>
               <FormGroup>
-                <FormLabel>Organizer</FormLabel>
+                <FormLabel>Event Organizer</FormLabel>
                 <FormControl size="sm" name="MiOrg" defaultValue={form.MiOrg}></FormControl>
               </FormGroup>
             </Col>
@@ -109,7 +116,7 @@ const AboutCard = props => {
           <Row>
             <Col>
               <FormGroup>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Email of the Organizer</FormLabel>
                 <FormControl size="sm" name="MiEmail" defaultValue={form.MiEmail}></FormControl>
               </FormGroup>
             </Col>
