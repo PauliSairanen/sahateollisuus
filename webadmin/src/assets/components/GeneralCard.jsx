@@ -64,6 +64,7 @@ const GeneralCard = props => {
             <FormGroup>
               <FormLabel>Event color scheme</FormLabel>
               <FormControl size="sm" maxLength="7" name="eventColor" defaultValue={formObject.eventColor}></FormControl>
+              <FormText>Hexadecimal value (#FFFFFF)</FormText>
             </FormGroup>
           </Col>
           <Col>
