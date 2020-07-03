@@ -29,7 +29,12 @@ const MapMarkerCard = props => {
   function changeHandler(e){
     let data = props.data;
     //data = data.slice(0).reverse()
-    data[props.index][e.target.name] = e.target.value.match(/[^\\/]*$/)[0]
+    if(e.target.type === "file"){
+      data[props.index][e.target.name] = e.target.value.match(/[^\\/]*$/)[0]
+    }
+    else{
+      data[props.index][e.target.name] = e.target.value
+    }
     //data = data.slice(0).reverse()
     props.editForm(data)
   }
@@ -186,7 +191,7 @@ const MapMarkerCard = props => {
               <FormText className="text-danger">{ErrorMsg}</FormText>
             </FormGroup>
             <Col>
-              <Button onClick={geocodeHandler}><AddLocationIcon/>Geocode lat and long </Button>
+              <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/>Geocode lat and long </Button>
             </Col>
           </Col>
         </Row>

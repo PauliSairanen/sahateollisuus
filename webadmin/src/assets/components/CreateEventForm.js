@@ -21,6 +21,8 @@ import './CreateEventForm.css';
 import Modal from 'react-bootstrap/Modal'
 import Spinner from 'react-bootstrap/Spinner'
 import Toast from 'react-bootstrap/Toast'
+
+import Image from 'react-bootstrap/Image'
 /**
  * @param changeContent - change screen
  * @param id - Event to edit based on ID
@@ -457,7 +459,10 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                         props.changeContent("AdminScreen")
                     }  
                 }}>Return to Main Menu</Button>
+                <div>
+                <Image src="https://pbs.twimg.com/profile_images/572706560015470592/Jszif-0y_normal.png" style={{marginRight:'10px'}}/>
                 <Navbar.Brand>{FormObjects.eventName ? `${FormObjects.eventName}`:null}</Navbar.Brand>
+                </div>
                 <Button className="otherButtons" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
             </Navbar>
             <div>

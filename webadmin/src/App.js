@@ -59,8 +59,6 @@ const App = () => {
     container = 
     <>
       <LoginScreen changeContent={setContent} 
-      readSession={getSession} 
-      changeSession={setSession}
       visibility={()=>{}}/>
       <button className="LoginScreen" onClick={test}>Bypass</button>
     </>

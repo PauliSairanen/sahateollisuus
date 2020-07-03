@@ -20,7 +20,12 @@ const SpeakerCard = props => {
   function changeHandler(e){
     let data = props.data;
     data = data.slice(0).reverse()
-    data[props.index][e.target.name] = e.target.value.match(/[^\\/]*$/)[0]
+    if(e.target.type === "file"){
+      data[props.index][e.target.name] = e.target.value.match(/[^\\/]*$/)[0]
+    }
+    else{
+      data[props.index][e.target.name] = e.target.value
+    }
     data = data.slice(0).reverse()
     props.editForm(data)
   }

@@ -4,7 +4,7 @@ import xlsx from 'xlsx'
  */
 export default function xlsxToJson(f){
     return new Promise((res)=>{
-        //console.log(e.target.files[0])
+        //console.log(f.files[0])
         let file = f.files[0]
         if(file && file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
             let reader = new FileReader();
@@ -15,9 +15,9 @@ export default function xlsxToJson(f){
                 const ws = xlsxBin.Sheets[wsName];
 
                 const jsonData = xlsx.utils.sheet_to_json(ws,{header:1});
-                //console.log(jsonData)
+                console.log(jsonData)
                 let check = true
-                while(check){
+                while(check && jsonData.length > 0){
                     for(let i in jsonData){
                         if(!jsonData[i].length > 0){
                             jsonData.splice(i,1)
