@@ -4,6 +4,12 @@ import xlsxToJson from '../components/XlsxConverter'
 //import Card from 'react-bootstrap/Card'
 import AddButton from '../components/AddButton'
 import ParticipantsCard from '../components/ParticipantsCard'
+
+import Button from 'react-bootstrap/Button'
+import { ButtonGroup } from 'react-bootstrap'
+
+import FormTable from '../components/FormTable'
+//import FormTable from '../components/FormTable'
 /*
 participants: [
     {
@@ -78,6 +84,9 @@ const ParticipantsForm = (props) => {
     }
     let dataContainer;
     function cardHandler(e){
+        if(parseInt(Page) === Math.ceil(e.length/CardsPerPage) && Page !== "0"){
+            setPage((parseInt(Page)-1).toString())
+        }
         setForm(e)
         props.editForm("participants", e)
     }
@@ -92,6 +101,20 @@ const ParticipantsForm = (props) => {
             fileToUpload={(e)=>props.fileToUpload(e)}
         />)
     })
+    const [Page, setPage] = useState("0")
+    const [CardsPerPage, setCardsPerPage] = useState(20)
+    let totalPages = Math.ceil(dataContainer.length/CardsPerPage)
+
+    let pageButtons = []
+    if(totalPages > 1){
+        for(let i = 0; i < totalPages; i++){
+            pageButtons.push(
+                <Button key={i} name={i} onClick={(e)=>{setPage(e.target.name)}} disabled={Page === i.toString() ? true : false }>Page {i}</Button>
+            )
+        }
+    }
+    let cardContainer = dataContainer.splice(CardsPerPage*Page, CardsPerPage)
+
     return(
         <>
         <form id="fileform" style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
@@ -108,11 +131,19 @@ const ParticipantsForm = (props) => {
             <button onClick={clickHandler}>Add Participant</button> */}
             <AddButton onClick={clickEmpty}/>
         </form>
-        {dataContainer}
+        <div style={{marginRight:'20px', marginLeft:'20px', display:'flex',justifyContent:'center', alignItems:'center', flexDirection:'column', flexWrap:'wrap'}}>
+            <label>Cards per Page: </label>
+            <input type="number" min="1" defaultValue={CardsPerPage} onKeyDown={(e)=>{if(e.keyCode === 13){setCardsPerPage(e.target.value)}}}/>
+            {totalPages > 1 ? <h5>Current Page: {Page}</h5> : null}
+            <ButtonGroup style={{display:'flex', flexWrap:'wrap'}}>
+                {pageButtons}
+            </ButtonGroup>
+        </div>
+        {/* {dataContainer} */}
+        {cardContainer}
         {/* <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/> */}
         {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null} */}
-        
         </>
     )
 }
