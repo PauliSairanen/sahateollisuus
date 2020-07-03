@@ -133,7 +133,7 @@ const ParticipantsForm = (props) => {
         </form>
         <div style={{marginRight:'20px', marginLeft:'20px', display:'flex',justifyContent:'center', alignItems:'center', flexDirection:'column', flexWrap:'wrap'}}>
             <label>Cards per Page: </label>
-            <input type="number" min="1" defaultValue={CardsPerPage} onKeyDown={(e)=>{if(e.keyCode === 13){setCardsPerPage(e.target.value)}}}/>
+            <input type="number" min="1" defaultValue={CardsPerPage} onKeyDown={(e)=>{if(e.keyCode === 13 && e.target.value > 0){setCardsPerPage(e.target.value)}}}/>
             {totalPages > 1 ? <h5>Current Page: {Page}</h5> : null}
             <ButtonGroup style={{display:'flex', flexWrap:'wrap'}}>
                 {pageButtons}
