@@ -4,6 +4,23 @@
     --hover-color: #c08600;
 }
 
+/* Card styling */
+.card {
+    padding: 0px;
+}
+
+.wrapper {
+    
+}
+
+.bigDiv {
+
+}
+
+.smallDiv {
+
+}
+
 /* Navbar button styling */
 .navbarButtons button{
     background-color: white !important;
@@ -133,7 +150,7 @@
     width: fit-content;
     margin: auto;
     float: none;
-    align-items: center;  
+    align-items: center;
 }
 
 /* Tooltip styling */
