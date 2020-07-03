@@ -49,10 +49,10 @@ const SpeakersForm = (props) => {
     }
     async function fileHandler(e){
         let jsonData = await xlsxToJson(e.target)
+        let form = []
         for(let i in jsonData){
             //console.log(jsonData[i])
             if(i > 0){
-                let form = []
                 form.push(
                     {
                         Speaker: jsonData[i][0],
@@ -62,10 +62,10 @@ const SpeakersForm = (props) => {
                         ImageID: jsonData[i][4],
                     }
                 )
-                setForm(form)
-                props.editForm("speakers", Form)
             }
         }
+        setForm(form)
+        props.editForm("speakers", Form)
         document.getElementById("fileform").reset();
     }
     let dataContainer;

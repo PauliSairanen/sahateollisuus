@@ -55,10 +55,11 @@ const ParticipantsForm = (props) => {
     async function fileHandler(e){
         e.preventDefault();
         let jsonData = await xlsxToJson(e.target)
+        console.log(jsonData)
+        let form = []
         for(let i in jsonData){
             console.log(jsonData[i])
             if(i > 0){
-                let form = []
                 form.push(
                     {
                         Country: jsonData[i][0],
@@ -69,10 +70,10 @@ const ParticipantsForm = (props) => {
                         Company: jsonData[i][5]
                     }
                 )
-                setForm(form)
-                props.editForm("participants", Form)
             }
         }
+        setForm(form)
+        props.editForm("participants", Form)
         document.getElementById("fileform").reset();
     }
     let dataContainer;
