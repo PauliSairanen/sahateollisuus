@@ -70,8 +70,8 @@ const GeneralCard = props => {
           <Col>
             <Form.Group>
               <Form.Label>Event visiblity</Form.Label>
-              <Form.Check className="checkbox" type={'radio'} name="visibility" label={'visible'} value="visible" defaultChecked={props.FO.visibility == "visible" ? true : false}/> {/*eslint-disable-line*/}
-              <Form.Check className="checkbox" type={'radio'} name="visibility" label={'hidden'} value="hidden" defaultChecked={props.FO.visibility == "hidden" ? true : false}/> {/*eslint-disable-line*/}
+              <Form.Check className="checkbox" type={'radio'} name="visibility" label={'visible'} value="visible" onChange={()=>{}} checked={props.FO.visibility == "visible" ? true : false}/> {/*eslint-disable-line*/}
+              <Form.Check className="checkbox" type={'radio'} name="visibility" label={'hidden'} value="hidden" onChange={()=>{}} checked={props.FO.visibility == "hidden" ? true : false}/> {/*eslint-disable-line*/}
             </Form.Group>
           </Col>
         </Row>
