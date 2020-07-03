@@ -56,10 +56,9 @@ const ProgrammeCard = props => {
 
     return (
         <Card>
-            {/* <p>{props.index}</p> */}
-            <Form>
-                <Row style={{display: "flex", flex: "1", justifyContent: "center", alignItems: "center"}}>
-                    <Col style={{flex: "6"}}>
+            <div className="wrapper" style={{display: "flex", flex: "1", justifyContent: "center", alignItems: "center"}}>
+                <div className="bigDiv" style={{flex: "6", margin: "10px"}}>
+                    <Form>
                         <Row>
                             <Col>
                                 <FormGroup>
@@ -112,22 +111,17 @@ const ProgrammeCard = props => {
                                 </FormGroup>
                             </Col>
                         </Row>
-                    </Col>
-                    <Col style={{flex: "1"}}>
-                        <FormGroup className="file">
-                            <Col>
-                                <Row>
-                                    <FormLabel>{PdfIconElement}</FormLabel>
-                                </Row>
-                                <Row>
-                                    <label htmlFor={"hidden-"+props.index} className="labelForHidden" style={{width: "111.25px"}}>Choose PDF</label>
-                                    <FormControl size="sm" onChange={(e)=>{changeHandler(e); fileHandler(e)}} className="hidden" name="Pdf" type='file' id={'hidden-'+props.index}></FormControl>
-                                </Row>
-                            </Col>
-                        </FormGroup>
-                    </Col>
-                </Row>
-            </Form>
+                    </Form>
+                </div>
+                <div className="smallDiv" style={{display: "flex", flex: "1", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: "10px"}}>
+                    {/* <FormGroup className="file"> */}
+                                <FormLabel>{PdfIconElement}</FormLabel>
+                                <label htmlFor={"hidden-"+props.index} className="labelForHidden" style={{width: "111.25px"}}>Choose PDF</label>
+                                <FormControl size="sm" onChange={(e)=>{changeHandler(e); fileHandler(e)}} className="hidden" name="Pdf" type='file' id={'hidden-'+props.index}></FormControl>
+                    {/* </FormGroup> */}
+                </div>
+            </div>
+            
             {/* <Button className="deleteButton" onClick={deleteHandler}>
                 <span className="deleteButtonText">-</span>
             </Button> */}
