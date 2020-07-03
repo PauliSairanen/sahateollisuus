@@ -22,19 +22,6 @@
     display: block;
 }
 
-.filePrev {
-    width: 120px;
-    height: 120px;
-    border: 2px solid rgb(0, 0, 0, 0.125);
-}
-
-.file {
-    display: block;
-    float: right;
-    width: 120px;
-    margin: 0px 20px 20px 20px;
-}
-
 .hidden {
     visibility: hidden;
     width: 0px;

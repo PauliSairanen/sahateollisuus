@@ -5,6 +5,7 @@ import {Row, Col} from 'react-bootstrap'
 import { useEffect } from 'react';
 import DeleteButton from './DeleteButton';
 import './ParticipantsCard.css';
+import {OverlayTrigger, Tooltip} from 'react-bootstrap'
 
 
 const SponsorCard = props => {
@@ -36,6 +37,7 @@ const SponsorCard = props => {
   return (
     
     <Card>
+      <h6>{props.index}</h6>
       <Form>
         <Row>
           <Col>
@@ -61,7 +63,13 @@ const SponsorCard = props => {
           <Col>
             <FormGroup>
               <FormLabel>Phone</FormLabel>
-              <FormControl size="sm" value={formObject.Phone} onChange={(e) => {changeHandler(e)}} name="Phone"></FormControl>
+              <OverlayTrigger 
+                placement="bottom" 
+                delay={{show: 250, hide: 250}}
+                overlay={<Tooltip>Include area code. Example: +358 12345678</Tooltip>}
+                >
+                <FormControl size="sm" value={formObject.Phone} onChange={(e) => {changeHandler(e)}} name="Phone"></FormControl>
+              </OverlayTrigger>
             </FormGroup>
           </Col>
         </Row>
@@ -74,8 +82,14 @@ const SponsorCard = props => {
           </Col>
           <Col>
             <FormGroup>
-              <FormLabel>Country</FormLabel>
-              <FormControl size="sm" value={formObject.Country} onChange={(e) => {changeHandler(e)}} name="Country"></FormControl>
+              <FormLabel>Country ISO Code</FormLabel>
+              <OverlayTrigger 
+                placement="bottom" 
+                delay={{show: 250, hide: 250}}
+                overlay={<Tooltip>Example: FI, SE, FR</Tooltip>}
+                >
+                <FormControl size="sm" value={formObject.Country} onChange={(e) => {changeHandler(e)}} name="Country"></FormControl>
+              </OverlayTrigger>
             </FormGroup>
           </Col>
         </Row>
