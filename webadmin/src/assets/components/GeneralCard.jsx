@@ -3,6 +3,7 @@ import {Card, FormGroup, FormLabel, FormControl, FormText} from 'react-bootstrap
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
+import {OverlayTrigger, Tooltip} from 'react-bootstrap'
 import './GeneralCard.css';
 
 const GeneralCard = props => {
@@ -40,7 +41,13 @@ const GeneralCard = props => {
       <Form onChange={(e)=> props.editForm(e)}>
         <FormGroup className="file">
           <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} fluid onError={errorHandler}/></FormLabel>
-          <label htmlFor={'hidden'} className="labelForHidden">Choose image</label>
+          <OverlayTrigger 
+            placement="right" 
+            delay={{show: 250, hide: 250}}
+            overlay={<Tooltip>jotain jotain</Tooltip>}
+            >
+            <label htmlFor={'hidden'} className="labelForHidden">Choose image</label>
+          </OverlayTrigger>
           <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e)}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
         </FormGroup>
         <Row>

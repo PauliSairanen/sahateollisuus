@@ -1,22 +1,29 @@
+/* Color scheme styling. Original colors: main: #ffb400, hover: #c08600*/
+:root{
+    --main-color: #ffb400;
+    --hover-color: #c08600;
+}
+
+/* Navbar button styling */
 .navbarButtons button{
     background-color: white !important;
-    border-top: solid 0px #ffb400 !important;
-    border-left: solid 0px #ffb400 !important;
-    border-right: solid 0px #ffb400 !important;
+    border-top: none;
+    border-left: none;
+    border-right: none;
     box-shadow: none !important;
 }
 
-.navbarButtons button:hover {
-    color: #ffb400 !important;
-    border-bottom: solid 2px #ffb400 !important;
-}
+/* .navbarButtons button:hover {
+    color: var(--main-color) !important;
+    border-bottom: solid 2px var(--main-color) !important;
+} */
 
 .active {
-    color: #ffb400 !important;
-    border-top: solid 0px #ffb400 !important;
-    border-left: solid 0px #ffb400 !important;
-    border-right: solid 0px #ffb400 !important;
-    border-bottom: solid 2px #ffb400 !important;
+    color: var(--main-color) !important;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid 2px var(--main-color) !important;
     background-color: white !important;
     box-shadow: none !important;
 }
@@ -24,26 +31,53 @@
 .inactive {
     color: grey;
     background-color: white !important;
-    border-color: #ffb400 !important;
-    border-top: solid 0px #ffb400 !important;
-    border-left: solid 0px #ffb400 !important;
-    border-right: solid 0px #ffb400 !important;
+    border-top: solid 0px !important;
+    border-left: solid 0px !important;
+    border-right: solid 0px !important;
     border-bottom: solid 1px lightgray !important;
     box-shadow: none !important;
 }
 
 .inactive:active {
-    color: #ffb400;
+    color: var(--main-color);
 }
 
 .active.active {
-    color: #ffb400;
+    color: var(--main-color);
 }
 
+.inactive:focus {
+    color: var(--main-color) !important;
+}
+
+.active.focus {
+    color: var(--main-color) !important;
+}
+
+/* Other button styling */
 .otherButtons {
     color: white;
+    background-color: var(--main-color);
+    border-color: var(--main-color);
 }
 
+.otherButtons:hover {
+    color: white;
+    background-color: var(--hover-color);
+    background-color: var(--hover-color);
+}
+
+.otherButtons:focus {
+    box-shadow: none !important;
+    color: white !important;
+}
+
+.btn-primary:focus {
+    color: grey;
+    box-shadow: none;
+}
+
+/* File select button styling */
 .labelForHidden {
     width: 140px;
     font-size: 1rem;
@@ -59,8 +93,8 @@
     border: 1px solid transparent;
     border-radius: 0.25rem;
     color: #fff;
-    background-color: #ffb400;
-    border-color: #ffb400;
+    background-color: var(--main-color);
+    border-color: var(--main-color);
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -81,11 +115,12 @@
     border: 1px solid transparent;
     border-radius: 0.25rem;
     color: #fff;
-    background-color: #c08600;
-    border-color: #c08600;
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+/* File preview styling */
 .filePrev {
     width: 140px;
     height: 140px;

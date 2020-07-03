@@ -231,6 +231,12 @@ class Events {
 
     //Poistaa eventin id mukaan
     deleteEvent(req, res){
+        // EventAuthAdmin.findByIdAndDelete({_id: req.body.id}, function(err, doc){
+        //     console.log(err);
+        // });
+        // EventAuthAdmin.deleteMany({eventName: req.body.id}, function(err, doc){
+        //     console.log(err);
+        // });
         if(req.body.id){
             rimraf(path.join(__dirname, '../public/' + req.body.id), function () {
                 console.log("Files removed");
@@ -249,6 +255,7 @@ class Events {
                 EventAuthAdmin.deleteOne({eventName: e}, function(err, doc){
                     console.log(err);
                 });
+
                 //tähän rmdir takasin
                 res.status(200).json({
                     message: 'Event was deleted'
@@ -287,7 +294,7 @@ class Events {
                             })
 
                             EventAuthAdmin.findOne({eventName: event.metadata.eventName}, function(err, authPlain){
-                                authPlain.eventName = event.metadata.eventName,
+                                authPlain.eventName = req.body.metadata.eventName,
                                 authPlain.eventPass = req.body.eventPass
                                 authPlain.save(function(err){
                                     console.log("Plaintext auth was updated");

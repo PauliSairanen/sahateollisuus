@@ -186,7 +186,7 @@ const MapMarkerCard = props => {
               <FormText className="text-danger">{ErrorMsg}</FormText>
             </FormGroup>
             <Col>
-              <Button onClick={geocodeHandler}><AddLocationIcon/>Geocode lat and long </Button>
+              <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/>Geocode lat and long </Button>
             </Col>
           </Col>
         </Row>
