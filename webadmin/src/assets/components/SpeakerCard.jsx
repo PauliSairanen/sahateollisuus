@@ -47,44 +47,47 @@ const SpeakerCard = props => {
   }
   //Kuvat https://sahat.lamk.fi/public/{EventID}/{FileName}
   return (
-    
     <Card>
-      <Form>
-        <FormGroup className="file">
+      <div className="wrapper">
+        <div className="bigDiv">
+          <Form>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Name of the Speaker</FormLabel>
+                  <FormControl size="sm" value={formObject.Speaker} onChange={(e) => {changeHandler(e)}} name="Speaker"></FormControl>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Title of the Speaker</FormLabel>
+                  <FormControl size="sm" value={formObject.Title} onChange={(e) => {changeHandler(e)}} name="Title"></FormControl>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Special Title of the Speaker</FormLabel>
+                  <FormControl size="sm" value={formObject.SpecialTitle} onChange={(e) => {changeHandler(e)}} name="SpecialTitle"></FormControl>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Company of the Speaker</FormLabel>
+                  <FormControl size="sm" value={formObject.Company} onChange={(e) => {changeHandler(e)}} name="Company"></FormControl>
+                </FormGroup>
+              </Col>
+            </Row>
+          </Form>
+        </div>
+        <div className="smallDiv">
           <FormLabel><Image className="filePrev" src={formObject.speakerImgsrc} fluid roundedCircle/></FormLabel>
           <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose image</label>
           <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="ImageID"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
-        </FormGroup>
-        <Row>
-          <Col>
-            <FormGroup>
-              <FormLabel>Name of speaker</FormLabel>
-              <FormControl size="sm" value={formObject.Speaker} onChange={(e) => {changeHandler(e)}} name="Speaker"></FormControl>
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <FormLabel>Title of speaker</FormLabel>
-              <FormControl size="sm" value={formObject.Title} onChange={(e) => {changeHandler(e)}} name="Title"></FormControl>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <FormGroup>
-              <FormLabel>Special title of speaker</FormLabel>
-              <FormControl size="sm" value={formObject.SpecialTitle} onChange={(e) => {changeHandler(e)}} name="SpecialTitle"></FormControl>
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <FormLabel>Company of speaker</FormLabel>
-              <FormControl size="sm" value={formObject.Company} onChange={(e) => {changeHandler(e)}} name="Company"></FormControl>
-            </FormGroup>
-          </Col>
-        </Row>
-      </Form>
+        </div>
+      </div>
       {/* <Button className="deleteButton" onClick={deleteFunction}>
         <span className="deleteButtonText">-</span>
       </Button> */}

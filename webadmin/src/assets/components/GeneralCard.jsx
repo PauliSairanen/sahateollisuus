@@ -36,58 +36,61 @@ const GeneralCard = props => {
   }
   //Kuvat https://sahat.lamk.fi/public/{EventID}/{FileName}
   return (
-    
     <Card>
-      <Form onChange={(e)=> props.editForm(e)}>
-        <FormGroup className="file">
-          <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} fluid onError={errorHandler}/></FormLabel>
-          <OverlayTrigger 
-            placement="right" 
-            delay={{show: 250, hide: 250}}
-            overlay={<Tooltip>jotain jotain</Tooltip>}
-            >
-            <label htmlFor={'hidden'} className="labelForHidden">Choose image</label>
-          </OverlayTrigger>
-          <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e)}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
-        </FormGroup>
-        <Row>
-          <Col>
-            <FormGroup>
-              <FormLabel>Event name</FormLabel>
-              <FormControl size="sm" name="eventName" defaultValue={formObject.eventName}></FormControl>
-              <FormText>Required</FormText>
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <FormLabel>Event password</FormLabel>
-              <FormControl size="sm" name="eventPass" defaultValue={formObject.eventPass}></FormControl>
-              <FormText>Required</FormText>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <FormGroup>
-              <FormLabel>Event color scheme</FormLabel>
-              <OverlayTrigger 
-              placement="bottom" 
+      <div className="wrapper">
+        <div className="bigDiv">
+          <Form onChange={(e)=> props.editForm(e)}>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Event name</FormLabel>
+                  <FormControl size="sm" name="eventName" defaultValue={formObject.eventName}></FormControl>
+                  <FormText>Required</FormText>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Event password</FormLabel>
+                  <FormControl size="sm" name="eventPass" defaultValue={formObject.eventPass}></FormControl>
+                  <FormText>Required</FormText>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Event color scheme</FormLabel>
+                  <OverlayTrigger 
+                  placement="bottom" 
+                  delay={{show: 250, hide: 250}}
+                  overlay={<Tooltip>Hexadecimal value (#FFFFFF)</Tooltip>}
+                  >
+                    <FormControl size="sm" maxLength="7" name="eventColor" defaultValue={formObject.eventColor}></FormControl>
+                  </OverlayTrigger>
+                </FormGroup>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Event visiblity</Form.Label>
+                  <Form.Check className="checkbox" type={'radio'} name="visibility" label={'visible'} value="visible" onChange={()=>{}} checked={props.FO.visibility == "visible" ? true : false}/> {/*eslint-disable-line*/}
+                  <Form.Check className="checkbox" type={'radio'} name="visibility" label={'hidden'} value="hidden" onChange={()=>{}} checked={props.FO.visibility == "hidden" ? true : false}/> {/*eslint-disable-line*/}
+                </Form.Group>
+              </Col>
+            </Row>
+          </Form>
+        </div>
+        <div className="smallDiv">
+            <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} fluid onError={errorHandler}/></FormLabel>
+            <OverlayTrigger 
+              placement="right" 
               delay={{show: 250, hide: 250}}
-              overlay={<Tooltip>Hexadecimal value (#FFFFFF)</Tooltip>}
+              overlay={<Tooltip>jotain jotain</Tooltip>}
               >
-                <FormControl size="sm" maxLength="7" name="eventColor" defaultValue={formObject.eventColor}></FormControl>
-              </OverlayTrigger>
-            </FormGroup>
-          </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label>Event visiblity</Form.Label>
-              <Form.Check className="checkbox" type={'radio'} name="visibility" label={'visible'} value="visible" onChange={()=>{}} checked={props.FO.visibility == "visible" ? true : false}/> {/*eslint-disable-line*/}
-              <Form.Check className="checkbox" type={'radio'} name="visibility" label={'hidden'} value="hidden" onChange={()=>{}} checked={props.FO.visibility == "hidden" ? true : false}/> {/*eslint-disable-line*/}
-            </Form.Group>
-          </Col>
-        </Row>
-      </Form>
+              <label htmlFor={'hidden'} className="labelForHidden">Choose image</label>
+            </OverlayTrigger>
+            <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e)}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
+        </div>
+      </div>
     </Card>
   )
 }
