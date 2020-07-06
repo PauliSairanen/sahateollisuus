@@ -77,12 +77,12 @@ const KeynoteAndProgrammeItem = props => {
             <Text style={styles.textSize}>{location}</Text>
           </View>
         </View>
+          <View style={styles.pdfContainer}>
         <TouchableComponent
           onPress={() => {
             setModalVisible(true)
           }}
         >
-          <View style={styles.pdfContainer}>
             <Card style={styles.pdfCardContainer}>
               <Icon
                 name={'pdffile1'}
@@ -90,8 +90,8 @@ const KeynoteAndProgrammeItem = props => {
                 color={Colors.pdf}
               />
             </Card>
-          </View>
         </TouchableComponent>
+          </View>
       </View>
     </View>
   )
@@ -99,7 +99,9 @@ const KeynoteAndProgrammeItem = props => {
 
 const styles = StyleSheet.create({
   listElement: {
-    margin: 15,
+    // margin: 15,
+    marginTop: 15,
+    width: Dimensions.get('window').width / 100 * 85,
     borderBottomColor: '#e0e0e0',
     borderBottomWidth: 3,
   },
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10,
+    marginBottom: 25,
   },
   modalContainer: {
     flex: 1,
