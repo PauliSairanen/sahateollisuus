@@ -63,7 +63,7 @@ const GeneralCard = props => {
                   <OverlayTrigger 
                   placement="bottom" 
                   delay={{show: 250, hide: 250}}
-                  overlay={<Tooltip>Hexadecimal Value. Example: "#FFFFFF")</Tooltip>}
+                  overlay={<Tooltip>Hexadecimal Value. Example: "#FFFFFF"</Tooltip>}
                   >
                     <FormControl size="sm" maxLength="7" name="eventColor" defaultValue={formObject.eventColor}></FormControl>
                   </OverlayTrigger>

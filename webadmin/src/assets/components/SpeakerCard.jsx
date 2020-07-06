@@ -86,7 +86,7 @@ const SpeakerCard = props => {
                     <OverlayTrigger 
                       placement="bottom" 
                       delay={{show: 250, hide: 250}}
-                      overlay={<Tooltip>More detailed description about the speaker</Tooltip>}
+                      overlay={<Tooltip>More detailed description of the speaker</Tooltip>}
                       >
                     <FormControl as="textarea" size="sm" value={formObject.Description} onChange={(e) => {changeHandler(e)}} name="Description"></FormControl>
                   </OverlayTrigger>
