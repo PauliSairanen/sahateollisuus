@@ -1,15 +1,17 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 //import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
 //import Card from 'react-bootstrap/Card'
 import AddButton from '../components/AddButton'
 import ParticipantsCard from '../components/ParticipantsCard'
 
-//import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button'
 //import { ButtonGroup } from 'react-bootstrap'
 
 //import FormTable from '../components/FormTable'
 import LazyLoad from 'react-lazyload';
+import { forceCheck } from 'react-lazyload';
+import { InputGroup, FormControl } from 'react-bootstrap';
 //import FormTable from '../components/FormTable'
 /*
 participants: [
@@ -83,6 +85,12 @@ const ParticipantsForm = (props) => {
         props.editForm("participants", Form)
         document.getElementById("fileform").reset();
     }
+    const [Search, setSearch] = useState("")
+    useEffect(() => {
+        if(Search !== ""){
+            forceCheck();
+        }
+    }, [Search])
     let dataContainer;
     function cardHandler(e){
         // if(parseInt(Page) === Math.ceil(e.length/CardsPerPage) && Page !== "0"){
@@ -92,18 +100,29 @@ const ParticipantsForm = (props) => {
         props.editForm("participants", e)
     }
     dataContainer = Form.slice(0).reverse().map((item, index)=>{
-        return(
-            <LazyLoad height={200} key={index}>
-                <ParticipantsCard 
-                    key={index} 
-                    index={index} 
-                    form={item} 
-                    data={Form} 
-                    editForm={cardHandler}
-                    fileToUpload={(e)=>props.fileToUpload(e)}
-                />
-            </LazyLoad>
-        )
+        if((item.Company).includes(Search) || 
+            (item.Country).includes(Search) || 
+            (item.Email).includes(Search) || 
+            (item.FirstName).includes(Search) || 
+            (item.LastName).includes(Search) || 
+            (item.Phone).includes(Search)||
+            Search === ""){
+            return(
+                <LazyLoad key={index} height={200}>
+                    <ParticipantsCard 
+                        key={index} 
+                        index={index} 
+                        form={item} 
+                        data={Form} 
+                        editForm={cardHandler}
+                        fileToUpload={(e)=>props.fileToUpload(e)}
+                    />
+                </LazyLoad>
+            )
+        }
+        else{
+            return null
+        }
     })
     // const [Page, setPage] = useState("0")
     // const [CardsPerPage, setCardsPerPage] = useState(20)
@@ -125,6 +144,22 @@ const ParticipantsForm = (props) => {
             <label htmlFor="hidden-input" className="labelForHidden">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
         </form>
+        <div style={
+            {
+                marginRight:'20px', marginLeft:'20px', display:'flex',justifyContent:'center', 
+                alignItems:'center', flexDirection:'column', flexWrap:'wrap'
+            }}>
+            {/* <label>Cards per Page: </label>
+            <input type="number" min="1" defaultValue={CardsPerPage} onKeyDown={(e)=>{if(e.keyCode === 13 && e.target.value > 0){setCardsPerPage(e.target.value)}}}/>
+            {totalPages > 1 ? <h5>Current Page: {Page}</h5> : null}
+            <ButtonGroup style={{display:'flex', flexWrap:'wrap'}}>
+                {pageButtons}
+            </ButtonGroup> */}
+            <InputGroup style={{width:'50%'}}>
+                <FormControl onKeyDown={(e)=>{if(e.keyCode === 13) setSearch(e.target.value)}}/>
+                <Button className="otherButtons" onClick={(e)=>{setSearch(e.currentTarget.parentNode.childNodes[0].value)}}>Search</Button>
+            </InputGroup>
+        </div>
         <form autoComplete="off" id="form">
             {/* <input type="text" name="country" placeholder="Country"/>
             <input type="text" name="firstName" placeholder="First Name"/>
@@ -135,14 +170,6 @@ const ParticipantsForm = (props) => {
             <button onClick={clickHandler}>Add Participant</button> */}
             <AddButton onClick={clickEmpty}/>
         </form>
-        {/* <div style={{marginRight:'20px', marginLeft:'20px', display:'flex',justifyContent:'center', alignItems:'center', flexDirection:'column', flexWrap:'wrap'}}>
-            <label>Cards per Page: </label>
-            <input type="number" min="1" defaultValue={CardsPerPage} onKeyDown={(e)=>{if(e.keyCode === 13 && e.target.value > 0){setCardsPerPage(e.target.value)}}}/>
-            {totalPages > 1 ? <h5>Current Page: {Page}</h5> : null}
-            <ButtonGroup style={{display:'flex', flexWrap:'wrap'}}>
-                {pageButtons}
-            </ButtonGroup>
-        </div> */}
         <div className="list">
             {dataContainer}
             {/* {cardContainer} */}
