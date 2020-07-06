@@ -40,13 +40,13 @@ const SponsorCard = props => {
           <Row>
             <Col>
               <FormGroup>
-                <FormLabel>First name</FormLabel>
+                <FormLabel>First Name</FormLabel>
                 <FormControl size="sm" value={formObject.FirstName} onChange={(e) => {changeHandler(e)}} name="FirstName"></FormControl>
               </FormGroup>
             </Col>
             <Col>
               <FormGroup>
-                <FormLabel>Last name</FormLabel>
+                <FormLabel>Last Name</FormLabel>
                 <FormControl size="sm" value={formObject.LastName} onChange={(e) => {changeHandler(e)}} name="LastName"></FormControl>
               </FormGroup>
             </Col>
@@ -64,7 +64,7 @@ const SponsorCard = props => {
                 <OverlayTrigger 
                   placement="bottom" 
                   delay={{show: 250, hide: 250}}
-                  overlay={<Tooltip>Include area code. Example: +358 12345678</Tooltip>}
+                  overlay={<Tooltip>Include area code. Example: "+358 12345678"</Tooltip>}
                   >
                   <FormControl size="sm" value={formObject.Phone} onChange={(e) => {changeHandler(e)}} name="Phone"></FormControl>
                 </OverlayTrigger>
@@ -84,7 +84,7 @@ const SponsorCard = props => {
                 <OverlayTrigger 
                   placement="bottom" 
                   delay={{show: 250, hide: 250}}
-                  overlay={<Tooltip>Example: FI, SE, FR</Tooltip>}
+                  overlay={<Tooltip>Example: "FI", "SE", "FR"</Tooltip>}
                   >
                   <FormControl size="sm" value={formObject.Country} onChange={(e) => {changeHandler(e)}} name="Country"></FormControl>
                 </OverlayTrigger>

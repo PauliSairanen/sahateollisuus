@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
+import {Card, FormGroup, FormLabel, FormControl, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
@@ -55,8 +55,14 @@ const VenueCard = props => {
             <Row>
               <Col>
                 <FormGroup>
-                  <FormLabel>Title of the Venue</FormLabel>
+                  <FormLabel>Title of the Map</FormLabel>
+                  <OverlayTrigger 
+                    placement="bottom" 
+                    delay={{show: 250, hide: 250}}
+                    overlay={<Tooltip>Short name for the map. Example: "1. Floor", "2. Floor"</Tooltip>}
+                    >
                   <FormControl size="sm" value={formObject.title} onChange={(e) => {changeHandler(e)}} name="title"></FormControl>
+                  </OverlayTrigger>
                 </FormGroup>
               </Col>
             </Row>

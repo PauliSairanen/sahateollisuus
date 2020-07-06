@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
+import {Card, FormGroup, FormLabel, FormControl, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
@@ -76,6 +76,20 @@ const SpeakerCard = props => {
                 <FormGroup>
                   <FormLabel>Company of the Speaker</FormLabel>
                   <FormControl size="sm" value={formObject.Company} onChange={(e) => {changeHandler(e)}} name="Company"></FormControl>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Description</FormLabel>
+                    <OverlayTrigger 
+                      placement="bottom" 
+                      delay={{show: 250, hide: 250}}
+                      overlay={<Tooltip>More detailed description about the speaker</Tooltip>}
+                      >
+                    <FormControl as="textarea" size="sm" value={formObject.Description} onChange={(e) => {changeHandler(e)}} name="Description"></FormControl>
+                  </OverlayTrigger>
                 </FormGroup>
               </Col>
             </Row>

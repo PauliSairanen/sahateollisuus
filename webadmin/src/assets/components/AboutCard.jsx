@@ -26,7 +26,7 @@ const AboutCard = props => {
     <Form onChange={(e)=> props.onChange(e)}>
       <Card>
         <div className="bigDiv">
-          <FormLabel>Welcome text</FormLabel>
+          <FormLabel>Welcome Text</FormLabel>
           <Row>
             <Col>
               <FormGroup>
@@ -63,7 +63,7 @@ const AboutCard = props => {
       </Card>
       <Card>
         <div className="bigDiv">
-          <FormLabel>Venue information</FormLabel>
+          <FormLabel>Venue Information</FormLabel>
           <Row>
             <Col>
               <FormGroup>
@@ -91,7 +91,7 @@ const AboutCard = props => {
                 <OverlayTrigger 
                 placement="bottom" 
                 delay={{show: 250, hide: 250}}
-                overlay={<Tooltip>Include area code. Example: +358 12345678</Tooltip>}
+                overlay={<Tooltip>Include area code. Example: "+358 12345678"</Tooltip>}
                 >
                 <FormControl size="sm" name="placePhone" defaultValue={form.placePhone}></FormControl>
                 </OverlayTrigger>
@@ -102,7 +102,7 @@ const AboutCard = props => {
       </Card>
       <Card>
         <div className="bigDiv">
-          <FormLabel>More information</FormLabel>
+          <FormLabel>More Information</FormLabel>
           <Row>
             <Col>
               <FormGroup>
