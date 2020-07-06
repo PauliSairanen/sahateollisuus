@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import FormTable from '../components/FormTable'
+//import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
 
 import ProgrammeCard from '../components/ProgrammeCard'
@@ -423,13 +423,13 @@ const ProgrammeForm = (props) => {
             
         </div>
         {Data.length > 0 ? dataContainer : null}
-        {Form.length > 0 ? 
+        {/* {Form.length > 0 ? 
             <FormTable 
                 form={FormToData(Form)} 
                 setForm={(data) => dataToForm(data)} 
                 fileToUpload={(e)=>{props.fileToUpload(e)}}
             /> : 
-        null}
+        null} */}
         
         </>
     )
