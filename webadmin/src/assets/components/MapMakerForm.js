@@ -216,7 +216,7 @@ const MapMarkerForm = (props) =>{
                         {/* <Button name="restaurant" onClick={(e)=>{clickHandler(e)}}>Create Restaurant</Button>
                         <Button name="hotel" onClick={(e)=>{clickHandler(e)}}>Create Hotel</Button>
                         <Button name="other" onClick={(e)=>{clickHandler(e)}}>Create Other</Button> */}
-                        <Button name={ActiveCat === "restaurants" ? "restaurant" : ActiveCat === "hotels" ? "hotel" : "other"} onClick={(e)=>{clickHandler(e)}}>Create {ActiveCat === "restaurants" ? "Restaurant" : ActiveCat === "hotels" ? "Hotel" : "Other"}</Button>
+                        <Button className="otherButtons" name={ActiveCat === "restaurants" ? "restaurant" : ActiveCat === "hotels" ? "hotel" : "other"} onClick={(e)=>{clickHandler(e)}}>Create {ActiveCat === "restaurants" ? "Restaurant" : ActiveCat === "hotels" ? "Hotel" : "Other"}</Button>
                     </ButtonGroup>
                     {/* <Dropdown style={{display: 'flex', flexWrap: 'wrap', marginTop: '10px'}}>
                         <Dropdown.Toggle>
