@@ -87,7 +87,13 @@ const MapMarkerCard = props => {
         <Col>
           <FormGroup>
             <FormLabel>Category</FormLabel>
+            <OverlayTrigger 
+              placement="bottom" 
+              delay={{show: 250, hide: 250}}
+              overlay={<Tooltip>Type of restaurant. Example: "Burger", "Pizza", "Chinese" etc</Tooltip>}
+              >
             <FormControl size="sm" value={formObject.category} onChange={(e) => {changeHandler(e)}} name="category"></FormControl>
+            </OverlayTrigger>
           </FormGroup>
         </Col>
         <Col sm={1}>
@@ -95,7 +101,13 @@ const MapMarkerCard = props => {
         <Col>
           <FormGroup>
             <FormLabel>Rating</FormLabel>
+            <OverlayTrigger 
+              placement="bottom" 
+              delay={{show: 250, hide: 250}}
+              overlay={<Tooltip>Value 1-5</Tooltip>}
+              >
             <FormControl size="sm" value={formObject.rating} onChange={(e) => {changeHandler(e)}} name="rating"></FormControl>
+            </OverlayTrigger>
           </FormGroup>
         </Col>
         <Col>
@@ -118,7 +130,13 @@ const MapMarkerCard = props => {
       <Col>
         <FormGroup>
           <FormLabel>Rating</FormLabel>
+          <OverlayTrigger 
+              placement="bottom" 
+              delay={{show: 250, hide: 250}}
+              overlay={<Tooltip>Value 1-5</Tooltip>}
+              >
           <FormControl size="sm" value={formObject.rating} onChange={(e) => {changeHandler(e)}} name="rating"></FormControl>
+          </OverlayTrigger>
         </FormGroup>
       </Col>
       <Col sm={1}>
@@ -145,7 +163,13 @@ const MapMarkerCard = props => {
       <Col>
         <FormGroup>
           <FormLabel>Category</FormLabel>
+          <OverlayTrigger 
+              placement="bottom" 
+              delay={{show: 250, hide: 250}}
+              overlay={<Tooltip>Type of business. Example: "Theatre", "Library", "Shop"</Tooltip>}
+              >
           <FormControl size="sm" value={formObject.category} onChange={(e) => {changeHandler(e)}} name="category"></FormControl>
+          </OverlayTrigger>
         </FormGroup>
       </Col>
       <Col sm={1}>
@@ -179,16 +203,22 @@ const MapMarkerCard = props => {
               <Col>
                 <FormGroup>
                   <FormLabel>Address</FormLabel>
+                  <OverlayTrigger 
+                    placement="bottom" 
+                    delay={{show: 250, hide: 250}}
+                    overlay={<Tooltip>Street address, Postcode and City. Example: "Mukkulankatu 19, 15210 Lahti"</Tooltip>}
+                    >
                   <FormControl size="sm" value={formObject.address} onChange={(e) => {changeHandler(e)}} name="address"></FormControl>
+                  </OverlayTrigger>
                   <FormText className="text-danger">{ErrorMsg}</FormText>
                 </FormGroup>
               </Col>
               <Col sm={1}>
                 <br></br>
-                <OverlayTrigger 
-                  placement="bottom" 
+                <OverlayTrigger
+                  placement="bottom"
                   delay={{show: 250, hide: 250}}
-                  overlay={<Tooltip>Example 15:00-15:30</Tooltip>}
+                  overlay={<Tooltip>Converts address to latitude and longitude</Tooltip>}
                   >
                 <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/></Button>
                 </OverlayTrigger>

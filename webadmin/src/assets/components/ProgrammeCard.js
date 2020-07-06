@@ -98,7 +98,7 @@ const ProgrammeCard = props => {
                                     <OverlayTrigger 
                                       placement="bottom" 
                                       delay={{show: 250, hide: 250}}
-                                      overlay={<Tooltip>Example 15:00-15:30</Tooltip>}
+                                      overlay={<Tooltip>Example "15:00-15:30"</Tooltip>}
                                       >
                                     <FormControl size="sm" name="Time" onChange={changeHandler} value={formObject.Time}></FormControl>
                                     </OverlayTrigger>
