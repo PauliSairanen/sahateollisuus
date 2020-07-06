@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import {Card, FormGroup, FormLabel, FormControl, FormText} from 'react-bootstrap'
+import {Card, FormGroup, FormLabel, FormControl, FormText, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
 import DeleteButton from './DeleteButton';
 import './MapMarkerCard.css';
-
 import Button from 'react-bootstrap/Button';
 import axios from 'axios'
 
@@ -75,38 +74,40 @@ const MapMarkerCard = props => {
 
     props.editForm(data)
   }
-  let secondRow;
+  let formElement;
   if (props.markerType === "restaurants"){
-    secondRow =
-    <Row>
-      <Col>
-        <FormGroup>
-          <FormLabel>Description</FormLabel>
-          <FormControl as="textarea" size="sm" value={formObject.description} onChange={(e) => {changeHandler(e)}} name="description"></FormControl>
-        </FormGroup>
-      </Col>
-      <Col>
-        <FormGroup>
-          <FormLabel>Category</FormLabel>
-          <FormControl size="sm" value={formObject.category} onChange={(e) => {changeHandler(e)}} name="category"></FormControl>
-        </FormGroup>
-      </Col>
-      <Col>
-        <FormGroup>
-          <FormLabel>Rating</FormLabel>
-          <FormControl size="sm" value={formObject.rating} onChange={(e) => {changeHandler(e)}} name="rating"></FormControl>
-        </FormGroup>
-      </Col>
-      <Col>
-        <FormGroup>
-          <FormLabel>Web url</FormLabel>
-          <FormControl size="sm" value={formObject.webURL} onChange={(e) => {changeHandler(e)}} name="webURL"></FormControl>
-        </FormGroup>
-      </Col>
-    </Row>
+    formElement =
+      <Row>
+        <Col>
+          <FormGroup>
+            <FormLabel>Description</FormLabel>
+            <FormControl as="textarea" size="sm" value={formObject.description} onChange={(e) => {changeHandler(e)}} name="description"></FormControl>
+          </FormGroup>
+        </Col>
+        <Col>
+          <FormGroup>
+            <FormLabel>Category</FormLabel>
+            <FormControl size="sm" value={formObject.category} onChange={(e) => {changeHandler(e)}} name="category"></FormControl>
+          </FormGroup>
+        </Col>
+        <Col sm={1}>
+        </Col>
+        <Col>
+          <FormGroup>
+            <FormLabel>Rating</FormLabel>
+            <FormControl size="sm" value={formObject.rating} onChange={(e) => {changeHandler(e)}} name="rating"></FormControl>
+          </FormGroup>
+        </Col>
+        <Col>
+          <FormGroup>
+            <FormLabel>Web url</FormLabel>
+            <FormControl size="sm" value={formObject.webURL} onChange={(e) => {changeHandler(e)}} name="webURL"></FormControl>
+          </FormGroup>
+        </Col>
+      </Row>
   }
   else if (props.markerType === "hotels"){
-    secondRow =
+    formElement =
     <Row>
       <Col>
         <FormGroup>
@@ -120,16 +121,20 @@ const MapMarkerCard = props => {
           <FormControl size="sm" value={formObject.rating} onChange={(e) => {changeHandler(e)}} name="rating"></FormControl>
         </FormGroup>
       </Col>
+      <Col sm={1}>
+      </Col>
       <Col>
         <FormGroup>
           <FormLabel>Web url</FormLabel>
           <FormControl size="sm" value={formObject.webURL} onChange={(e) => {changeHandler(e)}} name="webURL"></FormControl>
         </FormGroup>
+      </Col>
+      <Col>
       </Col>
     </Row>
   }
   else if (props.markerType === "others"){
-    secondRow = 
+    formElement = 
     <Row>
       <Col>
         <FormGroup>
@@ -142,12 +147,16 @@ const MapMarkerCard = props => {
           <FormLabel>Category</FormLabel>
           <FormControl size="sm" value={formObject.category} onChange={(e) => {changeHandler(e)}} name="category"></FormControl>
         </FormGroup>
+      </Col>
+      <Col sm={1}>
       </Col>
       <Col>
         <FormGroup>
           <FormLabel>Web URL</FormLabel>
           <FormControl size="sm" value={formObject.webURL} onChange={(e) => {changeHandler(e)}} name="webURL"></FormControl>
         </FormGroup>
+      </Col>
+      <Col>
       </Col>
     </Row>
   }
@@ -163,18 +172,6 @@ const MapMarkerCard = props => {
             <Row>
               <Col>
                 <FormGroup>
-                  <FormLabel>Latitude</FormLabel>
-                  <FormControl size="sm" value={formObject.lat} onChange={(e) => {changeHandler(e)}} name="lat"></FormControl>
-                </FormGroup>
-              </Col>
-              <Col>
-                <FormGroup>
-                  <FormLabel>Longitude</FormLabel>
-                  <FormControl size="sm" value={formObject.long} onChange={(e) => {changeHandler(e)}} name="long"></FormControl>
-                </FormGroup>
-              </Col>
-              <Col>
-                <FormGroup>
                   <FormLabel>Name</FormLabel>
                   <FormControl size="sm" value={formObject.name} onChange={(e) => {changeHandler(e)}} name="name"></FormControl>
                 </FormGroup>
@@ -185,13 +182,32 @@ const MapMarkerCard = props => {
                   <FormControl size="sm" value={formObject.address} onChange={(e) => {changeHandler(e)}} name="address"></FormControl>
                   <FormText className="text-danger">{ErrorMsg}</FormText>
                 </FormGroup>
-                <Col>
-                  <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/>Geocode lat and long </Button>
-                </Col>
+              </Col>
+              <Col sm={1}>
+                <br></br>
+                <OverlayTrigger 
+                  placement="bottom" 
+                  delay={{show: 250, hide: 250}}
+                  overlay={<Tooltip>Example 15:00-15:30</Tooltip>}
+                  >
+                <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/></Button>
+                </OverlayTrigger>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Latitude</FormLabel>
+                  <FormControl size="sm" value={formObject.lat} onChange={(e) => {changeHandler(e)}} name="lat"></FormControl>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Longitude</FormLabel>
+                  <FormControl size="sm" value={formObject.long} onChange={(e) => {changeHandler(e)}} name="long"></FormControl>
+                </FormGroup>
               </Col>
             </Row>
-            {secondRow}
           </Form>
+          {formElement}
         </div>
         <div className="smallDiv">
           <FormLabel><Image className="filePrev" src={formObject.markerImgsrc} fluid/></FormLabel>

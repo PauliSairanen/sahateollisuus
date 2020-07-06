@@ -337,7 +337,7 @@ const ProgrammeForm = (props) => {
         
         if(!takenDays.includes(item.day)){
             takenDays.push(item.day)
-            return(<Button key={index} name="day" id={item.day} onClick={dayHandler} disabled={ActiveDay === item.day ? true : false}>Day {item.day}</Button>)
+            return(<Button className="otherButtons" key={index} name="day" id={item.day} onClick={dayHandler} disabled={ActiveDay === item.day ? true : false}>Day {item.day}</Button>)
         }
         else{
             return null
@@ -408,8 +408,8 @@ const ProgrammeForm = (props) => {
             </div>
             <div style={{display:'flex', flexDirection:'column'}}>
                 <ButtonGroup vertical>
-                    <Button name="plus" onClick={dayHandler}>+</Button>
-                    <Button name="minus" onClick={dayHandler}>-</Button>
+                    <Button className="otherButtons" name="plus" onClick={dayHandler}>+</Button>
+                    <Button className="otherButtons" name="minus" onClick={dayHandler}>-</Button>
                 </ButtonGroup>
                 {/* <Button name="test" onClick={dayHandler}>test</Button> */}
             </div>
