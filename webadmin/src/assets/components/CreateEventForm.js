@@ -513,8 +513,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 //fileToUpload(e)
                 uploadFile(e.target.files[0],"test")
             }}/> */}
-            <p>{JSON.stringify(finalForm, null, 2)}</p>
-            <p>{JSON.stringify(Files,null,2)}</p>
+            {/* <p>{JSON.stringify(finalForm, null, 2)}</p>
+            <p>{JSON.stringify(Files,null,2)}</p> */}
         </div>
     )
 }
