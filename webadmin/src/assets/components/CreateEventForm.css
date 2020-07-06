@@ -37,6 +37,7 @@
     border-left: none;
     border-right: none;
     box-shadow: none !important;
+    border-radius: 0px;
 }
 
 /* .navbarButtons button:hover {

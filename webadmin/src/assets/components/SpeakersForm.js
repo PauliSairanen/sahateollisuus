@@ -20,7 +20,7 @@ import AddButton from '../components/AddButton'
  */
 const SpeakersForm = (props) => {
     const [Form, setForm] = useState(props.subForm)
-    function clickHandler(e){
+    function clickHandler(e){ //deprecated
         e.preventDefault(); //prevents page refresh
         let form = Form;
         form.push({
@@ -42,7 +42,8 @@ const SpeakersForm = (props) => {
             Title: "",
             SpecialTitle: "",
             Company: "",
-            ImageID: ""
+            ImageID: "",
+            Description: ""
         })
         setForm(form)
         props.editForm("speakers", Form)
@@ -60,6 +61,7 @@ const SpeakersForm = (props) => {
                         SpecialTitle: jsonData[i][2],
                         Company: jsonData[i][3],
                         ImageID: jsonData[i][4],
+                        Description: jsonData[i][5],
                     }
                 )
             }
