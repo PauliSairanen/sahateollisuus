@@ -18,6 +18,7 @@ const SpeakerDetailsScreen = props => {
   const specialTitle = props.navigation.getParam('specialTitle')
   const company = props.navigation.getParam('company')
   const imageID = props.navigation.getParam('imageID')
+  const description = props.navigation.getParam('description')
 
   const programmeData = useSelector(state => state.eventData.programmeData)
   const arrayOfProgramme = []
@@ -55,7 +56,7 @@ const SpeakerDetailsScreen = props => {
         <View style={styles.contentContainer}>
           <View style={styles.bodyText}>
             {/* !!! Admin panel requires another text field, that is used to write a description about speaker !!! */}
-            {/* <Text style={styles.bodyText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</Text> */}
+            <Text style={styles.bodyText}>{description}</Text>
           </View>
         </View>
         <View style={styles.contentContainer}>
@@ -84,8 +85,8 @@ const SpeakerDetailsScreen = props => {
         </View>
         <View style={styles.contentContainer}>
           <View style={styles.bodyText}>
-             {/* !!! Admin panel requires another text field, that is used to write a description about speaker !!! */}
-            {/* <Text style={styles.bodyText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</Text> */}
+            {/* !!! Admin panel requires another text field, that is used to write a description about speaker !!! */}
+            <Text style={styles.bodyText}>{description}</Text>
           </View>
         </View>
         <View style={styles.contentContainer}>
