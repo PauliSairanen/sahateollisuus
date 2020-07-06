@@ -8,11 +8,6 @@
     box-shadow: 0 0 10px 5px rgb(0, 0, 0, 0.125);
 }
 
-#venueTitle {
-    position: relative;
-    top: 45px;
-}
-
 .form-group {
     display: block;
     width: auto;

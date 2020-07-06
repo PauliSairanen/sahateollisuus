@@ -49,22 +49,26 @@ const VenueCard = props => {
   return (
     
     <Card>
-      <Form>
-        <FormGroup className="file">
+      <div className="wrapper">
+        <div className="bigDiv">
+          <Form>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Title of the Venue</FormLabel>
+                  <FormControl size="sm" value={formObject.title} onChange={(e) => {changeHandler(e)}} name="title"></FormControl>
+                </FormGroup>
+              </Col>
+            </Row>
+          </Form>
+        </div>
+        <div className="smallDiv">
           <FormLabel><Image className="filePrev" src={formObject.venueImgsrc} fluid/></FormLabel>
           <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose image</label>
           <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
-          {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
-        </FormGroup>
-        <Row id="venueTitle">
-          <Col>
-            <FormGroup>
-              <FormLabel>Title</FormLabel>
-              <FormControl size="sm" value={formObject.title} onChange={(e) => {changeHandler(e)}} name="title"></FormControl>
-            </FormGroup>
-          </Col>
-        </Row>
-      </Form>
+            {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
+        </div>
+      </div>
       {/* <Button className="deleteButton" onClick={deleteFunction}>
         <span className="deleteButtonText">-</span>
       </Button> */}
