@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, FlatList, StyleSheet, Text, Dimensions } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { useSelector } from 'react-redux'
@@ -10,6 +10,8 @@ import serverURL from '../../constants/Networking'
 
 const SpeakerDetailsScreen = props => {
   const eventId = useSelector(state => state.eventData.eventId)
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const speakerName = props.navigation.getParam('speakerName')
   const title = props.navigation.getParam('title')
@@ -39,6 +41,8 @@ const SpeakerDetailsScreen = props => {
               source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
               style={styles.image}
               resizeMode={FastImage.resizeMode.cover}
+              onLoadStart={setIsLoading(true)}
+              onLoadEnd={setIsLoading(false)}
             />
           </View>
         </View>
