@@ -23,6 +23,8 @@ import Spinner from 'react-bootstrap/Spinner'
 import Toast from 'react-bootstrap/Toast'
 
 import Image from 'react-bootstrap/Image'
+import LoginScreen from '../screens/LoginScreen';
+
 /**
  * @param changeContent - change screen
  * @param id - Event to edit based on ID
@@ -43,6 +45,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
 
     const [ModalShow, setModalShow] = useState(false)
     const [ModalText, setModalText] = useState()
+    //ReAuth modal
+    const [ModalAuth, setModalAuth] = useState(false)
     //Form variables
     const [FormObjects, setFormObjects] = useState({
         //About Form
@@ -85,37 +89,39 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     //Input event id, get data to set formobjects
     async function parseEventData(id){
         let data = await getEventData(id);
-        setFormObjects({
-            //About Form
-            eventPass: "",
-            eventName: `${data.metadata.eventName}`,
-            eventImage: `${data.metadata.eventImage}`, //https://sahat.lamk.fi/saveFile
-            eventColor: `${data.metadata.colorScheme}`,
-            visibility: `${data.metadata.visibility}`,
-            eventWebUrl: `${data.about.eventWebUrl}`,
-            bodyText1: `${data.about.bodyText1}`,
-            bodyText2: `${data.about.bodyText2}`,
-            bodyText3: `${data.about.bodyText3}`,
-            bodyText4: `${data.about.bodyText4}`,
-            disclaimer1: `${data.about.disclaimer1}`,
-            disclaimer2: `${data.about.disclaimer2}`,
-            placeName: `${data.about.eventPlace.name}`,
-            placeAddress: `${data.about.eventPlace.address}`,
-            placePhone: `${data.about.eventPlace.phone}`,
-            placeEmail: `${data.about.eventPlace.email}`,
-            eventTitle: `${data.about.title}`,
-            MiWebsite: `${data.about.moreInformation.eventWebsite}`,
-            MiOrg: `${data.about.moreInformation.organizer}`,
-            MiEmail: `${data.about.moreInformation.email}`,
-            participants: data.participants,
-            programme: data.programme,
-            speakers: data.speakers,
-            sponsors: data.sponsors,
-            bodyText: data.about.bodyText,
-            disclaimer: data.about.disclaimer,
-            venue: data.venue,
-            mapmarkers: data.mapData
-        })
+        if(data){
+            setFormObjects({
+                //About Form
+                eventPass: "",
+                eventName: `${data.metadata.eventName}`,
+                eventImage: `${data.metadata.eventImage}`, //https://sahat.lamk.fi/saveFile
+                eventColor: `${data.metadata.colorScheme}`,
+                visibility: `${data.metadata.visibility}`,
+                eventWebUrl: `${data.about.eventWebUrl}`,
+                bodyText1: `${data.about.bodyText1}`,
+                bodyText2: `${data.about.bodyText2}`,
+                bodyText3: `${data.about.bodyText3}`,
+                bodyText4: `${data.about.bodyText4}`,
+                disclaimer1: `${data.about.disclaimer1}`,
+                disclaimer2: `${data.about.disclaimer2}`,
+                placeName: `${data.about.eventPlace.name}`,
+                placeAddress: `${data.about.eventPlace.address}`,
+                placePhone: `${data.about.eventPlace.phone}`,
+                placeEmail: `${data.about.eventPlace.email}`,
+                eventTitle: `${data.about.title}`,
+                MiWebsite: `${data.about.moreInformation.eventWebsite}`,
+                MiOrg: `${data.about.moreInformation.organizer}`,
+                MiEmail: `${data.about.moreInformation.email}`,
+                participants: data.participants,
+                programme: data.programme,
+                speakers: data.speakers,
+                sponsors: data.sponsors,
+                bodyText: data.about.bodyText,
+                disclaimer: data.about.disclaimer,
+                venue: data.venue,
+                mapmarkers: data.mapData
+            })
+        }
     }
     //When EditID is set and if it excists, run parseEventData
     useEffect(() => {
@@ -316,6 +322,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 
                 setModalShow(false)
                 toast("Error",`${error.response.data.message}`)
+                //Todo check if error is invalid auth, if true then setModalAuth
             }
             else{
                 setModalShow(false)
@@ -339,6 +346,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         .catch(function (error) {
             console.log(error);
+            //Todo check if error is invalid auth, if true then setModalAuth
+            return null
         })
     }
     //function that uploads files.
@@ -363,6 +372,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         .catch(function (error){
             console.log(error);
+            //Todo? check if error is invalid auth, if true then setModalAuth
             return false
         })
     }
@@ -393,7 +403,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         }
         if(retry >= 3){
             setModalShow(false)
-            toast("Error!","Failed to upload a file")
+            toast("Error!","Failed to upload a file after multiple attempts")
         }
         else{
             setModalShow(false)
@@ -451,6 +461,14 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             <Modal show={ModalShow} backdrop="static" keyboard={false}>
                 <Modal.Header>Processing request <Spinner animation="border"/></Modal.Header>
                 <Modal.Body>{ModalText}</Modal.Body>
+            </Modal>
+            <Modal show={ModalAuth} backdrop="static" keyboard={false}>
+                <Modal.Header>Authentication token has expired. Please reauthenticate.</Modal.Header>
+                <Modal.Body>
+                    <LoginScreen
+                        changeContent={()=>{}}
+                        visibility={setModalAuth}/>
+                </Modal.Body>
             </Modal>
             <Navbar bg="light" variant="light" expand="lg" style={{display:'flex', paddingLeft:'50px', paddingRight:'50px', justifyContent:'space-between', alignContent:'center'}}>
                 <Button className="otherButtons" onClick={()=>
