@@ -99,7 +99,6 @@ const KeynoteAndProgrammeItem = props => {
 
 const styles = StyleSheet.create({
   listElement: {
-    // margin: 15,
     marginTop: 15,
     width: Dimensions.get('window').width / 100 * 85,
     borderBottomColor: '#e0e0e0',

@@ -3,6 +3,8 @@ import { View, Text, Dimensions } from 'react-native'
 
 const AdjustingText = props => {
   const screenWidth = Dimensions.get('screen').width
+
+  console.log(screenWidth)
   let fontSize = 8
 
   if (screenWidth <= 300) {
@@ -10,6 +12,9 @@ const AdjustingText = props => {
   }
   if (screenWidth <= 350) {
     fontSize =12
+  }
+  if (screenWidth <= 375) {
+    fontSize =13
   }
   if (screenWidth >= 400) {
     fontSize = 14
