@@ -148,9 +148,9 @@ const ParticipantsForm = (props) => {
             {/* {cardContainer} */}
         </div>
 
-        <div className="footer" style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', backgroundColor:'white', position:'fixed', bottom:'0', width:'100%'}}>
+        {/* <div className="footer" style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', backgroundColor:'white', position:'fixed', bottom:'0', width:'100%'}}>
             <p>This software uses react-lazyload - see library-license.txt</p>
-        </div>
+        </div> */}
         {/* <label>.xlsx file input</label>
         <input type="file" onChange={fileHandler}/> */}
         {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm}/> : null} */}
