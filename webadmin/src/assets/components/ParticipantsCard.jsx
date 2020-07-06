@@ -1,12 +1,10 @@
 import React from 'react';
-import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
+import {Card, FormGroup, FormLabel, FormControl, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import { useEffect } from 'react';
 import DeleteButton from './DeleteButton';
 import './ParticipantsCard.css';
-import {OverlayTrigger, Tooltip} from 'react-bootstrap'
-
 
 const SponsorCard = props => {
 
@@ -35,65 +33,66 @@ const SponsorCard = props => {
     props.editForm(data)
   }
   return (
-    
     <Card>
-      <h6>{props.index}</h6>
-      <Form>
-        <Row>
-          <Col>
-            <FormGroup>
-              <FormLabel>First name</FormLabel>
-              <FormControl size="sm" value={formObject.FirstName} onChange={(e) => {changeHandler(e)}} name="FirstName"></FormControl>
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <FormLabel>Last name</FormLabel>
-              <FormControl size="sm" value={formObject.LastName} onChange={(e) => {changeHandler(e)}} name="LastName"></FormControl>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <FormGroup>
-              <FormLabel>Email</FormLabel>
-              <FormControl size="sm" value={formObject.Email} onChange={(e) => {changeHandler(e)}} name="Email"></FormControl>
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <FormLabel>Phone</FormLabel>
-              <OverlayTrigger 
-                placement="bottom" 
-                delay={{show: 250, hide: 250}}
-                overlay={<Tooltip>Include area code. Example: +358 12345678</Tooltip>}
-                >
-                <FormControl size="sm" value={formObject.Phone} onChange={(e) => {changeHandler(e)}} name="Phone"></FormControl>
-              </OverlayTrigger>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <FormGroup>
-              <FormLabel>Company</FormLabel>
-              <FormControl size="sm" value={formObject.Company} onChange={(e) => {changeHandler(e)}} name="Company"></FormControl>
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <FormLabel>Country ISO Code</FormLabel>
-              <OverlayTrigger 
-                placement="bottom" 
-                delay={{show: 250, hide: 250}}
-                overlay={<Tooltip>Example: FI, SE, FR</Tooltip>}
-                >
-                <FormControl size="sm" value={formObject.Country} onChange={(e) => {changeHandler(e)}} name="Country"></FormControl>
-              </OverlayTrigger>
-            </FormGroup>
-          </Col>
-        </Row>
-      </Form>
+      <div className="bigDiv">
+        <h6>{props.index}</h6>
+        <Form>
+          <Row>
+            <Col>
+              <FormGroup>
+                <FormLabel>First name</FormLabel>
+                <FormControl size="sm" value={formObject.FirstName} onChange={(e) => {changeHandler(e)}} name="FirstName"></FormControl>
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <FormLabel>Last name</FormLabel>
+                <FormControl size="sm" value={formObject.LastName} onChange={(e) => {changeHandler(e)}} name="LastName"></FormControl>
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormGroup>
+                <FormLabel>Email</FormLabel>
+                <FormControl size="sm" value={formObject.Email} onChange={(e) => {changeHandler(e)}} name="Email"></FormControl>
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <FormLabel>Phone</FormLabel>
+                <OverlayTrigger 
+                  placement="bottom" 
+                  delay={{show: 250, hide: 250}}
+                  overlay={<Tooltip>Include area code. Example: +358 12345678</Tooltip>}
+                  >
+                  <FormControl size="sm" value={formObject.Phone} onChange={(e) => {changeHandler(e)}} name="Phone"></FormControl>
+                </OverlayTrigger>
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormGroup>
+                <FormLabel>Company</FormLabel>
+                <FormControl size="sm" value={formObject.Company} onChange={(e) => {changeHandler(e)}} name="Company"></FormControl>
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <FormLabel>Country ISO Code</FormLabel>
+                <OverlayTrigger 
+                  placement="bottom" 
+                  delay={{show: 250, hide: 250}}
+                  overlay={<Tooltip>Example: FI, SE, FR</Tooltip>}
+                  >
+                  <FormControl size="sm" value={formObject.Country} onChange={(e) => {changeHandler(e)}} name="Country"></FormControl>
+                </OverlayTrigger>
+              </FormGroup>
+            </Col>
+          </Row>
+        </Form>
+      </div>
       <DeleteButton onClick={deleteHandler}/>
     </Card>
   )

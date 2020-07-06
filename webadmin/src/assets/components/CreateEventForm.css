@@ -6,19 +6,28 @@
 
 /* Card styling */
 .card {
-    padding: 0px;
+    padding: 10px;
 }
 
 .wrapper {
-    
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
 }
 
 .bigDiv {
-
+    flex: 6;
+    margin: 10px;
 }
 
 .smallDiv {
-
+    display: flex;
+    flex: 1;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
 }
 
 /* Navbar button styling */
@@ -43,6 +52,17 @@
     border-bottom: solid 2px var(--main-color) !important;
     background-color: white !important;
     box-shadow: none !important;
+}
+
+.active:disabled{
+    color: var(--main-color) !important;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid 2px var(--main-color) !important;
+    background-color: white !important;
+    box-shadow: none !important;
+    opacity: 1;
 }
 
 .inactive {

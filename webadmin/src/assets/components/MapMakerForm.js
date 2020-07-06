@@ -205,10 +205,10 @@ const MapMarkerForm = (props) =>{
             <Card className="text-center" style={{width: '40rem', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
                 <h5>Marker Category</h5>
                 <Row style={{marginBottom: '10px'}}>
-                    <ButtonGroup>
-                        <Button name="restaurants" onClick={catHandler} disabled={ActiveCat === "restaurants"}>Restaurants</Button>
-                        <Button name="hotels" onClick={catHandler} disabled={ActiveCat === "hotels"}>Hotels</Button>
-                        <Button name="others" onClick={catHandler} disabled={ActiveCat === "others"}>Others</Button>
+                    <ButtonGroup className="navbarButtons">
+                        <Button name="restaurants" onClick={catHandler} className={ActiveCat === "restaurants" ? "active" : "inactive"} disabled={ActiveCat === "restaurants"}>Restaurants</Button>
+                        <Button name="hotels" onClick={catHandler} className={ActiveCat === "hotels" ? "active" : "inactive"} disabled={ActiveCat === "hotels"}>Hotels</Button>
+                        <Button name="others" onClick={catHandler} className={ActiveCat === "others" ? "active" : "inactive"} disabled={ActiveCat === "others"}>Others</Button>
                     </ButtonGroup>
                 </Row>
                 <Row>

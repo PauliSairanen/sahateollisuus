@@ -153,50 +153,53 @@ const MapMarkerCard = props => {
   }
   //Kuvat https://sahat.lamk.fi/public/{EventID}/{FileName}
   return (
-    
     <Card>
-      {props.markerType === "restaurants" ? <p>Restaurant</p>: null}
-      {props.markerType === "hotels" ? <p>Hotel</p> : null}
-      {props.markerType === "others" ? <p>Other</p> : null}
-      <Form>
-        <FormGroup className="file">
+      <div className="wrapper">
+        <div className="bigDiv">
+          {props.markerType === "restaurants" ? <p>Restaurant</p>: null}
+          {props.markerType === "hotels" ? <p>Hotel</p> : null}
+          {props.markerType === "others" ? <p>Other</p> : null}
+          <Form>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Latitude</FormLabel>
+                  <FormControl size="sm" value={formObject.lat} onChange={(e) => {changeHandler(e)}} name="lat"></FormControl>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Longitude</FormLabel>
+                  <FormControl size="sm" value={formObject.long} onChange={(e) => {changeHandler(e)}} name="long"></FormControl>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl size="sm" value={formObject.name} onChange={(e) => {changeHandler(e)}} name="name"></FormControl>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Address</FormLabel>
+                  <FormControl size="sm" value={formObject.address} onChange={(e) => {changeHandler(e)}} name="address"></FormControl>
+                  <FormText className="text-danger">{ErrorMsg}</FormText>
+                </FormGroup>
+                <Col>
+                  <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/>Geocode lat and long </Button>
+                </Col>
+              </Col>
+            </Row>
+            {secondRow}
+          </Form>
+        </div>
+        <div className="smallDiv">
           <FormLabel><Image className="filePrev" src={formObject.markerImgsrc} fluid/></FormLabel>
           <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose image</label>
           <FormControl size="sm" onChange={(e) => {changeImage(e);changeHandler(e); fileHandler(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
-        </FormGroup>
-        <Row>
-          <Col>
-            <FormGroup>
-              <FormLabel>Latitude</FormLabel>
-              <FormControl size="sm" value={formObject.lat} onChange={(e) => {changeHandler(e)}} name="lat"></FormControl>
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <FormLabel>Longitude</FormLabel>
-              <FormControl size="sm" value={formObject.long} onChange={(e) => {changeHandler(e)}} name="long"></FormControl>
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <FormLabel>Name</FormLabel>
-              <FormControl size="sm" value={formObject.name} onChange={(e) => {changeHandler(e)}} name="name"></FormControl>
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <FormLabel>Address</FormLabel>
-              <FormControl size="sm" value={formObject.address} onChange={(e) => {changeHandler(e)}} name="address"></FormControl>
-              <FormText className="text-danger">{ErrorMsg}</FormText>
-            </FormGroup>
-            <Col>
-              <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/>Geocode lat and long </Button>
-            </Col>
-          </Col>
-        </Row>
-        {secondRow}
-      </Form>
+        </div>
+      </div>
       <label>Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright</label>
       <DeleteButton onClick={deleteHandler}></DeleteButton>
     </Card>

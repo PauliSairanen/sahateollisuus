@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
+import {Card, FormGroup, FormLabel, FormControl, OverlayTrigger, Tooltip} from 'react-bootstrap'
 //import {Button} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
@@ -55,32 +55,32 @@ const ProgrammeCard = props => {
     }
 
     return (
-        <Card>
-            <div className="wrapper" style={{display: "flex", flex: "1", justifyContent: "center", alignItems: "center"}}>
-                <div className="bigDiv" style={{flex: "6", margin: "10px"}}>
+      <Card>
+            <div className="wrapper">
+                <div className="bigDiv">
                     <Form>
                         <Row>
                             <Col>
                                 <FormGroup>
-                                    <FormLabel>Name of speaker</FormLabel>
+                                    <FormLabel>Name of the Speaker</FormLabel>
                                     <FormControl size="sm" onChange={changeHandler} name="NameOfSpeaker" value={formObject.NameOfSpeaker}></FormControl>
                                 </FormGroup>
                             </Col>
                             <Col>
                                 <FormGroup>
-                                    <FormLabel>Title of speaker</FormLabel>
+                                    <FormLabel>Title of the Speaker</FormLabel>
                                     <FormControl size="sm" onChange={changeHandler} name="TitleOfSpeaker" value={formObject.TitleOfSpeaker}></FormControl>
                                 </FormGroup>
                             </Col>
                             <Col>
                                 <FormGroup>
-                                    <FormLabel>Special title of speaker</FormLabel>
+                                    <FormLabel>Special Title of the Speaker</FormLabel>
                                     <FormControl size="sm" onChange={changeHandler} name="SpecialTitleOfSpeaker" value={formObject.SpecialTitleOfSpeaker}></FormControl>
                                 </FormGroup>
                             </Col>
                             <Col>
                                 <FormGroup>
-                                    <FormLabel>Company of speaker</FormLabel>
+                                    <FormLabel>Company of the Speaker</FormLabel>
                                     <FormControl size="sm" onChange={changeHandler} name="Company" value={formObject.Company}></FormControl>
                                 </FormGroup>
                             </Col>
@@ -95,7 +95,13 @@ const ProgrammeCard = props => {
                             <Col>
                                 <FormGroup>
                                     <FormLabel>Time</FormLabel>
+                                    <OverlayTrigger 
+                                    placement="bottom" 
+                                    delay={{show: 250, hide: 250}}
+                                    overlay={<Tooltip>Example 15:00-15:30</Tooltip>}
+                                    >
                                     <FormControl size="sm" name="Time" onChange={changeHandler} value={formObject.Time}></FormControl>
+                                    </OverlayTrigger>
                                 </FormGroup>
                             </Col>
                             <Col>
@@ -113,7 +119,7 @@ const ProgrammeCard = props => {
                         </Row>
                     </Form>
                 </div>
-                <div className="smallDiv" style={{display: "flex", flex: "1", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: "10px"}}>
+                <div className="smallDiv">
                     {/* <FormGroup className="file"> */}
                                 <FormLabel>{PdfIconElement}</FormLabel>
                                 <label htmlFor={"hidden-"+props.index} className="labelForHidden" style={{width: "111.25px"}}>Choose PDF</label>
@@ -121,7 +127,6 @@ const ProgrammeCard = props => {
                     {/* </FormGroup> */}
                 </div>
             </div>
-            
             {/* <Button className="deleteButton" onClick={deleteHandler}>
                 <span className="deleteButtonText">-</span>
             </Button> */}

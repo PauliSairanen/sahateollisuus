@@ -23,9 +23,9 @@ const AboutCard = props => {
 
   //Kuvat https://sahat.lamk.fi/public/{EventID}/{FileName}
   return (
-    <div>
-      <Form onChange={(e)=> props.onChange(e)}>
-        <Card>
+    <Form onChange={(e)=> props.onChange(e)}>
+      <Card>
+        <div className="bigDiv">
           <FormLabel>Welcome text</FormLabel>
           <Row>
             <Col>
@@ -59,8 +59,10 @@ const AboutCard = props => {
               </FormGroup>
             </Col>
           </Row>
-        </Card>
-        <Card>
+        </div>
+      </Card>
+      <Card>
+        <div className="bigDiv">
           <FormLabel>Venue information</FormLabel>
           <Row>
             <Col>
@@ -96,8 +98,10 @@ const AboutCard = props => {
               </FormGroup>
             </Col>
           </Row>
-        </Card>
-        <Card>
+        </div>
+      </Card>
+      <Card>
+        <div className="bigDiv">
           <FormLabel>More information</FormLabel>
           <Row>
             <Col>
@@ -121,8 +125,10 @@ const AboutCard = props => {
               </FormGroup>
             </Col>
           </Row>
-        </Card>
-        <Card>
+        </div>
+      </Card>
+      <Card>
+        <div className="bigDiv">
           <Row>
             <Col>
               <FormGroup>
@@ -138,9 +144,9 @@ const AboutCard = props => {
               </FormGroup>
             </Col>
           </Row>
-        </Card>
-      </Form>
-    </div>
+        </div>
+      </Card>
+    </Form>
   )
 }
 

@@ -49,29 +49,33 @@ const SponsorCard = props => {
   }
   return (
     <Card>
-      <Form>
-        <FormGroup className="file">
+      <div className="wrapper">
+        <div className="bigDiv">
+          <Form>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Name of the Company</FormLabel>
+                  <FormControl value={formObject.CompanyName} name="CompanyName" onChange={(e) => changeHandler(e)} placeholder="Name of company"></FormControl>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Url of the Company</FormLabel>
+                  <FormControl value={formObject.CompanyUrl} name="CompanyUrl" onChange={(e) => changeHandler(e)} placeholder="Url of company"></FormControl>
+                </FormGroup>
+              </Col>
+            </Row>
+          </Form>
+        </div>
+        <div className="smallDiv">
           <FormLabel><Image className="filePrev" src={formObject.sponsorImgsrc} fluid/></FormLabel>
           <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose image</label>
           <FormControl className="hidden" name="ImageID" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} type='file' id={'hidden-'+props.index}/>
-        </FormGroup>
-        <Row>
-          <Col>
-            <FormGroup>
-              <FormLabel>Name of company</FormLabel>
-              <FormControl value={formObject.CompanyName} name="CompanyName" onChange={(e) => changeHandler(e)} placeholder="Name of company"></FormControl>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <FormGroup>
-              <FormLabel>Url of company</FormLabel>
-              <FormControl value={formObject.CompanyUrl} name="CompanyUrl" onChange={(e) => changeHandler(e)} placeholder="Url of company"></FormControl>
-            </FormGroup>
-          </Col>
-        </Row>
-      </Form>
+        </div>
+      </div>
       <DeleteButton onClick={deleteHandler}/>
     </Card>
   )
