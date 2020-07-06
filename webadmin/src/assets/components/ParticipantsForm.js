@@ -93,7 +93,7 @@ const ParticipantsForm = (props) => {
     }
     dataContainer = Form.slice(0).reverse().map((item, index)=>{
         return(
-            <LazyLoad height={200}>
+            <LazyLoad height={200} key={index}>
                 <ParticipantsCard 
                     key={index} 
                     index={index} 
