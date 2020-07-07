@@ -15,7 +15,7 @@ const LoginScreen = (props) => {
     localStorage.setItem("Form", form);
     const [Details, setDetails] = useState("")
     const baseURL = 'https://sahat.lamk.fi';
-    let session = localStorage.getItem("Session");
+    //let session = localStorage.getItem("Session");
     let canLogin = true;
 
     // if(session !== null){

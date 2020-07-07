@@ -49,10 +49,13 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     const [ModalAuth, setModalAuth] = useState(false)
     //Form variables
     const [FormObjects, setFormObjects] = useState({
-        //About Form
+        //About/General Form
         eventPass: "",
         eventName: "",
         visibility: "hidden",
+        address: "",
+        lat: "",
+        long: "",
         eventColor: "",
         eventImage: "", //https://sahat.lamk.fi/saveFile
         eventWebUrl: "",
@@ -81,7 +84,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             others: [],
         },
         venue: [],
-        //more about from stuff
+        //more about from stuff (deprecated)
         bodyText: [],
         disclaimer: [],
         
@@ -97,6 +100,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 eventImage: `${data.metadata.eventImage}`, //https://sahat.lamk.fi/saveFile
                 eventColor: `${data.metadata.colorScheme}`,
                 visibility: `${data.metadata.visibility}`,
+                address: `${data.metadata.address}`,
+                lat: `${data.metadata.lat}`,
+                long: `${data.metadata.long}`,
                 eventWebUrl: `${data.about.eventWebUrl}`,
                 bodyText1: `${data.about.bodyText1}`,
                 bodyText2: `${data.about.bodyText2}`,
@@ -154,9 +160,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     else if(ActiveForm === "GeneralForm"){
         container = <GeneralCard
             editForm={changeHandler}
+            appendForm={appendForm}
             FO={FormObjects}
             fileToUpload={fileToUpload}
             ID={EditID}
+            appendAsyncForm={appendAsyncForm}
         />
     }
     else if(ActiveForm === "ParticipantsForm"){
@@ -226,6 +234,15 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             [target]: value
         })
     }
+    async function appendAsyncForm(target,value){
+        return new Promise(res =>{
+            setFormObjects({
+                ...FormObjects,
+                [target]: value
+            })
+            res(true)
+        })
+    }
     //Complete form (to send to back-end)
     let finalForm = {
         eventPass: `${FormObjects.eventPass}`,
@@ -234,6 +251,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             eventImage: `${FormObjects.eventImage}`,
             visibility: `${FormObjects.visibility}`,
             colorScheme: `${FormObjects.eventColor}`,
+            address: `${FormObjects.address}`,
+            lat: `${FormObjects.lat}`,
+            long: `${FormObjects.long}`
         },
         about: {
             eventWebUrl: `${FormObjects.eventWebUrl}`,
