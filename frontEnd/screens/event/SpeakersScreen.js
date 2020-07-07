@@ -37,7 +37,7 @@ const SpeakersScreen = props => {
               specialTitle={speakersData.item.SpecialTitle}
               image={speakersData.item.ImageID}
               eventId={eventId}
-              description={speakersData.item.description}
+              description={speakersData.item.Description}
             />
           }
         />

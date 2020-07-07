@@ -9,17 +9,18 @@ import KeynoteAndProgrammeItem from '../../components/ListItems/KeynoteAndProgra
 import serverURL from '../../constants/Networking'
 
 const SpeakerDetailsScreen = props => {
-  const eventId = useSelector(state => state.eventData.eventId)
-
   const [isLoading, setIsLoading] = useState(false)
-
+  
   const speakerName = props.navigation.getParam('speakerName')
   const title = props.navigation.getParam('title')
   const specialTitle = props.navigation.getParam('specialTitle')
   const company = props.navigation.getParam('company')
   const imageID = props.navigation.getParam('imageID')
   const description = props.navigation.getParam('description')
-
+  
+  console.log(description)
+  
+  const eventId = useSelector(state => state.eventData.eventId)
   const programmeData = useSelector(state => state.eventData.programmeData)
   const arrayOfProgramme = []
 
@@ -55,7 +56,6 @@ const SpeakerDetailsScreen = props => {
         </View>
         <View style={styles.contentContainer}>
           <View style={styles.bodyText}>
-            {/* !!! Admin panel requires another text field, that is used to write a description about speaker !!! */}
             <Text style={styles.bodyText}>{description}</Text>
           </View>
         </View>
@@ -85,7 +85,6 @@ const SpeakerDetailsScreen = props => {
         </View>
         <View style={styles.contentContainer}>
           <View style={styles.bodyText}>
-            {/* !!! Admin panel requires another text field, that is used to write a description about speaker !!! */}
             <Text style={styles.bodyText}>{description}</Text>
           </View>
         </View>

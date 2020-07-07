@@ -23,10 +23,9 @@ const SpeakersItem = props => {
   const imageID = props.image
   const description = props.description
 
-  console.log(description)
-
-  console.log('Current speaker´s image is : ' + imageID)
-  console.log('Current event´s eventId is : ' + eventId)
+  console.log('description text is: ' + description)
+  // console.log('Current speaker´s image is : ' + imageID)
+  // console.log('Current event´s eventId is : ' + eventId)
 
   if (speakerName && title && company && !specialTitle) {
     return (
@@ -39,8 +38,8 @@ const SpeakersItem = props => {
               title: title,
               specialTitle: specialTitle,
               company: company,
-              imageID: imageID,
               description : description,
+              imageID: imageID,
             })
           }}
         >
@@ -73,6 +72,7 @@ const SpeakersItem = props => {
               title: title,
               specialTitle: specialTitle,
               company: company,
+              description : description,
               imageID: imageID
             })
           }}
