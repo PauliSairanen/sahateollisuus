@@ -164,7 +164,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             FO={FormObjects}
             fileToUpload={fileToUpload}
             ID={EditID}
-            appendAsyncForm={appendAsyncForm}
+            latlongForm={latlongForm}
         />
     }
     else if(ActiveForm === "ParticipantsForm"){
@@ -234,13 +234,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             [target]: value
         })
     }
-    async function appendAsyncForm(target,value){
-        return new Promise(res =>{
-            setFormObjects({
-                ...FormObjects,
-                [target]: value
-            })
-            res(true)
+    function latlongForm(lat, long){
+        setFormObjects({
+            ...FormObjects,
+            lat: lat,
+            long: long
         })
     }
     //Complete form (to send to back-end)
@@ -342,7 +340,10 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 
                 setModalShow(false)
                 toast("Error",`${error.response.data.message}`)
-                //Todo check if error is invalid auth, if true then setModalAuth
+
+                if(error.response.status === 404){
+                    setModalAuth(true)
+                }
             }
             else{
                 setModalShow(false)
@@ -366,7 +367,10 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         .catch(function (error) {
             console.log(error);
-            //Todo check if error is invalid auth, if true then setModalAuth
+
+            if(error.response.status === 404){
+                setModalAuth(true)
+            }
             return null
         })
     }
@@ -392,7 +396,10 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         .catch(function (error){
             console.log(error);
-            //Todo? check if error is invalid auth, if true then setModalAuth
+
+            if(error.response.status === 404){
+                setModalAuth(true)
+            }
             return false
         })
     }
@@ -457,7 +464,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         else{
             //console.log("dup not found")
         }
-        files.push( //todo ID
+        files.push(
             {
                 category: category,
                 file: file,
