@@ -144,6 +144,7 @@ const ParticipantsForm = (props) => {
             <label htmlFor="hidden-input" className="labelForHidden">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
         </form>
+        <a style={{display:'flex',justifyContent:'center',alignContent:'center'}} href='/Excel/Participants.xlsx' download>Click to download base Excel Form</a>
         <div style={
             {
                 marginRight:'20px', marginLeft:'20px', display:'flex',justifyContent:'center', 
