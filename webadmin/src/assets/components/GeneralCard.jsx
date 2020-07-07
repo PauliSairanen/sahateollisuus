@@ -101,13 +101,13 @@ const GeneralCard = props => {
                 <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/></Button>
                 </OverlayTrigger>
               </Col>
-              <Col>
+              <Col sm={3}>
                 <FormGroup>
                   <FormLabel>Latitude</FormLabel>
                   <FormControl size="sm" defaultValue={formObject.lat} onChange={(e)=> props.editForm(e)} name="lat"></FormControl>
                 </FormGroup>
               </Col>
-              <Col>
+              <Col sm={3}>
                 <FormGroup>
                   <FormLabel>Longitude</FormLabel>
                   <FormControl size="sm" defaultValue={formObject.long} onChange={(e)=> props.editForm(e)} name="long"></FormControl>

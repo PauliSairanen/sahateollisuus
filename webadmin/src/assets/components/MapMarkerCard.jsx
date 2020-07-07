@@ -87,8 +87,8 @@ const MapMarkerCard = props => {
         <Col>
           <FormGroup>
             <FormLabel>Category</FormLabel>
-            <OverlayTrigger 
-              placement="bottom" 
+            <OverlayTrigger
+              placement="bottom"
               delay={{show: 250, hide: 250}}
               overlay={<Tooltip>Type of restaurant. Example: "Burger", "Pizza", "Chinese" etc</Tooltip>}
               >
