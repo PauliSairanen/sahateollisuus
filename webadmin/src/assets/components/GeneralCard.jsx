@@ -46,8 +46,9 @@ const GeneralCard = props => {
       .then(function (res) {
         // data[props.index]["lat"] = res.data[0].lat;
         // data[props.index]["long"] = res.data[0].lon;
-        props.appendForm("lat", res.data[0].lat)
+        //props.appendForm("lat", res.data[0].lat)
         //props.appendForm("long", res.data[0].lon)
+        props.latlongForm(res.data[0].lat, res.data[0].lon)
       })
       .catch(function (error) {
         console.log(error)

@@ -164,7 +164,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             FO={FormObjects}
             fileToUpload={fileToUpload}
             ID={EditID}
-            appendAsyncForm={appendAsyncForm}
+            latlongForm={latlongForm}
         />
     }
     else if(ActiveForm === "ParticipantsForm"){
@@ -234,13 +234,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             [target]: value
         })
     }
-    async function appendAsyncForm(target,value){
-        return new Promise(res =>{
-            setFormObjects({
-                ...FormObjects,
-                [target]: value
-            })
-            res(true)
+    function latlongForm(lat, long){
+        setFormObjects({
+            ...FormObjects,
+            lat: lat,
+            long: long
         })
     }
     //Complete form (to send to back-end)
