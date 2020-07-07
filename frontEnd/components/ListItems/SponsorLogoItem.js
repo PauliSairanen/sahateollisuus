@@ -6,6 +6,7 @@ import FastImage from 'react-native-fast-image'
 
 import Card from '../Universal/Card'
 import serverURL from '../../constants/Networking'
+import ImageWithLoadingIndicator from '../Universal/ImageWithLoadingIndicator'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -26,8 +27,8 @@ const SponsorLogoItem = props => {
         }}
       >
         <View style={styles.imageContainer}>
-          <FastImage
-            source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
+          <ImageWithLoadingIndicator
+            source={`${serverURL}/public/${eventId}/${imageID}`}
             style={styles.image}
             resizeMode={FastImage.resizeMode.contain}
           />

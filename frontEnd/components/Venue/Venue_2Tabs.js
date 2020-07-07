@@ -7,6 +7,7 @@ import FastImage from 'react-native-fast-image'
 
 import Colors from '../../constants/Colors'
 import serverURL from '../../constants/Networking'
+import ImageWithLoadingIndicator from '../Universal/ImageWithLoadingIndicator'
 
 const initialLayout = { width: Dimensions.get('window').width }
 
@@ -30,9 +31,9 @@ const Venue_2Tabs = props => {
         initialZoom={1}
         bindToBorders={true}
         captureEvent={true}
-      > 
-        <FastImage
-          source={{ uri: `${serverURL}/public/${eventId}/${ImageID1}` }}
+      >
+        <ImageWithLoadingIndicator
+          source={`${serverURL}/public/${eventId}/${ImageID1}`}
           style={styles.image}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -50,8 +51,8 @@ const Venue_2Tabs = props => {
         bindToBorders={true}
         captureEvent={true}
       >
-        <FastImage
-          source={{ uri: `${serverURL}/public/${eventId}/${ImageID2}` }}
+        <ImageWithLoadingIndicator
+          source={`${serverURL}/public/${eventId}/${ImageID2}`}
           style={styles.image}
           resizeMode={FastImage.resizeMode.contain}
         />

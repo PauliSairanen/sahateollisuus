@@ -52,6 +52,7 @@ target 'SawmillEvents' do
   pod 'Permission-Siri', :path => "#{permissions_path}/Siri.podspec"
   pod 'Permission-SpeechRecognition', :path => "#{permissions_path}/SpeechRecognition.podspec"
   pod 'Permission-StoreKit', :path => "#{permissions_path}/StoreKit.podspec"
+  pod 'ReactNativeART', :path => '../node_modules/@react-native-community/art'
 
   target 'SawmillEventsTests' do
     inherit! :search_paths

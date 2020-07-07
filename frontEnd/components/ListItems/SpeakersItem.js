@@ -7,6 +7,7 @@ import { withNavigation } from 'react-navigation'
 
 import Colors from '../../constants/Colors'
 import serverURL from '../../constants/Networking'
+import ImageWithLoadingIndicator from '../Universal/ImageWithLoadingIndicator'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -37,7 +38,7 @@ const SpeakersItem = props => {
               title: title,
               specialTitle: specialTitle,
               company: company,
-              description : description,
+              description: description,
               imageID: imageID,
             })
           }}
@@ -50,10 +51,10 @@ const SpeakersItem = props => {
                 <Text style={styles.text}>{props.company}</Text>
               </View>
               <View style={styles.imageContainer}>
-                <FastImage
-                  source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
+                <ImageWithLoadingIndicator
+                  source={`${serverURL}/public/${eventId}/${imageID}`}
                   style={styles.image}
-                  resizeMode={FastImage.resizeMode.cover}
+                  resizeMode={'cover'}
                 />
               </View>
             </View>
@@ -71,7 +72,7 @@ const SpeakersItem = props => {
               title: title,
               specialTitle: specialTitle,
               company: company,
-              description : description,
+              description: description,
               imageID: imageID
             })
           }}
@@ -85,10 +86,9 @@ const SpeakersItem = props => {
                 <Text style={styles.text}>{props.specialTitle}</Text>
               </View>
               <View style={styles.imageContainer}>
-                <FastImage
-                  source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
+                <ImageWithLoadingIndicator
+                  source={`${serverURL}/public/${eventId}/${imageID}`}
                   style={styles.image}
-                  resizeMode={FastImage.resizeMode.cover}
                 />
               </View>
             </View>
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   errorContainer: {
     flex: 1,
