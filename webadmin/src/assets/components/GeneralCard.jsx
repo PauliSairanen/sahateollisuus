@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react'
-import {Card, FormGroup, FormLabel, FormControl, FormText} from 'react-bootstrap'
+import React, {useEffect, useState} from 'react'
+import {Card, FormGroup, FormLabel, FormControl, FormText, OverlayTrigger, Tooltip, Button} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
-import {OverlayTrigger, Tooltip} from 'react-bootstrap'
 import './GeneralCard.css'
+import axios from 'axios'
+import AddLocationIcon from '@material-ui/icons/AddLocation';
 
 const GeneralCard = props => {
   let formObject = props.FO
@@ -34,6 +35,27 @@ const GeneralCard = props => {
   function errorHandler(e){
 
   }
+
+  const [ErrorMsg, setErrorMsg] = useState("")
+  async function geocodeHandler(){
+    setErrorMsg("")
+    if(props.FO && props.FO.address){
+      let query = (props.FO.address).toString().replace(" ", "%20")
+      let apiurl = `https://nominatim.openstreetmap.org/search/${query}?format=json&limit=1`
+      await axios.get(apiurl)
+      .then(function (res) {
+        // data[props.index]["lat"] = res.data[0].lat;
+        // data[props.index]["long"] = res.data[0].lon;
+        //props.appendForm("lat", res.data[0].lat)
+        //props.appendForm("long", res.data[0].lon)
+        props.latlongForm(res.data[0].lat, res.data[0].lon)
+      })
+      .catch(function (error) {
+        console.log(error)
+        setErrorMsg("Unable to find lat and long")
+      })
+    }
+  }
   //Kuvat https://sahat.lamk.fi/public/{EventID}/{FileName}
   return (
     <Card>
@@ -53,6 +75,43 @@ const GeneralCard = props => {
                   <FormLabel>Event Password</FormLabel>
                   <FormControl size="sm" name="eventPass" defaultValue={formObject.eventPass}></FormControl>
                   <FormText>Required</FormText>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Address</FormLabel>
+                  <OverlayTrigger 
+                    placement="bottom" 
+                    delay={{show: 250, hide: 250}}
+                    overlay={<Tooltip>Street address, Postcode and City. Example: "Mukkulankatu 19, 15210 Lahti"</Tooltip>}
+                    >
+                  <FormControl size="sm" defaultValue={formObject.address} onChange={(e)=> props.editForm(e)} name="address"></FormControl>
+                  </OverlayTrigger>
+                  <FormText className="text-danger">{ErrorMsg}</FormText>
+                </FormGroup>
+              </Col>
+              <Col sm={1}>
+                <br></br>
+                <OverlayTrigger
+                  placement="bottom"
+                  delay={{show: 250, hide: 250}}
+                  overlay={<Tooltip>Converts address to latitude and longitude</Tooltip>}
+                  >
+                <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/></Button>
+                </OverlayTrigger>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Latitude</FormLabel>
+                  <FormControl size="sm" defaultValue={formObject.lat} onChange={(e)=> props.editForm(e)} name="lat"></FormControl>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Longitude</FormLabel>
+                  <FormControl size="sm" defaultValue={formObject.long} onChange={(e)=> props.editForm(e)} name="long"></FormControl>
                 </FormGroup>
               </Col>
             </Row>
