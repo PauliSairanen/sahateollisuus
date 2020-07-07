@@ -478,7 +478,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     }  
                 }}>Return to Main Menu</Button>
                 <div>
-                    <Image src="https://pbs.twimg.com/profile_images/572706560015470592/Jszif-0y_normal.png" style={{marginRight:'10px'}}/>
+                    <Image src="https://pbs.twimg.com/profile_images/572706560015470592/Jszif-0y_normal.png" style={{marginRight:'10px', marginBottom:'8px'}}/>
                     <Navbar.Brand><h3>{FormObjects.eventName ? `${FormObjects.eventName}`:null}</h3></Navbar.Brand>
                 </div>
                 <Button className="otherButtons" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>

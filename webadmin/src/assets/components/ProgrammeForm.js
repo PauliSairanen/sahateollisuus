@@ -5,7 +5,8 @@ import xlsxToJson from '../components/XlsxConverter'
 import ProgrammeCard from '../components/ProgrammeCard'
 import AddButton from '../components/AddButton'
 //import DeleteButton from '../components/DeleteButton'
-import { ButtonGroup, Button, Col,Row, Card } from 'react-bootstrap' // eslint-disable-line
+import { ButtonGroup, Button, Col, Row, Card, OverlayTrigger, Tooltip} from 'react-bootstrap' // eslint-disable-line
+import { colors } from '@material-ui/core'
 //import BsForm from 'react-bootstrap/Form'
 /*Esim
 [
@@ -337,7 +338,7 @@ const ProgrammeForm = (props) => {
         
         if(!takenDays.includes(item.day)){
             takenDays.push(item.day)
-            return(<Button className="otherButtons" key={index} name="day" id={item.day} onClick={dayHandler} disabled={ActiveDay === item.day ? true : false}>Day {item.day}</Button>)
+            return(<Button key={index} name="day" id={item.day} onClick={dayHandler} className={ActiveDay === item.day ? "active" : "inactive"} disabled={ActiveDay === item.day ? true : false}>Day {item.day}</Button>)
         }
         else{
             return null
@@ -399,7 +400,7 @@ const ProgrammeForm = (props) => {
         {/* style={{width:'300px', display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'flex-end'}} */}
         <div style={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
             <div>
-                <ButtonGroup>
+                <ButtonGroup className="navbarButtons">
                     {dayButtons}
                 </ButtonGroup>
                 {/* <Button>Day 1</Button>
@@ -408,8 +409,14 @@ const ProgrammeForm = (props) => {
             </div>
             <div style={{display:'flex', flexDirection:'column'}}>
                 <ButtonGroup vertical>
-                    <Button className="otherButtons" name="plus" onClick={dayHandler}>+</Button>
-                    <Button className="otherButtons" name="minus" onClick={dayHandler}>-</Button>
+                    <Button className="dayAddButton" name="plus" onClick={dayHandler}>+</Button>
+                    <OverlayTrigger
+                        placement="bottom"
+                        delay={{show: 250, hide: 250}}
+                        overlay={<Tooltip>WARNING! Pressing this deletes the most recent day and all its contents!</Tooltip>}
+                        >
+                    <Button className="dayDeleteButton" name="minus" onClick={dayHandler}>-</Button>
+                    </OverlayTrigger>
                 </ButtonGroup>
                 {/* <Button name="test" onClick={dayHandler}>test</Button> */}
             </div>

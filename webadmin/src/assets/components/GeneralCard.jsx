@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react'
-import {Card, FormGroup, FormLabel, FormControl, FormText} from 'react-bootstrap'
+import {Card, FormGroup, FormLabel, FormControl, FormText, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
-import {OverlayTrigger, Tooltip} from 'react-bootstrap'
 import './GeneralCard.css'
 
 const GeneralCard = props => {
@@ -53,6 +52,43 @@ const GeneralCard = props => {
                   <FormLabel>Event Password</FormLabel>
                   <FormControl size="sm" name="eventPass" defaultValue={formObject.eventPass}></FormControl>
                   <FormText>Required</FormText>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Address</FormLabel>
+                  <OverlayTrigger 
+                    placement="bottom" 
+                    delay={{show: 250, hide: 250}}
+                    overlay={<Tooltip>Street address, Postcode and City. Example: "Mukkulankatu 19, 15210 Lahti"</Tooltip>}
+                    >
+                  <FormControl size="sm" value={formObject.address} onChange={(e) => {changeHandler(e)}} name="address"></FormControl>
+                  </OverlayTrigger>
+                  <FormText className="text-danger">{ErrorMsg}</FormText>
+                </FormGroup>
+              </Col>
+              <Col sm={1}>
+                <br></br>
+                <OverlayTrigger
+                  placement="bottom"
+                  delay={{show: 250, hide: 250}}
+                  overlay={<Tooltip>Converts address to latitude and longitude</Tooltip>}
+                  >
+                <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/></Button>
+                </OverlayTrigger>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Latitude</FormLabel>
+                  <FormControl size="sm" value={formObject.lat} onChange={(e) => {changeHandler(e)}} name="lat"></FormControl>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <FormLabel>Longitude</FormLabel>
+                  <FormControl size="sm" value={formObject.long} onChange={(e) => {changeHandler(e)}} name="long"></FormControl>
                 </FormGroup>
               </Col>
             </Row>

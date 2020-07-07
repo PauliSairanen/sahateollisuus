@@ -156,7 +156,7 @@ const ParticipantsForm = (props) => {
                 {pageButtons}
             </ButtonGroup> */}
             <InputGroup style={{width:'50%'}}>
-                <FormControl onKeyDown={(e)=>{if(e.keyCode === 13) setSearch(e.target.value)}}/>
+                <FormControl style={{marginRight:'10px'}} onKeyDown={(e)=>{if(e.keyCode === 13) setSearch(e.target.value)}}/>
                 <Button className="otherButtons" onClick={(e)=>{setSearch(e.currentTarget.parentNode.childNodes[0].value)}}>Search</Button>
             </InputGroup>
         </div>
