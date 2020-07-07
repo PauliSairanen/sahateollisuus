@@ -308,7 +308,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             else{
                 //props.changeContent("AdminScreen")
                 setModalShow(false)
-                toast("Success!", "Changes were saved")
+                toast("Success", "Changes were saved")
             }
         })
         .catch(function (error) {
@@ -403,11 +403,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         }
         if(retry >= 3){
             setModalShow(false)
-            toast("Error!","Failed to upload a file after multiple attempts")
+            toast("Error","Failed to upload a file after multiple attempts")
         }
         else{
             setModalShow(false)
-            toast("Success!","Changes were saved")
+            toast("Success","Changes were saved")
         }
         //props.changeContent("AdminScreen")
     }
@@ -507,7 +507,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             
             <div style={{position:"fixed", top:"100px",right:"20px"}}>
                 <Toast onClose={()=>setToastShow(false)} show={ToastShow} delay={3000} style={{zIndex:'5'}} autohide>
-                    <Toast.Header>{ToastHeader}</Toast.Header>
+                    <Toast.Header className={ToastHeader === "Success" ? "text-success" : ToastHeader === "Error" ? "text-danger" : ""}>{ToastHeader}</Toast.Header>
                     <Toast.Body>{ToastBody}</Toast.Body>
                 </Toast>
             </div>
