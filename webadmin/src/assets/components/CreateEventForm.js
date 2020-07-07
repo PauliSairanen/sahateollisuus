@@ -340,7 +340,10 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 
                 setModalShow(false)
                 toast("Error",`${error.response.data.message}`)
-                //Todo check if error is invalid auth, if true then setModalAuth
+
+                if(error.response.status === 404){
+                    setModalAuth(true)
+                }
             }
             else{
                 setModalShow(false)
@@ -364,7 +367,10 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         .catch(function (error) {
             console.log(error);
-            //Todo check if error is invalid auth, if true then setModalAuth
+
+            if(error.response.status === 404){
+                setModalAuth(true)
+            }
             return null
         })
     }
@@ -390,7 +396,10 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         .catch(function (error){
             console.log(error);
-            //Todo? check if error is invalid auth, if true then setModalAuth
+
+            if(error.response.status === 404){
+                setModalAuth(true)
+            }
             return false
         })
     }
@@ -455,7 +464,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         else{
             //console.log("dup not found")
         }
-        files.push( //todo ID
+        files.push(
             {
                 category: category,
                 file: file,
