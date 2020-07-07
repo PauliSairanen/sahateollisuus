@@ -8,8 +8,6 @@ import Button from 'react-bootstrap/Button'
 import axios from 'axios';
 /**
  * @param changeContent - changes screen
- * @param changeSession - changes session (as localstorage)
- * @param getSession    - gets current session (from localstorage)
  * @param visibility    - changes visibility in AdminScreen
  */
 const LoginScreen = (props) => {
@@ -20,13 +18,13 @@ const LoginScreen = (props) => {
     let session = localStorage.getItem("Session");
     let canLogin = true;
 
-    if(session != null){
-        //console.log("Session in progress, initiate automatic login");
-        props.changeContent("AdminScreen");
-    }
-    else{
-        //console.log("normal login");
-    }
+    // if(session !== null){
+    //     //console.log("Session in progress, initiate automatic login");
+    //     props.changeContent("AdminScreen");
+    // }
+    // else{
+    //     //console.log("normal login");
+    // }
     const updateField = e => {
         setForm({
             ...form,

@@ -308,7 +308,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             else{
                 //props.changeContent("AdminScreen")
                 setModalShow(false)
-                toast("Success!", "Changes were saved")
+                toast("Success", "Changes were saved")
             }
         })
         .catch(function (error) {
@@ -403,11 +403,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         }
         if(retry >= 3){
             setModalShow(false)
-            toast("Error!","Failed to upload a file after multiple attempts")
+            toast("Error","Failed to upload a file after multiple attempts")
         }
         else{
             setModalShow(false)
-            toast("Success!","Changes were saved")
+            toast("Success","Changes were saved")
         }
         //props.changeContent("AdminScreen")
     }
@@ -470,20 +470,27 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                         visibility={setModalAuth}/>
                 </Modal.Body>
             </Modal>
-            <Navbar bg="light" variant="light" expand="lg" style={{display:'flex', paddingLeft:'50px', paddingRight:'50px', justifyContent:'space-between', alignItems:'center'}}>
-                <Button className="otherButtons" onClick={()=>
-                {
-                    if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
-                        props.changeContent("AdminScreen")
-                    }  
-                }}>Return to Main Menu</Button>
-                <div>
-                    <Image src="https://pbs.twimg.com/profile_images/572706560015470592/Jszif-0y_normal.png" style={{marginRight:'10px', marginBottom:'8px'}}/>
-                    <Navbar.Brand><h3>{FormObjects.eventName ? `${FormObjects.eventName}`:null}</h3></Navbar.Brand>
-                </div>
-                <Button className="otherButtons" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
-            </Navbar>
             <div>
+                <Row style={{marginTop:'120px'}}>
+                    <Col>
+                        {container}
+                    </Col>
+                </Row>
+            </div>
+            <div style={{position:'fixed', top:'0', width:'100%', backgroundColor:'white'}}>
+                <Navbar expand="lg" style={{display:'flex', paddingLeft:'50px', paddingRight:'50px', justifyContent:'space-between', alignItems:'center', backgroundColor:'white'}}>
+                    <Button className="otherButtons" onClick={()=>
+                    {
+                        if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
+                            props.changeContent("AdminScreen")
+                        }  
+                    }}>Return to Main Menu</Button>
+                    <div>
+                        <Image src="https://pbs.twimg.com/profile_images/572706560015470592/Jszif-0y_normal.png" style={{marginRight:'10px'}}/>
+                        <Navbar.Brand><h3>{FormObjects.eventName ? `${FormObjects.eventName}`:null}</h3></Navbar.Brand>
+                    </div>
+                    <Button className="otherButtons" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
+                </Navbar>
                 <div style={{display: 'flex', justifyContent: 'center'}} >
                     <ButtonGroup className="navbarButtons" style={{display: 'flex', flexWrap: 'wrap'}}>
                         <Button name="GeneralForm" onClick={selectForm} className={ActiveForm === "GeneralForm" ? "active" : "inactive"}>General</Button>
@@ -494,19 +501,13 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                         <Button name="SponsorsForm" onClick={selectForm} className={ActiveForm === "SponsorsForm" ? "active" : "inactive"}>Sponsors</Button>
                         <Button name="VenueTabForm" onClick={selectForm} className={ActiveForm === "VenueTabForm" ? "active" : "inactive"}>Venue</Button>
                         <Button name="MapMarkerForm" onClick={selectForm} className={ActiveForm === "MapMarkerForm" ? "active" : "inactive"}>Map Marker</Button>
-                        
-                        
                     </ButtonGroup>
                 </div>
-                <Row style={{marginTop:'20px'}}>
-                    <Col>
-                        {container}
-                    </Col>
-                </Row>
             </div>
+            
             <div style={{position:"fixed", top:"100px",right:"20px"}}>
                 <Toast onClose={()=>setToastShow(false)} show={ToastShow} delay={3000} style={{zIndex:'5'}} autohide>
-                    <Toast.Header>{ToastHeader}</Toast.Header>
+                    <Toast.Header className={ToastHeader === "Success" ? "text-success" : ToastHeader === "Error" ? "text-danger" : ""}>{ToastHeader}</Toast.Header>
                     <Toast.Body>{ToastBody}</Toast.Body>
                 </Toast>
             </div>
@@ -531,8 +532,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 //fileToUpload(e)
                 uploadFile(e.target.files[0],"test")
             }}/> */}
-            {/* <p>{JSON.stringify(finalForm, null, 2)}</p>
-            <p>{JSON.stringify(Files,null,2)}</p> */}
+            <p>{JSON.stringify(finalForm, null, 2)}</p>
+            <p>{JSON.stringify(Files,null,2)}</p>
         </div>
     )
 }

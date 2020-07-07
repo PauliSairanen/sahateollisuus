@@ -17,7 +17,7 @@ import AdminScreen from './assets/screens/AdminScreen';
 import CreateEventForm from './assets/components/CreateEventForm'
 
 const App = () => {
-  const [Content, setContent] = useState("LoginScreen");
+  const [Content, setContent] = useState(localStorage.getItem("Session") ? "AdminScreen" : "LoginScreen");
   const [EditID, setEditID] = useState(null)
   let container;
   //when EditID is set, move screen to top and render CreateScreen
@@ -57,11 +57,11 @@ const App = () => {
   //change screen based on Content
   if(Content === "LoginScreen"){
     container = 
-    <>
+    <div>
       <LoginScreen changeContent={setContent} 
       visibility={()=>{}}/>
       <button className="LoginScreen" onClick={test}>Bypass</button>
-    </>
+    </div>
   }
   if(Content === "CreateScreen"){
     container =

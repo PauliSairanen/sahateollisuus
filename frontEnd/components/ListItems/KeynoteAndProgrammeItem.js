@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Pdf from 'react-native-pdf'
 import { useSelector } from 'react-redux'
 
+import AdjustingText from '../Universal/AdjustingText'
 import Card from '../Universal/Card'
 import Colors from '../../constants/Colors'
 import serverURL from '../../constants/Networking'
@@ -68,21 +69,21 @@ const KeynoteAndProgrammeItem = props => {
       <View style={styles.listElement}>
         <View style={styles.row}>
           <View style={styles.textContainer}>
-            <Text style={styles.textSize}>{time}</Text>
+            <AdjustingText>{time}</AdjustingText>
           </View>
           <View style={styles.textContainer}>
-            <Text style={styles.textSize}>{description}</Text>
+            <Text style={styles.description}>{description}</Text>
           </View>
           <View style={styles.textContainer}>
-            <Text style={styles.textSize}>{location}</Text>
+            <AdjustingText>{location}</AdjustingText>
           </View>
         </View>
+          <View style={styles.pdfContainer}>
         <TouchableComponent
           onPress={() => {
             setModalVisible(true)
           }}
         >
-          <View style={styles.pdfContainer}>
             <Card style={styles.pdfCardContainer}>
               <Icon
                 name={'pdffile1'}
@@ -90,8 +91,8 @@ const KeynoteAndProgrammeItem = props => {
                 color={Colors.pdf}
               />
             </Card>
-          </View>
         </TouchableComponent>
+          </View>
       </View>
     </View>
   )
@@ -99,7 +100,8 @@ const KeynoteAndProgrammeItem = props => {
 
 const styles = StyleSheet.create({
   listElement: {
-    margin: 15,
+    marginTop: 15,
+    width: Dimensions.get('window').width / 100 * 85,
     borderBottomColor: '#e0e0e0',
     borderBottomWidth: 3,
   },
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10,
+    marginBottom: 25,
   },
   modalContainer: {
     flex: 1,
@@ -149,6 +151,9 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 16,
     paddingBottom: 4,
+    fontWeight: 'bold'
+  },
+  description: {
     fontWeight: 'bold'
   },
   imageContainer: {

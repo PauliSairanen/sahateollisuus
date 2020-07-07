@@ -21,6 +21,9 @@ const SpeakersItem = props => {
   const specialTitle = props.specialTitle
   const company = props.company
   const imageID = props.image
+  const description = props.description
+
+  console.log(description)
 
   console.log('Current speaker´s image is : ' + imageID)
   console.log('Current event´s eventId is : ' + eventId)
@@ -36,7 +39,8 @@ const SpeakersItem = props => {
               title: title,
               specialTitle: specialTitle,
               company: company,
-              imageID: imageID
+              imageID: imageID,
+              description : description,
             })
           }}
         >

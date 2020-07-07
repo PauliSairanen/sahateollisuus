@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, FlatList, ActivityIndicator, Image } from 'react-native'
+import { View, FlatList, ActivityIndicator } from 'react-native'
 import { useSelector } from 'react-redux'
 
 import Colors from '../../constants/Colors'
@@ -37,6 +37,7 @@ const SpeakersScreen = props => {
               specialTitle={speakersData.item.SpecialTitle}
               image={speakersData.item.ImageID}
               eventId={eventId}
+              description={speakersData.item.description}
             />
           }
         />
