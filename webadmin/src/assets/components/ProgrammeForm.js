@@ -367,7 +367,9 @@ const ProgrammeForm = (props) => {
             <label htmlFor="hidden-input" className="labelForHidden">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
         </form>
-        <a style={{display:'flex',justifyContent:'center',alignContent:'center'}} href='/Excel/Programme.xlsx' download>Click to download base Excel Form</a>
+        <div style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
+            <a href='/Excel/Programme.xlsx' download>Click to download base Excel Form</a>
+        </div>        
         <form autoComplete="off" id="form" style={{display:'none'}}>
             <label >Day:</label>
             <input type="number" name="Date" min="0" defaultValue="1"/>

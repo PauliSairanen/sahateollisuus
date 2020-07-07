@@ -93,7 +93,9 @@ const SpeakersForm = (props) => {
             <label htmlFor="hidden-input" className="labelForHidden">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
         </form>
-        <a style={{display:'flex',justifyContent:'center',alignContent:'center'}} href='/Excel/Speakers.xlsx' download>Click to download base Excel Form</a>
+        <div style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
+            <a href='/Excel/Speakers.xlsx' download>Click to download base Excel Form</a>
+        </div>
         <form autoComplete="off" id="form"> 
             <input style={{display: 'none'}} type="text" name="speaker" placeholder="Speaker"/>
             <input style={{display: 'none'}} type="text" name="speakerTitle" placeholder="Speaker Title"/>
