@@ -23,7 +23,6 @@ const SpeakersItem = props => {
   const imageID = props.image
   const description = props.description
 
-  console.log('description text is: ' + description)
   // console.log('Current speaker´s image is : ' + imageID)
   // console.log('Current event´s eventId is : ' + eventId)
 
