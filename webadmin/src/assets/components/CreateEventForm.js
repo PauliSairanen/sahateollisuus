@@ -92,6 +92,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     //Input event id, get data to set formobjects
     async function parseEventData(id){
         let data = await getEventData(id);
+        let pass = await getPassData(id)
+        console.log(pass)
         if(data){
             setFormObjects({
                 //About Form
@@ -354,6 +356,31 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 setModalShow(false)
                 toast("Error","Cannot connect to the server")
             }
+        })
+    }
+    function getPassData(id){
+        const req = axios.get(baseURL+"/findEventPlaintextPass")
+        return req
+        .then(function (res) {
+            let pass = ""
+            console.log(res.data)
+            for(let i in res.data){
+                console.log(res.data[i]._id, id)
+                if(res.data[i]._id === id){
+                    pass = res.data[i].eventPass
+                }
+            }
+
+            //return res.data;
+            return pass
+        })
+        .catch(function (error) {
+            //console.log(error);
+
+            if(error.response.status === 404){
+                setModalAuth(true)
+            }
+            return null
         })
     }
     //input event id, get eventdata
