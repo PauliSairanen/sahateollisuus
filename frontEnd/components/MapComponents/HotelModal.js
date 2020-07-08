@@ -11,6 +11,7 @@ import Card from '../Universal/Card'
 import Colors from '../../constants/Colors'
 import AdjustingText from '../Universal/AdjustingText'
 import serverURL from '../../constants/Networking'
+import ImageWithLoadingIndicator from '../Universal/ImageWithLoadingIndicator'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -67,10 +68,10 @@ const HotelModal = props => {
           <Card style={styles.modalContainer}>
             <View style={styles.flexContainer}>
               <View style={styles.imageContainer}>
-                <FastImage
-                  source={{ uri: `${serverURL}/public/${eventId}/${imageUrl}` }}
-                  style={styles.image}
-                  resizeMode={FastImage.resizeMode.contain}
+                <ImageWithLoadingIndicator 
+                    source={`${serverURL}/public/${eventId}/${imageUrl}` }
+                    style={styles.image}
+                    resizeMode={FastImage.resizeMode.contain}
                 />
               </View>
               <View style={styles.titleContainer}>
