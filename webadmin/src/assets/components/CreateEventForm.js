@@ -385,6 +385,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         //console.log(file)
         fd.append("id", id)
         fd.append("myFiles", file)
+        setModalText("Processing: "+file.name);
         const req = axios.post(baseURL+"/saveFile",
         fd, 
         {
@@ -396,7 +397,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         return req
         .then(function (res){
             //console.log(res)
-            setModalText("Processing "+file.name);
+            setModalText("Successfully sent file: "+file.name);
             return true
         })
         .catch(function (error){
