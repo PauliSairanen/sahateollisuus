@@ -177,6 +177,8 @@ const AdminScreen = (props) => {
                 return <div key={index}>
                         <Event name={item.metadata.eventName} 
                             id={item._id}
+                            color={item.metadata.colorScheme}
+                            visibility={item.metadata.visibility}
                             delet={deleteEvent}
                             edit={(nid)=>{props.changeID(nid)}}
                             img={item.metadata.eventImage}/>
