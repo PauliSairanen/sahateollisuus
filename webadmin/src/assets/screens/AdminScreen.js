@@ -41,11 +41,11 @@ const AdminScreen = (props) => {
             setLoginVisibility(true);
         }
         else if(e.target.id === "2"){
-            console.log(props.readSession());
+            //console.log(props.readSession());
             props.changeContent("AdminScreen");
         }
         else if(e.target.id === "3"){
-            console.log("Session is " + props.readSession())
+            //console.log("Session is " + props.readSession())
             await axios.post(baseURL+"/findEvent",{
                 id: "5e8dfbce0482b55473e7988b"
               },
@@ -57,38 +57,38 @@ const AdminScreen = (props) => {
               })
             .then(function (res) {
                 // handle success
-                console.log(res.data);
+                //console.log(res.data);
             })
             .catch(function (error) {
                 // handle error
-                console.log(error);
+                //console.log(error);
             })
         }
         else if(e.target.id === "5"){
             const data = findMetadata();
             data.then(function(result){
-                console.log(result);
+                //console.log(result);
             })
             .catch(function (error) {
-                console.log(error)
+                //console.log(error)
             })
         }
         else if(e.target.id === "6"){
             const data = findEvent("5e8dfbce0482b55473e7988b");
             data.then(function(result){
-                console.log(result);
+                //console.log(result);
             })
             .catch(function (error) {
-                console.log(error)
+                //console.log(error)
             })
         }
         else if(e.target.id === "7"){
-            console.log("adminscreen button")
+            //console.log("adminscreen button")
             await props.changeID(null)
             await props.changeContent("CreateScreen")
         }
         else if (e.target.id === "8"){
-            console.log(await findEvent("5ed4dfe73b77001e6faae67b"))
+            //console.log(await findEvent("5ed4dfe73b77001e6faae67b"))
         }
     }
 
@@ -104,7 +104,7 @@ const AdminScreen = (props) => {
             return eventList;
             })
             .catch(function (error) {
-            console.log(error);
+            //console.log(error);
             return []
             })
     }
@@ -123,7 +123,7 @@ const AdminScreen = (props) => {
             return res.data;
         })
         .catch(function (error) {
-            console.log(error);
+            //console.log(error);
         })
     }
 
@@ -161,7 +161,7 @@ const AdminScreen = (props) => {
             return res.data;
         })
         .catch(function (error) {
-            console.log(error);
+            //console.log(error);
         })
     }
 
