@@ -19,6 +19,7 @@ import OtherModal from '../../components/MapComponents/OtherModal'
 
 const MapsScreen = props => {
   const mapData = useSelector(state => state.eventData.mapData)
+  const eventMetadata = useSelector(state => state.eventData.metaData)
 
   const [userCurrentLocation, setUserCurrentLocation] = useState(false)
   const [markerData, setMarkerData] = useState(mapData.restaurants)
@@ -173,8 +174,8 @@ const MapsScreen = props => {
             </View>
             <View style={styles.navigationButtonsContainer}>
               <MapNavigationButton
-                latitude={60.169810}
-                longitude={24.938130}
+                latitude={eventMetadata.lat}
+                longitude={eventMetadata.long}
                 animationTime={2000}
                 iconName={'star'}
               />

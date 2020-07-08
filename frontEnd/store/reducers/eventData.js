@@ -3,12 +3,13 @@ import { SET_EVENTS_METADATA, FETCH_ALL_DATA, SAVE_LOCATION_DATA, SAVE_TOKEN, SA
 // Set the data as initial state
 const initialState = {
   // ___ Universal data ___
+  eventsMetaData: [],
   email: null,
   eventId : null,
-  eventsMetaData: [],
   currentLocation: {},
   authenticationToken: null,
   //___ Evet Data ___
+  metaData: [],
   programmeData: [],
   speakersData: [],
   sponsorsData: [],
@@ -55,7 +56,7 @@ const eventDataReducer = (state = initialState, action) => {
       console.log('entering Fetch all data')
       return {
         ...state,
-        
+        metaData: action.responseData.metadata, 
         programmeData: action.responseData.programme,
         speakersData: action.responseData.speakers,
         sponsorsData: action.responseData.sponsors,

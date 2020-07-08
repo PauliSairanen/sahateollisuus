@@ -11,6 +11,8 @@ export const SAVE_RESPONSE_STATUS = 'SAVE_RESPONSE_STATUS'
 export const SAVE_EMAIL = 'SAVE_EMAIL'
 export const SAVE_METADATA_BY_EMAIL = 'SAVE_METADATA_BY_EMAIL'
 export const SAVE_EVENT_ID = 'SAVE_EVENT_ID'
+export const SAVE_CURRENT_EVENT_METADATA = 'SAVE_CURRENT_EVENT_METADATA'
+
 
 import serverURL from '../../constants/Networking'
 console.log('The server URL is = ' + serverURL)
@@ -114,7 +116,10 @@ export const fetchMetadataByEmail = (email) => {
           responseData[index]._id,
           responseData[index].metadata.eventName,
           responseData[index].metadata.eventImage,
-          responseData[index].metadata.visibility
+          responseData[index].metadata.visibility,
+          responseData[index].metadata.address, 
+          responseData[index].metadata.lat, 
+          responseData[index].metadata.long, 
         )
       )
     }

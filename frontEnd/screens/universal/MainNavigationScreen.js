@@ -19,8 +19,6 @@ const naviScreenData = [
   // { id: 8, title: 'invisible', link: '', icon: Platform.OS === 'android' ? '' : '' },
 ]
 
-// import the following
-
 const MainNavigationScreen = props => {
   return (
     <View style={styles.listContainer}>

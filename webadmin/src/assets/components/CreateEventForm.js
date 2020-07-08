@@ -92,6 +92,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     //Input event id, get data to set formobjects
     async function parseEventData(id){
         let data = await getEventData(id);
+        let pass = await getPassData(id)
+        console.log(pass)
         if(data){
             setFormObjects({
                 //About Form
@@ -298,6 +300,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
 
         }
         setModalShow(true)
+        if(form.eventPass === ""){
+            setModalShow(false)
+            toast("Error", "Password field is empty")
+            return null
+        }
         axios.post(baseURL+route, 
         form,
         {
@@ -307,8 +314,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         .then(function (response) {
             // handle success
-            console.log("event create success");
-            console.log(response);
+            //console.log("event create success");
+            //console.log(response);
             let id;
             
             if(EditID){
@@ -331,12 +338,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         .catch(function (error) {
             // handle error
-            console.log("event create fail");
-            console.log(error);
+            //console.log("event create fail");
+            //console.log(error);
             if(error.response){
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
+                //console.log(error.response.data);
+                //console.log(error.response.status);
+                //console.log(error.response.headers);
                 
                 setModalShow(false)
                 toast("Error",`${error.response.data.message}`)
@@ -349,6 +356,31 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 setModalShow(false)
                 toast("Error","Cannot connect to the server")
             }
+        })
+    }
+    function getPassData(id){
+        const req = axios.get(baseURL+"/findEventPlaintextPass")
+        return req
+        .then(function (res) {
+            let pass = ""
+            console.log(res.data)
+            for(let i in res.data){
+                console.log(res.data[i]._id, id)
+                if(res.data[i]._id === id){
+                    pass = res.data[i].eventPass
+                }
+            }
+
+            //return res.data;
+            return pass
+        })
+        .catch(function (error) {
+            //console.log(error);
+
+            if(error.response.status === 404){
+                setModalAuth(true)
+            }
+            return null
         })
     }
     //input event id, get eventdata
@@ -366,7 +398,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             return res.data;
         })
         .catch(function (error) {
-            console.log(error);
+            //console.log(error);
 
             if(error.response.status === 404){
                 setModalAuth(true)
@@ -380,6 +412,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         //console.log(file)
         fd.append("id", id)
         fd.append("myFiles", file)
+        setModalText("Processing: "+file.name);
         const req = axios.post(baseURL+"/saveFile",
         fd, 
         {
@@ -390,12 +423,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         return req
         .then(function (res){
-            console.log(res)
-            setModalText("Processing "+file.name);
+            //console.log(res)
+            setModalText("Successfully sent file: "+file.name);
             return true
         })
         .catch(function (error){
-            console.log(error);
+            //console.log(error);
 
             if(error.response.status === 404){
                 setModalAuth(true)
@@ -424,7 +457,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 files.splice(0, 1);
             }
             else{
-                console.log("Retry file")
+                //console.log("Retry file")
                 retry++;
             }
         }

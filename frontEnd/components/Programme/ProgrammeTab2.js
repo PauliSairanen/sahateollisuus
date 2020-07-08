@@ -13,7 +13,7 @@ const ProgrammeTab2 = props => {
   // Receive data, which has days separated as objects, each object containing an array holding the programme Data
 
   const day1Data = programmeData[0].content
-  const day2Data = programmeData[0].content
+  const day2Data = programmeData[1].content
 
   const FirstRoute = () => (
     <View>
