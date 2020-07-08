@@ -399,7 +399,7 @@ const ProgrammeForm = (props) => {
             </BsForm>
         </Card> */}
         {/* style={{width:'300px', display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'flex-end'}} */}
-        <div style={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+        <div style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
             <div>
                 <ButtonGroup className="navbarButtons">
                     {dayButtons}
@@ -408,8 +408,8 @@ const ProgrammeForm = (props) => {
                 <Button>Day 2</Button>
                 <Button>Day 3</Button> */}
             </div>
-            <div style={{display:'flex', flexDirection:'column'}}>
-                <ButtonGroup vertical>
+            <div>
+                <ButtonGroup vertical style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
                     <Button className="dayAddButton" name="plus" onClick={dayHandler}>+</Button>
                     <OverlayTrigger
                         placement="bottom"

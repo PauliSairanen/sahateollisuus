@@ -505,18 +505,18 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 </Row>
             </div>
             <div style={{position:'fixed', top:'0', width:'100%', backgroundColor:'white'}}>
-                <Navbar expand="lg" style={{display:'flex', paddingLeft:'50px', paddingRight:'50px', justifyContent:'space-between', alignItems:'center', backgroundColor:'white'}}>
-                    <Button className="otherButtons" onClick={()=>
+                <Navbar expand="lg" style={{display:'flex', paddingLeft:'50px', paddingRight:'50px', justifyContent:'center', alignItems:'center', flexDirection:'row', backgroundColor:'white'}}>
+                    <Button style={{flex:'1'}} className="otherButtons" onClick={()=>
                     {
                         if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
                             props.changeContent("AdminScreen")
                         }  
                     }}>Return to Main Menu</Button>
-                    <div>
+                    <div style={{display:'flex', flex:'6', alignContent: 'center', justifyContent:'center', flexDirection:'row'}}>
                         <Image src="https://pbs.twimg.com/profile_images/572706560015470592/Jszif-0y_normal.png" style={{marginRight:'10px'}}/>
                         <Navbar.Brand><h3>{FormObjects.eventName ? `${FormObjects.eventName}`:null}</h3></Navbar.Brand>
                     </div>
-                    <Button className="otherButtons" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
+                    <Button style={{flex:'1'}} className="otherButtons" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
                 </Navbar>
                 <div style={{display: 'flex', justifyContent: 'center'}} >
                     <ButtonGroup className="navbarButtons" style={{display: 'flex', flexWrap: 'wrap'}}>
