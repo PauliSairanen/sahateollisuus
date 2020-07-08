@@ -24,7 +24,7 @@ const Event = (props) => {
         if(e.target.name === "delete"){
             if(window.confirm(`Are you sure you want to delete event "${props.name}"?`)){
                 props.delet(props.id)
-                console.log("Deleted event")
+                //console.log("Deleted event")
             }            
         }
         else if(e.target.name === "edit"){
