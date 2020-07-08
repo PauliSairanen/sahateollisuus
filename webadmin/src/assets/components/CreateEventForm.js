@@ -566,7 +566,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             </div>
             
             <div style={{position:"fixed", top:"100px",right:"20px"}}>
-                <Toast onClose={()=>setToastShow(false)} show={ToastShow} delay={3000} style={{zIndex:'5'}} autohide>
+                <Toast onClose={()=>setToastShow(false)} show={ToastShow} delay={5000} style={{zIndex:'5'}} autohide>
                     <Toast.Header className={ToastHeader === "Success" ? "text-success" : ToastHeader === "Error" ? "text-danger" : ""}>{ToastHeader}</Toast.Header>
                     <Toast.Body>{ToastBody}</Toast.Body>
                 </Toast>
