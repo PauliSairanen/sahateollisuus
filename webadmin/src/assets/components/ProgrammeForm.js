@@ -99,7 +99,7 @@ const ProgrammeForm = (props) => {
                         NameOfSpeaker: data[key].NameOfSpeaker,
                         TitleOfSpeaker: data[key].TitleOfSpeaker,
                         SpecialTitleOfSpeaker: data[key].SpecialTitleOfSpeaker,
-                        Company: data[key].Company,
+                        CompanyOfSpeaker: data[key].CompanyOfSpeaker,
                         Pdf: data[key].Pdf
                     }
                 )
@@ -116,7 +116,7 @@ const ProgrammeForm = (props) => {
                                 NameOfSpeaker: data[key].NameOfSpeaker,
                                 TitleOfSpeaker: data[key].TitleOfSpeaker,
                                 SpecialTitleOfSpeaker: data[key].SpecialTitleOfSpeaker,
-                                Company: data[key].Company,
+                                CompanyOfSpeaker: data[key].CompanyOfSpeaker,
                                 Pdf: data[key].Pdf
                             }
                         ]
@@ -157,7 +157,7 @@ const ProgrammeForm = (props) => {
                     NameOfSpeaker: content[j].NameOfSpeaker,
                     TitleOfSpeaker: content[j].TitleOfSpeaker,
                     SpecialTitleOfSpeaker: content[j].SpecialTitleOfSpeaker,
-                    Company: content[j].Company,
+                    CompanyOfSpeaker: content[j].CompanyOfSpeaker,
                     Pdf: content[j].Pdf
                 })
             }
@@ -187,7 +187,7 @@ const ProgrammeForm = (props) => {
                     NameOfSpeaker: "",
                     TitleOfSpeaker: "",
                     SpecialTitleOfSpeaker: "",
-                    Company: "",
+                    CompanyOfSpeaker: "",
                     Pdf: ""
                 }
             )
@@ -204,7 +204,7 @@ const ProgrammeForm = (props) => {
                             NameOfSpeaker: "",
                             TitleOfSpeaker: "",
                             SpecialTitleOfSpeaker: "",
-                            Company: "",
+                            CompanyOfSpeaker: "",
                             Pdf: ""
                         }
                     ]
@@ -239,7 +239,7 @@ const ProgrammeForm = (props) => {
                     NameOfSpeaker: e.target.form[4].value,
                     TitleOfSpeaker: e.target.form[5].value,
                     SpecialTitleOfSpeaker: e.target.form[6].value,
-                    Company: e.target.form[7].value,
+                    CompanyOfSpeaker: e.target.form[7].value,
                     Pdf: (e.target.form[8].value).match(/[^\\/]*$/)[0]
                 }
             )
@@ -256,7 +256,7 @@ const ProgrammeForm = (props) => {
                             NameOfSpeaker: e.target.form[4].value,
                             TitleOfSpeaker: e.target.form[5].value,
                             SpecialTitleOfSpeaker: e.target.form[6].value,
-                            Company: e.target.form[7].value,
+                            CompanyOfSpeaker: e.target.form[7].value,
                             Pdf: (e.target.form[8].value).match(/[^\\/]*$/)[0]
                         }
                     ]
@@ -284,7 +284,7 @@ const ProgrammeForm = (props) => {
                         NameOfSpeaker: jsonData[i][4],
                         TitleOfSpeaker: jsonData[i][5],
                         SpecialTitleOfSpeaker: jsonData[i][6],
-                        Company: jsonData[i][7],
+                        CompanyOfSpeaker: jsonData[i][7],
                         Pdf: jsonData[i][8],
                     }
                 )
@@ -367,7 +367,9 @@ const ProgrammeForm = (props) => {
             <label htmlFor="hidden-input" className="labelForHidden">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
         </form>
-        <a style={{display:'flex',justifyContent:'center',alignContent:'center'}} href='/Excel/Programme.xlsx' download>Click to download base Excel Form</a>
+        <div style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
+            <a href='/Excel/Programme.xlsx' download>Click to download base Excel Form</a>
+        </div>        
         <form autoComplete="off" id="form" style={{display:'none'}}>
             <label >Day:</label>
             <input type="number" name="Date" min="0" defaultValue="1"/>

@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { View, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Image, Text, ActivityIndicator } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { useDispatch } from 'react-redux'
-import FastImage from 'react-native-fast-image'
 import * as eventDataActions from '../../store/actions/eventData'
 
 import Card from '../Universal/Card'
 import serverURL from '../../constants/Networking'
+import ImageWithLoadingIndicator from '../Universal/ImageWithLoadingIndicator'
+
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -43,8 +44,8 @@ const EventsListItem = props => {
         }}
       >
         <View style={styles.imageContainer}>
-          <FastImage
-            source={{uri : `${serverURL}/public/${eventId}/${eventImage}`}}
+          <ImageWithLoadingIndicator 
+            source={`${serverURL}/public/${eventId}/${eventImage}`}
             style={styles.image}
             resizeMode='contain'
           />

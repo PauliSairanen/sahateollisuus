@@ -7,6 +7,7 @@ import { withNavigation } from 'react-navigation'
 
 import Colors from '../../constants/Colors'
 import serverURL from '../../constants/Networking'
+import ImageWithLoadingIndicator from '../Universal/ImageWithLoadingIndicator'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -23,10 +24,8 @@ const SpeakersItem = props => {
   const imageID = props.image
   const description = props.description
 
-  console.log(description)
-
-  console.log('Current speaker´s image is : ' + imageID)
-  console.log('Current event´s eventId is : ' + eventId)
+  // console.log('Current speaker´s image is : ' + imageID)
+  // console.log('Current event´s eventId is : ' + eventId)
 
   if (speakerName && title && company && !specialTitle) {
     return (
@@ -39,8 +38,8 @@ const SpeakersItem = props => {
               title: title,
               specialTitle: specialTitle,
               company: company,
+              description: description,
               imageID: imageID,
-              description : description,
             })
           }}
         >
@@ -52,10 +51,10 @@ const SpeakersItem = props => {
                 <Text style={styles.text}>{props.company}</Text>
               </View>
               <View style={styles.imageContainer}>
-                <FastImage
-                  source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
+                <ImageWithLoadingIndicator
+                  source={`${serverURL}/public/${eventId}/${imageID}`}
                   style={styles.image}
-                  resizeMode={FastImage.resizeMode.cover}
+                  resizeMode={'cover'}
                 />
               </View>
             </View>
@@ -73,6 +72,7 @@ const SpeakersItem = props => {
               title: title,
               specialTitle: specialTitle,
               company: company,
+              description: description,
               imageID: imageID
             })
           }}
@@ -86,10 +86,9 @@ const SpeakersItem = props => {
                 <Text style={styles.text}>{props.specialTitle}</Text>
               </View>
               <View style={styles.imageContainer}>
-                <FastImage
-                  source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
+                <ImageWithLoadingIndicator
+                  source={`${serverURL}/public/${eventId}/${imageID}`}
                   style={styles.image}
-                  resizeMode={FastImage.resizeMode.cover}
                 />
               </View>
             </View>
@@ -163,7 +162,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   errorContainer: {
     flex: 1,
