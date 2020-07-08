@@ -45,6 +45,12 @@ app.get('/',
 	}
 );
 
+//Admin paneelin jakaminen
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/admin', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 //Cors asetukset
 const corsOptions = {
     origin: '*',
@@ -68,3 +74,5 @@ mongoose.connection.once('open',function(){
 }).on('error',function(error){
     console.log('Connection error:', error);
 });
+
+
