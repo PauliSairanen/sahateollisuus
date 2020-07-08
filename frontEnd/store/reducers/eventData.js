@@ -6,7 +6,6 @@ const initialState = {
   eventsMetaData: [],
   email: null,
   eventId : null,
-  currentEventMetadata: null,
   currentLocation: {},
   authenticationToken: null,
   //___ Evet Data ___

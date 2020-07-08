@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { createStore, combineReducers, applyMiddleware} from 'redux'
-import {Provider} from 'react-redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
 import ReduxThunk from 'redux-thunk'
 import SplashScreen from 'react-native-splash-screen'
 
@@ -18,8 +18,8 @@ const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
 export default function App() {
 
   useEffect(() => {
-    setTimeout(() => SplashScreen.hide() , 1000)
-  },[])
+    setTimeout(() => SplashScreen.hide(), 1000)
+  }, [])
 
   return (
     <Provider store={store}>
