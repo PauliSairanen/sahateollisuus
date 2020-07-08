@@ -34,8 +34,8 @@ const Event = (props) => {
     }
 
     return (
-        <Card style={{ width: '18rem' }}>
-            {props.img ? <Card.Img variant="top" src={imgsrc} /> : null}
+        <Card style={{ width: '18rem', backgroundColor:`${props.visibility === "visible" ? "white" : "#e0e0e0"}` }}>
+            {props.img ? <Card.Img className="rounded mb-0" variant="top" src={imgsrc} style={{border:`5px solid ${props.color}`}}/> : null}
             <Card.Body>
                 <Card.Title>{props.name}</Card.Title>
                 {/* <Card.Subtitle>ID: {props.id}</Card.Subtitle> */}

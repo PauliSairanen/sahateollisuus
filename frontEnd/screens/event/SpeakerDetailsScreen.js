@@ -7,10 +7,9 @@ import Colors from '../../constants/Colors'
 import Card from '../../components/Universal/Card'
 import KeynoteAndProgrammeItem from '../../components/ListItems/KeynoteAndProgrammeItem'
 import serverURL from '../../constants/Networking'
+import ImageWithLoadingIndicator from '../../components/Universal/ImageWithLoadingIndicator'
 
 const SpeakerDetailsScreen = props => {
-  const eventId = useSelector(state => state.eventData.eventId)
-
   const [isLoading, setIsLoading] = useState(false)
 
   const speakerName = props.navigation.getParam('speakerName')
@@ -20,6 +19,7 @@ const SpeakerDetailsScreen = props => {
   const imageID = props.navigation.getParam('imageID')
   const description = props.navigation.getParam('description')
 
+  const eventId = useSelector(state => state.eventData.eventId)
   const programmeData = useSelector(state => state.eventData.programmeData)
   const arrayOfProgramme = []
 
@@ -38,12 +38,10 @@ const SpeakerDetailsScreen = props => {
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           <View style={styles.imageContainer}>
-            <FastImage
-              source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
+            <ImageWithLoadingIndicator
+              source={ `${serverURL}/public/${eventId}/${imageID}`}
               style={styles.image}
               resizeMode={FastImage.resizeMode.cover}
-              onLoadStart={setIsLoading(true)}
-              onLoadEnd={setIsLoading(false)}
             />
           </View>
         </View>
@@ -55,7 +53,6 @@ const SpeakerDetailsScreen = props => {
         </View>
         <View style={styles.contentContainer}>
           <View style={styles.bodyText}>
-            {/* !!! Admin panel requires another text field, that is used to write a description about speaker !!! */}
             <Text style={styles.bodyText}>{description}</Text>
           </View>
         </View>
@@ -71,10 +68,10 @@ const SpeakerDetailsScreen = props => {
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           <View style={styles.imageContainer}>
-            <FastImage
-              source={{ uri: `${serverURL}/public/${eventId}/${imageID}` }}
-              style={styles.image}
-              resizeMode={FastImage.resizeMode.cover}
+            <ImageWithLoadingIndicator 
+               source={`${serverURL}/public/${eventId}/${imageID}`}
+               style={styles.image}
+               resizeMode={FastImage.resizeMode.cover}
             />
           </View>
         </View>
@@ -85,7 +82,6 @@ const SpeakerDetailsScreen = props => {
         </View>
         <View style={styles.contentContainer}>
           <View style={styles.bodyText}>
-            {/* !!! Admin panel requires another text field, that is used to write a description about speaker !!! */}
             <Text style={styles.bodyText}>{description}</Text>
           </View>
         </View>
