@@ -13,6 +13,7 @@ import Image from 'react-bootstrap/Image'
 //import Form from 'react-bootstrap/Form'
 
 import AddButton from '../components/AddButton'
+import { Modal } from 'react-bootstrap';
 /**
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
@@ -209,9 +210,26 @@ const AdminScreen = (props) => {
         window.scrollTo(0, 0)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    const [AboutModal, setAboutModal] = useState(false) // eslint-disable-line
+
     return (
         <>
+        <Modal show={AboutModal} onHide={()=>{setAboutModal(false)}}>
+            <Modal.Header closeButton>
+                <Modal.Title>About this software</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <p>Made by Simo Wesa, Pauli Sairanen and Mikael Petrow 
+                    at LAB University of Applied Sciences and 
+                    in cooperation with Finnish Sawmills Association.</p>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={()=>{setAboutModal(false)}} variant="primary">Close</Button>
+            </Modal.Footer>
+        </Modal>
         <div style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+            <Button onClick={()=>{setAboutModal(true)}} style={{position:'absolute',left:'30px'}} variant="outline-success">About</Button>
             <Image src="https://sahateollisuus.com/wp-content/uploads/2019/03/st_www_logoetu.jpg" width='30%'/>
             <Button style={{position:'absolute',right:'30px'}} variant="outline-success" onClick={()=>{
                 props.changeSession("");
