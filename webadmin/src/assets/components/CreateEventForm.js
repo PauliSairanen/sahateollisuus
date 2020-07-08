@@ -298,6 +298,11 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
 
         }
         setModalShow(true)
+        if(form.eventPass === ""){
+            setModalShow(false)
+            toast("Error", "Password field is empty")
+            return null
+        }
         axios.post(baseURL+route, 
         form,
         {
@@ -307,8 +312,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         .then(function (response) {
             // handle success
-            console.log("event create success");
-            console.log(response);
+            //console.log("event create success");
+            //console.log(response);
             let id;
             
             if(EditID){
@@ -331,12 +336,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         .catch(function (error) {
             // handle error
-            console.log("event create fail");
-            console.log(error);
+            //console.log("event create fail");
+            //console.log(error);
             if(error.response){
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
+                //console.log(error.response.data);
+                //console.log(error.response.status);
+                //console.log(error.response.headers);
                 
                 setModalShow(false)
                 toast("Error",`${error.response.data.message}`)
@@ -366,7 +371,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             return res.data;
         })
         .catch(function (error) {
-            console.log(error);
+            //console.log(error);
 
             if(error.response.status === 404){
                 setModalAuth(true)
@@ -380,6 +385,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         //console.log(file)
         fd.append("id", id)
         fd.append("myFiles", file)
+        setModalText("Processing: "+file.name);
         const req = axios.post(baseURL+"/saveFile",
         fd, 
         {
@@ -390,12 +396,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         return req
         .then(function (res){
-            console.log(res)
-            setModalText("Processing "+file.name);
+            //console.log(res)
+            setModalText("Successfully sent file: "+file.name);
             return true
         })
         .catch(function (error){
-            console.log(error);
+            //console.log(error);
 
             if(error.response.status === 404){
                 setModalAuth(true)
@@ -424,7 +430,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 files.splice(0, 1);
             }
             else{
-                console.log("Retry file")
+                //console.log("Retry file")
                 retry++;
             }
         }
@@ -505,18 +511,18 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 </Row>
             </div>
             <div style={{position:'fixed', top:'0', width:'100%', backgroundColor:'white'}}>
-                <Navbar expand="lg" style={{display:'flex', paddingLeft:'50px', paddingRight:'50px', justifyContent:'space-between', alignItems:'center', backgroundColor:'white'}}>
-                    <Button className="otherButtons" onClick={()=>
+                <Navbar expand="lg" style={{display:'flex', paddingLeft:'50px', paddingRight:'50px', justifyContent:'center', alignItems:'center', flexDirection:'row', backgroundColor:'white'}}>
+                    <Button style={{flex:'1'}} className="otherButtons" onClick={()=>
                     {
                         if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
                             props.changeContent("AdminScreen")
                         }  
                     }}>Return to Main Menu</Button>
-                    <div>
+                    <div style={{display:'flex', flex:'6', alignContent: 'center', justifyContent:'center', flexDirection:'row'}}>
                         <Image src="https://pbs.twimg.com/profile_images/572706560015470592/Jszif-0y_normal.png" style={{marginRight:'10px'}}/>
                         <Navbar.Brand><h3>{FormObjects.eventName ? `${FormObjects.eventName}`:null}</h3></Navbar.Brand>
                     </div>
-                    <Button className="otherButtons" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
+                    <Button style={{flex:'1'}} className="otherButtons" onClick={()=>createEventPost(finalForm)}>Save Changes</Button>
                 </Navbar>
                 <div style={{display: 'flex', justifyContent: 'center'}} >
                     <ButtonGroup className="navbarButtons" style={{display: 'flex', flexWrap: 'wrap'}}>

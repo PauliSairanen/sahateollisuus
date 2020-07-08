@@ -99,7 +99,7 @@ const ProgrammeForm = (props) => {
                         NameOfSpeaker: data[key].NameOfSpeaker,
                         TitleOfSpeaker: data[key].TitleOfSpeaker,
                         SpecialTitleOfSpeaker: data[key].SpecialTitleOfSpeaker,
-                        Company: data[key].Company,
+                        CompanyOfSpeaker: data[key].CompanyOfSpeaker,
                         Pdf: data[key].Pdf
                     }
                 )
@@ -116,7 +116,7 @@ const ProgrammeForm = (props) => {
                                 NameOfSpeaker: data[key].NameOfSpeaker,
                                 TitleOfSpeaker: data[key].TitleOfSpeaker,
                                 SpecialTitleOfSpeaker: data[key].SpecialTitleOfSpeaker,
-                                Company: data[key].Company,
+                                CompanyOfSpeaker: data[key].CompanyOfSpeaker,
                                 Pdf: data[key].Pdf
                             }
                         ]
@@ -157,7 +157,7 @@ const ProgrammeForm = (props) => {
                     NameOfSpeaker: content[j].NameOfSpeaker,
                     TitleOfSpeaker: content[j].TitleOfSpeaker,
                     SpecialTitleOfSpeaker: content[j].SpecialTitleOfSpeaker,
-                    Company: content[j].Company,
+                    CompanyOfSpeaker: content[j].CompanyOfSpeaker,
                     Pdf: content[j].Pdf
                 })
             }
@@ -187,7 +187,7 @@ const ProgrammeForm = (props) => {
                     NameOfSpeaker: "",
                     TitleOfSpeaker: "",
                     SpecialTitleOfSpeaker: "",
-                    Company: "",
+                    CompanyOfSpeaker: "",
                     Pdf: ""
                 }
             )
@@ -204,7 +204,7 @@ const ProgrammeForm = (props) => {
                             NameOfSpeaker: "",
                             TitleOfSpeaker: "",
                             SpecialTitleOfSpeaker: "",
-                            Company: "",
+                            CompanyOfSpeaker: "",
                             Pdf: ""
                         }
                     ]
@@ -239,7 +239,7 @@ const ProgrammeForm = (props) => {
                     NameOfSpeaker: e.target.form[4].value,
                     TitleOfSpeaker: e.target.form[5].value,
                     SpecialTitleOfSpeaker: e.target.form[6].value,
-                    Company: e.target.form[7].value,
+                    CompanyOfSpeaker: e.target.form[7].value,
                     Pdf: (e.target.form[8].value).match(/[^\\/]*$/)[0]
                 }
             )
@@ -256,7 +256,7 @@ const ProgrammeForm = (props) => {
                             NameOfSpeaker: e.target.form[4].value,
                             TitleOfSpeaker: e.target.form[5].value,
                             SpecialTitleOfSpeaker: e.target.form[6].value,
-                            Company: e.target.form[7].value,
+                            CompanyOfSpeaker: e.target.form[7].value,
                             Pdf: (e.target.form[8].value).match(/[^\\/]*$/)[0]
                         }
                     ]
@@ -284,7 +284,7 @@ const ProgrammeForm = (props) => {
                         NameOfSpeaker: jsonData[i][4],
                         TitleOfSpeaker: jsonData[i][5],
                         SpecialTitleOfSpeaker: jsonData[i][6],
-                        Company: jsonData[i][7],
+                        CompanyOfSpeaker: jsonData[i][7],
                         Pdf: jsonData[i][8],
                     }
                 )
@@ -401,7 +401,7 @@ const ProgrammeForm = (props) => {
             </BsForm>
         </Card> */}
         {/* style={{width:'300px', display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'flex-end'}} */}
-        <div style={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+        <div style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
             <div>
                 <ButtonGroup className="navbarButtons">
                     {dayButtons}
@@ -410,8 +410,8 @@ const ProgrammeForm = (props) => {
                 <Button>Day 2</Button>
                 <Button>Day 3</Button> */}
             </div>
-            <div style={{display:'flex', flexDirection:'column'}}>
-                <ButtonGroup vertical>
+            <div>
+                <ButtonGroup vertical style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
                     <Button className="dayAddButton" name="plus" onClick={dayHandler}>+</Button>
                     <OverlayTrigger
                         placement="bottom"

@@ -13,6 +13,7 @@ import Image from 'react-bootstrap/Image'
 //import Form from 'react-bootstrap/Form'
 
 import AddButton from '../components/AddButton'
+import { Modal } from 'react-bootstrap';
 /**
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
@@ -40,11 +41,11 @@ const AdminScreen = (props) => {
             setLoginVisibility(true);
         }
         else if(e.target.id === "2"){
-            console.log(props.readSession());
+            //console.log(props.readSession());
             props.changeContent("AdminScreen");
         }
         else if(e.target.id === "3"){
-            console.log("Session is " + props.readSession())
+            //console.log("Session is " + props.readSession())
             await axios.post(baseURL+"/findEvent",{
                 id: "5e8dfbce0482b55473e7988b"
               },
@@ -56,38 +57,38 @@ const AdminScreen = (props) => {
               })
             .then(function (res) {
                 // handle success
-                console.log(res.data);
+                //console.log(res.data);
             })
             .catch(function (error) {
                 // handle error
-                console.log(error);
+                //console.log(error);
             })
         }
         else if(e.target.id === "5"){
             const data = findMetadata();
             data.then(function(result){
-                console.log(result);
+                //console.log(result);
             })
             .catch(function (error) {
-                console.log(error)
+                //console.log(error)
             })
         }
         else if(e.target.id === "6"){
             const data = findEvent("5e8dfbce0482b55473e7988b");
             data.then(function(result){
-                console.log(result);
+                //console.log(result);
             })
             .catch(function (error) {
-                console.log(error)
+                //console.log(error)
             })
         }
         else if(e.target.id === "7"){
-            console.log("adminscreen button")
+            //console.log("adminscreen button")
             await props.changeID(null)
             await props.changeContent("CreateScreen")
         }
         else if (e.target.id === "8"){
-            console.log(await findEvent("5ed4dfe73b77001e6faae67b"))
+            //console.log(await findEvent("5ed4dfe73b77001e6faae67b"))
         }
     }
 
@@ -103,7 +104,7 @@ const AdminScreen = (props) => {
             return eventList;
             })
             .catch(function (error) {
-            console.log(error);
+            //console.log(error);
             return []
             })
     }
@@ -122,7 +123,7 @@ const AdminScreen = (props) => {
             return res.data;
         })
         .catch(function (error) {
-            console.log(error);
+            //console.log(error);
         })
     }
 
@@ -160,7 +161,7 @@ const AdminScreen = (props) => {
             return res.data;
         })
         .catch(function (error) {
-            console.log(error);
+            //console.log(error);
         })
     }
 
@@ -177,6 +178,8 @@ const AdminScreen = (props) => {
                 return <div key={index}>
                         <Event name={item.metadata.eventName} 
                             id={item._id}
+                            color={item.metadata.colorScheme}
+                            visibility={item.metadata.visibility}
                             delet={deleteEvent}
                             edit={(nid)=>{props.changeID(nid)}}
                             img={item.metadata.eventImage}/>
@@ -207,9 +210,26 @@ const AdminScreen = (props) => {
         window.scrollTo(0, 0)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    const [AboutModal, setAboutModal] = useState(false) // eslint-disable-line
+
     return (
         <>
+        <Modal show={AboutModal} onHide={()=>{setAboutModal(false)}}>
+            <Modal.Header closeButton>
+                <Modal.Title>About this software</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <p>Made by Simo Wesa, Pauli Sairanen and Mikael Petrow 
+                    at LAB University of Applied Sciences, 
+                    in cooperation with Finnish Sawmills Association.</p>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={()=>{setAboutModal(false)}} variant="primary">Close</Button>
+            </Modal.Footer>
+        </Modal>
         <div style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+            <Button onClick={()=>{setAboutModal(true)}} style={{position:'absolute',left:'30px'}} variant="outline-success">About</Button>
             <Image src="https://sahateollisuus.com/wp-content/uploads/2019/03/st_www_logoetu.jpg" width='30%'/>
             <Button style={{position:'absolute',right:'30px'}} variant="outline-success" onClick={()=>{
                 props.changeSession("");

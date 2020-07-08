@@ -33,7 +33,7 @@ const GeneralCard = props => {
     }
   }
   function errorHandler(e){
-
+    console.log(e)
   }
 
   const [ErrorMsg, setErrorMsg] = useState("")
@@ -102,13 +102,13 @@ const GeneralCard = props => {
                 <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/></Button>
                 </OverlayTrigger>
               </Col>
-              <Col>
+              <Col sm={3}>
                 <FormGroup>
                   <FormLabel>Latitude</FormLabel>
                   <FormControl size="sm" defaultValue={formObject.lat} onChange={(e)=> props.editForm(e)} name="lat"></FormControl>
                 </FormGroup>
               </Col>
-              <Col>
+              <Col sm={3}>
                 <FormGroup>
                   <FormLabel>Longitude</FormLabel>
                   <FormControl size="sm" defaultValue={formObject.long} onChange={(e)=> props.editForm(e)} name="long"></FormControl>
@@ -141,7 +141,7 @@ const GeneralCard = props => {
         <div className="smallDiv">
             <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} fluid onError={errorHandler}/></FormLabel>
               <label htmlFor={'hidden'} className="labelForHidden">Choose image</label>
-            <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e)}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
+            <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e); props.editForm(e);}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
         </div>
       </div>
     </Card>
