@@ -92,12 +92,12 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     //Input event id, get data to set formobjects
     async function parseEventData(id){
         let data = await getEventData(id);
-        let pass = await getPassData(id)
+        let pass = await getPassData(data.metadata.eventName)
         console.log(pass)
         if(data){
             setFormObjects({
                 //About Form
-                eventPass: "",
+                eventPass: `${pass}`,
                 eventName: `${data.metadata.eventName}`,
                 eventImage: `${data.metadata.eventImage}`, //https://sahat.lamk.fi/saveFile
                 eventColor: `${data.metadata.colorScheme}`,
@@ -358,29 +358,26 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             }
         })
     }
-    function getPassData(id){
+    function getPassData(eventName){
         const req = axios.get(baseURL+"/findEventPlaintextPass")
         return req
         .then(function (res) {
-            let pass = ""
             console.log(res.data)
+            let pass = ""
             for(let i in res.data){
-                console.log(res.data[i]._id, id)
-                if(res.data[i]._id === id){
+                if(res.data[i].eventName === eventName){
                     pass = res.data[i].eventPass
                 }
             }
-
-            //return res.data;
-            return pass
+            return pass;
         })
         .catch(function (error) {
-            //console.log(error);
+            console.log(error);
 
             if(error.response.status === 404){
                 setModalAuth(true)
             }
-            return null
+            return ""
         })
     }
     //input event id, get eventdata
@@ -566,7 +563,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             </div>
             
             <div style={{position:"fixed", top:"100px",right:"20px"}}>
-                <Toast onClose={()=>setToastShow(false)} show={ToastShow} delay={3000} style={{zIndex:'5'}} autohide>
+                <Toast onClose={()=>setToastShow(false)} show={ToastShow} delay={5000} style={{zIndex:'5'}} autohide>
                     <Toast.Header className={ToastHeader === "Success" ? "text-success" : ToastHeader === "Error" ? "text-danger" : ""}>{ToastHeader}</Toast.Header>
                     <Toast.Body>{ToastBody}</Toast.Body>
                 </Toast>
