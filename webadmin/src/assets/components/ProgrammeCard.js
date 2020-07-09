@@ -63,25 +63,25 @@ const ProgrammeCard = props => {
                             <Col>
                                 <FormGroup>
                                     <FormLabel>Name of the Speaker</FormLabel>
-                                    <FormControl size="sm" onChange={changeHandler} name="NameOfSpeaker" defaultValue={formObject.NameOfSpeaker}></FormControl>
+                                    <FormControl size="sm" onChange={changeHandler} name="NameOfSpeaker" value={formObject.NameOfSpeaker}></FormControl>
                                 </FormGroup>
                             </Col>
                             <Col>
                                 <FormGroup>
                                     <FormLabel>Title of the Speaker</FormLabel>
-                                    <FormControl size="sm" onChange={changeHandler} name="TitleOfSpeaker" defaultValue={formObject.TitleOfSpeaker}></FormControl>
+                                    <FormControl size="sm" onChange={changeHandler} name="TitleOfSpeaker" value={formObject.TitleOfSpeaker}></FormControl>
                                 </FormGroup>
                             </Col>
                             <Col>
                                 <FormGroup>
                                     <FormLabel>Special Title of the Speaker</FormLabel>
-                                    <FormControl size="sm" onChange={changeHandler} name="SpecialTitleOfSpeaker" defaultValue={formObject.SpecialTitleOfSpeaker}></FormControl>
+                                    <FormControl size="sm" onChange={changeHandler} name="SpecialTitleOfSpeaker" value={formObject.SpecialTitleOfSpeaker}></FormControl>
                                 </FormGroup>
                             </Col>
                             <Col>
                                 <FormGroup>
                                     <FormLabel>Company of the Speaker</FormLabel>
-                                    <FormControl size="sm" onChange={changeHandler} name="CompanyOfSpeaker" defaultValue={formObject.CompanyOfSpeaker}></FormControl>
+                                    <FormControl size="sm" onChange={changeHandler} name="CompanyOfSpeaker" value={formObject.CompanyOfSpeaker}></FormControl>
                                 </FormGroup>
                             </Col>
                         </Row>
@@ -100,20 +100,20 @@ const ProgrammeCard = props => {
                                       delay={{show: 250, hide: 250}}
                                       overlay={<Tooltip>Example "15:00-15:30"</Tooltip>}
                                       >
-                                    <FormControl size="sm" name="Time" onChange={changeHandler} defaultValue={formObject.Time}></FormControl>
+                                    <FormControl size="sm" name="Time" onChange={changeHandler} value={formObject.Time}></FormControl>
                                     </OverlayTrigger>
                                 </FormGroup>
                             </Col>
                             <Col>
                                 <FormGroup>
                                     <FormLabel>Location</FormLabel>
-                                    <FormControl size="sm" name="Location" onChange={changeHandler} defaultValue={formObject.Location}></FormControl>
+                                    <FormControl size="sm" name="Location" onChange={changeHandler} value={formObject.Location}></FormControl>
                                 </FormGroup>
                             </Col>
                             <Col>
                                 <FormGroup>
                                     <FormLabel>Description</FormLabel>
-                                    <FormControl size="sm" name="Description" as="textarea" rows="1" defaultValue={formObject.Description} onChange={changeHandler}></FormControl>
+                                    <FormControl size="sm" name="Description" as="textarea" rows="1" value={formObject.Description} onChange={changeHandler}></FormControl>
                                 </FormGroup>
                             </Col>
                         </Row>
