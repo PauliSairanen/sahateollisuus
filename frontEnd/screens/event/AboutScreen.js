@@ -108,10 +108,12 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
+    width: Dimensions.get('screen').width / 100 * 90,
     margin: 20,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center'
+
   },
   title: {
     marginTop: 10,
