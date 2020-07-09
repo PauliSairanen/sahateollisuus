@@ -158,7 +158,7 @@ const ParticipantsForm = (props) => {
             <ButtonGroup style={{display:'flex', flexWrap:'wrap'}}>
                 {pageButtons}
             </ButtonGroup> */}
-            <div style={{display:'flex', flexDirection: 'row'}}>
+            <div style={{display:'flex', flexDirection: 'row', marginBottom:'10px'}}>
                 <div style={{marginRight:'10px'}}>
                     <InputGroup style={{display:'flex', justifyContent:'center', alignItems:'center', borderRadius:'25px', border:'1.5px solid lightgrey', padding:'10px'}}>
                         <FormControl className="noActive" onKeyDown={(e)=>{if(e.keyCode === 13) setSearch(e.target.value)}}/>
