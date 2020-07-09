@@ -412,7 +412,7 @@ const ProgrammeForm = (props) => {
             </div>
             <div>
                 <ButtonGroup vertical style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
-                    <Button className="dayAddButton" name="plus" onClick={dayHandler}>+</Button>
+                    <Button className="dayAddButton" name="plus" onClick={dayHandler} disabled={dayButtons.length >= 5 ? true : false}>+</Button>
                     <OverlayTrigger
                         placement="bottom"
                         delay={{show: 250, hide: 250}}
