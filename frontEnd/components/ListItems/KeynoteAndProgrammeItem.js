@@ -24,7 +24,6 @@ const KeynoteAndProgrammeItem = props => {
   const location = props.location
   const description = props.description
   const pdfFileName = props.pdf
-
   const webSource = { uri: `${serverURL}/public/${eventId}/${pdfFileName}`, cache: true };
 
   return (
@@ -112,7 +111,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 15,
+    marginTop: 8,
+    marginBottom: 10,
   },
   pdfCardContainer: {
     width: Dimensions.get('window').width / 100 * 20,
@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   description: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
   imageContainer: {
     width: Dimensions.get('window').width / 100 * 30,

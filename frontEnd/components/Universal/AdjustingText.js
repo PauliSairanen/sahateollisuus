@@ -13,13 +13,13 @@ const AdjustingText = props => {
     // console.log('Using font size of: ' + fontSize)
   }
   else if (screenWidth <= 350) {
-    fontSize = 12
+    fontSize = 10
   }
   else if (screenWidth <= 375) {
-    fontSize = 13
+    fontSize = 12
   }
   else if (screenWidth >= 400) {
-    fontSize = 14
+    fontSize = 13
   }
 
   // console.log('current screen width: ' + screenWidth)

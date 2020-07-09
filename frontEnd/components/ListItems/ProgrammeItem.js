@@ -15,14 +15,14 @@ const ProgrammeItem = props => {
   if (time && location && description && !speaker && !titleOfSpeaker && !specialTitleOfSpeaker && !companyOfSpeaker) {
     return (
       <View style={styles.card}>
-        <View style={styles.timeContainer}>
+        <View style={styles.leftContainer}>
           <AdjustingText>{props.time} </AdjustingText>
         </View>
-        <View style={styles.columnContentContainer}>
-          <View style={styles.rowContentContainer}>
-            <Text style={styles.description}>{props.description}</Text>
-            <AdjustingText style={styles.location}>{props.location}</AdjustingText>
-          </View>
+        <View style={styles.adjustingMiddleContainer}>
+          <Text style={styles.description}>{props.description}</Text>
+        </View>
+        <View style={styles.rightContainer}>
+          <AdjustingText style={styles.location}>{props.location}</AdjustingText>
         </View>
       </View>
     )
@@ -31,43 +31,39 @@ const ProgrammeItem = props => {
   else if (time && location && description && speaker && titleOfSpeaker && !specialTitleOfSpeaker && companyOfSpeaker) {
     return (
       <View style={styles.card}>
-        <View style={styles.timeContainer}>
+        <View style={styles.leftContainer}>
           <AdjustingText>{props.time} </AdjustingText>
         </View>
-        <View style={styles.columnContentContainer}>
-          <View style={styles.rowContentContainer}>
-            <Text style={styles.description}>{props.description}</Text>
-            <AdjustingText style={styles.location}>{props.location}</AdjustingText>
-          </View>
-          <View style={styles.columnContentContainer}>
-            <Text style={styles.speakerName}>{props.speaker}</Text>
-            <Text style={styles.infoAboutSpeaker}>{props.titleOfSpeaker}</Text>
-            <Text style={styles.infoAboutSpeaker}>{props.companyOfSpeaker}</Text>
-          </View>
+        <View style={styles.middleContainer}>
+          <Text style={styles.description}>{props.description}</Text>
+          <Text style={styles.speakerName}>{props.speaker}</Text>
+          <Text style={styles.infoAboutSpeaker}>{props.titleOfSpeaker}</Text>
+          <Text style={styles.infoAboutSpeaker}>{props.companyOfSpeaker}</Text>
         </View>
-      </View >
+        <View style={styles.rightContainer}>
+          <AdjustingText style={styles.location}>{props.location}</AdjustingText>
+        </View>
+      </View>
     )
   }
   // If all information
   else if (time && location && description && speaker && titleOfSpeaker && specialTitleOfSpeaker && companyOfSpeaker) {
     return (
       <View style={styles.card}>
-        <View style={styles.timeContainer}>
+        <View style={styles.leftContainer}>
           <AdjustingText>{props.time} </AdjustingText>
         </View>
-        <View style={styles.columnContentContainer}>
-          <View style={styles.rowContentContainer}>
-            <Text style={styles.description}>{props.description}</Text>
-            <AdjustingText style={styles.location}>{props.location}</AdjustingText>
-          </View>
-          <View style={styles.columnContentContainer}>
-            <Text style={styles.speakerName}>{props.speaker}</Text>
-            <Text style={styles.infoAboutSpeaker}>{props.titleOfSpeaker}</Text>
-            <Text style={styles.infoAboutSpeaker}>{props.companyOfSpeaker}</Text>
-            <Text style={styles.infoAboutSpeaker}>{props.specialTitleOfSpeaker}</Text>
-          </View>
+        <View style={styles.middleContainer}>
+          <Text style={styles.description}>{props.description}</Text>
+          <Text style={styles.speakerName}>{props.speaker}</Text>
+          <Text style={styles.infoAboutSpeaker}>{props.titleOfSpeaker}</Text>
+          <Text style={styles.infoAboutSpeaker}>{props.companyOfSpeaker}</Text>
+          <Text style={styles.infoAboutSpeaker}>{props.specialTitleOfSpeaker}</Text>
         </View>
-      </View >
+        <View style={styles.rightContainer}>
+          <AdjustingText style={styles.location}>{props.location}</AdjustingText>
+        </View>
+      </View>
     )
   }
   else {
@@ -82,38 +78,49 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     margin: 3,
-    padding: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },
-  timeContainer: {
-    flex: 2,
-    marginVertical: 5,
-    marginRight: 10,
+  leftContainer: {
+    flex: 4,
+    justifyContent: 'flex-start',
   },
-  columnContentContainer: {
-    flex: 6,
+
+  middleContainer: {
+    flex: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  rowContentContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    marginVertical: 5,
+  rightContainer: {
+    flex: 4,
+    justifyContent: 'flex-start',
+  },
+  adjustingMiddleContainer: {
+    flex: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   description: {
     flex: 1,
     paddingRight: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 8,
   },
   location: {
-    flex: 1,
+    textAlign: 'right'
   },
   speakerName: {
-    marginBottom: 6,
-    fontSize: 15
+    marginBottom: 8,
+    fontSize: 15,
+    textAlign: 'center',
   },
   infoAboutSpeaker: {
-    fontSize: 12
+    fontSize: 12,
+    textAlign: 'center'
   }
 })
 
