@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   button: {
-    height: Dimensions.get('window').width / 100 * 7,
+    height: Dimensions.get('screen').width / 100 * 7,
     justifyContent: 'center',
   },
   link: {
