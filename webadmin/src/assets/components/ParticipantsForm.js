@@ -158,10 +158,17 @@ const ParticipantsForm = (props) => {
             <ButtonGroup style={{display:'flex', flexWrap:'wrap'}}>
                 {pageButtons}
             </ButtonGroup> */}
-            <InputGroup style={{width:'50%'}}>
-                <FormControl style={{marginRight:'10px'}} onKeyDown={(e)=>{if(e.keyCode === 13) setSearch(e.target.value)}}/>
+            <div style={{display:'flex', flexDirection: 'row', marginBottom:'10px'}}>
+                <div style={{marginRight:'10px'}}>
+                    <InputGroup style={{display:'flex', justifyContent:'center', alignItems:'center', borderRadius:'25px', border:'1.5px solid lightgrey', padding:'10px'}}>
+                        <FormControl className="noActive" onKeyDown={(e)=>{if(e.keyCode === 13) setSearch(e.target.value)}}/>
+                        <InputGroup.Append>
+                            <Button className="otherButtons" style={{margin:'0'}} onClick={(e)=>{e.target.parentNode.parentNode.childNodes[0].value=""; setSearch("")}}>Clear Search</Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </div>
                 <Button className="otherButtons" onClick={(e)=>{setSearch(e.currentTarget.parentNode.childNodes[0].value)}}>Search</Button>
-            </InputGroup>
+            </div>
         </div>
         <form autoComplete="off" id="form">
             {/* <input type="text" name="country" placeholder="Country"/>
