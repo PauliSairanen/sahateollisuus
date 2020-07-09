@@ -65,7 +65,7 @@ const KeynoteAndProgrammeItem = props => {
         </SafeAreaView>
       </Modal>
 
-      {/* __________ List item __________ */}
+      {/* ____________________List item ____________________ */}
       <View style={styles.listElement}>
         <View style={styles.row}>
           <View style={styles.textContainer}>
