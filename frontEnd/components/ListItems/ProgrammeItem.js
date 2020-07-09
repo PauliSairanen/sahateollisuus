@@ -1,76 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import AdjustingText from '../Universal/AdjustingText'
 
 const ProgrammeItem = props => {
-  const time = props.time
-  const location = props.location
-  const description = props.description
-  const speaker = props.speaker
-  const titleOfSpeaker = props.titleOfSpeaker
-  const specialTitleOfSpeaker = props.specialTitleOfSpeaker
-  const companyOfSpeaker = props.companyOfSpeaker
+  const [time, setTime] = useState(props.time)
+  const [location, setLocation] = useState(props.location)
+  const [description, setDescription] = useState(props.description)
+  const [speaker, setSpeaker] = useState(props.speaker)
+  const [titleOfSpeaker, setTitleOfSpeaker] = useState(props.titleOfSpeaker)
+  const [specialTitleOfSpeaker, setSpecialTitleOfSpeaker] = useState(props.specialTitleOfSpeaker)
+  const [companyOfSpeaker, setCompanyOfSpeaker] = useState(props.companyOfSpeaker)
 
-  // If only Time, Location and Description
-  if (time && location && description && !speaker && !titleOfSpeaker && !specialTitleOfSpeaker && !companyOfSpeaker) {
-    return (
-      <View style={styles.card}>
-        <View style={styles.leftContainer}>
-          <AdjustingText>{props.time} </AdjustingText>
-        </View>
-        <View style={styles.adjustingMiddleContainer}>
-          <Text style={styles.description}>{props.description}</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <AdjustingText style={styles.location}>{props.location}</AdjustingText>
-        </View>
+  return (
+    <View style={styles.card}>
+      <View style={styles.leftContainer}>
+        <AdjustingText>{time} </AdjustingText>
       </View>
-    )
-  }
-  // If everything else but Special title
-  else if (time && location && description && speaker && titleOfSpeaker && !specialTitleOfSpeaker && companyOfSpeaker) {
-    return (
-      <View style={styles.card}>
-        <View style={styles.leftContainer}>
-          <AdjustingText>{props.time} </AdjustingText>
-        </View>
-        <View style={styles.middleContainer}>
-          <Text style={styles.description}>{props.description}</Text>
-          <Text style={styles.speakerName}>{props.speaker}</Text>
-          <Text style={styles.infoAboutSpeaker}>{props.titleOfSpeaker}</Text>
-          <Text style={styles.infoAboutSpeaker}>{props.companyOfSpeaker}</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <AdjustingText style={styles.location}>{props.location}</AdjustingText>
-        </View>
+      <View style={styles.middleContainer}>
+        <Text style={styles.description}>{description}</Text>
+        {speaker
+          ? <Text style={styles.speakerName}>{speaker}</Text>
+          : <View></View>
+        }
+        {titleOfSpeaker
+          ? <Text style={styles.infoAboutSpeaker}>{titleOfSpeaker}</Text>
+          : <View></View>
+        }
+        {companyOfSpeaker
+          ? <Text style={styles.infoAboutSpeaker}>{companyOfSpeaker}</Text>
+          : <View></View>
+        }
+        {specialTitleOfSpeaker
+          ? <Text style={styles.infoAboutSpeaker}>{specialTitleOfSpeaker}</Text>
+          : <View></View>
+        }
       </View>
-    )
-  }
-  // If all information
-  else if (time && location && description && speaker && titleOfSpeaker && specialTitleOfSpeaker && companyOfSpeaker) {
-    return (
-      <View style={styles.card}>
-        <View style={styles.leftContainer}>
-          <AdjustingText>{props.time} </AdjustingText>
-        </View>
-        <View style={styles.middleContainer}>
-          <Text style={styles.description}>{props.description}</Text>
-          <Text style={styles.speakerName}>{props.speaker}</Text>
-          <Text style={styles.infoAboutSpeaker}>{props.titleOfSpeaker}</Text>
-          <Text style={styles.infoAboutSpeaker}>{props.companyOfSpeaker}</Text>
-          <Text style={styles.infoAboutSpeaker}>{props.specialTitleOfSpeaker}</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <AdjustingText style={styles.location}>{props.location}</AdjustingText>
-        </View>
+      <View style={styles.rightContainer}>
+        <AdjustingText style={styles.location}>{location}</AdjustingText>
       </View>
-    )
-  }
-  else {
-    return (
-      <View></View>
-    )
-  }
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({

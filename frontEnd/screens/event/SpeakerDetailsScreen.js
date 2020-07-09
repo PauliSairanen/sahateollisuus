@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, FlatList, StyleSheet, Text, Dimensions } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { useSelector } from 'react-redux'
@@ -10,8 +10,6 @@ import serverURL from '../../constants/Networking'
 import ImageWithLoadingIndicator from '../../components/Universal/ImageWithLoadingIndicator'
 
 const SpeakerDetailsScreen = props => {
-  const [isLoading, setIsLoading] = useState(false)
-
   const speakerName = props.navigation.getParam('speakerName')
   const title = props.navigation.getParam('title')
   const specialTitle = props.navigation.getParam('specialTitle')
