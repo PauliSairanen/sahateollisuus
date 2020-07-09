@@ -161,54 +161,65 @@ class Events {
 
     //Luo yhden uuden eventin res bodyn pohjalta pohjalta
     createEvent(req, res){
-        if(req.body.eventPass && req.body.metadata.eventName){
-            var metadataJSON = req.body.metadata;
-            var aboutJSON = req.body.about;
-            var participantsJSON = req.body.participants;
-            var programmeJSON = req.body.programme;
-            var speakerJSON = req.body.speakers;
-            var sponsorsJSON = req.body.sponsors;
-            var venueJSON = req.body.venue;
-            var mapDataJSON = req.body.mapData;
-
-            var event = new Event({
-                metadata: metadataJSON,
-                about : aboutJSON,
-                participants : participantsJSON,
-                programme : programmeJSON,
-                speakers : speakerJSON,
-                sponsors : sponsorsJSON,
-                venue : venueJSON,
-                mapData : mapDataJSON
-            });
-
-            event.save().then(function(err){
-                console.log("Event was saved");
-                bcrypt.hash(req.body.eventPass, 10, (err, hash) => {
-                    var eventAuth = new EventAuth({
-                        eventName: req.body.metadata.eventName,
-                        eventPass: hash
-                    });
-                    eventAuth.save().then(function(err){
-                        console.log("EventAuth was saved");
-                        var eventAuthAdmin = new EventAuthAdmin({
-                            eventName: req.body.metadata.eventName,
-                            eventPass: req.body.eventPass
-                        })
-                        eventAuthAdmin.save().then(function(err){
-                            console.log("EventAuthAdmin was saved");
-                            var a = Event.find({"metadata.eventName": req.body.metadata.eventName}, {_id: 1}).then(function(a){
-                                res.send(a[0]);
-                                res.end();
-                            })
-                        });       
-                    });
+        Event.find({"metadata.eventName": req.body.metadata.eventName}, function(err, event){
+            console.log(event)
+            // event && !(event[0] == undefined)
+            if(event[0]) {
+                res.status(400).json({
+                    message: 'Two events cannot have a same name!'
                 })
-            });
-        }
-        else res.status(400).json({
-            message: 'Missing required event information'
-        })
+            }
+            else {
+                if(req.body.eventPass && req.body.metadata.eventName){
+                    var metadataJSON = req.body.metadata;
+                    var aboutJSON = req.body.about;
+                    var participantsJSON = req.body.participants;
+                    var programmeJSON = req.body.programme;
+                    var speakerJSON = req.body.speakers;
+                    var sponsorsJSON = req.body.sponsors;
+                    var venueJSON = req.body.venue;
+                    var mapDataJSON = req.body.mapData;
+        
+                    var event = new Event({
+                        metadata: metadataJSON,
+                        about : aboutJSON,
+                        participants : participantsJSON,
+                        programme : programmeJSON,
+                        speakers : speakerJSON,
+                        sponsors : sponsorsJSON,
+                        venue : venueJSON,
+                        mapData : mapDataJSON
+                    });
+        
+                    event.save().then(function(err){
+                        console.log("Event was saved");
+                        bcrypt.hash(req.body.eventPass, 10, (err, hash) => {
+                            var eventAuth = new EventAuth({
+                                eventName: req.body.metadata.eventName,
+                                eventPass: hash
+                            });
+                            eventAuth.save().then(function(err){
+                                console.log("EventAuth was saved");
+                                var eventAuthAdmin = new EventAuthAdmin({
+                                    eventName: req.body.metadata.eventName,
+                                    eventPass: req.body.eventPass
+                                })
+                                eventAuthAdmin.save().then(function(err){
+                                    console.log("EventAuthAdmin was saved");
+                                    var a = Event.find({"metadata.eventName": req.body.metadata.eventName}, {_id: 1}).then(function(a){
+                                        res.send(a[0]);
+                                        res.end();
+                                    })
+                                });       
+                            });
+                        })
+                    });
+                }
+                else res.status(400).json({
+                    message: 'Missing required event information'
+                })
+            }
+        });
     }
 
     findEventPass(req, res){

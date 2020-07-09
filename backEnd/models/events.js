@@ -8,6 +8,9 @@ const EventSchema = new Schema(
     metadata : {
       eventName: String,
       eventImage: String,
+      address: String,
+      lat: String,
+      long: String,
       visibility: String,
       colorScheme: String
     },
@@ -65,6 +68,7 @@ const EventSchema = new Schema(
         Title: String,
         SpecialTitle: String,
         Company: String,
+        Description: String,
         ImageID: String
       }
     ],
