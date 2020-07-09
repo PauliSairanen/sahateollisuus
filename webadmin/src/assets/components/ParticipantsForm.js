@@ -140,12 +140,14 @@ const ParticipantsForm = (props) => {
 
     return(
         <>
+        <div style={{display:'flex',justifyContent:'center',alignContent:'center',flexDirection:'row'}}>
         <form id="fileform" style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
             <label htmlFor="hidden-input" className="labelForHidden">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
         </form>
         <div style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
-            <a href='/Excel/Participants.xlsx' download>Click to download base Excel Form</a>
+            <a className="labelForHidden" href='/Excel/Participants.xlsx' download>Click to download base Excel Form</a>
+        </div>
         </div>
         <div style={
             {
