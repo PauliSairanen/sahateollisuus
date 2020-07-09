@@ -69,3 +69,13 @@
     border-color: #c08600;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+.noActive{
+    border: 0px solid transparent;
+    margin-right: 1px
+}
+.noActive:focus{
+    border: 0px solid transparent;
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+    margin-right: 1px;
+}

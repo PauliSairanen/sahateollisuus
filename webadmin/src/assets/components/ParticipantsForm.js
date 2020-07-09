@@ -160,10 +160,10 @@ const ParticipantsForm = (props) => {
             </ButtonGroup> */}
             <div style={{display:'flex', flexDirection: 'row'}}>
                 <div style={{marginRight:'10px'}}>
-                    <InputGroup>
-                        <FormControl onKeyDown={(e)=>{if(e.keyCode === 13) setSearch(e.target.value)}}/>
+                    <InputGroup style={{display:'flex', justifyContent:'center', alignItems:'center', borderRadius:'25px', border:'1.5px solid lightgrey', padding:'10px'}}>
+                        <FormControl className="noActive" onKeyDown={(e)=>{if(e.keyCode === 13) setSearch(e.target.value)}}/>
                         <InputGroup.Append>
-                            <Button className="otherButtons" onClick={(e)=>{e.target.parentNode.parentNode.childNodes[0].value=""; setSearch("")}}>Clear Search</Button>
+                            <Button className="otherButtons" style={{margin:'0'}} onClick={(e)=>{e.target.parentNode.parentNode.childNodes[0].value=""; setSearch("")}}>Clear Search</Button>
                         </InputGroup.Append>
                     </InputGroup>
                 </div>
