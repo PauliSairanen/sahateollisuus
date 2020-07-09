@@ -41,7 +41,7 @@ const ProgrammeCard = props => {
 
     let PdfIconElement
     if (props.form.Pdf){
-        PdfIconElement = <PdfIcon className="pdfIcon"></PdfIcon>
+        PdfIconElement = <PdfIcon className="pdfIcon" style={{color: '#ff0000'}}></PdfIcon>
     }
     else {
         PdfIconElement = <NoPdfIcon className="pdfIcon"></NoPdfIcon>
