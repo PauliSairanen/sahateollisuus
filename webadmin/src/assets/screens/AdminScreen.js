@@ -13,7 +13,7 @@ import Image from 'react-bootstrap/Image'
 //import Form from 'react-bootstrap/Form'
 
 import AddButton from '../components/AddButton'
-import { Modal } from 'react-bootstrap';
+import { Modal, Card } from 'react-bootstrap';
 /**
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
@@ -93,7 +93,7 @@ const AdminScreen = (props) => {
     }
 
     async function findMetadata() {
-        const req = axios.get(baseURL+"/findMetadata", {
+        const req = axios.get(baseURL+"/findEventsAdmin", {
             headers:{
               Authorization: "Bearer "+props.readSession()
             }
@@ -105,6 +105,7 @@ const AdminScreen = (props) => {
             })
             .catch(function (error) {
             //console.log(error);
+            setLoginVisibility(true)
             return []
             })
     }
@@ -253,14 +254,15 @@ const AdminScreen = (props) => {
             {EventObject.length > 0 ? EventObject : <p style={{alignSelf:'center', justifySelf:'center'}}>Cannot connect to the server</p>}
         </div>
         {LoginVisibility ? 
-            <div id="ReAuth">
-                <p id="ReAuthText">Authecation token invalid.</p>
+            <Card id="ReAuth" style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                <p id="ReAuthText">Authecation token invalid. Please reauthenticate</p>
                 <LoginScreen 
                 changeContent={(cont) => {props.changeContent(cont)}}
                 readSession={() => {props.readSession()}} 
                 changeSession={(sess) => {props.changeSession(sess)}}
-                visibility={setLoginVisibility}/>
-            </div> : null}
+                visibility={setLoginVisibility}
+                return={()=>{window.location.reload()}}/>
+            </Card> : null}
         
         </>
     )
