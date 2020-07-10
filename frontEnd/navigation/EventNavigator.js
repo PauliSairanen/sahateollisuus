@@ -15,7 +15,7 @@ import ProgrammeScreen from '../screens/event/ProgrammeScreen'
 import SpeakersScreen from '../screens/event/SpeakersScreen'
 import SponsorsScreen from '../screens/event/SponsorsScreen'
 import VenueScreen from '../screens/event/VenueScreen'
-import FeedbackScreen from '../screens/event/FeedbaackScreen'
+import FeedbackScreen from '../screens/event/FeedbackScreen'
 import SpeakerDetailsScreen from '../screens/event/SpeakerDetailsScreen'
 import MapsScreen from '../screens/event/MapsScreen'
 

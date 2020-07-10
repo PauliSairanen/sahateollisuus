@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Platform, Dimensions, TouchableOpacity, Touchab
 import Communications from 'react-native-communications'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import Card from '../../components//Universal/Card'
+import Card from '../../components/Universal/Card'
 import Colors from '../../constants/Colors'
 
 let TouchableComponent = TouchableOpacity
@@ -38,7 +38,7 @@ const FeedbackScreen = props => {
               />
             </View>
             <View>
-              <Text style={styles.text}>Send us feedback</Text>
+              <Text style={styles.text}>Send us Feedback</Text>
             </View>
 
           </View>
