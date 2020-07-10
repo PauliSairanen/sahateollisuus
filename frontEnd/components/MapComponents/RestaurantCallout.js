@@ -1,23 +1,14 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import StarRating from 'react-native-star-rating'
-
-import Card from '../Universal/Card'
-import ButtonText from '../TextComponents/ButtonText'
-import Colors from '../../constants/Colors'
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
   TouchableComponent = TouchableNativeFeedback
 }
 
-
 const RestaurantCallout = props => {
   const name = props.name
   const category = props.category
-  const setcurrentMarkerData = props.setcurrentMarkerData
-  const currentMarkerData = props.currentMarkerData
 
   return (
     <View style={styles.container}>
