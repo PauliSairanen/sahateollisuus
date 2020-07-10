@@ -9,11 +9,12 @@ const path = require('path');
 const asd = "qwe";
 // Middlewares
 const checkAdminAuth = require('../middleware/checkAdminToken');
-const checkAppAuth = require('../middleware/checkAppToken');
+const checkMobileAuth = require('../middleware/checkAppToken');
 
 // Multer setup
 const multer = require('multer');
 const fs = require('fs');
+const checkAdminToken = require('../middleware/checkAdminToken')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -68,24 +69,31 @@ router.post('/add', jsonParser, (req, res) => {
 
 // Autentikaatio routet
 router.get('/findEventPass', cors(), jsonParser, events.findEventPass);
-router.get('/findEventPlaintextPass', cors(), jsonParser, events.findEventPlaintextPass);
+router.get('/findEventPlaintextPass', cors(), checkAdminAuth, jsonParser, events.findEventPlaintextPass);
 router.post('/mobileLogin', cors(), jsonParser, events.mobileLogin);
 router.post('/adminLogin', cors(), jsonParser, events.adminLogin);
 
 // Test routet create, update and delete db queryille
 router.post('/createEventFromJSON', cors(), jsonParser, events.createEventFromJSON);
-router.post('/createEvent', cors(), jsonParser, events.createEvent);
-router.post('/updateEvent', cors(), jsonParser, events.updateEvent);
-router.post('/deleteEvent', cors(), jsonParser, events.deleteEvent);
-router.post('/saveFile', cors(), upload.array('myFiles'), events.saveFile); //upload.array('array[]', 1000),
+router.post('/createEvent', cors(), checkAdminAuth, jsonParser, events.createEvent);
+router.post('/updateEvent', cors(), checkAdminAuth, jsonParser, events.updateEvent);
+router.post('/deleteEvent', cors(), checkAdminAuth, jsonParser, events.deleteEvent);
+router.post('/saveFile', cors(), checkAdminAuth, upload.array('myFiles'), events.saveFile); //upload.array('array[]', 1000),
 
 // Relevantit event data get routet
 
 router.post('/findEventsByEmail', cors(), jsonParser, events.findEventsByEmail);
+router.get('/findMetadataAdmin', cors(), checkAdminAuth, jsonParser, events.findMetadata);
 
-router.post('/findEvent', cors(), jsonParser, events.findEvent);
 
+router.post('/findEventMobile', cors(), checkMobileAuth, jsonParser, events.findEvent);
+router.post('/findEventAdmin', cors(), checkAdminAuth, jsonParser, events.findEvent);
+
+router.get('/findEventsAdmin', cors(), checkAdminToken, jsonParser, events.findMetadata);
+
+// Testaus routet
 router.get('/findMetadata', cors(), jsonParser, events.findMetadata);
+router.post('/findEventMobileTest', cors(), jsonParser, events.findEvent);
 
 // Ei niin relevantit tai toimimattomat event data get routet
 router.post('/findAll', cors(), jsonParser, events.findAll);

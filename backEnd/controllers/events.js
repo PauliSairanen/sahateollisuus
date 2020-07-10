@@ -34,7 +34,7 @@ class Events {
                             },
                             APP_KEY,
                             {
-                                expiresIn: "1h"
+                                expiresIn: "4h"
                             }
                         );
                         return res.status(200).json({
@@ -91,7 +91,7 @@ class Events {
                             },
                             ADMIN_KEY,
                             {
-                                expiresIn: "1h"
+                                expiresIn: "4h"
                             }
                         );
                         return res.status(200).json({
