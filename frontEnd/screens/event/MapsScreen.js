@@ -174,8 +174,8 @@ const MapsScreen = props => {
             </View>
             <View style={styles.navigationButtonsContainer}>
               <MapNavigationButton
-                latitude={eventMetadata.lat}
-                longitude={eventMetadata.long}
+                latitude={parseFloat(eventMetadata.lat)}
+                longitude={parseFloat(eventMetadata.long)}
                 animationTime={2000}
                 iconName={'star'}
               />

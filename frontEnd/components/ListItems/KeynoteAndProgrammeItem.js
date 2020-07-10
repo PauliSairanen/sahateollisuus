@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Modal, Button } from 'react-native'
+import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Modal } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Pdf from 'react-native-pdf'
@@ -24,7 +24,6 @@ const KeynoteAndProgrammeItem = props => {
   const location = props.location
   const description = props.description
   const pdfFileName = props.pdf
-
   const webSource = { uri: `${serverURL}/public/${eventId}/${pdfFileName}`, cache: true };
 
   return (
@@ -66,6 +65,7 @@ const KeynoteAndProgrammeItem = props => {
         </SafeAreaView>
       </Modal>
 
+      {/* ____________________List item ____________________ */}
       <View style={styles.listElement}>
         <View style={styles.row}>
           <View style={styles.textContainer}>
@@ -78,21 +78,23 @@ const KeynoteAndProgrammeItem = props => {
             <AdjustingText>{location}</AdjustingText>
           </View>
         </View>
-          <View style={styles.pdfContainer}>
-        <TouchableComponent
-          onPress={() => {
-            setModalVisible(true)
-          }}
-        >
-            <Card style={styles.pdfCardContainer}>
-              <Icon
-                name={'pdffile1'}
-                size={Dimensions.get('window').width / 100 * 15}
-                color={Colors.pdf}
-              />
-            </Card>
-        </TouchableComponent>
-          </View>
+        <View style={styles.pdfContainer}>
+          <TouchableComponent
+            onPress={() => {
+              setModalVisible(true)
+            }}
+          >
+            <View style={styles.pdfContainer}>
+              <Card style={styles.pdfCardContainer}>
+                <Icon
+                  name={'pdffile1'}
+                  size={Dimensions.get('window').width / 100 * 16}
+                  color={Colors.pdf}
+                />
+              </Card>
+            </View>
+          </TouchableComponent>
+        </View>
       </View>
     </View>
   )
@@ -107,21 +109,21 @@ const styles = StyleSheet.create({
   },
   pdfContainer: {
     flex: 1,
-    justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 25,
+    justifyContent: 'center',
+    marginTop: 8,
+    marginBottom: 10,
+  },
+  pdfCardContainer: {
+    width: Dimensions.get('window').width / 100 * 20,
+    aspectRatio: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   pdf: {
     flex: 1,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-  },
-  pdfCardContainer: {
-    width: Dimensions.get('window').width / 100 * 19,
-    aspectRatio: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 25,
   },
   modalContainer: {
     flex: 1,
@@ -154,7 +156,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   description: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
   imageContainer: {
     width: Dimensions.get('window').width / 100 * 30,

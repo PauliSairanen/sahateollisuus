@@ -45,8 +45,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
 
     const [ModalShow, setModalShow] = useState(false)
     const [ModalText, setModalText] = useState()
-    //ReAuth modal
+    //ReAuth
     const [ModalAuth, setModalAuth] = useState(false)
+    const [Changes, setChanges] = useState(false)
     //Form variables
     const [FormObjects, setFormObjects] = useState({
         //About/General Form
@@ -91,8 +92,14 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     })
     //Input event id, get data to set formobjects
     async function parseEventData(id){
+        if(Changes){
+            return null
+        }
         let data = await getEventData(id);
-        let pass = await getPassData(data.metadata.eventName)
+        if(data === null){
+            return null;
+        }
+        let pass = await getPassData(data ? data.metadata.eventName : null)
         console.log(pass)
         if(data){
             setFormObjects({
@@ -228,6 +235,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 [e.target.name]: [e.target.value]
             })
         }
+        setChanges(true)
     }
     //same as changeHandler, but target and value is more specified
     function appendForm(target,value){
@@ -235,6 +243,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             ...FormObjects,
             [target]: value
         })
+        setChanges(true)
     }
     function latlongForm(lat, long){
         setFormObjects({
@@ -242,6 +251,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             lat: lat,
             long: long
         })
+        setChanges(true)
     }
     //Complete form (to send to back-end)
     let finalForm = {
@@ -335,20 +345,18 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 setModalShow(false)
                 toast("Success", "Changes were saved")
             }
+            setChanges(false)
         })
         .catch(function (error) {
             // handle error
             //console.log("event create fail");
-            //console.log(error);
+            
             if(error.response){
-                //console.log(error.response.data);
-                //console.log(error.response.status);
-                //console.log(error.response.headers);
                 
                 setModalShow(false)
                 toast("Error",`${error.response.data.message}`)
 
-                if(error.response.status === 404){
+                if(error.response.status === 401){
                     setModalAuth(true)
                 }
             }
@@ -359,14 +367,19 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
     }
     function getPassData(eventName){
-        const req = axios.get(baseURL+"/findEventPlaintextPass")
+        const req = axios.get(baseURL+"/findEventPlaintextPass",
+        {
+            headers:{
+              Authorization: "Bearer "+localStorage.getItem("Session")
+            }
+        })
         return req
         .then(function (res) {
-            console.log(res.data)
             let pass = ""
             for(let i in res.data){
                 if(res.data[i].eventName === eventName){
                     pass = res.data[i].eventPass
+                    break;
                 }
             }
             return pass;
@@ -374,7 +387,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         .catch(function (error) {
             console.log(error);
 
-            if(error.response.status === 404){
+            if(error.response && error.response.status === 401){
                 setModalAuth(true)
             }
             return ""
@@ -382,7 +395,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
     }
     //input event id, get eventdata
     function getEventData(id){
-        const req = axios.post(baseURL+"/findEvent",{
+        const req = axios.post(baseURL+"/findEventAdmin",{
             id: id
         },
         {
@@ -396,8 +409,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         })
         .catch(function (error) {
             //console.log(error);
-
-            if(error.response.status === 404){
+            //getEventData(id)
+            if(error.response && error.response.status === 401){
                 setModalAuth(true)
             }
             return null
@@ -427,7 +440,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
         .catch(function (error){
             //console.log(error);
 
-            if(error.response.status === 404){
+            if(error.response.status === 401){
                 setModalAuth(true)
             }
             return false
@@ -520,11 +533,13 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 <Modal.Body>{ModalText}</Modal.Body>
             </Modal>
             <Modal show={ModalAuth} backdrop="static" keyboard={false}>
-                <Modal.Header>Authentication token has expired. Please reauthenticate.</Modal.Header>
+                <Modal.Header>Authentication token has expired. Please reauthenticate and try again.</Modal.Header>
                 <Modal.Body>
                     <LoginScreen
                         changeContent={()=>{}}
-                        visibility={setModalAuth}/>
+                        visibility={setModalAuth}
+                        EventID={EditID}
+                        return={(id)=>{parseEventData(id)}}/>
                 </Modal.Body>
             </Modal>
             <div>
@@ -534,13 +549,18 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     </Col>
                 </Row>
             </div>
-            <div style={{position:'fixed', top:'0', width:'100%', backgroundColor:'white'}}>
+            <div style={{position:'fixed', top:'0', width:'100%', backgroundColor:'white', zIndex:'9000'}}>
                 <Navbar expand="lg" style={{display:'flex', paddingLeft:'50px', paddingRight:'50px', justifyContent:'center', alignItems:'center', flexDirection:'row', backgroundColor:'white'}}>
                     <Button style={{flex:'1'}} className="otherButtons" onClick={()=>
                     {
-                        if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
+                        if(Changes){
+                            if(window.confirm("Are you sure?! Unsubmitted events are not saved!")){
+                                props.changeContent("AdminScreen")
+                            }  
+                        }
+                        else{
                             props.changeContent("AdminScreen")
-                        }  
+                        }
                     }}>Return to Main Menu</Button>
                     <div style={{display:'flex', flex:'6', alignContent: 'center', justifyContent:'center', flexDirection:'row'}}>
                         <Image src="https://pbs.twimg.com/profile_images/572706560015470592/Jszif-0y_normal.png" style={{marginRight:'10px'}}/>
@@ -589,6 +609,8 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 //fileToUpload(e)
                 uploadFile(e.target.files[0],"test")
             }}/> */}
+            
+            <p>{Changes ? "Are Changes" : "No Changes"}</p>
             <p>{JSON.stringify(finalForm, null, 2)}</p>
             <p>{JSON.stringify(Files,null,2)}</p>
         </div>

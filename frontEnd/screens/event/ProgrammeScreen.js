@@ -39,9 +39,9 @@ const ProgrammeScreen = props => {
     }
     default: {
       return (
-        <View style={styles.container}>
-          <Text>No Tabs enabled for this amount of content.</Text>
-          <Text>Please contact development Team</Text>
+        <View style={styles.errorContainer}>
+          <Text>No tabs enabled for this amount of content.</Text>
+          <Text>Please contact the development Team.</Text>
         </View>
       )
     }
@@ -49,7 +49,7 @@ const ProgrammeScreen = props => {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  errorContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions } from 'react-native'
-import FastImage from 'react-native-fast-image'
 import Card from '../Universal/Card'
 import { useSelector } from 'react-redux'
 import { withNavigation } from 'react-navigation'
@@ -99,7 +98,8 @@ const SpeakersItem = props => {
   } else {
     return (
       <View style={styles.errorContainer}>
-        <Text>Missing data entries. Contact administrators.</Text>
+        <Text>Missing required data entries. </Text>
+        <Text></Text>
         {speakerName
           ? <Text></Text>
           : <Text>Speaker Name not found</Text>
@@ -165,9 +165,9 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   errorContainer: {
-    flex: 1,
+    height: Dimensions.get('screen').height,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   }
 })
 
