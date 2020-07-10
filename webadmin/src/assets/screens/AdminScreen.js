@@ -163,6 +163,8 @@ const AdminScreen = (props) => {
         })
         .catch(function (error) {
             //console.log(error);
+            setLoginVisibility(true)
+            setEventList([])
         })
     }
 
