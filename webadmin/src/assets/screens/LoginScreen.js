@@ -55,6 +55,8 @@ const LoginScreen = (props) => {
                     //props.changeSession(response.data.token);
                     localStorage.setItem("Session", response.data.token);
                     props.changeContent("AdminScreen");
+
+                    props.return(props.EventID)
                 })
                 .catch(function (error) {
                     // handle error
