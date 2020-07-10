@@ -549,7 +549,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     </Col>
                 </Row>
             </div>
-            <div style={{position:'fixed', top:'0', width:'100%', backgroundColor:'white'}}>
+            <div style={{position:'fixed', top:'0', width:'100%', backgroundColor:'white', zIndex:'9000'}}>
                 <Navbar expand="lg" style={{display:'flex', paddingLeft:'50px', paddingRight:'50px', justifyContent:'center', alignItems:'center', flexDirection:'row', backgroundColor:'white'}}>
                     <Button style={{flex:'1'}} className="otherButtons" onClick={()=>
                     {
