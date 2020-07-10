@@ -23,7 +23,7 @@ const ParticipantsScreen = props => {
     }).sort()
     setDataInState(newData)
   }
-
+  
   return (
     <View>
       <FlatList
