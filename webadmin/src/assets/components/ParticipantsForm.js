@@ -141,12 +141,12 @@ const ParticipantsForm = (props) => {
     return(
         <>
         <div style={{display:'flex',justifyContent:'center',alignContent:'center',flexDirection:'row'}}>
-        <form id="fileform" style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
-            <label htmlFor="hidden-input" className="labelForHidden">Choose Excel File</label>
+        <form id="fileform" style={{display:'flex',flex:'1',justifyContent:'flex-end',alignContent:'center'}}>
+            <label htmlFor="hidden-input" className="excelButton">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
         </form>
-        <div style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
-            <a className="labelForHidden" href='/Excel/Participants.xlsx' download>Click to download base Excel Form</a>
+        <div style={{display:'flex',flex:'1',justifyContent:'flex-start',alignContent:'center'}}>
+            <a className="excelButton" href='/Excel/Participants.xlsx' download>Download Excel Template</a>
         </div>
         </div>
         <div style={
@@ -160,15 +160,11 @@ const ParticipantsForm = (props) => {
             <ButtonGroup style={{display:'flex', flexWrap:'wrap'}}>
                 {pageButtons}
             </ButtonGroup> */}
-            <div style={{display:'flex', flexDirection: 'row', marginBottom:'10px'}}>
-                <div style={{marginRight:'10px'}}>
-                    <InputGroup style={{display:'flex', justifyContent:'center', alignItems:'center', borderRadius:'25px', border:'1.5px solid lightgrey', padding:'10px'}}>
+            <div style={{display:'flex', flexDirection: 'row', marginBottom:'10px', justifyContent: 'center', alignItems:'center'}}>
+                    <InputGroup style={{display:'flex', justifyContent:'center', alignItems:'center', borderRadius:'25px', border:'1.5px solid lightgrey', padding:'10px', marginRight: '10px'}}>
                         <FormControl className="noActive" onKeyDown={(e)=>{if(e.keyCode === 13) setSearch(e.target.value)}}/>
-                        <InputGroup.Append>
-                            <Button className="otherButtons" style={{margin:'0'}} onClick={(e)=>{e.target.parentNode.parentNode.childNodes[0].value=""; setSearch("")}}>Clear Search</Button>
-                        </InputGroup.Append>
                     </InputGroup>
-                </div>
+                    <Button className="otherButtons" onClick={(e)=>{e.target.parentNode.parentNode.childNodes[0].value=""; setSearch("")}}>Clear Search</Button>
                 <Button className="otherButtons" onClick={(e)=>{setSearch(e.currentTarget.parentNode.childNodes[0].value)}}>Search</Button>
             </div>
         </div>

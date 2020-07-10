@@ -91,11 +91,11 @@ const SpeakersForm = (props) => {
         <>
         <div style={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
         <div id="fileform" style={{display:'flex', flex:'1', justifyContent:'flex-end',alignContent:'center'}}>
-            <label htmlFor="hidden-input" className="labelForHidden">Choose Excel File</label>
+            <label htmlFor="hidden-input" className="excelButton">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
         </div>
         <div style={{display:'flex',flex:'1',justifyContent:'flex-start',alignContent:'center'}}>
-            <a className="labelForHidden" href='/Excel/Speakers.xlsx' download>Click to download base Excel Form</a>
+            <a className="excelButton" href='/Excel/Speakers.xlsx' download>Download Excel Template</a>
         </div>
         </div>
         <form autoComplete="off" id="form"> 
