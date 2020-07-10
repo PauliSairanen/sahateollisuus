@@ -9,13 +9,13 @@ import Colors from '../../constants/Colors'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 const PasswordScreen = props => {
-  const token = useSelector(state => state.eventData.authenticationToken)
-  
   const dispatch = useDispatch()
+  
   const [inputPassword, setInputPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  const token = useSelector(state => state.eventData.authenticationToken)
   const eventId = props.navigation.getParam('eventId')
   const eventName = props.navigation.getParam('eventName')
 
