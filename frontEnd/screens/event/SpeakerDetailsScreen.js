@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, FlatList, StyleSheet, Text, Dimensions } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import { useSelector } from 'react-redux'
@@ -10,12 +10,12 @@ import serverURL from '../../constants/Networking'
 import ImageWithLoadingIndicator from '../../components/Universal/ImageWithLoadingIndicator'
 
 const SpeakerDetailsScreen = props => {
-  const speakerName = props.navigation.getParam('speakerName')
-  const title = props.navigation.getParam('title')
-  const specialTitle = props.navigation.getParam('specialTitle')
-  const company = props.navigation.getParam('company')
-  const imageID = props.navigation.getParam('imageID')
-  const description = props.navigation.getParam('description')
+  const [speakerName, setSpeakerName] = useState(props.navigation.getParam('speakerName'))
+  const [title, setTitle] = useState(props.navigation.getParam('title'))
+  const [specialTitle, setSpecialTitle] = useState(props.navigation.getParam('specialTitle'))
+  const [company, setCompany] = useState(props.navigation.getParam('company'))
+  const [imageID, setImageID] = useState(props.navigation.getParam('imageID'))
+  const [description, setDescription] = useState(props.navigation.getParam('description'))
 
   const eventId = useSelector(state => state.eventData.eventId)
   const programmeData = useSelector(state => state.eventData.programmeData)
@@ -30,14 +30,13 @@ const SpeakerDetailsScreen = props => {
     }
   }
 
-  // Different header components for different Data entries
-  headerWithSpecialTitle = () => {
+  headerComponent = () => {
     return (
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           <View style={styles.imageContainer}>
             <ImageWithLoadingIndicator
-              source={ `${serverURL}/public/${eventId}/${imageID}`}
+              source={`${serverURL}/public/${eventId}/${imageID}`}
               style={styles.image}
               resizeMode={FastImage.resizeMode.cover}
             />
@@ -47,13 +46,19 @@ const SpeakerDetailsScreen = props => {
           <Text style={styles.nameText}>{speakerName}</Text>
           <Text style={styles.text}>{title}</Text>
           <Text style={styles.text}>{company}</Text>
-          <Text style={styles.text}>{specialTitle}</Text>
+          {specialTitle
+            ? <Text style={styles.text}>{specialTitle}</Text>
+            : <View></View>
+          }
         </View>
-        <View style={styles.contentContainer}>
-          <View style={styles.bodyText}>
-            <Text style={styles.bodyText}>{description}</Text>
+        {description
+          ? <View style={styles.contentContainer}>
+            <View style={styles.bodyText}>
+              <Text style={styles.bodyText}>{description}</Text>
+            </View>
           </View>
-        </View>
+          : <View></View>
+        }
         <View style={styles.contentContainer}>
           <Text style={styles.title}>Presentations</Text>
         </View>
@@ -61,82 +66,29 @@ const SpeakerDetailsScreen = props => {
     )
   }
 
-  headerNoSpecialTitle = () => {
-    return (
-      <View style={styles.container}>
-        <View style={styles.contentContainer}>
-          <View style={styles.imageContainer}>
-            <ImageWithLoadingIndicator 
-               source={`${serverURL}/public/${eventId}/${imageID}`}
-               style={styles.image}
-               resizeMode={FastImage.resizeMode.cover}
-            />
-          </View>
+  return (
+    <View style={styles.container}>
+      <Card style={styles.card}>
+        <View style={styles.container}>
+          <FlatList
+            nestedScrollEnabled={true}
+            ListHeaderComponent={headerComponent}
+            data={arrayOfProgramme}
+            extraData={arrayOfProgramme}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={arrayOfProgramme =>
+              <KeynoteAndProgrammeItem
+                time={arrayOfProgramme.item.Time}
+                location={arrayOfProgramme.item.Location}
+                description={arrayOfProgramme.item.Description}
+                pdf={arrayOfProgramme.item.Pdf}
+              />
+            }
+          />
         </View>
-        <View style={styles.contentContainer}>
-          <Text style={styles.nameText}>{speakerName}</Text>
-          <Text style={styles.text}>{title}</Text>
-          <Text style={styles.text}>{company}</Text>
-        </View>
-        <View style={styles.contentContainer}>
-          <View style={styles.bodyText}>
-            <Text style={styles.bodyText}>{description}</Text>
-          </View>
-        </View>
-        <View style={styles.contentContainer}>
-          <Text style={styles.title}>Presentations</Text>
-        </View>
-      </View>
-    )
-  }
-
-  if (speakerName && title && company && specialTitle) {
-    return (
-      <View style={styles.container}>
-        <Card style={styles.card}>
-          <View style={styles.container}>
-            <FlatList
-              nestedScrollEnabled={true}
-              ListHeaderComponent={headerWithSpecialTitle}
-              data={arrayOfProgramme}
-              extraData={arrayOfProgramme}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={arrayOfProgramme =>
-                <KeynoteAndProgrammeItem
-                  time={arrayOfProgramme.item.Time}
-                  location={arrayOfProgramme.item.Location}
-                  description={arrayOfProgramme.item.Description}
-                  pdf={arrayOfProgramme.item.Pdf}
-                />
-              }
-            />
-          </View>
-        </Card>
-      </View>
-    )
-  } else if (speakerName && title && company && !specialTitle)
-    return (
-      <View style={styles.container}>
-        <Card style={styles.card}>
-          <View style={styles.container}>
-            <FlatList
-              nestedScrollEnabled={true}
-              ListHeaderComponent={headerNoSpecialTitle}
-              data={arrayOfProgramme}
-              extraData={arrayOfProgramme}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={arrayOfProgramme =>
-                <KeynoteAndProgrammeItem
-                  time={arrayOfProgramme.item.Time}
-                  location={arrayOfProgramme.item.Location}
-                  description={arrayOfProgramme.item.Description}
-                />
-              }
-            />
-          </View>
-        </Card>
-      </View>
-    )
+      </Card>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -182,7 +134,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   title: {
-    marginTop: 10,
+    marginTop: 15,
     fontSize: 18,
     fontWeight: 'bold',
   },
