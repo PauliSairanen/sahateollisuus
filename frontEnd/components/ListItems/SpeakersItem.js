@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions } from 'react-native'
 import Card from '../Universal/Card'
 import { useSelector } from 'react-redux'
@@ -16,15 +16,12 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 const SpeakersItem = props => {
   const eventId = useSelector(state => state.eventData.eventId)
 
-  const speakerName = props.speaker
-  const title = props.title
-  const specialTitle = props.specialTitle
-  const company = props.company
-  const imageID = props.image
-  const description = props.description
-
-  // console.log('Current speaker´s image is : ' + imageID)
-  // console.log('Current event´s eventId is : ' + eventId)
+  const [speakerName, setSpeakerName] = useState(props.speaker)
+  const [title, setTitle] = useState(props.title)
+  const [specialTitle, setSpecialTitle] = useState(props.specialTitle)
+  const [company, setCompany] = useState(props.company)
+  const [imageID, setImageID] = useState(props.image)
+  const [description, setDescription] = useState(props.description)
 
   if (speakerName && title && company && !specialTitle) {
     return (

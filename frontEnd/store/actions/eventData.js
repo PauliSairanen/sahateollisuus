@@ -42,6 +42,33 @@ export const fetchEventMetaData = () => {
   }
 }
 
+// _______________ 0. For test cases, route without token can be used _______________
+export const fetchAllDataTest = (id, token) => {
+  console.log('Fetching data using id:' + id)
+  return async dispatch => {
+    const response = await fetch(`${serverURL}/findEventMobileTest`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 'id': `${id}` })
+    })
+    console.log(response.status)
+    if (!response.ok) {
+      console.log('Using test route')
+      console.log(response.body)
+      let message = 'Response not ok, but entering event'
+      throw new Error(message)
+    }
+    const responseData = await response.json()
+    console.log('Data received from server. Dispatching on!')
+    dispatch({ type: SAVE_EVENT_ID, eventId: id })
+    dispatch({ type: FETCH_ALL_DATA, responseData: responseData })
+  }
+}
+
+
 // _______________ 1. Check if email exists in any events. If OK, saves email and metadata to state _______________
 export const fetchMetadataByEmail = (email) => {
   console.log('Checking if email exists')
@@ -128,12 +155,20 @@ export const fetchAllData = (id, token) => {
       body: JSON.stringify({ 'id': `${id}` })
     })
     console.log(response.status)
+    if (!response.ok) {
+      console.log('Request was not ok')
+      console.log(response.body)
+      let message = 'authentication failed'
+      throw new Error(message)
+    }
     const responseData = await response.json()
     console.log('Data received from server. Dispatching on!')
     dispatch({ type: SAVE_EVENT_ID, eventId: id })
     dispatch({ type: FETCH_ALL_DATA, responseData: responseData })
   }
 }
+
+
 
 // _______________ 4. Using Maps, saves current position to state _______________
 export const saveCurrentPosition = (currentPositionData) => {

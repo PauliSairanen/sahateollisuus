@@ -21,14 +21,16 @@ const PasswordScreen = props => {
 
   const verifyPassword = async () => {
     if (inputPassword === 'test') {
-      await dispatch(eventDataActions.fetchAllData(eventId))
+      console.log('Using test route, Fetching all data without token')
+      await dispatch(eventDataActions.fetchAllDataTest(eventId))
       props.navigation.navigate('MainScreen')
     }
-    console.log('Firing the real authentication route')
+    console.log('Using real authentication route')
     setError(null)
     setIsLoading(true)
     try {
       await dispatch(eventDataActions.authenticate(eventName, inputPassword))
+      setTimeout(() => {} , 1500);
       await dispatch(eventDataActions.fetchAllData(eventId, token))
       props.navigation.navigate('MainScreen')
     } catch (err) {
