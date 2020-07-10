@@ -156,9 +156,9 @@ export const fetchAllData = (id, token) => {
     })
     console.log(response.status)
     if (!response.ok) {
-      console.log('Request was not ok')
+      console.log('Authentication failed')
       console.log(response.body)
-      let message = 'authentication failed'
+      let message = 'Try logging in again'
       throw new Error(message)
     }
     const responseData = await response.json()
@@ -167,8 +167,6 @@ export const fetchAllData = (id, token) => {
     dispatch({ type: FETCH_ALL_DATA, responseData: responseData })
   }
 }
-
-
 
 // _______________ 4. Using Maps, saves current position to state _______________
 export const saveCurrentPosition = (currentPositionData) => {

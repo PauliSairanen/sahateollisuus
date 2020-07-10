@@ -30,7 +30,7 @@ const PasswordScreen = props => {
     setIsLoading(true)
     try {
       await dispatch(eventDataActions.authenticate(eventName, inputPassword))
-      setTimeout(() => {} , 1500);
+      setTimeout(() => {} , 2000);
       await dispatch(eventDataActions.fetchAllData(eventId, token))
       props.navigation.navigate('MainScreen')
     } catch (err) {
