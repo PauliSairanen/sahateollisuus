@@ -144,6 +144,7 @@ const GeneralCard = props => {
             <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e); props.editForm(e);}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
         </div>
       </div>
+      <label>Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright</label>
     </Card>
   )
 }
