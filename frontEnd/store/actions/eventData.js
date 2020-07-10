@@ -13,24 +13,27 @@ export const SAVE_METADATA_BY_EMAIL = 'SAVE_METADATA_BY_EMAIL'
 export const SAVE_EVENT_ID = 'SAVE_EVENT_ID'
 export const SAVE_CURRENT_EVENT_METADATA = 'SAVE_CURRENT_EVENT_METADATA'
 
-
 import serverURL from '../../constants/Networking'
 console.log('The server URL is = ' + serverURL)
 
-// Fetching the metadata of events from server
+// _______________ 0. In test case, fetch all events  _______________
 export const fetchEventMetaData = () => {
   return async dispatch => {
     const response = await fetch(`${serverURL}/findmetadata`)
     const responseData = await response.json()
-    const loadedEventMetadata = []
+
     // Looking through the JSON data, and organizing it again for display
+    const loadedEventMetadata = []
     for (const index in responseData) {
       loadedEventMetadata.push(
         new EventMetadata(
           responseData[index]._id,
           responseData[index].metadata.eventName,
           responseData[index].metadata.eventImage,
-          responseData[index].metadata.visibility
+          responseData[index].metadata.visibility,
+          responseData[index].metadata.address,
+          responseData[index].metadata.lat,
+          responseData[index].metadata.long,
         )
       )
     }
@@ -39,52 +42,7 @@ export const fetchEventMetaData = () => {
   }
 }
 
-export const fetchAllData = (id) => {
-  console.log('Fetching data using id:' + id)
-  return async dispatch => {
-    const response = await fetch(`${serverURL}/findEvent`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ 'id': `${id}` })
-
-    })
-    console.log(response.status)
-    const responseData = await response.json()
-    console.log('Data received from server. Dispatching on!')
-    dispatch({ type: SAVE_EVENT_ID, eventId: id})
-    dispatch({ type: FETCH_ALL_DATA, responseData: responseData })
-  }
-}
-
-// _______________ Login and Authentication _______________
-
-export const checkEmail = (email) => {
-  console.log('The current email that is being checked is: ' + email)
-  console.log('Checking if email exists')
-  return async dispatch => {
-    const response = await fetch(`${serverURL}/findEventsByEmail`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'email': `${email}`,
-      })
-    })
-    console.log(response.status)
-    if (!response.ok) {
-      console.log('Request was not ok')
-      let message = 'Email not registered to any event'
-      throw new Error(message)
-    }
-    console.log('request was ok, 200!')
-    dispatch({ type: SAVE_EMAIL, emailToSave: email })
-  }
-}
-
+// _______________ 1. Check if email exists in any events. If OK, saves email and metadata to state _______________
 export const fetchMetadataByEmail = (email) => {
   console.log('Checking if email exists')
   return async dispatch => {
@@ -108,8 +66,9 @@ export const fetchMetadataByEmail = (email) => {
     //_____ If request is OK _____
     console.log('request was ok, 200!')
     const responseData = await response.json()
-    const loadedEventMetadata = []
+
     // Looking through the JSON data, and organizing it again for display
+    const loadedEventMetadata = []
     for (const index in responseData) {
       loadedEventMetadata.push(
         new EventMetadata(
@@ -117,17 +76,18 @@ export const fetchMetadataByEmail = (email) => {
           responseData[index].metadata.eventName,
           responseData[index].metadata.eventImage,
           responseData[index].metadata.visibility,
-          responseData[index].metadata.address, 
-          responseData[index].metadata.lat, 
-          responseData[index].metadata.long, 
+          responseData[index].metadata.address,
+          responseData[index].metadata.lat,
+          responseData[index].metadata.long,
         )
       )
     }
     dispatch({ type: SAVE_EMAIL, emailToSave: email })
-    dispatch({type: SAVE_METADATA_BY_EMAIL, metaDataByEmail: loadedEventMetadata})
+    dispatch({ type: SAVE_METADATA_BY_EMAIL, metaDataByEmail: loadedEventMetadata })
   }
 }
 
+// _______________ 2. Once event clicked, eventName and password are used for authentication _______________
 export const authenticate = (eventName, password) => {
   console.log('Trying to authentiate')
   return async dispatch => {
@@ -154,6 +114,28 @@ export const authenticate = (eventName, password) => {
   }
 }
 
+// _______________ 3. Once authentication is OK, Fetch all data using event ID and Token _______________
+export const fetchAllData = (id, token) => {
+  console.log('Fetching data using id:' + id)
+  return async dispatch => {
+    const response = await fetch(`${serverURL}/findEventMobile`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ 'id': `${id}` })
+    })
+    console.log(response.status)
+    const responseData = await response.json()
+    console.log('Data received from server. Dispatching on!')
+    dispatch({ type: SAVE_EVENT_ID, eventId: id })
+    dispatch({ type: FETCH_ALL_DATA, responseData: responseData })
+  }
+}
+
+// _______________ 4. Using Maps, saves current position to state _______________
 export const saveCurrentPosition = (currentPositionData) => {
   return async dispatch => {
     dispatch({ type: SAVE_LOCATION_DATA, locationData: currentPositionData })

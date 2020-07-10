@@ -36,7 +36,7 @@ const EmailScreen = props => {
       setIsLoading(true)
       try {
         // Dispatch action to check if email exists and load events based on email
-        await dispatch(eventDataActions.checkEmail(inputEmail))
+        // await dispatch(eventDataActions.checkEmail(inputEmail))
         await dispatch(eventDataActions.fetchMetadataByEmail(inputEmail))
         props.navigation.navigate('SelectEvent')
       } catch (err) {
