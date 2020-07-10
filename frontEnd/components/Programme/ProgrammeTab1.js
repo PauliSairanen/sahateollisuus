@@ -1,9 +1,5 @@
 import React from 'react'
 import { View, FlatList, } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
-
-// import programmeData from '../../data/jsonFiles/programme.json'
-import * as eventDataActions from '../../store/actions/eventData'
 
 import ProgrammeItem from '../ListItems/ProgrammeItem'
 

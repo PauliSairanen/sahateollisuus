@@ -24,14 +24,14 @@ import Toast from 'react-bootstrap/Toast'
 
 import Image from 'react-bootstrap/Image'
 import LoginScreen from '../screens/LoginScreen';
-
+import Constants from '../constant/constants'
 /**
  * @param changeContent - change screen
  * @param id - Event to edit based on ID
  */
 //Screen: Creates events based on FormObjects. 
 const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
-    const baseURL = 'https://sahat.lamk.fi';
+    const baseURL = Constants.baseURL;
 
     //Visible forms controller
     const [ActiveForm, setActiveForm] = useState("GeneralForm")
@@ -549,7 +549,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                     </Col>
                 </Row>
             </div>
-            <div style={{position:'fixed', top:'0', width:'100%', backgroundColor:'white', zIndex:'9000'}}>
+            <div style={{position:'fixed', top:'0', width:'100%', backgroundColor:'white', zIndex:'2'}}>
                 <Navbar expand="lg" style={{display:'flex', paddingLeft:'50px', paddingRight:'50px', justifyContent:'center', alignItems:'center', flexDirection:'row', backgroundColor:'white'}}>
                     <Button style={{flex:'1'}} className="otherButtons" onClick={()=>
                     {
@@ -582,7 +582,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 </div>
             </div>
             
-            <div style={{position:"fixed", top:"100px",right:"20px"}}>
+            <div style={{position:"fixed", top:"100px",right:"20px", zIndex:'5000'}}>
                 <Toast onClose={()=>setToastShow(false)} show={ToastShow} delay={5000} style={{zIndex:'5'}} autohide>
                     <Toast.Header className={ToastHeader === "Success" ? "text-success" : ToastHeader === "Error" ? "text-danger" : ""}>{ToastHeader}</Toast.Header>
                     <Toast.Body>{ToastBody}</Toast.Body>

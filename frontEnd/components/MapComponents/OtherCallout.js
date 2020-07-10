@@ -10,8 +10,6 @@ const OtherCallout = props => {
   const name = props.name
   const category = props.category
 
- 
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>

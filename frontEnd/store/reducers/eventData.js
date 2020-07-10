@@ -1,6 +1,5 @@
 import { SET_EVENTS_METADATA, FETCH_ALL_DATA, SAVE_LOCATION_DATA, SAVE_TOKEN, SAVE_EMAIL, SAVE_METADATA_BY_EMAIL, SAVE_EVENT_ID } from '../actions/eventData'
 
-// Set the data as initial state
 const initialState = {
   // ___ Universal data ___
   eventsMetaData: [],

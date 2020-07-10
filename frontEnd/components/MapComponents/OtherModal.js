@@ -151,22 +151,16 @@ const styles = StyleSheet.create({
   image: {
     width: Dimensions.get('screen').width / 100 * 85,
     height: Dimensions.get('screen').width / 100 * 50,
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   imageContainer: {
     flex: 5,
     marginTop: 12,
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   titleContainer: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   descriptionContainer: {
     flex: 3,
@@ -174,8 +168,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     paddingHorizontal: 40,
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   descriptionText: {
     textAlign: 'center'
@@ -184,8 +176,6 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    // borderColor: 'black',
-    // borderWidth: 1,
   },
   buttonContainer: {
     marginBottom: 5,

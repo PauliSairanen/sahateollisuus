@@ -1,13 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, StyleSheet, Platform, TouchableOpacity, TouchableNativeFeedback, Dimensions, Image, Text, ActivityIndicator } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import { useDispatch } from 'react-redux'
-import * as eventDataActions from '../../store/actions/eventData'
 
 import Card from '../Universal/Card'
 import serverURL from '../../constants/Networking'
 import ImageWithLoadingIndicator from '../Universal/ImageWithLoadingIndicator'
-
 
 let TouchableComponent = TouchableOpacity
 if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -15,28 +12,15 @@ if (Platform.OS === 'android' && Platform.Version >= 21) {
 }
 
 const EventsListItem = props => {
-  const [isLoading, setIsLoading] = useState(false)
-  const dispatch = useDispatch()
-
   const eventId = props.eventId
   const eventName = props.eventName
   const eventImage = props.eventImage
-
-  // Fetch data about all events and list it
-  const fetchAllEventData = () => {
-    console.log('Action dispatched for fetching ALL data!')
-    dispatch(eventDataActions.fetchAllData(props.eventId))
-  }
 
   return (
     <Card style={styles.card}>
       <TouchableComponent
         style={styles.touchable}
         onPress={() => {
-          // fetchAllEventData()    FETCHING DATA IS HERE!!!!
-          // ToDo: While loading, display activity indicator
-
-          // Passing event ID as parameter to next screen
           props.navigation.navigate('PasswordScreen', {
             eventId: eventId,
             eventName: eventName

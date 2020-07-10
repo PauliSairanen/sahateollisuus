@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert, Platform } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as eventDataActions from '../../store/actions/eventData'
 
 import Card from '../../components/Universal/Card'
@@ -10,24 +10,28 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 const PasswordScreen = props => {
   const dispatch = useDispatch()
+  
   const [inputPassword, setInputPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  const token = useSelector(state => state.eventData.authenticationToken)
   const eventId = props.navigation.getParam('eventId')
   const eventName = props.navigation.getParam('eventName')
 
   const verifyPassword = async () => {
     if (inputPassword === 'test') {
-      await dispatch(eventDataActions.fetchAllData(eventId))
+      console.log('Using test route, Fetching all data without token')
+      await dispatch(eventDataActions.fetchAllDataTest(eventId))
       props.navigation.navigate('MainScreen')
     }
-    console.log('Firing real authentication route')
+    console.log('Using real authentication route')
     setError(null)
     setIsLoading(true)
     try {
       await dispatch(eventDataActions.authenticate(eventName, inputPassword))
-      await dispatch(eventDataActions.fetchAllData(eventId))
+      setTimeout(() => {} , 2000);
+      await dispatch(eventDataActions.fetchAllData(eventId, token))
       props.navigation.navigate('MainScreen')
     } catch (err) {
       setError(err.message)

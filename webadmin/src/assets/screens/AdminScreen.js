@@ -14,6 +14,7 @@ import Image from 'react-bootstrap/Image'
 
 import AddButton from '../components/AddButton'
 import { Modal, Card } from 'react-bootstrap';
+import Constants from '../constant/constants'
 /**
  * @param changeContent - changes screen
  * @param changeSession - changes session (as localstorage)
@@ -21,7 +22,7 @@ import { Modal, Card } from 'react-bootstrap';
  */
 const AdminScreen = (props) => {
     const [LoginVisibility, setLoginVisibility] = useState(false);
-    const baseURL = 'https://sahat.lamk.fi';
+    const baseURL = Constants.baseURL;
     const [EventList, setEventList] = useState([]);
     const [EventObject, setEventObject] = useState([])
     const [Search, setSearch] = useState("") // eslint-disable-line

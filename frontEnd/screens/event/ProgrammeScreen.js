@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux'
 import ProgrammeTab1 from '../../components/Programme/ProgrammeTab1'
 import ProgrammeTab2 from '../../components/Programme/ProgrammeTab2'
 import ProgrammeTab3 from '../../components/Programme/ProgrammeTab3'
+import ProgrammeTab4 from '../../components/Programme/ProgrammeTab4'
+import ProgrammeTab5 from '../../components/Programme/ProgrammeTab5'
 
 const ProgrammeScreen = props => {
   const programmeData = useSelector(state => state.eventData.programmeData)
@@ -33,6 +35,20 @@ const ProgrammeScreen = props => {
     case 3: {
       return (
         <ProgrammeTab3 
+        data={programmeData}
+      />
+      )
+    }
+    case 4: {
+      return (
+        <ProgrammeTab4 
+        data={programmeData}
+      />
+      )
+    }
+    case 5: {
+      return (
+        <ProgrammeTab5 
         data={programmeData}
       />
       )

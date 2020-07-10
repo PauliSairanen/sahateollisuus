@@ -141,8 +141,6 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
-    // borderBottomColor: '#e0e0e0',
-    // borderBottomWidth: 3,
   },
   textContainer: {
     margin: 8,

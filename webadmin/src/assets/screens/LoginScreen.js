@@ -6,6 +6,8 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios';
+
+import Constants from '../constant/constants'
 /**
  * @param changeContent - changes screen
  * @param visibility    - changes visibility in AdminScreen
@@ -14,7 +16,7 @@ const LoginScreen = (props) => {
     const [form, setForm] = useState({});
     localStorage.setItem("Form", form);
     const [Details, setDetails] = useState("")
-    const baseURL = 'https://sahat.lamk.fi';
+    const baseURL = Constants.baseURL;
     //let session = localStorage.getItem("Session");
     let canLogin = true;
 

@@ -19,26 +19,22 @@ const AboutScreen = props => {
       <ScrollView contentContainerStyle={styles.content} >
         <Card style={styles.card}>
           <Text style={styles.title}>Welcome</Text>
-
           <View style={styles.contentContainer}>
             <Text style={styles.bodyText}>{aboutData.bodyText1}</Text>
             <Text style={styles.bodyText}>{aboutData.bodyText2}</Text>
             <Text style={styles.bodyText}>{aboutData.bodyText3}</Text>
             <Text style={styles.bodyText}>{aboutData.bodyText4}</Text>
           </View>
-
           <Text style={styles.title}>Location</Text>
           <View style={styles.contentContainer}>
             <Text style={styles.infoText}>{aboutData.eventPlace.name}</Text>
             <Text style={styles.infoText}>{aboutData.eventPlace.address}</Text>
-
             <TouchableComponent
               onPress={() => {
                 Communications.phonecall(`${aboutData.eventPlace.phone}`, true)
               }}>
               <Text style={styles.infoText}>{aboutData.eventPlace.phone}</Text>
             </TouchableComponent>
-
             <TouchableComponent
               style={styles.button}
               onPress={() => {
@@ -52,10 +48,8 @@ const AboutScreen = props => {
               <Text style={styles.infoText}>{aboutData.eventPlace.email}</Text>
             </TouchableComponent>
           </View>
-
           <Text style={styles.title}>More information</Text>
           <View style={styles.contentContainer}>
-
             <TouchableComponent
               onPress={() => {
                 Communications.web(`${aboutData.eventWebUrl}`)
@@ -64,16 +58,6 @@ const AboutScreen = props => {
                 <Text style={styles.link}>{aboutData.moreInformation.eventWebsite}</Text>
               </View>
             </TouchableComponent>
-
-            {/* <TouchableComponent
-              onPress={() => {
-                Communications.web(`${aboutData.eventWebUrl}`)
-              }}>
-              <View style={styles.button}>
-                <Text style={styles.link}>{aboutData.moreInformation.organizer}</Text>
-              </View>
-            </TouchableComponent> */}
-
             <TouchableComponent
               style={styles.button}
               onPress={() => {
@@ -89,12 +73,10 @@ const AboutScreen = props => {
               </View>
             </TouchableComponent>
           </View>
-
           <View style={styles.contentContainer}>
             <Text style={styles.disclaimerText}>{aboutData.disclaimer1}</Text>
             <Text style={styles.disclaimerText}>{aboutData.disclaimer2}</Text>
           </View>
-
         </Card>
       </ScrollView>
     </View>

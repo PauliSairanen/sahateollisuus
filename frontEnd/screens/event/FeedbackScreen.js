@@ -40,7 +40,6 @@ const FeedbackScreen = props => {
             <View>
               <Text style={styles.text}>Send us Feedback</Text>
             </View>
-
           </View>
         </TouchableComponent>
       </Card>
