@@ -24,14 +24,14 @@ import Toast from 'react-bootstrap/Toast'
 
 import Image from 'react-bootstrap/Image'
 import LoginScreen from '../screens/LoginScreen';
-
+import Constants from '../constant/constants'
 /**
  * @param changeContent - change screen
  * @param id - Event to edit based on ID
  */
 //Screen: Creates events based on FormObjects. 
 const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
-    const baseURL = 'https://sahat.lamk.fi';
+    const baseURL = Constants.baseURL;
 
     //Visible forms controller
     const [ActiveForm, setActiveForm] = useState("GeneralForm")
