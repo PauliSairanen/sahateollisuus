@@ -10,16 +10,15 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 const PasswordScreen = props => {
   const dispatch = useDispatch()
-  
   const [inputPassword, setInputPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const token = useSelector(state => state.eventData.authenticationToken)
   const eventId = props.navigation.getParam('eventId')
   const eventName = props.navigation.getParam('eventName')
 
-  const verifyPassword = async () => {
+  const loginHandler = async () => {
+    console.log('VerifyPass function called')
     if (inputPassword === 'test') {
       console.log('Using test route, Fetching all data without token')
       await dispatch(eventDataActions.fetchAllDataTest(eventId))
@@ -29,8 +28,8 @@ const PasswordScreen = props => {
     setError(null)
     setIsLoading(true)
     try {
-      await dispatch(eventDataActions.authenticate(eventName, inputPassword))
-      setTimeout(() => {} , 2000);
+      const token = await dispatch(eventDataActions.authenticate(eventName, inputPassword))
+      console.log(token)
       await dispatch(eventDataActions.fetchAllData(eventId, token))
       props.navigation.navigate('MainScreen')
     } catch (err) {
@@ -67,7 +66,7 @@ const PasswordScreen = props => {
                 ) : (<Button //Switch text in title depending on state
                   title={'Login'}
                   color={Colors.primary}
-                  onPress={verifyPassword}
+                  onPress={loginHandler}
                 />)}
               </View>
             </ScrollView>
