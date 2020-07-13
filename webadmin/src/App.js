@@ -47,12 +47,12 @@ const App = () => {
   function getSession(){
     return localStorage.getItem("Session");
   }
-  function test()
-  {
-    setSession("token");
-    setContent("AdminScreen");
-    //props.changeSession("");
-  }
+  // function test()
+  // {
+  //   setSession("token");
+  //   setContent("AdminScreen");
+  //   //props.changeSession("");
+  // }
   //console.log("Session: " +getSession());
   //change screen based on Content
   if(Content === "LoginScreen"){
