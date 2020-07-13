@@ -72,10 +72,12 @@
 
 .noActive{
     border: 0px solid transparent;
-    margin-right: 1px
+    margin-right: 1px;
+    background-color: transparent;
 }
 .noActive:focus{
     border: 0px solid transparent;
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
     margin-right: 1px;
+    background-color: transparent;
 }
