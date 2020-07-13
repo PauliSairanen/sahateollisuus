@@ -60,7 +60,7 @@ const App = () => {
     <div>
       <LoginScreen changeContent={setContent} 
       visibility={()=>{}}/>
-      <button className="LoginScreen" onClick={test}>Bypass</button>
+      {/* <button className="LoginScreen" onClick={test}>Bypass</button> */}
     </div>
   }
   if(Content === "CreateScreen"){
