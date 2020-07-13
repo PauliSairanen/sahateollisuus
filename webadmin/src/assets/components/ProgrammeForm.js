@@ -120,11 +120,11 @@ const ProgrammeForm = (props) => {
                 data[min] = temp
             }
         }
-        console.log(data)
+        //console.log(data)
         dataToForm(data)
     }
     function dataToForm(data){
-        console.log(data)
+        //console.log(data)
         //data to form starts here
         let form = [];
         for(let key in data){
