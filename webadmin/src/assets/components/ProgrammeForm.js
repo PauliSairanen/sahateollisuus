@@ -77,16 +77,37 @@ const ProgrammeForm = (props) => {
     //     "Company",
     //     "Pdf"
     // ]
+    function getHourAndMinute(Time){
+        let parseTime = (Time.split("-"))[0].split(":")
+        parseTime[0] = parseFloat(parseTime[0])
+        parseTime[1] = parseFloat(parseTime[1])
+        return parseTime
+    }
+    function compareTime(a,b){ // is a > b ?
+        if(a[0] >= b[0]){
+            return true
+        }
+        else{
+            if(a[1] >= b[1]){
+                return true
+            }
+            else{
+                return false
+            }
+        }
+    }
+    function sortAlgorithm(data){ //using selection sort algorithm
+        // for(let i = 0; i < data.length-1; i++){
+        //     let min = i;
+        //     for(let j = i+1; j < data.length; j++){
+
+        //     }
+        // }
+        return data
+    }
     function dataToForm(data){
         //Time sort algorithm here
-        console.log(data)
-        console.log(parseFloat(data[0].Time))
-        console.log(parseFloat(data[1].Time))
-        console.log(parseFloat(data[2].Time))
-        console.log(parseFloat(data[3].Time))
-        console.log(parseFloat(data[4].Time))
-        console.log(parseFloat(data[5].Time))
-
+        data = sortAlgorithm(data)
 
         //data to form starts here
         let form = [];
