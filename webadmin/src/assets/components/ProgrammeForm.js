@@ -101,27 +101,24 @@ const ProgrammeForm = (props) => {
             let min = i;
             for(let j = i+1; j < data.length; j++){
                 //console.log(`(${j},${min})    ${getTime(data[j])} < ${getTime(data[min])}`, compareTime(data[j], data[min]))
-                console.log(`Comparing ${getTime(data[j])}, ${getTime(data[min])}`)
+                //console.log(`Comparing ${getTime(data[j])}, ${getTime(data[min])}`)
                 if(compareTime(data[j],data[min])){
                     min = j
-                    console.log("New min ",min)
+                    //console.log("New min ",min)
                 }
             }
             if(min !== i){
-                console.log(`swapping ${i} and ${min}`)
+                //console.log(`swapping ${i} and ${min}`)
                 let temp = data[i]
                 data[i] = data[min]
                 data[min] = temp
             }
-            for(let k in data){
-                console.log(data[k])
-            }
         }
-        console.log(data)
+        //console.log(data)
         dataToForm(data)
     }
     function dataToForm(data){
-        console.log(data)
+        //console.log(data)
         //data to form starts here
         let form = [];
         for(let key in data){
