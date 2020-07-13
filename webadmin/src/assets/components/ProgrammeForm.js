@@ -77,17 +77,54 @@ const ProgrammeForm = (props) => {
     //     "Company",
     //     "Pdf"
     // ]
+    function getTime(obj){
+        let time = (obj.Time.split("-"))[0].split(":")
+        time[0] = parseFloat(time[0])
+        time[1] = parseFloat(time[1])
+        time.push(parseFloat(obj.day))
+        return time
+    }
+    function compareTime(a,b){ // is a < b ? 
+        a = getTime(a);
+        b = getTime(b);
+        if(a[2] > b[2]){
+            return false
+        }
+        if(a[2] < b[2]){
+            return true
+        }
+        else{
+            if(a[0] < b[0]){
+                return true
+            }
+            else{
+                if(a[1] < b[1]){
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    function sortAlgorithm(data){ //using selection sort algorithm
+        for(let i = 0; i < data.length-1; i++){
+            let min = i;
+            for(let j = i+1; j < data.length; j++){
+                //console.log(`(${j},${min})    ${getTime(data[j])} < ${getTime(data[min])}`, compareTime(data[j], data[min]))
+                if(compareTime(data[j],data[min])){
+                    min = j
+                }
+            }
+            if(min !== i){
+                let temp = data[i]
+                data[i] = data[min]
+                data[min] = temp
+            }
+        }
+        //console.log(data)
+        dataToForm(data)
+    }
     function dataToForm(data){
-        //Time sort algorithm here
-        console.log(data)
-        console.log(parseFloat(data[0].Time))
-        console.log(parseFloat(data[1].Time))
-        console.log(parseFloat(data[2].Time))
-        console.log(parseFloat(data[3].Time))
-        console.log(parseFloat(data[4].Time))
-        console.log(parseFloat(data[5].Time))
-
-
+        //console.log(data)
         //data to form starts here
         let form = [];
         for(let key in data){
@@ -376,7 +413,7 @@ const ProgrammeForm = (props) => {
     
     return(
         <>
-        <div style={{display:'flex',justifyContent:'center',alignContent:'center',flexDirection:'row'}}>
+        <div style={{height:'48px',display:'flex',justifyContent:'center',alignContent:'center',flexDirection:'row'}}>
         <form id="fileform" style={{display:'flex',flex:'1',justifyContent:'flex-end',alignContent:'center'}}>
             <label htmlFor="hidden-input" className="excelButton">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
@@ -447,7 +484,7 @@ const ProgrammeForm = (props) => {
         <div style={{marginTop: '20px', display: 'flex', justifyContent:'center', alignItems:'center'}}>
             
         </div>
-        <SortButton content="Sort"></SortButton>
+        <SortButton content="Sort" onClick={()=>{sortAlgorithm(Data)}}></SortButton>
         {Data.length > 0 ? dataContainer : null}
         {/* {Form.length > 0 ? 
             <FormTable 

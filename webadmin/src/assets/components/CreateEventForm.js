@@ -100,7 +100,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             return null;
         }
         let pass = await getPassData(data ? data.metadata.eventName : null)
-        console.log(pass)
+        //console.log(pass)
         if(data){
             setFormObjects({
                 //About Form
