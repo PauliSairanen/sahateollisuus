@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 //import FormTable from '../components/FormTable'
 import VenueCard from '../components/VenueCard'
 import AddButton from '../components/AddButton'
+import SortButton from '../components/SortButton'
 /**
  * @param editForm - evoke appendForm
  * @param subForm - get formObject data to Form
@@ -58,6 +59,7 @@ const VenueTabForm = (props) => {
             <button style={{display: 'none'}} onClick={clickHandler}>Add Venue</button>
             <AddButton onClick={clickEmpty}/>
         </form>
+        <SortButton content="Sort"></SortButton>
         {dataContainer}
         {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null} */}
         </>

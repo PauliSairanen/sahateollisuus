@@ -4,6 +4,7 @@ import xlsxToJson from '../components/XlsxConverter'
 import SpeakerCard from '../components/SpeakerCard'
 //import Card from 'react-bootstrap/Card'
 import AddButton from '../components/AddButton'
+import SortButton from '../components/SortButton'
 /*
 {
     "Speaker": "Test",
@@ -108,6 +109,7 @@ const SpeakersForm = (props) => {
             <button style={{display: 'none'}} onClick={clickHandler}>Add Speaker</button>
             <AddButton onClick={clickEmpty}/>
         </form>
+        <SortButton content="Sort"></SortButton>
         {dataContainer}
         {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null} */}
         </>

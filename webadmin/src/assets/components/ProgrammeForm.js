@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 //import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
-
 import ProgrammeCard from '../components/ProgrammeCard'
 import AddButton from '../components/AddButton'
+import SortButton from '../components/SortButton'
 //import DeleteButton from '../components/DeleteButton'
 import { ButtonGroup, Button, Col, Row, Card, OverlayTrigger, Tooltip} from 'react-bootstrap' // eslint-disable-line
 //import { colors } from '@material-ui/core'
@@ -434,6 +434,7 @@ const ProgrammeForm = (props) => {
         <div style={{marginTop: '20px', display: 'flex', justifyContent:'center', alignItems:'center'}}>
             
         </div>
+        <SortButton content="Sort"></SortButton>
         {Data.length > 0 ? dataContainer : null}
         {/* {Form.length > 0 ? 
             <FormTable 
@@ -442,7 +443,6 @@ const ProgrammeForm = (props) => {
                 fileToUpload={(e)=>{props.fileToUpload(e)}}
             /> : 
         null} */}
-        
         </>
     )
 }

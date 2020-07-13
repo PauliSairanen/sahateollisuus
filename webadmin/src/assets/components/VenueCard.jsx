@@ -70,7 +70,13 @@ const VenueCard = props => {
         </div>
         <div className="smallDiv">
           <FormLabel><Image className="filePrev" src={formObject.venueImgsrc} fluid/></FormLabel>
+          <OverlayTrigger 
+            placement="bottom" 
+            delay={{show: 250, hide: 250}}
+            overlay={<Tooltip>Image size: 1080px</Tooltip>}
+            >
           <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose image</label>
+          </OverlayTrigger>
           <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
             {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </div>

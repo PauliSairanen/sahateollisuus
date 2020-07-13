@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 //import FormTable from '../components/FormTable'
 import SponsorCard from '../components/SponsorCard'
 import AddButton from '../components/AddButton'
+import SortButton from '../components/SortButton'
 /*
 {
     "CompanyName": "Test",
@@ -67,6 +68,7 @@ const SponsorsForm = (props) => {
             <button style={{display: 'none'}} onClick={clickHandler}>Add Sponsor</button>
             <AddButton onClick={clickEmpty}/>
         </form>
+        <SortButton content="Sort"></SortButton>
         {dataContainer}
         {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null} */}
         </>

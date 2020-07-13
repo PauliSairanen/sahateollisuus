@@ -4,6 +4,7 @@ import xlsxToJson from '../components/XlsxConverter'
 //import Card from 'react-bootstrap/Card'
 import AddButton from '../components/AddButton'
 import ParticipantsCard from '../components/ParticipantsCard'
+import SortButton from '../components/SortButton'
 
 import Button from 'react-bootstrap/Button'
 //import { ButtonGroup } from 'react-bootstrap'
@@ -178,6 +179,7 @@ const ParticipantsForm = (props) => {
             <button onClick={clickHandler}>Add Participant</button> */}
             <AddButton onClick={clickEmpty}/>
         </form>
+        <SortButton content="Sort"></SortButton>
         <div className="list">
             {dataContainer}
             {/* {cardContainer} */}

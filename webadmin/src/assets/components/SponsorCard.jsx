@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, FormGroup, FormLabel, FormControl} from 'react-bootstrap'
+import {Card, FormGroup, FormLabel, FormControl, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {Form} from 'react-bootstrap'
 import {Row, Col} from 'react-bootstrap'
 import {Image} from 'react-bootstrap'
@@ -72,7 +72,13 @@ const SponsorCard = props => {
         </div>
         <div className="smallDiv">
           <FormLabel><Image className="filePrev" src={formObject.sponsorImgsrc} fluid/></FormLabel>
+          <OverlayTrigger 
+            placement="bottom" 
+            delay={{show: 250, hide: 250}}
+            overlay={<Tooltip>Image size: 1080px</Tooltip>}
+            >
           <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose image</label>
+          </OverlayTrigger>
           <FormControl className="hidden" name="ImageID" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} type='file' id={'hidden-'+props.index}/>
         </div>
       </div>
