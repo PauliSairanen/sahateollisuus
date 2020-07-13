@@ -84,7 +84,7 @@ const ProgrammeForm = (props) => {
         time.push(parseFloat(obj.day))
         return time
     }
-    function compareTime(a,b){ // is a < b ? (Works only on same day. too bad!)
+    function compareTime(a,b){ // is a < b ? 
         a = getTime(a);
         b = getTime(b);
         if(a[2] > b[2]){
