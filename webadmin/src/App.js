@@ -60,7 +60,7 @@ const App = () => {
     <div>
       <LoginScreen changeContent={setContent} 
       visibility={()=>{}}/>
-      <button className="LoginScreen" onClick={test}>Bypass</button>
+      {/* <button className="LoginScreen" onClick={test}>Bypass</button> */}
     </div>
   }
   if(Content === "CreateScreen"){
@@ -84,7 +84,7 @@ const App = () => {
   return (
     <div className="App">
       {container}
-      <button style={{position:'fixed', left:'0', bottom:'0'}} onClick={()=>{localStorage.setItem("Session", "");}}>TEST: Clear Token</button>
+      {/* <button style={{position:'fixed', left:'0', bottom:'0'}} onClick={()=>{localStorage.setItem("Session", "");}}>TEST: Clear Token</button> */}
     </div>
   )
 }
