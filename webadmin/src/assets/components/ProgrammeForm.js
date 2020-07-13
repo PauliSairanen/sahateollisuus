@@ -376,7 +376,7 @@ const ProgrammeForm = (props) => {
     
     return(
         <>
-        <div style={{display:'flex',justifyContent:'center',alignContent:'center',flexDirection:'row'}}>
+        <div style={{height:'48px',display:'flex',justifyContent:'center',alignContent:'center',flexDirection:'row'}}>
         <form id="fileform" style={{display:'flex',flex:'1',justifyContent:'flex-end',alignContent:'center'}}>
             <label htmlFor="hidden-input" className="excelButton">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
