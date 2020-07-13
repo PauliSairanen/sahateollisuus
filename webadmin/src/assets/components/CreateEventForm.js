@@ -429,6 +429,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             headers: {
                 'Content-Type': false,
                 'processdata': false,
+                Authorization: "Bearer "+localStorage.getItem("Session")
             }
         })
         return req
