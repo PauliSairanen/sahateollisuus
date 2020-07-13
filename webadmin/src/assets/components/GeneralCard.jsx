@@ -140,7 +140,13 @@ const GeneralCard = props => {
         </div>
         <div className="smallDiv">
             <FormLabel><Image className="filePrev" src={formObject.generalImgsrc} fluid onError={errorHandler}/></FormLabel>
+              <OverlayTrigger 
+                placement="bottom" 
+                delay={{show: 250, hide: 250}}
+                overlay={<Tooltip>Image size: 1080px</Tooltip>}
+                >
               <label htmlFor={'hidden'} className="labelForHidden">Choose image</label>
+              </OverlayTrigger>
             <FormControl size="sm" onChange={(e)=>{fileHandler(e); changeImage(e); props.editForm(e);}} id={'hidden'} className="hidden" type='file' name="eventImage"></FormControl>
         </div>
       </div>

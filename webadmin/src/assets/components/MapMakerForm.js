@@ -5,6 +5,9 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Card from 'react-bootstrap/Card'
 import MapMarkerCard from './MapMarkerCard'
+import SortButton from '../components/SortButton'
+
+
 //import BsForm from 'react-bootstrap/Form'
 import { Button, ButtonGroup } from 'react-bootstrap';
 
@@ -231,6 +234,7 @@ const MapMarkerForm = (props) =>{
                 </Row>
             </Card>
         </Row>
+        <SortButton content="Sort"></SortButton>
         <Col>
             {dataContainer}
         </Col>

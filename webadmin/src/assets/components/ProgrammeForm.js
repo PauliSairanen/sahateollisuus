@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 //import FormTable from '../components/FormTable'
 import xlsxToJson from '../components/XlsxConverter'
-
 import ProgrammeCard from '../components/ProgrammeCard'
 import AddButton from '../components/AddButton'
+import SortButton from '../components/SortButton'
 //import DeleteButton from '../components/DeleteButton'
 import { ButtonGroup, Button, Col, Row, Card, OverlayTrigger, Tooltip} from 'react-bootstrap' // eslint-disable-line
 //import { colors } from '@material-ui/core'
@@ -397,7 +397,7 @@ const ProgrammeForm = (props) => {
     
     return(
         <>
-        <div style={{display:'flex',justifyContent:'center',alignContent:'center',flexDirection:'row'}}>
+        <div style={{height:'48px',display:'flex',justifyContent:'center',alignContent:'center',flexDirection:'row'}}>
         <form id="fileform" style={{display:'flex',flex:'1',justifyContent:'flex-end',alignContent:'center'}}>
             <label htmlFor="hidden-input" className="excelButton">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
@@ -468,6 +468,7 @@ const ProgrammeForm = (props) => {
         <div style={{marginTop: '20px', display: 'flex', justifyContent:'center', alignItems:'center'}}>
             
         </div>
+        <SortButton content="Sort"></SortButton>
         {Data.length > 0 ? dataContainer : null}
         {/* {Form.length > 0 ? 
             <FormTable 
@@ -476,7 +477,6 @@ const ProgrammeForm = (props) => {
                 fileToUpload={(e)=>{props.fileToUpload(e)}}
             /> : 
         null} */}
-        
         </>
     )
 }

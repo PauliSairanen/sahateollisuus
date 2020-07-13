@@ -4,6 +4,7 @@ import xlsxToJson from '../components/XlsxConverter'
 //import Card from 'react-bootstrap/Card'
 import AddButton from '../components/AddButton'
 import ParticipantsCard from '../components/ParticipantsCard'
+import SortButton from '../components/SortButton'
 
 import Button from 'react-bootstrap/Button'
 //import { ButtonGroup } from 'react-bootstrap'
@@ -140,7 +141,7 @@ const ParticipantsForm = (props) => {
 
     return(
         <>
-        <div style={{display:'flex',justifyContent:'center',alignContent:'center',flexDirection:'row'}}>
+        <div style={{height:'48px',display:'flex',justifyContent:'center',alignContent:'center',flexDirection:'row'}}>
         <form id="fileform" style={{display:'flex',flex:'1',justifyContent:'flex-end',alignContent:'center'}}>
             <label htmlFor="hidden-input" className="excelButton">Choose Excel File</label>
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
@@ -178,6 +179,7 @@ const ParticipantsForm = (props) => {
             <button onClick={clickHandler}>Add Participant</button> */}
             <AddButton onClick={clickEmpty}/>
         </form>
+        <SortButton content="Sort"></SortButton>
         <div className="list">
             {dataContainer}
             {/* {cardContainer} */}
