@@ -78,6 +78,17 @@ const ProgrammeForm = (props) => {
     //     "Pdf"
     // ]
     function dataToForm(data){
+        //Time sort algorithm here
+        console.log(data)
+        console.log(parseFloat(data[0].Time))
+        console.log(parseFloat(data[1].Time))
+        console.log(parseFloat(data[2].Time))
+        console.log(parseFloat(data[3].Time))
+        console.log(parseFloat(data[4].Time))
+        console.log(parseFloat(data[5].Time))
+
+
+        //data to form starts here
         let form = [];
         for(let key in data){
             let i;
@@ -333,11 +344,13 @@ const ProgrammeForm = (props) => {
     }
     let dayButtons = [];
     let takenDays = [];
+    let buttonNum = 0;
     dayButtons = Data.map((item, index)=>{
         //console.log(index, item)
         
         if(!takenDays.includes(item.day)){
             takenDays.push(item.day)
+            buttonNum++;
             return(<Button key={index} name="day" id={item.day} onClick={dayHandler} className={ActiveDay === item.day ? "active" : "inactive"} disabled={ActiveDay === item.day ? true : false}>Day {item.day}</Button>)
         }
         else{
@@ -414,7 +427,7 @@ const ProgrammeForm = (props) => {
             </div>
             <div>
                 <ButtonGroup vertical style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
-                    <Button className="dayAddButton" name="plus" onClick={dayHandler} disabled={dayButtons.length >= 5 ? true : false}>+</Button>
+                    <Button className="dayAddButton" name="plus" onClick={dayHandler} disabled={buttonNum >= 5 ? true : false}>+</Button>
                     <OverlayTrigger
                         placement="bottom"
                         delay={{show: 250, hide: 250}}
