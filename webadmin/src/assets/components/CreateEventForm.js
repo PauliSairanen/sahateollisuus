@@ -611,9 +611,9 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
                 uploadFile(e.target.files[0],"test")
             }}/> */}
             
-            <p>{Changes ? "Are Changes" : "No Changes"}</p>
+            {/* <p>{Changes ? "Are Changes" : "No Changes"}</p>
             <p>{JSON.stringify(finalForm, null, 2)}</p>
-            <p>{JSON.stringify(Files,null,2)}</p>
+            <p>{JSON.stringify(Files,null,2)}</p> */}
         </div>
     )
 }
