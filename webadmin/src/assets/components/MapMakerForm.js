@@ -234,7 +234,6 @@ const MapMarkerForm = (props) =>{
                 </Row>
             </Card>
         </Row>
-        <SortButton content="Sort"></SortButton>
         <Col>
             {dataContainer}
         </Col>

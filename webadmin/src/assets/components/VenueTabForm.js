@@ -33,6 +33,21 @@ const VenueTabForm = (props) => {
         setForm(form)
         props.editForm("venue", Form)
     }
+
+    function sortVenue (list) {
+        let unsortedList = list;
+        console.log(unsortedList);
+        let sortedList = unsortedList.sort((a, b) => 
+        (a.title < b.title)
+        ? 1 :
+        (a.title === b.title)
+        ?
+        ((a.title < b.title) ? 1 : -1) : -1)
+        setForm(sortedList);
+        props.editForm("venue", sortedList)
+        console.log(sortedList);
+    }
+
     let dataContainer;
     function cardHandler(e){
         setForm(e)
@@ -59,7 +74,7 @@ const VenueTabForm = (props) => {
             <button style={{display: 'none'}} onClick={clickHandler}>Add Venue</button>
             <AddButton onClick={clickEmpty}/>
         </form>
-        <SortButton content="Sort"></SortButton>
+        <SortButton content="Sort" onClick={() => {sortVenue(Form)}}></SortButton>
         {dataContainer}
         {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null} */}
         </>

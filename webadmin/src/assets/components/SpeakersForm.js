@@ -76,6 +76,20 @@ const SpeakersForm = (props) => {
         setForm(e)
         props.editForm("speakers", e)
     }
+
+    function sortSpeakers (list) {
+        let unsortedList = list;
+        let sortedList = unsortedList.sort((a, b) => 
+        ((a.Speaker.split(' '))[1] < (b.Speaker.split(' '))[1])
+        ? 1 :
+        ((a.Speaker.split(' '))[1] === (b.Speaker.split(' '))[1])
+        ?
+        (((a.Speaker.split(' '))[0] < (b.Speaker.split(' '))[0]) ? 1 : -1) : -1)
+        setForm(sortedList);
+        props.editForm("speakers", sortedList)
+        console.log(sortedList);
+    }
+
     dataContainer = Form.slice(0).reverse().map((item, index)=>{
         return(
         <SpeakerCard 
@@ -109,7 +123,7 @@ const SpeakersForm = (props) => {
             <button style={{display: 'none'}} onClick={clickHandler}>Add Speaker</button>
             <AddButton onClick={clickEmpty}/>
         </form>
-        <SortButton content="Sort"></SortButton>
+        <SortButton content="Sort" onClick={() => {sortSpeakers(Form)}}></SortButton>
         {dataContainer}
         {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null} */}
         </>

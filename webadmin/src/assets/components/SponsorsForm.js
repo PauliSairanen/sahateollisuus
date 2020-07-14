@@ -46,6 +46,20 @@ const SponsorsForm = (props) => {
         setForm(e)
         props.editForm("sponsors", e)
     }
+
+    function sortSponsors (list) {
+        let unsortedList = list;
+        let sortedList = unsortedList.sort((a, b) => 
+        (a.CompanyName < b.CompanyName)
+        ? 1 :
+        (a.CompanyName === b.CompanyName)
+        ?
+        ((a.Speaker < b.CompanyName) ? 1 : -1) : -1)
+        setForm(sortedList);
+        props.editForm("sponsors", sortedList)
+        console.log(sortedList);
+    }
+
     dataContainer = Form.slice(0).reverse().map((item, index)=>{
         return(
         <SponsorCard 
@@ -68,7 +82,7 @@ const SponsorsForm = (props) => {
             <button style={{display: 'none'}} onClick={clickHandler}>Add Sponsor</button>
             <AddButton onClick={clickEmpty}/>
         </form>
-        <SortButton content="Sort"></SortButton>
+        <SortButton content="Sort" onClick={() => {sortSponsors(Form)}}></SortButton>
         {dataContainer}
         {/* {Form.length > 0 ? <FormTable form={Form} setForm={setForm} fileToUpload={(e)=>{props.fileToUpload(e)}}/> : null} */}
         </>

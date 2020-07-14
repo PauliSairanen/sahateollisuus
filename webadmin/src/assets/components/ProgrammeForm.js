@@ -342,6 +342,20 @@ const ProgrammeForm = (props) => {
             clickEmpty(e, ActiveDay)
         }
     }
+
+    function sortProgramme (list) {
+        let unsortedList = list;
+        let sortedList = unsortedList.sort((a, b) => 
+        ((a.NameOfSpeaker.split(' '))[1] < (b.NameOfSpeaker.split(' '))[1])
+        ? 1 :
+        ((a.NameOfSpeaker.split(' '))[1] === (b.NameOfSpeaker.split(' '))[1])
+        ?
+        (((a.NameOfSpeaker.split(' '))[0] < (b.NameOfSpeaker.split(' '))[0]) ? 1 : -1) : -1)
+        setForm(sortedList);
+        props.editForm("programme", sortedList)
+        console.log(sortedList);
+    }
+
     let dayButtons = [];
     let takenDays = [];
     let buttonNum = 0;
@@ -447,7 +461,7 @@ const ProgrammeForm = (props) => {
         <div style={{marginTop: '20px', display: 'flex', justifyContent:'center', alignItems:'center'}}>
             
         </div>
-        <SortButton content="Sort"></SortButton>
+        <SortButton content="Sort" onClick={() => {sortProgramme(Form)}}></SortButton>
         {Data.length > 0 ? dataContainer : null}
         {/* {Form.length > 0 ? 
             <FormTable 
