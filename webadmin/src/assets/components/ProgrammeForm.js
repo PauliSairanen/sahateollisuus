@@ -374,19 +374,6 @@ const ProgrammeForm = (props) => {
         }
     }
 
-    function sortProgramme (list) {
-        let unsortedList = list;
-        let sortedList = unsortedList.sort((a, b) => 
-        ((a.NameOfSpeaker.split(' '))[1] < (b.NameOfSpeaker.split(' '))[1])
-        ? 1 :
-        ((a.NameOfSpeaker.split(' '))[1] === (b.NameOfSpeaker.split(' '))[1])
-        ?
-        (((a.NameOfSpeaker.split(' '))[0] < (b.NameOfSpeaker.split(' '))[0]) ? 1 : -1) : -1)
-        setForm(sortedList);
-        props.editForm("programme", sortedList)
-        console.log(sortedList);
-    }
-
     let dayButtons = [];
     let takenDays = [];
     let buttonNum = 0;
@@ -492,11 +479,7 @@ const ProgrammeForm = (props) => {
         <div style={{marginTop: '20px', display: 'flex', justifyContent:'center', alignItems:'center'}}>
             
         </div>
-<<<<<<< HEAD
-        <SortButton content="Sort" onClick={() => {sortProgramme(Form)}}></SortButton>
-=======
         <SortButton content="Sort" onClick={()=>{sortAlgorithm(Data)}}></SortButton>
->>>>>>> 21795a00b1fa0d2ac7afbb2a0d1e908411dfbd08
         {Data.length > 0 ? dataContainer : null}
         {/* {Form.length > 0 ? 
             <FormTable 

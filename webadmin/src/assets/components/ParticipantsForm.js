@@ -100,6 +100,20 @@ const ParticipantsForm = (props) => {
         setForm(e)
         props.editForm("participants", e)
     }
+
+    function sortParticipants (list) {
+        let unsortedList = list;
+        let sortedList = unsortedList.sort((a, b) => 
+        (a.LastName < b.LastName)
+        ? 1 :
+        (a.LastName === b.LastName)
+        ?
+        ((a.FirstName < b.FirstName) ? 1 : -1) : -1)
+        setForm(sortedList);
+        props.editForm("participants", sortedList)
+        console.log(sortedList);
+    }
+
     dataContainer = Form.slice(0).reverse().map((item, index)=>{
         if((item.Company).includes(Search) || 
             (item.Country).includes(Search) || 
@@ -179,7 +193,7 @@ const ParticipantsForm = (props) => {
             <button onClick={clickHandler}>Add Participant</button> */}
             <AddButton onClick={clickEmpty}/>
         </form>
-        <SortButton content="Sort"></SortButton>
+        <SortButton content="Sort" onClick={() => {sortParticipants(Form)}}></SortButton>
         <div className="list">
             {dataContainer}
             {/* {cardContainer} */}
