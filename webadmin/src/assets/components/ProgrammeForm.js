@@ -77,17 +77,48 @@ const ProgrammeForm = (props) => {
     //     "Company",
     //     "Pdf"
     // ]
+    function getTime(obj){
+        let time = (obj.Time.split("-"))[0].split(":")
+        time[0] = parseFloat(time[0])
+        time[1] = parseFloat(time[1])
+        time.push(parseFloat(obj.day))
+        return time
+    }
+    function convertToMinutes(Time){
+        return Time[0] * 60 + Time[1] + Time[2] * 1440
+    }
+    function compareTime(a,b){ // is a < b ? 
+        a = getTime(a);
+        b = getTime(b);
+
+        a = convertToMinutes(a);
+        b = convertToMinutes(b);
+
+        return a < b
+    }
+    function sortAlgorithm(data){ //using selection sort algorithm
+        for(let i = 0; i < data.length-1; i++){
+            let min = i;
+            for(let j = i+1; j < data.length; j++){
+                //console.log(`(${j},${min})    ${getTime(data[j])} < ${getTime(data[min])}`, compareTime(data[j], data[min]))
+                //console.log(`Comparing ${getTime(data[j])}, ${getTime(data[min])}`)
+                if(compareTime(data[j],data[min])){
+                    min = j
+                    //console.log("New min ",min)
+                }
+            }
+            if(min !== i){
+                //console.log(`swapping ${i} and ${min}`)
+                let temp = data[i]
+                data[i] = data[min]
+                data[min] = temp
+            }
+        }
+        //console.log(data)
+        dataToForm(data)
+    }
     function dataToForm(data){
-        //Time sort algorithm here
-        console.log(data)
-        console.log(parseFloat(data[0].Time))
-        console.log(parseFloat(data[1].Time))
-        console.log(parseFloat(data[2].Time))
-        console.log(parseFloat(data[3].Time))
-        console.log(parseFloat(data[4].Time))
-        console.log(parseFloat(data[5].Time))
-
-
+        //console.log(data)
         //data to form starts here
         let form = [];
         for(let key in data){
@@ -461,7 +492,11 @@ const ProgrammeForm = (props) => {
         <div style={{marginTop: '20px', display: 'flex', justifyContent:'center', alignItems:'center'}}>
             
         </div>
+<<<<<<< HEAD
         <SortButton content="Sort" onClick={() => {sortProgramme(Form)}}></SortButton>
+=======
+        <SortButton content="Sort" onClick={()=>{sortAlgorithm(Data)}}></SortButton>
+>>>>>>> 21795a00b1fa0d2ac7afbb2a0d1e908411dfbd08
         {Data.length > 0 ? dataContainer : null}
         {/* {Form.length > 0 ? 
             <FormTable 

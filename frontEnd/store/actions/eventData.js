@@ -138,6 +138,7 @@ export const authenticate = (eventName, password) => {
     const body = await response.json()
     console.log(body)
     dispatch({ type: SAVE_TOKEN, token: body.token })
+    return body.token
   }
 }
 
