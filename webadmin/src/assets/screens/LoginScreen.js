@@ -42,8 +42,8 @@ const LoginScreen = (props) => {
                 setDetails("Processing ..."); //
                 //username and password set
                 await axios.post(baseURL+'/adminLogin',{
-                    "username": form.un, // SahaAdmin1
-                    "password": form.pw // SahaPäälikkö1
+                    "username": form.un,
+                    "password": form.pw
                 })
                 .then(function (response) {
                     // handle success
