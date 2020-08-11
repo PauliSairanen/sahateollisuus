@@ -225,7 +225,7 @@ const AdminScreen = (props) => {
             </Modal.Header>
             <Modal.Body>
                 <p>Made by Simo Wesa, Pauli Sairanen and Mikael Petrow 
-                    at LAB University of Applied Sciences, 
+                    at LAB University of Applied Sciences with assistance from Matti Welin and Henri Koukka, 
                     in cooperation with Finnish Sawmills Association.</p>
             </Modal.Body>
             <Modal.Footer>
