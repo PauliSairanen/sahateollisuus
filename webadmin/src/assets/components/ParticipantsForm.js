@@ -176,7 +176,7 @@ const ParticipantsForm = (props) => {
                 {pageButtons}
             </ButtonGroup> */}
             <div style={{display:'flex', flexDirection: 'row', marginBottom:'10px', justifyContent: 'center', alignItems:'center'}}>
-                    <InputGroup style={{display:'flex', justifyContent:'center', alignItems:'center', borderRadius:'25px', border:'1.5px solid lightgrey', padding:'0px', marginRight: '10px'}}>
+                    <InputGroup style={{display:'flex', justifyContent:'center', alignItems:'center', borderRadius:'4px', border:'1.5px solid lightgrey', padding:'0px', marginRight: '10px'}}>
                         <FormControl className="noActive" onKeyDown={(e)=>{if(e.keyCode === 13) setSearch(e.target.value)}}/>
                     </InputGroup>
                     <Button className="otherButtons" onClick={(e)=>{e.target.parentNode.childNodes[0].childNodes[0].value = ""; setSearch("")}}>Clear</Button>

@@ -104,6 +104,21 @@
 /* Other button styling */
 .otherButtons {
     color: white;
+    width: 120px !important;
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    border-bottom-left-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    border-top-left-radius: 4px !important;
+    border-top-right-radius: 4px !important;
+}
+
+.latlongButtons {
+    color: white;
     background-color: var(--main-color);
     border-color: var(--main-color);
     margin-top: 5px !important;
