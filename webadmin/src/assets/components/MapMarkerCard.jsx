@@ -220,7 +220,7 @@ const MapMarkerCard = props => {
                   delay={{show: 250, hide: 250}}
                   overlay={<Tooltip>Converts address to latitude and longitude</Tooltip>}
                   >
-                <Button className="otherButtons" onClick={geocodeHandler}><AddLocationIcon/></Button>
+                <Button className="latlongButtons" onClick={geocodeHandler}><AddLocationIcon/></Button>
                 </OverlayTrigger>
               </Col>
               <Col>
