@@ -227,12 +227,14 @@ const MapMarkerCard = props => {
                 <FormGroup>
                   <FormLabel>Latitude</FormLabel>
                   <FormControl size="sm" value={formObject.lat} onChange={(e) => {changeHandler(e)}} name="lat"></FormControl>
+                  <FormText>Required</FormText>
                 </FormGroup>
               </Col>
               <Col>
                 <FormGroup>
                   <FormLabel>Longitude</FormLabel>
                   <FormControl size="sm" value={formObject.long} onChange={(e) => {changeHandler(e)}} name="long"></FormControl>
+                  <FormText>Required</FormText>
                 </FormGroup>
               </Col>
             </Row>
