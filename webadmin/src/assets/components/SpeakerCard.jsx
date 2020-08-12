@@ -104,7 +104,7 @@ const SpeakerCard = props => {
             >
           <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose image</label>
           </OverlayTrigger>
-          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="ImageID"></FormControl>
+          <FormControl size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e); e.target.value = null}} id={'hidden-'+props.index} className="hidden" type='file' name="ImageID"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </div>
       </div>

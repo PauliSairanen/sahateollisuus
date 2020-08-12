@@ -35,7 +35,6 @@ const SponsorCard = props => {
   return (
     <Card>
       <div className="bigDiv">
-        <h6>{props.index}</h6>
         <Form>
           <Row>
             <Col>

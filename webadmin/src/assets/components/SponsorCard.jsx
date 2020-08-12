@@ -79,7 +79,7 @@ const SponsorCard = props => {
             >
           <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose image</label>
           </OverlayTrigger>
-          <FormControl className="hidden" name="ImageID" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} type='file' id={'hidden-'+props.index}/>
+          <FormControl className="hidden" name="ImageID" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e); e.target.value = null}} type='file' id={'hidden-'+props.index}/>
         </div>
       </div>
       <DeleteButton onClick={deleteHandler}/>

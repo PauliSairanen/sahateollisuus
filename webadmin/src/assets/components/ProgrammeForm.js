@@ -84,37 +84,31 @@ const ProgrammeForm = (props) => {
         time.push(parseFloat(obj.day))
         return time
     }
+    function convertToMinutes(Time){
+        return Time[0] * 60 + Time[1] + Time[2] * 1440
+    }
     function compareTime(a,b){ // is a < b ? 
         a = getTime(a);
         b = getTime(b);
-        if(a[2] > b[2]){
-            return false
-        }
-        if(a[2] < b[2]){
-            return true
-        }
-        else{
-            if(a[0] < b[0]){
-                return true
-            }
-            else{
-                if(a[1] < b[1]){
-                    return true
-                }
-            }
-        }
-        return false
+
+        a = convertToMinutes(a);
+        b = convertToMinutes(b);
+
+        return a < b
     }
     function sortAlgorithm(data){ //using selection sort algorithm
         for(let i = 0; i < data.length-1; i++){
             let min = i;
             for(let j = i+1; j < data.length; j++){
                 //console.log(`(${j},${min})    ${getTime(data[j])} < ${getTime(data[min])}`, compareTime(data[j], data[min]))
+                //console.log(`Comparing ${getTime(data[j])}, ${getTime(data[min])}`)
                 if(compareTime(data[j],data[min])){
                     min = j
+                    //console.log("New min ",min)
                 }
             }
             if(min !== i){
+                //console.log(`swapping ${i} and ${min}`)
                 let temp = data[i]
                 data[i] = data[min]
                 data[min] = temp
@@ -379,6 +373,7 @@ const ProgrammeForm = (props) => {
             clickEmpty(e, ActiveDay)
         }
     }
+
     let dayButtons = [];
     let takenDays = [];
     let buttonNum = 0;
