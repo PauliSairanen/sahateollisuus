@@ -3,7 +3,9 @@ import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicato
 import { useDispatch } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import DeviceInfo from 'react-native-device-info'
 
+import AdjustingText from '../../components/Universal/AdjustingText'
 import Card from '../../components/Universal/Card'
 import Colors from '../../constants/Colors'
 import * as eventDataActions from '../../store/actions/eventData'
@@ -14,6 +16,8 @@ const EmailScreen = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  const version = DeviceInfo.getVersion()
+
   useEffect(() => {
     props.navigation.addListener('didFocus', () => {
       setInputEmail('')
@@ -22,13 +26,13 @@ const EmailScreen = props => {
       this.textInput.clear()
     })
   }, [])
-  
+
   const authHandler = async () => {
     if (inputEmail === 'test') {
       console.log('Test login')
       await dispatch(eventDataActions.fetchEventMetaData())
       props.navigation.navigate('SelectEvent', {
-        'lastScreen' : 'emailScreen'
+        'lastScreen': 'emailScreen'
       })
     } else {
       console.log('Firing real authentication route')
@@ -61,7 +65,7 @@ const EmailScreen = props => {
             >
               <Text style={styles.label}>Email</Text>
               <TextInput
-                ref={input => {this.textInput = input}}
+                ref={input => { this.textInput = input }}
                 style={styles.input}
                 autoCapitalize={'none'}
                 autoCorrect={false}
@@ -80,6 +84,9 @@ const EmailScreen = props => {
               </View>
             </ScrollView>
           </Card>
+          <View style={styles.versionContainer}>
+            <AdjustingText style={styles.versionText}>Version: {version}</AdjustingText>
+          </View>
         </LinearGradient>
       </View>
     </TouchableWithoutFeedback>
@@ -118,6 +125,13 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
   },
+  versionContainer: {
+   position: 'absolute',
+   bottom: '5%',
+  },
+  versionText: {
+    color: 'gray'
+  }
 })
 
 export default EmailScreen
