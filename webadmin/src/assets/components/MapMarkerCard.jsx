@@ -227,12 +227,14 @@ const MapMarkerCard = props => {
                 <FormGroup>
                   <FormLabel>Latitude</FormLabel>
                   <FormControl size="sm" value={formObject.lat} onChange={(e) => {changeHandler(e)}} name="lat"></FormControl>
+                  <FormText>Required</FormText>
                 </FormGroup>
               </Col>
               <Col>
                 <FormGroup>
                   <FormLabel>Longitude</FormLabel>
                   <FormControl size="sm" value={formObject.long} onChange={(e) => {changeHandler(e)}} name="long"></FormControl>
+                  <FormText>Required</FormText>
                 </FormGroup>
               </Col>
             </Row>
@@ -248,7 +250,7 @@ const MapMarkerCard = props => {
             >
           <label htmlFor={'hidden-'+props.index} className="labelForHidden">Choose image</label>
           </OverlayTrigger>
-          <FormControl size="sm" onChange={(e) => {changeImage(e);changeHandler(e); fileHandler(e)}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
+          <FormControl size="sm" onChange={(e) => {changeImage(e);changeHandler(e); fileHandler(e); e.target.value = null}} id={'hidden-'+props.index} className="hidden" type='file' name="image"></FormControl>
           {/* <Form.File size="sm" onChange={(e) => {changeHandler(e); fileHandler(e); changeImage(e)}} name="ImageID"/> */}
         </div>
       </div>

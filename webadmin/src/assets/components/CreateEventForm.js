@@ -310,11 +310,27 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
 
         }
         setModalShow(true)
+        //Field checks
+        for(let i in form.mapData){
+            for(let j in form.mapData[i]){
+                if(form.mapData[i][j].lat === "" || form.mapData[i][j].long === ""){
+                    setModalShow(false)
+                    toast("Error", "Map Marker: Missing latitude and/or longitude")
+                    return null
+                }
+            }
+        }
         if(form.eventPass === ""){
             setModalShow(false)
             toast("Error", "Password field is empty")
             return null
         }
+        if(form.metadata.lat === "" || form.metadata.long === ""){
+            setModalShow(false)
+            toast("Error", "latitude and/or longitude is empty")
+            return null
+        }
+        //End Field Checks
         axios.post(baseURL+route, 
         form,
         {

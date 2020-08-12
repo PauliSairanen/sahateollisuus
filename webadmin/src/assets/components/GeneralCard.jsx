@@ -106,12 +106,14 @@ const GeneralCard = props => {
                 <FormGroup>
                   <FormLabel>Latitude</FormLabel>
                   <FormControl size="sm" defaultValue={formObject.lat} onChange={(e)=> props.editForm(e)} name="lat"></FormControl>
+                  <FormText>Required</FormText>
                 </FormGroup>
               </Col>
               <Col sm={3}>
                 <FormGroup>
                   <FormLabel>Longitude</FormLabel>
                   <FormControl size="sm" defaultValue={formObject.long} onChange={(e)=> props.editForm(e)} name="long"></FormControl>
+                  <FormText>Required</FormText>
                 </FormGroup>
               </Col>
             </Row>
