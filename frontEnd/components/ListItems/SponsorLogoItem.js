@@ -23,7 +23,7 @@ const SponsorLogoItem = props => {
       <TouchableComponent
         style={styles.touchable}
         onPress={() => {
-          Communications.web(`https://` + `${link}`)
+          Communications.web(link.toString())
         }}
       >
         <View style={styles.imageContainer}>
