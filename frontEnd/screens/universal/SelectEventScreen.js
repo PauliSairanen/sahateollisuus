@@ -7,7 +7,6 @@ import LinearGradient from 'react-native-linear-gradient'
 import LoadingIndicator from '../../components/Universal/LoadingIndicator'
 import * as eventDataActions from '../../store/actions/eventData'
 
-// import eventsData from '../../data/jsonFiles/events.json'
 import EventListItem from '../../components/ListItems/EventsListItem'
 
 const SelectEventScreen = props => {
@@ -18,9 +17,10 @@ const SelectEventScreen = props => {
   const loadedMetadata = useSelector(state => state.eventData.eventsMetaData)
   let lastScreen = props.navigation.getParam('lastScreen')
 
-  //__________ Sorting MetaData to Display only Visible Events __________
+  // Sorting MetaData to Display only Visible Events 
   let arrayOfVisibleEvents = loadedMetadata.filter(event => event.visibility === 'visible')
 
+  // Fetch metadata of events from backend for given email
   const reloadData = async () => {
     console.log('Reloading metadata')
     setError(null)
@@ -43,7 +43,6 @@ const SelectEventScreen = props => {
     }
   }, [lastScreen])
  
-  // _____ If Error detected ______
   useEffect(() => {
     if (error) {
       Alert.alert('Login failed', error, [{ text: 'Okay' }])

@@ -8,8 +8,6 @@ import Venue_3Tabs from '../../components/Venue/Venue_3Tabs'
 import Venue_4Tabs from '../../components/Venue/Venue_4Tabs'
 import Venue_5Tabs from '../../components/Venue/Venue_5Tabs'
 
-// Import all different venue tabs
-
 const VenueScreen = props => {
   const venueData = useSelector(state => state.eventData.venueData)
   console.log(venueData)

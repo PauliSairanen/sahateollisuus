@@ -30,6 +30,8 @@ const MapsScreen = props => {
   const [isHotels, setIsHotels] = useState(false)
   const [isOthers, setIsOthers] = useState(false)
 
+  // When maps are opened for the first time, permission is asked for GPS usage
+  // If permission is given, the current location is saved to state
   requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
       const response = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
@@ -63,6 +65,7 @@ const MapsScreen = props => {
     )
   }
 
+  // When the maps screen is laucnhed, the functions above are executed
   useEffect(() => {
     requestLocationPermission()
   }, [])

@@ -6,6 +6,7 @@ import NavigationTile from '../../components/ListItems/NavigationTile'
 import Colors from '../../constants/Colors'
 import AdjustingText from '../../components/Universal/AdjustingText'
 
+// _____ Main Navigation ______
 const numberOfColumns = 2
 const naviScreenData = [
   { id: 1, title: 'Programme', link: 'Programme', icon: Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar' },

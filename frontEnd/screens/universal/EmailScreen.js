@@ -18,6 +18,7 @@ const EmailScreen = props => {
 
   const version = DeviceInfo.getVersion()
 
+  // When screen is entered, clear all inputs and state
   useEffect(() => {
     props.navigation.addListener('didFocus', () => {
       setInputEmail('')
@@ -27,6 +28,9 @@ const EmailScreen = props => {
     })
   }, [])
 
+  //__________ Email Authentication __________ 
+  // If test login used, move to next screen
+  // Else, fetch events using input email and navigate to next screen
   const authHandler = async () => {
     if (inputEmail === 'test') {
       console.log('Test login')

@@ -6,12 +6,13 @@ import { SearchBar } from 'react-native-elements'
 import ParticipantsItem from '../../components/ListItems/ParticipantsItem'
 
 const ParticipantsScreen = props => {
- const participantsData = useSelector(state => state.eventData.participantsData)
- console.log(participantsData)
+  const participantsData = useSelector(state => state.eventData.participantsData)
+  console.log(participantsData)
 
   const [dataInState, setDataInState] = useState(participantsData)
   const [searchText, setSearchText] = useState()
 
+  // Function user for filtering search results based on typed input
   const searchFilterFunction = (text) => {
     setSearchText(text)
     // Filtering always starts from fresh data
@@ -23,7 +24,7 @@ const ParticipantsScreen = props => {
     }).sort()
     setDataInState(newData)
   }
-  
+
   return (
     <View>
       <FlatList

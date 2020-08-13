@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, Button, StyleSheet, ScrollView, TextInput, ActivityIndicator, Keyboard, Alert, Platform } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import * as eventDataActions from '../../store/actions/eventData'
 
 import Card from '../../components/Universal/Card'
@@ -17,6 +17,8 @@ const PasswordScreen = props => {
   const eventId = props.navigation.getParam('eventId')
   const eventName = props.navigation.getParam('eventName')
 
+  //__________ Password authentication __________
+  // If test login, navigate to next screen
   const loginHandler = async () => {
     console.log('VerifyPass function called')
     if (inputPassword === 'test') {
@@ -24,6 +26,8 @@ const PasswordScreen = props => {
       await dispatch(eventDataActions.fetchAllDataTest(eventId))
       props.navigation.navigate('MainScreen')
     }
+    // Sends email and password to backend for authentication
+    // If request == ok, token is received, which is used in fetching selected event´s data 
     console.log('Using real authentication route')
     setError(null)
     setIsLoading(true)
