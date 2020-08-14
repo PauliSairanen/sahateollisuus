@@ -15,7 +15,7 @@ const SponsorCard = props => {
   }
   useEffect(() => {
     //console.log(ImgSrc)
-    // eslint-disable-next-line react-hooks/exhaustive-depsf
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     formObject = props.form
   })
   function changeHandler(e){
