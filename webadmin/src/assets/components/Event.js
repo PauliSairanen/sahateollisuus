@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card'
  * 
  * @param id - eventin ID
  * @param name - eventin nimi
+ * @param edit - evokes edit in parent
  * @param delet - evokes deleteEvent
  * @param img - image name
  */

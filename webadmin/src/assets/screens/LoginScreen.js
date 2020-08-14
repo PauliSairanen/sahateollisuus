@@ -10,7 +10,7 @@ import axios from 'axios';
 import Constants from '../constant/constants'
 /**
  * @param changeContent - changes screen
- * @param visibility    - changes visibility in AdminScreen
+ * @param visibility    - changes logins visibility in other screens for reauth.
  */
 const LoginScreen = (props) => {
     const [form, setForm] = useState({});

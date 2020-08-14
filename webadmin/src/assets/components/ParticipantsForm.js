@@ -115,12 +115,12 @@ const ParticipantsForm = (props) => {
     }
 
     dataContainer = Form.slice(0).reverse().map((item, index)=>{
-        if((item.Company).includes(Search) || 
-            (item.Country).includes(Search) || 
-            (item.Email).includes(Search) || 
-            (item.FirstName).includes(Search) || 
-            (item.LastName).includes(Search) || 
-            (item.Phone).includes(Search)||
+        if( item.Company.toLowerCase().includes(Search.toLowerCase()) || 
+            item.Country.toLowerCase().includes(Search.toLowerCase()) || 
+            item.Email.toLowerCase().includes(Search.toLowerCase()) || 
+            item.FirstName.toLowerCase().includes(Search.toLowerCase()) || 
+            item.LastName.toLowerCase().includes(Search.toLowerCase()) || 
+            item.Phone.toLowerCase().includes(Search.toLowerCase()) ||
             Search === ""){
             return(
                 <LazyLoad key={index} height={200}>
