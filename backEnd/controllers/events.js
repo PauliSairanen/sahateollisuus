@@ -115,8 +115,8 @@ class Events {
             });
         });
 
-        //Luonti
-        // bcrypt.hash("SahaPäälikkö1", 10, (err, hash) => {
+        // Luonti
+        // bcrypt.hash("SahaPomo1", 10, (err, hash) => {
         //     var auth = new Auth({
         //         username: "SahaAdmin1",
         //         password: hash
@@ -128,6 +128,22 @@ class Events {
         //         });
         //     });
         // })
+    }
+
+    changeAdminPass(req, res){
+        Auth.collection.drop();
+        bcrypt.hash("SahaPomo1", 10, (err, hash) => {
+            var auth = new Auth({
+                username: "SahaAdmin1",
+                password: hash
+            });
+            auth.save().then(function(err){
+                Auth.find({}).then(function(a){
+                    res.send(a);
+                    res.end();
+                });
+            });
+        })
     }
 
     //Eventin luontiin liittyvät funktiot
