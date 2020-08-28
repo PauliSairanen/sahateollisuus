@@ -161,7 +161,7 @@ const ParticipantsForm = (props) => {
             <input id="hidden-input" type="file" className="hidden" onChange={fileHandler}/>
         </form>
         <div style={{display:'flex',flex:'1',justifyContent:'flex-start',alignContent:'center'}}>
-            <div className="excelButton" href='/Excel/Participants.xlsx' download>Download Excel Template</div>
+            <a className="excelButton" href='/Excel/Participants.xlsx' download>Download Excel Template</a>
         </div>
         </div>
         <div style={
