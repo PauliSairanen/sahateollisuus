@@ -51,7 +51,7 @@ const ParticipantsForm = (props) => {
     function clickEmpty(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
-        form.push({
+        form.unshift({
             Country: "",
             FirstName: "",
             LastName: "",
@@ -109,12 +109,13 @@ const ParticipantsForm = (props) => {
         (a.LastName === b.LastName)
         ?
         ((a.FirstName < b.FirstName) ? 1 : -1) : -1)
+        sortedList.reverse();
         setForm(sortedList);
         props.editForm("participants", sortedList)
         console.log(sortedList);
     }
 
-    dataContainer = Form.slice(0).reverse().map((item, index)=>{
+    dataContainer = Form.slice(0).map((item, index)=>{
         if( item.Company.toLowerCase().includes(Search.toLowerCase()) || 
             item.Country.toLowerCase().includes(Search.toLowerCase()) || 
             item.Email.toLowerCase().includes(Search.toLowerCase()) || 

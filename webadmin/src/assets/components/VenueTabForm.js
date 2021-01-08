@@ -14,7 +14,7 @@ const VenueTabForm = (props) => {
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
-        form.push({
+        form.unshift({
             title: e.target.form[0].value,
             image: (e.target.form[1].value).match(/[^\\/]*$/)[0]
         })
@@ -25,7 +25,7 @@ const VenueTabForm = (props) => {
     function clickEmpty(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
-        form.push({
+        form.unshift({
             title: "",
             image: ""
         })
@@ -43,6 +43,7 @@ const VenueTabForm = (props) => {
         (a.title === b.title)
         ?
         ((a.title < b.title) ? 1 : -1) : -1)
+        sortedList.reverse();
         setForm(sortedList);
         props.editForm("venue", sortedList)
         console.log(sortedList);
@@ -53,7 +54,7 @@ const VenueTabForm = (props) => {
         setForm(e)
         props.editForm("venue", e)
     }
-    dataContainer = Form.slice(0).reverse().map((item, index)=>{
+    dataContainer = Form.slice(0).map((item, index)=>{
         return(
         <VenueCard 
             key={index} 

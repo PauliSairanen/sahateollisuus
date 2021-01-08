@@ -20,16 +20,16 @@ const SponsorCard = props => {
   })
   function changeHandler(e){
     let data = props.data;
-    data = data.slice(0).reverse()
+    //data = data.slice(0).reverse()
     data[props.index][e.target.name] = e.target.value;
-    data = data.slice(0).reverse()
+    //data = data.slice(0).reverse()
     props.editForm(data)
   }
   function deleteHandler(){
     let data = props.data;
-    data = data.slice(0).reverse()
+    //data = data.slice(0).reverse()
     data.splice(props.index, 1)
-    data = data.slice(0).reverse()
+    //data = data.slice(0).reverse()
     props.editForm(data)
   }
   return (

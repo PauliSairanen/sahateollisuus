@@ -20,7 +20,7 @@ const SponsorsForm = (props) => {
     function clickHandler(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
-        form.push({
+        form.unshift({
             CompanyName: e.target.form[0].value,
             CompanyUrl: e.target.form[1].value,
             ImageID: (e.target.form[2].value).match(/[^\\/]*$/)[0]
@@ -32,7 +32,7 @@ const SponsorsForm = (props) => {
     function clickEmpty(e){
         e.preventDefault();
         let form = Form;
-        form.push({
+        form.unshift({
             CompanyName: "",
             CompanyUrl: "",
             ImageID: ""
@@ -55,12 +55,13 @@ const SponsorsForm = (props) => {
         (a.CompanyName === b.CompanyName)
         ?
         ((a.Speaker < b.CompanyName) ? 1 : -1) : -1)
+        sortedList.reverse();
         setForm(sortedList);
         props.editForm("sponsors", sortedList)
         console.log(sortedList);
     }
 
-    dataContainer = Form.slice(0).reverse().map((item, index)=>{
+    dataContainer = Form.slice(0).map((item, index)=>{
         return(
         <SponsorCard 
             key={index} 

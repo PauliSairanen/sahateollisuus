@@ -24,7 +24,7 @@ const SpeakersForm = (props) => {
     function clickHandler(e){ //deprecated
         e.preventDefault(); //prevents page refresh
         let form = Form;
-        form.push({
+        form.unshift({
             Speaker: e.target.form[0].value,
             Title: e.target.form[1].value,
             SpecialTitle: e.target.form[2].value,
@@ -38,7 +38,7 @@ const SpeakersForm = (props) => {
     function clickEmpty(e){
         e.preventDefault(); //prevents page refresh
         let form = Form;
-        form.push({
+        form.unshift({
             Speaker: "",
             Title: "",
             SpecialTitle: "",
@@ -85,12 +85,13 @@ const SpeakersForm = (props) => {
         ((a.Speaker.split(' '))[1] === (b.Speaker.split(' '))[1])
         ?
         (((a.Speaker.split(' '))[0] < (b.Speaker.split(' '))[0]) ? 1 : -1) : -1)
+        sortedList.reverse();
         setForm(sortedList);
         props.editForm("speakers", sortedList)
         console.log(sortedList);
     }
 
-    dataContainer = Form.slice(0).reverse().map((item, index)=>{
+    dataContainer = Form.slice(0).map((item, index)=>{
         return(
         <SpeakerCard 
             key={index} 
