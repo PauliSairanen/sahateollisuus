@@ -17,7 +17,7 @@ const VenueScreen = props => {
     case 0: {
       return (
         <View style={styles.container}>
-          <Text>No images of venue for this event</Text>
+          <Text>No venue images set for this event.</Text>
         </View>
       )
     }
