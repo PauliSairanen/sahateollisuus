@@ -8,10 +8,12 @@ const ProgrammeScreen = props => {
   console.log('_____ Log from Programme Screen _____')
   console.log(programmeData)
 
+  const day1Data = programmeData[0].content
+
   return (
     <View>
       <FlatList
-        data={programmeData}
+        data={day1Data}
         keyExtractor={(item, index) => index.toString()}
         renderItem={programmeData =>
           <ProgrammeItem
