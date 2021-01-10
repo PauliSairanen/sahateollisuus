@@ -224,12 +224,12 @@ const AdminScreen = (props) => {
                 <Modal.Title>About this software</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p>Made by Simo Wesa, Pauli Sairanen and Mikael Petrow 
-                    at LAB University of Applied Sciences with assistance from Matti Welin and Henri Koukka, 
+                <p>Made by Simo Wesa, Pauli Sairanen, Mikael Petrow, Matti Welin and Henri Koukka
+                    at LAB University of Applied Sciences, 
                     in cooperation with Finnish Sawmills Association.</p>
             </Modal.Body>
             <Modal.Footer>
-                <p>Version: 1.0 (Last updated: 11/08/2020)</p>
+                <p>Version: 1.0 (Last updated: 14/08/2020)</p>
                 <Button onClick={()=>{setAboutModal(false)}} variant="primary">Close</Button>
             </Modal.Footer>
         </Modal>

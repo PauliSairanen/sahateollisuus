@@ -72,6 +72,7 @@ router.get('/findEventPass', cors(), jsonParser, events.findEventPass);
 router.get('/findEventPlaintextPass', cors(), checkAdminAuth, jsonParser, events.findEventPlaintextPass);
 router.post('/mobileLogin', cors(), jsonParser, events.mobileLogin);
 router.post('/adminLogin', cors(), jsonParser, events.adminLogin);
+router.post('/changeAdminPass', cors(), jsonParser, events.changeAdminPass);
 
 // Test routet create, update and delete db queryille
 router.post('/createEventFromJSON', cors(), jsonParser, events.createEventFromJSON);

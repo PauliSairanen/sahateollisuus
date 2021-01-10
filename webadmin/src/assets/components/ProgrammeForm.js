@@ -221,7 +221,7 @@ const ProgrammeForm = (props) => {
             }
         }
         if(found){
-            form[i].content.push(
+            form[i].content.unshift(
                 {
                     Time: "",
                     Location: "",
@@ -273,7 +273,7 @@ const ProgrammeForm = (props) => {
             }
         }
         if(found){
-            form[i].content.push(
+            form[i].content.unshift(
                 {
                     Time: e.target.form[1].value,
                     Location: e.target.form[2].value,
@@ -287,7 +287,7 @@ const ProgrammeForm = (props) => {
             )
         }
         else{
-            form.push(
+            form.unshift(
                 {
                     day: "Day "+e.target.form[0].value,
                     content: [
@@ -391,7 +391,7 @@ const ProgrammeForm = (props) => {
     })
 
     let dataContainer;
-    dataContainer = Data.slice(0).reverse().map((item, index)=>{
+    dataContainer = Data.slice(0).map((item, index)=>{
         //console.log(item.day, ActiveDay)
         if(Form.length > 0){
             if(item.day === ActiveDay || ActiveDay == null){

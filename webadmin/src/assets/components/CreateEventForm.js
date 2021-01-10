@@ -330,7 +330,7 @@ const CreateEventForm = (props) => { // Todo rename to CreateEventScreen
             toast("Error", "latitude and/or longitude is empty")
             return null
         }
-        //End Field Checks
+        console.log(form.programme)
         axios.post(baseURL+route, 
         form,
         {
