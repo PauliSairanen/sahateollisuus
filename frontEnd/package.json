@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@dudigital/react-native-zoomable-view": "^1.0.15",
+    "@react-native-community/cli-platform-android": "^2.9.0",
+    "@react-native-community/cli-platform-ios": "3.0.0",
     "@react-native-community/geolocation": "^2.0.2",
     "@react-native-community/masked-view": "^0.1.6",
     "convert-csv-to-json": "0.0.15",
