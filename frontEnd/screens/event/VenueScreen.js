@@ -14,6 +14,13 @@ const VenueScreen = props => {
   const amountOfTabs = venueData.length
 
   switch (amountOfTabs) {
+    case 0: {
+      return (
+        <View style={styles.container}>
+          <Text>No venue images set for this event.</Text>
+        </View>
+      )
+    }
     case 1: {
       return (
         <Venue_1Tab />
