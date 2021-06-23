@@ -4,6 +4,4 @@ const routes = {
 }
 
 // Change the route to change where the application will fetch data
-export default serverURL = routes.LAMK
-
-
+export default serverURL = routes.LAB
