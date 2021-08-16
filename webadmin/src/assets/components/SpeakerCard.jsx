@@ -10,7 +10,7 @@ const SpeakerCard = props => {
   let formObject = props.form
   let ID = props.ID
   if(formObject.ImageID && ID && !formObject.speakerImgsrc){
-    formObject.speakerImgsrc = `https://sahat.lamk.fi/public/${ID}/${formObject.ImageID}`
+    formObject.speakerImgsrc = `https://sahat.lab.fi/public/${ID}/${formObject.ImageID}`
   }
   useEffect(() => {
     //console.log(ImgSrc)

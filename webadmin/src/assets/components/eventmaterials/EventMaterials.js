@@ -18,7 +18,7 @@ const EventMaterials = () => {
     else if(dispatch){
       
     }
-    const url = 'https://sahat.lamk.fi/testEventMaterials';
+    const url = 'https://sahat.lab.fi/testEventMaterials';
 
     const options = {
         method: 'POST',

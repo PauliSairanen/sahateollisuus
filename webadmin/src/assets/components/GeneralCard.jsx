@@ -11,7 +11,7 @@ const GeneralCard = props => {
   let formObject = props.FO
 
   if(formObject.eventImage && props.ID && !formObject.generalImgsrc){
-    formObject.generalImgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.eventImage}`
+    formObject.generalImgsrc = `https://sahat.lab.fi/public/${props.ID}/${formObject.eventImage}`
     if((formObject.eventImage).includes("https://")){
       formObject.generalImgsrc = formObject.eventImage
     }

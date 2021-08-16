@@ -10,7 +10,7 @@ const InfoEdit = () => {
     
   function sendData() {
 
-    const url = 'https://sahat.lamk.fi/testEventsNavi';
+    const url = 'https://sahat.lab.fi/testEventsNavi';
     if(dispatch){
       if(useEffect){
         

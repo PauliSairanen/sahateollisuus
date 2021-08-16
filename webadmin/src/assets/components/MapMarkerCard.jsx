@@ -15,7 +15,7 @@ const MapMarkerCard = props => {
   let ID = props.ID
 
   if(formObject.image && ID && !formObject.markerImgsrc){
-    formObject.markerImgsrc = `https://sahat.lamk.fi/public/${ID}/${formObject.image}`
+    formObject.markerImgsrc = `https://sahat.lab.fi/public/${ID}/${formObject.image}`
     if((formObject.image).includes("https://")){
       formObject.markerImgsrc = formObject.image
     }
