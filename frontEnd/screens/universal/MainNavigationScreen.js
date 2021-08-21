@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, FlatList, Dimensions, Platform,} from 'react-native'
+import { View, StyleSheet, FlatList, Dimensions, Platform, } from 'react-native'
 import { HeaderBackButton } from 'react-navigation-stack'
 
 import NavigationTile from '../../components/ListItems/NavigationTile'
@@ -10,11 +10,11 @@ import AdjustingText from '../../components/Universal/AdjustingText'
 const numberOfColumns = 2
 const naviScreenData = [
   { id: 1, title: 'Programme', link: 'Programme', icon: Platform.OS === 'android' ? 'md-calendar' : 'ios-calendar' },
-  { id: 2, title: 'Speakers', link: 'Speakers', icon: Platform.OS === 'android' ? 'md-microphone' : 'ios-microphone' },
-  { id: 3, title: 'Sponsors', link: 'Sponsors', icon: Platform.OS === 'android' ? 'md-contacts' : 'ios-contacts' },
-  { id: 4, title: 'Participants', link: 'Participants', icon: Platform.OS === 'android' ? 'md-contact' : 'ios-contact' },
+  { id: 2, title: 'Speakers', link: 'Speakers', icon: Platform.OS === 'android' ? 'md-mic' : 'mic' },
+  { id: 3, title: 'Sponsors', link: 'Sponsors', icon: Platform.OS === 'android' ? 'people-circle-outline' : 'people-circle-outline' },
+  { id: 4, title: 'Participants', link: 'Participants', icon: Platform.OS === 'android' ? 'person' : 'person' },
   { id: 5, title: 'Venue', link: 'Venue', icon: Platform.OS === 'android' ? 'md-home' : 'ios-home' },
-  { id: 7, title: 'Maps', link: 'Maps', icon: Platform.OS === 'android' ? 'md-pin' : 'ios-pin' },
+  { id: 7, title: 'Maps', link: 'Maps', icon: Platform.OS === 'android' ? 'map-outline' : 'map-outline' },
   { id: 6, title: 'About', link: 'About', icon: Platform.OS === 'android' ? 'md-information-circle' : 'ios-information-circle' },
   { id: 7, title: 'Feedback', link: 'Feedback', icon: Platform.OS === 'android' ? 'md-thumbs-up' : 'ios-thumbs-up' },
   // { id: 8, title: 'invisible', link: '', icon: Platform.OS === 'android' ? '' : '' },
