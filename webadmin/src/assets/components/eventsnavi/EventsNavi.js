@@ -23,7 +23,7 @@ const EventNavi = props =>{
                 
             }
         }
-        const url = 'https://sahat.lamk.fi/testEventsNavi';
+        const url = 'https://sahat.lab.fi/testEventsNavi';
 
         const options = {
             method: 'POST',

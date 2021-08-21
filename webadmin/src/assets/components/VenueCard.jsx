@@ -10,7 +10,7 @@ const VenueCard = props => {
   let formObject = props.form
 
   if(formObject.image && props.ID && !formObject.venueImgsrc){
-    formObject.venueImgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.image}`
+    formObject.venueImgsrc = `https://sahat.lab.fi/public/${props.ID}/${formObject.image}`
   }
   useEffect(() => {
     //console.log(ImgSrc)

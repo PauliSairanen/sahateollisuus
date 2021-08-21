@@ -17,7 +17,7 @@ const FormProgram = () => {
     }
     if(false){
 
-      const url = 'https://sahat.lamk.fi/testFormProgram';
+      const url = 'https://sahat.lab.fi/testFormProgram';
       
       const options = {
         method: 'POST',

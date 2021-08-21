@@ -11,7 +11,7 @@ const SponsorCard = props => {
   let formObject = props.form
 
   if(formObject.ImageID && props.ID){
-    formObject.imgsrc = `https://sahat.lamk.fi/public/${props.ID}/${formObject.ImageID}`
+    formObject.imgsrc = `https://sahat.lab.fi/public/${props.ID}/${formObject.ImageID}`
   }
   useEffect(() => {
     //console.log(ImgSrc)

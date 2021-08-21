@@ -12,7 +12,7 @@ const FormSpeakers = () => {
     
   function sendData() {
 
-    const url = 'https://sahat.lamk.fi/testFormSpeakers';
+    const url = 'https://sahat.lab.fi/testFormSpeakers';
     if(dispatch){
 
     }

@@ -1,3 +1,3 @@
 export default {
-    baseURL: "https://sahat.lamk.fi"
+    baseURL: "https://sahat.lab.fi"
 }

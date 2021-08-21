@@ -12,7 +12,7 @@ const FormParticipant = () => {
     
   function sendData() {
     
-    const url = 'https://sahat.lamk.fi/testFormParticipant';
+    const url = 'https://sahat.lab.fi/testFormParticipant';
     dispatch();
     if(useEffect){
       

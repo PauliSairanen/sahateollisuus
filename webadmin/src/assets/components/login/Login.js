@@ -9,7 +9,7 @@ import './Login.css';
 //import LoginLost from "./assets/components/login/LoginLost";
 
 export function testi(){
-  const baseURL = 'https://sahat.lamk.fi';
+  const baseURL = 'https://sahat.lab.fi';
   axios.post(baseURL+'/findEvent',{
     id: "5ebe7f27f5f9314cbf189996"
   },
@@ -42,7 +42,7 @@ const FormLogin = props => {
   const referer = '/eventsnavi' || props.location.state.referer;
   
   function testi(){
-    const baseURL = 'https://sahat.lamk.fi';
+    const baseURL = 'https://sahat.lab.fi';
     if(isError){
       console.log("there is error"); // käyttämätön muuttuja errorin poisto
     }
@@ -280,7 +280,7 @@ const FormLogin = props => {
 
   function postLogin(e) {
     e.preventDefault(); // estää formin sivun päivityksen (alt fix, siirtää nappula formin ulkopuolelle)
-    const url = 'https://sahat.lamk.fi/authenticate';
+    const url = 'https://sahat.lab.fi/authenticate';
 
     const options = {
       method: 'POST',

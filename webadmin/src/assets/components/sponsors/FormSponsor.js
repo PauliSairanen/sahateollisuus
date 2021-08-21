@@ -19,7 +19,7 @@ const FormSponsors = () => {
         }
       }
     }
-    const url = 'https://sahat.lamk.fi/testFormSponsors';
+    const url = 'https://sahat.lab.fi/testFormSponsors';
 
     const options = {
         method: 'POST',

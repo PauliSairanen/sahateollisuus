@@ -10,7 +10,7 @@ import Card from 'react-bootstrap/Card'
  * @param img - image name
  */
 const Event = (props) => {
-    let baseURL = "https://sahat.lamk.fi"
+    let baseURL = "https://sahat.lab.fi"
     let imgsrc;
 
     if(props.img.includes("https")){
