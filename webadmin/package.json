@@ -20,7 +20,7 @@
     "react-scripts": "3.3.0",
     "reactstrap": "^8.5.1",
     "set-default-browser": "^1.1.1",
-    "xlsx": "^0.16.3"
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
