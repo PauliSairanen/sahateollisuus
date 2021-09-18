@@ -26,6 +26,9 @@ const defaultNavOptions = {
   },
   headerTitleStyle: {
     fontFamily: 'Rubik-Bold',
+    textAlign: 'center',
+    alignSelf: 'center',
+    headerTitleAlign: 'center'
   },
   headerBackTitleStyle: {
     fontFamily: 'Rubik-Medium'
@@ -60,7 +63,7 @@ const EventNavigator = createStackNavigator(
       screen: MainNavigationScreen,
       navigationOptions: {
         headerBackTitle: 'Events',
-        }
+      }
     },
     About: {
       screen: AboutScreen,
