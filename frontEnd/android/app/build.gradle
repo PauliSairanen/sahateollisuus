@@ -144,8 +144,8 @@ all*.exclude module: 'jetified-AndroidPdfViewer-3.1.0-beta.3-runtime.jar'
         applicationId "com.sahateollisuus.sawmillevents"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 11
-        versionName "1.2.4"
+        versionCode 15
+        versionName "1.2.6"
     }
     splits {
         abi {
