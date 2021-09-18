@@ -14,43 +14,44 @@ const ProgrammeScreen = props => {
 
   // -----> Edited for showcase usage <-----
   const amountOfTabs = programmeData.length
+  const sortedData = programmeData.sort((a, b) => {
+    return a < b
+  })
 
-  console.log(amountOfTabs)
- 
   switch (amountOfTabs) {
     case 1: {
       return (
         <ProgrammeTab1
-          data={programmeData}
+          data={sortedData}
         />
       )
     }
     case 2: {
       return (
-        <ProgrammeTab2 
-          data={programmeData}
+        <ProgrammeTab2
+          data={sortedData}
         />
       )
     }
     case 3: {
       return (
-        <ProgrammeTab3 
-        data={programmeData}
-      />
+        <ProgrammeTab3
+          data={sortedData}
+        />
       )
     }
     case 4: {
       return (
-        <ProgrammeTab4 
-        data={programmeData}
-      />
+        <ProgrammeTab4
+          data={sortedData}
+        />
       )
     }
     case 5: {
       return (
-        <ProgrammeTab5 
-        data={programmeData}
-      />
+        <ProgrammeTab5
+          data={sortedData}
+        />
       )
     }
     default: {
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    
+
   }
 })
 
