@@ -77,6 +77,7 @@ export const fetchMetadataByEmail = (email) => {
     const response = await fetch(`${serverURL}/findEventsByEmail`, {
       method: 'POST',
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -121,6 +122,7 @@ export const authenticate = (eventName, password) => {
     const response = await fetch(`${serverURL}/mobileLogin`, {
       method: 'POST',
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
